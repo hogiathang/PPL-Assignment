@@ -35,7 +35,7 @@ tYPE: INTERGER | FLOAT | STRING | BOOLEAN;
 parserRuleSpec: decl | statement;
 // Boolean expressions
 decl: varDecl | funcDecl | typeDecl | constDecl;
-varDecl: VAR IDENTIFIER arrayDims? (tYPE | tYPE? (ASSIGNOP expression)) SEMI;
+varDecl: VAR IDENTIFIER arrayDims? (tYPE | tYPE? (ASSIGNOP expression)) SEMI {print("VarDecl");};
 funcDecl: FUNC IDENTIFIER LP (funcParams)? RP tYPE? block SEMI?;
 typeDecl: TYPE IDENTIFIER typeDefinition;
 constDecl: CONST IDENTIFIER ASSIGNOP expression SEMI;
@@ -76,7 +76,9 @@ statement: assignStatement
          | breakStatement
          | continueStatement
          | callStatement
-         | arrayLiteral;
+         | arrayLiteral
+         | varDecl
+         | constDecl;
 
 // Array Literals
 arrayLiteral: IDENTIFIER SHORTASSIGNOP (arrayDims) (INTERFACE | FLOAT | STRING | BOOLEAN) arraysBlock;

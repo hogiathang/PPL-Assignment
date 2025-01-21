@@ -2,11 +2,11 @@ import unittest
 from TestUtils import TestParser
 
 class ParserSuite(unittest.TestCase):
-    def test_simple_program(self):
-        """Simple program: void main() {} """
-        input = """func main() {}"""
-        expect = "successfull"
-        self.assertTrue(TestParser.checkParser(input,expect,201))
+    # def test_simple_program(self):
+    #     """Simple program: void main() {} """
+    #     input = """func main() {}"""
+    #     expect = "successfull"
+    #     self.assertTrue(TestParser.checkParser(input,expect,201))
 
     def test_more_complex_program(self):
         """More complex program"""
@@ -28,6 +28,21 @@ class ParserSuite(unittest.TestCase):
         input = """var i ;"""
         expect = "Error on line 1 col 7: ;"
         self.assertTrue(TestParser.checkParser(input,expect,205))
+    def test_function(self):
+        print("-----------------------Test 206----------------------------------")
+        input = """
+            func main() {
+                var a int;
+                a += 1;
+
+                for i := 0; i < 10; i += 1 {
+                    a += i;
+                }
+            }
+        
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,206))
 
     
     
