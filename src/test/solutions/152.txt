@@ -1,0 +1,1 @@
+type,Calculator,struct,{,value,int,;,},<EOF>

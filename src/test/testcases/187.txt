@@ -1,0 +1,17 @@
+
+            /*
+            * A struct representing a person.
+            */
+            type Person struct {
+                name string;
+                age int;
+            }
+
+            /*
+            * This function sets the name and age of a person.
+            */
+            func foo(Person p) {
+                p.name = "Alice";
+                p.age = 30;
+            }
+        

@@ -1,0 +1,13 @@
+
+        func main() {
+            aaaaa
+            /*  
+                This is a
+                /* nested */
+                comment
+            */
+            bbbbb
+            /* ccc */
+            ccc
+        }
+        

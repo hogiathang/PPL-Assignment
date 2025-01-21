@@ -1,0 +1,1 @@
+type,Person,struct,{,name,string,;,age,int,;,},func,foo,(,Person,p,),{,p,.,name,=,"Alice",;,p,.,age,=,30,;,},<EOF>
