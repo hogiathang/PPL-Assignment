@@ -35,7 +35,7 @@ tYPE: INTERGER | FLOAT | STRING | BOOLEAN;
 parserRuleSpec: decl | statement;
 // Boolean expressions
 decl: varDecl | funcDecl | typeDecl | constDecl;
-varDecl: VAR IDENTIFIER arrayDims? (tYPE | tYPE? (ASSIGNOP expression)) SEMI {print("VarDecl");};
+varDecl: VAR IDENTIFIER arrayDims? (tYPE | tYPE? (ASSIGNOP expression)) SEMI;
 funcDecl: FUNC IDENTIFIER LP (funcParams)? RP tYPE? block SEMI?;
 typeDecl: TYPE IDENTIFIER typeDefinition;
 constDecl: CONST IDENTIFIER ASSIGNOP expression SEMI;
@@ -65,12 +65,15 @@ expression: expression OROP  term
           | (NOTOP | SUBOP) term
           | term;
 term: IDENTIFIER (arrayDims | DOT IDENTIFIER)?
+    | INTLIT
+    | FLOATLIT
+    | STRINGLIT
     | LP expression RP;
 
 
 
 // Statements
-statement: assignStatement
+statement: (assignStatement
          | ifStatement
          | forStatement
          | breakStatement
@@ -78,7 +81,10 @@ statement: assignStatement
          | callStatement
          | arrayLiteral
          | varDecl
-         | constDecl;
+         | constDecl) {print($text)};
+
+
+
 
 // Array Literals
 arrayLiteral: IDENTIFIER SHORTASSIGNOP (arrayDims) (INTERFACE | FLOAT | STRING | BOOLEAN) arraysBlock;
@@ -107,7 +113,7 @@ continueStatement: CONTINUE SEMI;
 // Call Statement
 callStatement: IDENTIFIER (DOT IDENTIFIER)? LP (expression (COMMA expression)*)? RP SEMI;
 
-block: LB (statement SEMI)* RB;
+block: LB (statement)* RB;
 arrayDims: (LSB INTLIT RSB)+;
 
 

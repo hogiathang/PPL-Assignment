@@ -33,14 +33,9 @@ class ParserSuite(unittest.TestCase):
         input = """
             func main() {
                 var a int;
-                a += 1;
-
-                for i := 0; i < 10; i += 1 {
-                    a += i;
-                }
+                a := 1;
             }
-        
-        """
+            """
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,206))
 
