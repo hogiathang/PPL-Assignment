@@ -99,10 +99,18 @@ ifStatement: IF LP expression RP block
              (ELSE IF LP expression RP block)*
              (ELSE block)?;
 // For Statement
-forStatement: FOR (((initilization SEMI)? forCondition (SEMI forUpdate block)?) | ((IDENTIFIER | BLANK) COMMA IDENTIFIER SHORTASSIGNOP RANGE IDENTIFIER)) block;
-initilization: IDENTIFIER SEMI expression;
+forStatement: FOR ( forLoop | forIteration) block;
+
+forLoop: forCondition
+         | initilization SEMI forCondition SEMI forUpdate;
+
+initilization: IDENTIFIER SHORTASSIGNOP expression;
 forCondition: expression;
 forUpdate: IDENTIFIER assignmentOperator expression;
+
+forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER SHORTASSIGNOP RANGE IDENTIFIER;
+
+
 
 // Break Statement
 breakStatement: BREAK SEMI;

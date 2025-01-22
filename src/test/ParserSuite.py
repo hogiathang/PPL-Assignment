@@ -34,6 +34,10 @@ class ParserSuite(unittest.TestCase):
             func main() {
                 var a int;
                 a := 1;
+                print(a);
+                for i := 0; i < 10; i += 1 {
+                    print(i);
+                }
             }
             """
         expect = "successful"

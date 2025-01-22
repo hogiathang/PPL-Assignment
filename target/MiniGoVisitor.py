@@ -139,6 +139,11 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#forLoop.
+    def visitForLoop(self, ctx:MiniGoParser.ForLoopContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#initilization.
     def visitInitilization(self, ctx:MiniGoParser.InitilizationContext):
         return self.visitChildren(ctx)
@@ -151,6 +156,11 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#forUpdate.
     def visitForUpdate(self, ctx:MiniGoParser.ForUpdateContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#forIteration.
+    def visitForIteration(self, ctx:MiniGoParser.ForIterationContext):
         return self.visitChildren(ctx)
 
 
