@@ -32,7 +32,7 @@ class ParserSuite(unittest.TestCase):
         print("-----------------------Test 206----------------------------------")
         input = """
             func main() {
-                var a int;
+                var a int; var b float; var c string;
                 a := 1;
                 print(a);
                 for i := 0; i < 10; i += 1 {
@@ -43,5 +43,23 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,206))
 
-    
+    def test_function(self):
+        print("-----------------------Test 207----------------------------------")
+        input = """
+            func foo() {
+            }; foo();
+            """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,207))
+
+    def test_type_def(self):
+        print("-----------------------Test 208----------------------------------")
+        input = """
+            func (c Calculator) Add(x int) int {
+                c.value += x;
+                return c.value;
+            }
+        """ 
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 208))
     

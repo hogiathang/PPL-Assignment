@@ -12,176 +12,190 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3@")
-        buf.write("\u017d\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u0199\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
         buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31")
         buf.write("\t\31\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36")
-        buf.write("\4\37\t\37\4 \t \4!\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\3\2\6")
-        buf.write("\2L\n\2\r\2\16\2M\3\2\3\2\3\3\3\3\3\4\3\4\5\4V\n\4\3\5")
-        buf.write("\3\5\3\5\3\5\5\5\\\n\5\3\6\3\6\3\6\5\6a\n\6\3\6\3\6\5")
-        buf.write("\6e\n\6\3\6\3\6\5\6i\n\6\3\6\3\6\3\7\3\7\3\7\3\7\5\7q")
-        buf.write("\n\7\3\7\3\7\5\7u\n\7\3\7\3\7\5\7y\n\7\3\b\3\b\3\b\3\b")
-        buf.write("\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n\5\n\u0087\n\n\3\13\3")
-        buf.write("\13\3\13\3\13\3\13\3\f\3\f\3\f\3\f\6\f\u0092\n\f\r\f\16")
-        buf.write("\f\u0093\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16")
-        buf.write("\3\17\3\17\3\17\3\17\7\17\u00a4\n\17\f\17\16\17\u00a7")
-        buf.write("\13\17\3\17\3\17\3\20\3\20\3\20\7\20\u00ae\n\20\f\20\16")
-        buf.write("\20\u00b1\13\20\3\21\3\21\3\21\7\21\u00b6\n\21\f\21\16")
-        buf.write("\21\u00b9\13\21\3\22\3\22\3\22\3\23\3\23\3\23\3\23\5\23")
-        buf.write("\u00c2\n\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3")
-        buf.write("\23\3\23\3\23\3\23\3\23\3\23\3\23\7\23\u00d3\n\23\f\23")
-        buf.write("\16\23\u00d6\13\23\3\24\3\24\3\24\3\24\5\24\u00dc\n\24")
-        buf.write("\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u00e5\n\24\3")
-        buf.write("\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\5\25\u00f0")
-        buf.write("\n\25\3\25\3\25\3\26\3\26\3\26\3\26\3\26\3\26\3\27\3\27")
-        buf.write("\3\27\3\27\7\27\u00fe\n\27\f\27\16\27\u0101\13\27\3\27")
-        buf.write("\3\27\3\27\3\27\3\27\3\27\7\27\u0109\n\27\f\27\16\27\u010c")
-        buf.write("\13\27\3\27\3\27\5\27\u0110\n\27\3\30\3\30\3\30\3\30\5")
-        buf.write("\30\u0116\n\30\3\30\3\30\3\30\3\30\3\31\3\31\3\32\3\32")
-        buf.write("\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\32\7\32")
-        buf.write("\u012a\n\32\f\32\16\32\u012d\13\32\3\32\3\32\5\32\u0131")
-        buf.write("\n\32\3\33\3\33\3\33\5\33\u0136\n\33\3\33\3\33\3\34\3")
-        buf.write("\34\3\34\3\34\3\34\3\34\3\34\5\34\u0141\n\34\3\35\3\35")
-        buf.write("\3\35\3\35\3\36\3\36\3\37\3\37\3\37\3\37\3 \3 \3 \3 \3")
-        buf.write(" \3 \3 \3!\3!\3!\3\"\3\"\3\"\3#\3#\3#\5#\u015d\n#\3#\3")
-        buf.write("#\3#\3#\7#\u0163\n#\f#\16#\u0166\13#\5#\u0168\n#\3#\3")
-        buf.write("#\3#\3$\3$\7$\u016f\n$\f$\16$\u0172\13$\3$\3$\3%\3%\3")
-        buf.write("%\6%\u0179\n%\r%\16%\u017a\3%\2\3$&\2\4\6\b\n\f\16\20")
-        buf.write("\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFH\2")
-        buf.write("\n\4\2\13\13\16\20\4\2\30\30$$\3\2\34!\3\2\27\30\3\2\31")
-        buf.write("\33\4\2\n\13\17\20\3\2&+\4\2\26\26..\2\u018a\2K\3\2\2")
-        buf.write("\2\4Q\3\2\2\2\6U\3\2\2\2\b[\3\2\2\2\n]\3\2\2\2\fl\3\2")
-        buf.write("\2\2\16z\3\2\2\2\20~\3\2\2\2\22\u0086\3\2\2\2\24\u0088")
-        buf.write("\3\2\2\2\26\u0091\3\2\2\2\30\u0095\3\2\2\2\32\u009a\3")
-        buf.write("\2\2\2\34\u009f\3\2\2\2\36\u00aa\3\2\2\2 \u00b2\3\2\2")
-        buf.write("\2\"\u00ba\3\2\2\2$\u00c1\3\2\2\2&\u00e4\3\2\2\2(\u00ef")
-        buf.write("\3\2\2\2*\u00f3\3\2\2\2,\u010f\3\2\2\2.\u0111\3\2\2\2")
-        buf.write("\60\u011b\3\2\2\2\62\u011d\3\2\2\2\64\u0132\3\2\2\2\66")
-        buf.write("\u0140\3\2\2\28\u0142\3\2\2\2:\u0146\3\2\2\2<\u0148\3")
-        buf.write("\2\2\2>\u014c\3\2\2\2@\u0153\3\2\2\2B\u0156\3\2\2\2D\u0159")
-        buf.write("\3\2\2\2F\u016c\3\2\2\2H\u0178\3\2\2\2JL\5\6\4\2KJ\3\2")
-        buf.write("\2\2LM\3\2\2\2MK\3\2\2\2MN\3\2\2\2NO\3\2\2\2OP\7\2\2\3")
-        buf.write("P\3\3\2\2\2QR\t\2\2\2R\5\3\2\2\2SV\5\b\5\2TV\5(\25\2U")
-        buf.write("S\3\2\2\2UT\3\2\2\2V\7\3\2\2\2W\\\5\n\6\2X\\\5\f\7\2Y")
-        buf.write("\\\5\16\b\2Z\\\5\20\t\2[W\3\2\2\2[X\3\2\2\2[Y\3\2\2\2")
-        buf.write("[Z\3\2\2\2\\\t\3\2\2\2]^\7\r\2\2^`\7\26\2\2_a\5H%\2`_")
-        buf.write("\3\2\2\2`a\3\2\2\2ah\3\2\2\2bi\5\4\3\2ce\5\4\3\2dc\3\2")
-        buf.write("\2\2de\3\2\2\2ef\3\2\2\2fg\7%\2\2gi\5$\23\2hb\3\2\2\2")
-        buf.write("hd\3\2\2\2ij\3\2\2\2jk\7\66\2\2k\13\3\2\2\2lm\7\7\2\2")
-        buf.write("mn\7\26\2\2np\7/\2\2oq\5 \21\2po\3\2\2\2pq\3\2\2\2qr\3")
-        buf.write("\2\2\2rt\7\60\2\2su\5\4\3\2ts\3\2\2\2tu\3\2\2\2uv\3\2")
-        buf.write("\2\2vx\5F$\2wy\7\66\2\2xw\3\2\2\2xy\3\2\2\2y\r\3\2\2\2")
-        buf.write("z{\7\b\2\2{|\7\26\2\2|}\5\22\n\2}\17\3\2\2\2~\177\7\f")
-        buf.write("\2\2\177\u0080\7\26\2\2\u0080\u0081\7%\2\2\u0081\u0082")
-        buf.write("\5$\23\2\u0082\u0083\7\66\2\2\u0083\21\3\2\2\2\u0084\u0087")
-        buf.write("\5\24\13\2\u0085\u0087\5\30\r\2\u0086\u0084\3\2\2\2\u0086")
-        buf.write("\u0085\3\2\2\2\u0087\23\3\2\2\2\u0088\u0089\7\t\2\2\u0089")
-        buf.write("\u008a\7\61\2\2\u008a\u008b\5\26\f\2\u008b\u008c\7\62")
-        buf.write("\2\2\u008c\25\3\2\2\2\u008d\u008e\7\26\2\2\u008e\u008f")
-        buf.write("\5\4\3\2\u008f\u0090\7\66\2\2\u0090\u0092\3\2\2\2\u0091")
-        buf.write("\u008d\3\2\2\2\u0092\u0093\3\2\2\2\u0093\u0091\3\2\2\2")
-        buf.write("\u0093\u0094\3\2\2\2\u0094\27\3\2\2\2\u0095\u0096\7\n")
-        buf.write("\2\2\u0096\u0097\7\61\2\2\u0097\u0098\5\32\16\2\u0098")
-        buf.write("\u0099\7\62\2\2\u0099\31\3\2\2\2\u009a\u009b\7\26\2\2")
-        buf.write("\u009b\u009c\5\34\17\2\u009c\u009d\5\4\3\2\u009d\u009e")
-        buf.write("\7\66\2\2\u009e\33\3\2\2\2\u009f\u00a5\7/\2\2\u00a0\u00a1")
-        buf.write("\5\36\20\2\u00a1\u00a2\5\4\3\2\u00a2\u00a4\3\2\2\2\u00a3")
-        buf.write("\u00a0\3\2\2\2\u00a4\u00a7\3\2\2\2\u00a5\u00a3\3\2\2\2")
-        buf.write("\u00a5\u00a6\3\2\2\2\u00a6\u00a8\3\2\2\2\u00a7\u00a5\3")
-        buf.write("\2\2\2\u00a8\u00a9\7\60\2\2\u00a9\35\3\2\2\2\u00aa\u00af")
-        buf.write("\7\26\2\2\u00ab\u00ac\7\65\2\2\u00ac\u00ae\7\26\2\2\u00ad")
-        buf.write("\u00ab\3\2\2\2\u00ae\u00b1\3\2\2\2\u00af\u00ad\3\2\2\2")
-        buf.write("\u00af\u00b0\3\2\2\2\u00b0\37\3\2\2\2\u00b1\u00af\3\2")
-        buf.write("\2\2\u00b2\u00b7\5\"\22\2\u00b3\u00b4\7\65\2\2\u00b4\u00b6")
-        buf.write("\5\"\22\2\u00b5\u00b3\3\2\2\2\u00b6\u00b9\3\2\2\2\u00b7")
-        buf.write("\u00b5\3\2\2\2\u00b7\u00b8\3\2\2\2\u00b8!\3\2\2\2\u00b9")
-        buf.write("\u00b7\3\2\2\2\u00ba\u00bb\7\26\2\2\u00bb\u00bc\5\4\3")
-        buf.write("\2\u00bc#\3\2\2\2\u00bd\u00be\b\23\1\2\u00be\u00bf\t\3")
-        buf.write("\2\2\u00bf\u00c2\5&\24\2\u00c0\u00c2\5&\24\2\u00c1\u00bd")
-        buf.write("\3\2\2\2\u00c1\u00c0\3\2\2\2\u00c2\u00d4\3\2\2\2\u00c3")
-        buf.write("\u00c4\f\t\2\2\u00c4\u00c5\7#\2\2\u00c5\u00d3\5&\24\2")
-        buf.write("\u00c6\u00c7\f\b\2\2\u00c7\u00c8\7\"\2\2\u00c8\u00d3\5")
-        buf.write("&\24\2\u00c9\u00ca\f\7\2\2\u00ca\u00cb\t\4\2\2\u00cb\u00d3")
-        buf.write("\5&\24\2\u00cc\u00cd\f\6\2\2\u00cd\u00ce\t\5\2\2\u00ce")
-        buf.write("\u00d3\5&\24\2\u00cf\u00d0\f\5\2\2\u00d0\u00d1\t\6\2\2")
-        buf.write("\u00d1\u00d3\5&\24\2\u00d2\u00c3\3\2\2\2\u00d2\u00c6\3")
-        buf.write("\2\2\2\u00d2\u00c9\3\2\2\2\u00d2\u00cc\3\2\2\2\u00d2\u00cf")
-        buf.write("\3\2\2\2\u00d3\u00d6\3\2\2\2\u00d4\u00d2\3\2\2\2\u00d4")
-        buf.write("\u00d5\3\2\2\2\u00d5%\3\2\2\2\u00d6\u00d4\3\2\2\2\u00d7")
-        buf.write("\u00db\7\26\2\2\u00d8\u00dc\5H%\2\u00d9\u00da\7,\2\2\u00da")
-        buf.write("\u00dc\7\26\2\2\u00db\u00d8\3\2\2\2\u00db\u00d9\3\2\2")
-        buf.write("\2\u00db\u00dc\3\2\2\2\u00dc\u00e5\3\2\2\2\u00dd\u00e5")
-        buf.write("\7\67\2\2\u00de\u00e5\78\2\2\u00df\u00e5\79\2\2\u00e0")
-        buf.write("\u00e1\7/\2\2\u00e1\u00e2\5$\23\2\u00e2\u00e3\7\60\2\2")
-        buf.write("\u00e3\u00e5\3\2\2\2\u00e4\u00d7\3\2\2\2\u00e4\u00dd\3")
-        buf.write("\2\2\2\u00e4\u00de\3\2\2\2\u00e4\u00df\3\2\2\2\u00e4\u00e0")
-        buf.write("\3\2\2\2\u00e5\'\3\2\2\2\u00e6\u00f0\5.\30\2\u00e7\u00f0")
-        buf.write("\5\62\32\2\u00e8\u00f0\5\64\33\2\u00e9\u00f0\5@!\2\u00ea")
-        buf.write("\u00f0\5B\"\2\u00eb\u00f0\5D#\2\u00ec\u00f0\5*\26\2\u00ed")
-        buf.write("\u00f0\5\n\6\2\u00ee\u00f0\5\20\t\2\u00ef\u00e6\3\2\2")
-        buf.write("\2\u00ef\u00e7\3\2\2\2\u00ef\u00e8\3\2\2\2\u00ef\u00e9")
-        buf.write("\3\2\2\2\u00ef\u00ea\3\2\2\2\u00ef\u00eb\3\2\2\2\u00ef")
-        buf.write("\u00ec\3\2\2\2\u00ef\u00ed\3\2\2\2\u00ef\u00ee\3\2\2\2")
-        buf.write("\u00f0\u00f1\3\2\2\2\u00f1\u00f2\b\25\1\2\u00f2)\3\2\2")
-        buf.write("\2\u00f3\u00f4\7\26\2\2\u00f4\u00f5\7&\2\2\u00f5\u00f6")
-        buf.write("\5H%\2\u00f6\u00f7\t\7\2\2\u00f7\u00f8\5,\27\2\u00f8+")
-        buf.write("\3\2\2\2\u00f9\u00fa\7\61\2\2\u00fa\u00ff\5,\27\2\u00fb")
-        buf.write("\u00fc\7\65\2\2\u00fc\u00fe\5,\27\2\u00fd\u00fb\3\2\2")
-        buf.write("\2\u00fe\u0101\3\2\2\2\u00ff\u00fd\3\2\2\2\u00ff\u0100")
-        buf.write("\3\2\2\2\u0100\u0102\3\2\2\2\u0101\u00ff\3\2\2\2\u0102")
-        buf.write("\u0103\7\62\2\2\u0103\u0110\3\2\2\2\u0104\u0105\7\61\2")
-        buf.write("\2\u0105\u010a\5$\23\2\u0106\u0107\7\65\2\2\u0107\u0109")
-        buf.write("\5$\23\2\u0108\u0106\3\2\2\2\u0109\u010c\3\2\2\2\u010a")
-        buf.write("\u0108\3\2\2\2\u010a\u010b\3\2\2\2\u010b\u010d\3\2\2\2")
-        buf.write("\u010c\u010a\3\2\2\2\u010d\u010e\7\62\2\2\u010e\u0110")
-        buf.write("\3\2\2\2\u010f\u00f9\3\2\2\2\u010f\u0104\3\2\2\2\u0110")
-        buf.write("-\3\2\2\2\u0111\u0115\7\26\2\2\u0112\u0116\5H%\2\u0113")
-        buf.write("\u0114\7,\2\2\u0114\u0116\7\26\2\2\u0115\u0112\3\2\2\2")
-        buf.write("\u0115\u0113\3\2\2\2\u0115\u0116\3\2\2\2\u0116\u0117\3")
-        buf.write("\2\2\2\u0117\u0118\5\60\31\2\u0118\u0119\5$\23\2\u0119")
-        buf.write("\u011a\7\66\2\2\u011a/\3\2\2\2\u011b\u011c\t\b\2\2\u011c")
-        buf.write("\61\3\2\2\2\u011d\u011e\7\3\2\2\u011e\u011f\7/\2\2\u011f")
-        buf.write("\u0120\5$\23\2\u0120\u0121\7\60\2\2\u0121\u012b\5F$\2")
-        buf.write("\u0122\u0123\7\4\2\2\u0123\u0124\7\3\2\2\u0124\u0125\7")
-        buf.write("/\2\2\u0125\u0126\5$\23\2\u0126\u0127\7\60\2\2\u0127\u0128")
-        buf.write("\5F$\2\u0128\u012a\3\2\2\2\u0129\u0122\3\2\2\2\u012a\u012d")
-        buf.write("\3\2\2\2\u012b\u0129\3\2\2\2\u012b\u012c\3\2\2\2\u012c")
-        buf.write("\u0130\3\2\2\2\u012d\u012b\3\2\2\2\u012e\u012f\7\4\2\2")
-        buf.write("\u012f\u0131\5F$\2\u0130\u012e\3\2\2\2\u0130\u0131\3\2")
-        buf.write("\2\2\u0131\63\3\2\2\2\u0132\u0135\7\5\2\2\u0133\u0136")
-        buf.write("\5\66\34\2\u0134\u0136\5> \2\u0135\u0133\3\2\2\2\u0135")
-        buf.write("\u0134\3\2\2\2\u0136\u0137\3\2\2\2\u0137\u0138\5F$\2\u0138")
-        buf.write("\65\3\2\2\2\u0139\u0141\5:\36\2\u013a\u013b\58\35\2\u013b")
-        buf.write("\u013c\7\66\2\2\u013c\u013d\5:\36\2\u013d\u013e\7\66\2")
-        buf.write("\2\u013e\u013f\5<\37\2\u013f\u0141\3\2\2\2\u0140\u0139")
-        buf.write("\3\2\2\2\u0140\u013a\3\2\2\2\u0141\67\3\2\2\2\u0142\u0143")
-        buf.write("\7\26\2\2\u0143\u0144\7&\2\2\u0144\u0145\5$\23\2\u0145")
-        buf.write("9\3\2\2\2\u0146\u0147\5$\23\2\u0147;\3\2\2\2\u0148\u0149")
-        buf.write("\7\26\2\2\u0149\u014a\5\60\31\2\u014a\u014b\5$\23\2\u014b")
-        buf.write("=\3\2\2\2\u014c\u014d\t\t\2\2\u014d\u014e\7\65\2\2\u014e")
-        buf.write("\u014f\7\26\2\2\u014f\u0150\7&\2\2\u0150\u0151\7\23\2")
-        buf.write("\2\u0151\u0152\7\26\2\2\u0152?\3\2\2\2\u0153\u0154\7\22")
-        buf.write("\2\2\u0154\u0155\7\66\2\2\u0155A\3\2\2\2\u0156\u0157\7")
-        buf.write("\21\2\2\u0157\u0158\7\66\2\2\u0158C\3\2\2\2\u0159\u015c")
-        buf.write("\7\26\2\2\u015a\u015b\7,\2\2\u015b\u015d\7\26\2\2\u015c")
-        buf.write("\u015a\3\2\2\2\u015c\u015d\3\2\2\2\u015d\u015e\3\2\2\2")
-        buf.write("\u015e\u0167\7/\2\2\u015f\u0164\5$\23\2\u0160\u0161\7")
-        buf.write("\65\2\2\u0161\u0163\5$\23\2\u0162\u0160\3\2\2\2\u0163")
-        buf.write("\u0166\3\2\2\2\u0164\u0162\3\2\2\2\u0164\u0165\3\2\2\2")
-        buf.write("\u0165\u0168\3\2\2\2\u0166\u0164\3\2\2\2\u0167\u015f\3")
-        buf.write("\2\2\2\u0167\u0168\3\2\2\2\u0168\u0169\3\2\2\2\u0169\u016a")
-        buf.write("\7\60\2\2\u016a\u016b\7\66\2\2\u016bE\3\2\2\2\u016c\u0170")
-        buf.write("\7\61\2\2\u016d\u016f\5(\25\2\u016e\u016d\3\2\2\2\u016f")
-        buf.write("\u0172\3\2\2\2\u0170\u016e\3\2\2\2\u0170\u0171\3\2\2\2")
-        buf.write("\u0171\u0173\3\2\2\2\u0172\u0170\3\2\2\2\u0173\u0174\7")
-        buf.write("\62\2\2\u0174G\3\2\2\2\u0175\u0176\7\63\2\2\u0176\u0177")
-        buf.write("\7\67\2\2\u0177\u0179\7\64\2\2\u0178\u0175\3\2\2\2\u0179")
-        buf.write("\u017a\3\2\2\2\u017a\u0178\3\2\2\2\u017a\u017b\3\2\2\2")
-        buf.write("\u017bI\3\2\2\2#MU[`dhptx\u0086\u0093\u00a5\u00af\u00b7")
-        buf.write("\u00c1\u00d2\u00d4\u00db\u00e4\u00ef\u00ff\u010a\u010f")
-        buf.write("\u0115\u012b\u0130\u0135\u0140\u015c\u0164\u0167\u0170")
-        buf.write("\u017a")
+        buf.write("\4\37\t\37\4 \t \4!\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\4&\t")
+        buf.write("&\4\'\t\'\3\2\6\2P\n\2\r\2\16\2Q\3\2\3\2\3\3\3\3\3\4\3")
+        buf.write("\4\5\4Z\n\4\3\5\3\5\3\5\3\5\3\5\5\5a\n\5\3\6\3\6\3\6\5")
+        buf.write("\6f\n\6\3\6\3\6\5\6j\n\6\3\6\3\6\5\6n\n\6\3\6\3\6\3\7")
+        buf.write("\3\7\3\7\3\7\5\7v\n\7\3\7\3\7\5\7z\n\7\3\7\3\7\5\7~\n")
+        buf.write("\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n")
+        buf.write("\3\n\3\n\3\n\3\n\3\n\3\n\3\n\5\n\u0094\n\n\3\n\3\n\5\n")
+        buf.write("\u0098\n\n\3\13\3\13\5\13\u009c\n\13\3\f\3\f\3\f\3\f\3")
+        buf.write("\f\3\r\3\r\3\r\3\r\6\r\u00a7\n\r\r\r\16\r\u00a8\3\16\3")
+        buf.write("\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\3\17\3\20\3\20")
+        buf.write("\3\20\3\20\7\20\u00b9\n\20\f\20\16\20\u00bc\13\20\3\20")
+        buf.write("\3\20\3\21\3\21\3\21\7\21\u00c3\n\21\f\21\16\21\u00c6")
+        buf.write("\13\21\3\22\3\22\3\22\7\22\u00cb\n\22\f\22\16\22\u00ce")
+        buf.write("\13\22\3\23\3\23\3\23\3\24\3\24\3\24\3\24\5\24\u00d7\n")
+        buf.write("\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24")
+        buf.write("\3\24\3\24\3\24\3\24\3\24\7\24\u00e8\n\24\f\24\16\24\u00eb")
+        buf.write("\13\24\3\25\3\25\3\25\3\25\5\25\u00f1\n\25\3\25\3\25\3")
+        buf.write("\25\3\25\3\25\3\25\3\25\5\25\u00fa\n\25\3\26\3\26\3\26")
+        buf.write("\3\26\3\26\3\26\3\26\3\26\3\26\3\26\5\26\u0106\n\26\3")
+        buf.write("\26\3\26\3\27\3\27\3\27\3\27\3\27\3\27\3\30\3\30\3\30")
+        buf.write("\3\30\7\30\u0114\n\30\f\30\16\30\u0117\13\30\3\30\3\30")
+        buf.write("\3\30\3\30\3\30\3\30\7\30\u011f\n\30\f\30\16\30\u0122")
+        buf.write("\13\30\3\30\3\30\5\30\u0126\n\30\3\31\3\31\3\31\3\31\5")
+        buf.write("\31\u012c\n\31\3\31\3\31\3\31\3\31\3\32\3\32\3\33\3\33")
+        buf.write("\3\33\3\33\3\33\3\33\3\33\3\33\3\33\3\33\3\33\3\33\7\33")
+        buf.write("\u0140\n\33\f\33\16\33\u0143\13\33\3\33\3\33\5\33\u0147")
+        buf.write("\n\33\3\34\3\34\3\34\5\34\u014c\n\34\3\34\3\34\3\35\3")
+        buf.write("\35\3\35\3\35\3\35\3\35\3\35\5\35\u0157\n\35\3\36\3\36")
+        buf.write("\3\36\3\36\3\37\3\37\3 \3 \3 \3 \3!\3!\3!\3!\3!\3!\3!")
+        buf.write("\3\"\3\"\3\"\3#\3#\3#\3$\3$\3$\5$\u0173\n$\3$\3$\3$\3")
+        buf.write("$\7$\u0179\n$\f$\16$\u017c\13$\5$\u017e\n$\3$\3$\3$\3")
+        buf.write("%\3%\7%\u0185\n%\f%\16%\u0188\13%\3%\3%\3&\3&\3&\6&\u018f")
+        buf.write("\n&\r&\16&\u0190\3\'\3\'\5\'\u0195\n\'\3\'\3\'\3\'\2\3")
+        buf.write("&(\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60")
+        buf.write("\62\64\668:<>@BDFHJL\2\13\4\2\13\13\16\20\4\2\30\30$$")
+        buf.write("\3\2\34!\3\2\27\30\3\2\31\33\4\2\n\13\17\20\4\2\66\66")
+        buf.write("::\3\2&+\4\2\26\26..\2\u01a9\2O\3\2\2\2\4U\3\2\2\2\6Y")
+        buf.write("\3\2\2\2\b`\3\2\2\2\nb\3\2\2\2\fq\3\2\2\2\16\177\3\2\2")
+        buf.write("\2\20\u0083\3\2\2\2\22\u0089\3\2\2\2\24\u009b\3\2\2\2")
+        buf.write("\26\u009d\3\2\2\2\30\u00a6\3\2\2\2\32\u00aa\3\2\2\2\34")
+        buf.write("\u00af\3\2\2\2\36\u00b4\3\2\2\2 \u00bf\3\2\2\2\"\u00c7")
+        buf.write("\3\2\2\2$\u00cf\3\2\2\2&\u00d6\3\2\2\2(\u00f9\3\2\2\2")
+        buf.write("*\u0105\3\2\2\2,\u0109\3\2\2\2.\u0125\3\2\2\2\60\u0127")
+        buf.write("\3\2\2\2\62\u0131\3\2\2\2\64\u0133\3\2\2\2\66\u0148\3")
+        buf.write("\2\2\28\u0156\3\2\2\2:\u0158\3\2\2\2<\u015c\3\2\2\2>\u015e")
+        buf.write("\3\2\2\2@\u0162\3\2\2\2B\u0169\3\2\2\2D\u016c\3\2\2\2")
+        buf.write("F\u016f\3\2\2\2H\u0182\3\2\2\2J\u018e\3\2\2\2L\u0192\3")
+        buf.write("\2\2\2NP\5\6\4\2ON\3\2\2\2PQ\3\2\2\2QO\3\2\2\2QR\3\2\2")
+        buf.write("\2RS\3\2\2\2ST\7\2\2\3T\3\3\2\2\2UV\t\2\2\2V\5\3\2\2\2")
+        buf.write("WZ\5\b\5\2XZ\5*\26\2YW\3\2\2\2YX\3\2\2\2Z\7\3\2\2\2[a")
+        buf.write("\5\n\6\2\\a\5\f\7\2]a\5\16\b\2^a\5\20\t\2_a\5\22\n\2`")
+        buf.write("[\3\2\2\2`\\\3\2\2\2`]\3\2\2\2`^\3\2\2\2`_\3\2\2\2a\t")
+        buf.write("\3\2\2\2bc\7\r\2\2ce\7\26\2\2df\5J&\2ed\3\2\2\2ef\3\2")
+        buf.write("\2\2fm\3\2\2\2gn\5\4\3\2hj\5\4\3\2ih\3\2\2\2ij\3\2\2\2")
+        buf.write("jk\3\2\2\2kl\7%\2\2ln\5&\24\2mg\3\2\2\2mi\3\2\2\2no\3")
+        buf.write("\2\2\2op\7\66\2\2p\13\3\2\2\2qr\7\7\2\2rs\7\26\2\2su\7")
+        buf.write("/\2\2tv\5\"\22\2ut\3\2\2\2uv\3\2\2\2vw\3\2\2\2wy\7\60")
+        buf.write("\2\2xz\5\4\3\2yx\3\2\2\2yz\3\2\2\2z{\3\2\2\2{}\5H%\2|")
+        buf.write("~\7\66\2\2}|\3\2\2\2}~\3\2\2\2~\r\3\2\2\2\177\u0080\7")
+        buf.write("\b\2\2\u0080\u0081\7\26\2\2\u0081\u0082\5\24\13\2\u0082")
+        buf.write("\17\3\2\2\2\u0083\u0084\7\f\2\2\u0084\u0085\7\26\2\2\u0085")
+        buf.write("\u0086\7%\2\2\u0086\u0087\5&\24\2\u0087\u0088\7\66\2\2")
+        buf.write("\u0088\21\3\2\2\2\u0089\u008a\7\7\2\2\u008a\u008b\7/\2")
+        buf.write("\2\u008b\u008c\7\26\2\2\u008c\u008d\7\26\2\2\u008d\u008e")
+        buf.write("\7\60\2\2\u008e\u008f\7\26\2\2\u008f\u0090\7/\2\2\u0090")
+        buf.write("\u0091\5\"\22\2\u0091\u0093\7\60\2\2\u0092\u0094\5\4\3")
+        buf.write("\2\u0093\u0092\3\2\2\2\u0093\u0094\3\2\2\2\u0094\u0095")
+        buf.write("\3\2\2\2\u0095\u0097\5H%\2\u0096\u0098\7\66\2\2\u0097")
+        buf.write("\u0096\3\2\2\2\u0097\u0098\3\2\2\2\u0098\23\3\2\2\2\u0099")
+        buf.write("\u009c\5\26\f\2\u009a\u009c\5\32\16\2\u009b\u0099\3\2")
+        buf.write("\2\2\u009b\u009a\3\2\2\2\u009c\25\3\2\2\2\u009d\u009e")
+        buf.write("\7\t\2\2\u009e\u009f\7\61\2\2\u009f\u00a0\5\30\r\2\u00a0")
+        buf.write("\u00a1\7\62\2\2\u00a1\27\3\2\2\2\u00a2\u00a3\7\26\2\2")
+        buf.write("\u00a3\u00a4\5\4\3\2\u00a4\u00a5\7\66\2\2\u00a5\u00a7")
+        buf.write("\3\2\2\2\u00a6\u00a2\3\2\2\2\u00a7\u00a8\3\2\2\2\u00a8")
+        buf.write("\u00a6\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9\31\3\2\2\2\u00aa")
+        buf.write("\u00ab\7\n\2\2\u00ab\u00ac\7\61\2\2\u00ac\u00ad\5\34\17")
+        buf.write("\2\u00ad\u00ae\7\62\2\2\u00ae\33\3\2\2\2\u00af\u00b0\7")
+        buf.write("\26\2\2\u00b0\u00b1\5\36\20\2\u00b1\u00b2\5\4\3\2\u00b2")
+        buf.write("\u00b3\7\66\2\2\u00b3\35\3\2\2\2\u00b4\u00ba\7/\2\2\u00b5")
+        buf.write("\u00b6\5 \21\2\u00b6\u00b7\5\4\3\2\u00b7\u00b9\3\2\2\2")
+        buf.write("\u00b8\u00b5\3\2\2\2\u00b9\u00bc\3\2\2\2\u00ba\u00b8\3")
+        buf.write("\2\2\2\u00ba\u00bb\3\2\2\2\u00bb\u00bd\3\2\2\2\u00bc\u00ba")
+        buf.write("\3\2\2\2\u00bd\u00be\7\60\2\2\u00be\37\3\2\2\2\u00bf\u00c4")
+        buf.write("\7\26\2\2\u00c0\u00c1\7\65\2\2\u00c1\u00c3\7\26\2\2\u00c2")
+        buf.write("\u00c0\3\2\2\2\u00c3\u00c6\3\2\2\2\u00c4\u00c2\3\2\2\2")
+        buf.write("\u00c4\u00c5\3\2\2\2\u00c5!\3\2\2\2\u00c6\u00c4\3\2\2")
+        buf.write("\2\u00c7\u00cc\5$\23\2\u00c8\u00c9\7\65\2\2\u00c9\u00cb")
+        buf.write("\5$\23\2\u00ca\u00c8\3\2\2\2\u00cb\u00ce\3\2\2\2\u00cc")
+        buf.write("\u00ca\3\2\2\2\u00cc\u00cd\3\2\2\2\u00cd#\3\2\2\2\u00ce")
+        buf.write("\u00cc\3\2\2\2\u00cf\u00d0\7\26\2\2\u00d0\u00d1\5\4\3")
+        buf.write("\2\u00d1%\3\2\2\2\u00d2\u00d3\b\24\1\2\u00d3\u00d4\t\3")
+        buf.write("\2\2\u00d4\u00d7\5(\25\2\u00d5\u00d7\5(\25\2\u00d6\u00d2")
+        buf.write("\3\2\2\2\u00d6\u00d5\3\2\2\2\u00d7\u00e9\3\2\2\2\u00d8")
+        buf.write("\u00d9\f\t\2\2\u00d9\u00da\7#\2\2\u00da\u00e8\5(\25\2")
+        buf.write("\u00db\u00dc\f\b\2\2\u00dc\u00dd\7\"\2\2\u00dd\u00e8\5")
+        buf.write("(\25\2\u00de\u00df\f\7\2\2\u00df\u00e0\t\4\2\2\u00e0\u00e8")
+        buf.write("\5(\25\2\u00e1\u00e2\f\6\2\2\u00e2\u00e3\t\5\2\2\u00e3")
+        buf.write("\u00e8\5(\25\2\u00e4\u00e5\f\5\2\2\u00e5\u00e6\t\6\2\2")
+        buf.write("\u00e6\u00e8\5(\25\2\u00e7\u00d8\3\2\2\2\u00e7\u00db\3")
+        buf.write("\2\2\2\u00e7\u00de\3\2\2\2\u00e7\u00e1\3\2\2\2\u00e7\u00e4")
+        buf.write("\3\2\2\2\u00e8\u00eb\3\2\2\2\u00e9\u00e7\3\2\2\2\u00e9")
+        buf.write("\u00ea\3\2\2\2\u00ea\'\3\2\2\2\u00eb\u00e9\3\2\2\2\u00ec")
+        buf.write("\u00f0\7\26\2\2\u00ed\u00f1\5J&\2\u00ee\u00ef\7,\2\2\u00ef")
+        buf.write("\u00f1\7\26\2\2\u00f0\u00ed\3\2\2\2\u00f0\u00ee\3\2\2")
+        buf.write("\2\u00f0\u00f1\3\2\2\2\u00f1\u00fa\3\2\2\2\u00f2\u00fa")
+        buf.write("\7\67\2\2\u00f3\u00fa\78\2\2\u00f4\u00fa\79\2\2\u00f5")
+        buf.write("\u00f6\7/\2\2\u00f6\u00f7\5&\24\2\u00f7\u00f8\7\60\2\2")
+        buf.write("\u00f8\u00fa\3\2\2\2\u00f9\u00ec\3\2\2\2\u00f9\u00f2\3")
+        buf.write("\2\2\2\u00f9\u00f3\3\2\2\2\u00f9\u00f4\3\2\2\2\u00f9\u00f5")
+        buf.write("\3\2\2\2\u00fa)\3\2\2\2\u00fb\u0106\5\60\31\2\u00fc\u0106")
+        buf.write("\5\64\33\2\u00fd\u0106\5\66\34\2\u00fe\u0106\5B\"\2\u00ff")
+        buf.write("\u0106\5D#\2\u0100\u0106\5F$\2\u0101\u0106\5L\'\2\u0102")
+        buf.write("\u0106\5,\27\2\u0103\u0106\5\n\6\2\u0104\u0106\5\20\t")
+        buf.write("\2\u0105\u00fb\3\2\2\2\u0105\u00fc\3\2\2\2\u0105\u00fd")
+        buf.write("\3\2\2\2\u0105\u00fe\3\2\2\2\u0105\u00ff\3\2\2\2\u0105")
+        buf.write("\u0100\3\2\2\2\u0105\u0101\3\2\2\2\u0105\u0102\3\2\2\2")
+        buf.write("\u0105\u0103\3\2\2\2\u0105\u0104\3\2\2\2\u0106\u0107\3")
+        buf.write("\2\2\2\u0107\u0108\b\26\1\2\u0108+\3\2\2\2\u0109\u010a")
+        buf.write("\7\26\2\2\u010a\u010b\7&\2\2\u010b\u010c\5J&\2\u010c\u010d")
+        buf.write("\t\7\2\2\u010d\u010e\5.\30\2\u010e-\3\2\2\2\u010f\u0110")
+        buf.write("\7\61\2\2\u0110\u0115\5.\30\2\u0111\u0112\7\65\2\2\u0112")
+        buf.write("\u0114\5.\30\2\u0113\u0111\3\2\2\2\u0114\u0117\3\2\2\2")
+        buf.write("\u0115\u0113\3\2\2\2\u0115\u0116\3\2\2\2\u0116\u0118\3")
+        buf.write("\2\2\2\u0117\u0115\3\2\2\2\u0118\u0119\7\62\2\2\u0119")
+        buf.write("\u0126\3\2\2\2\u011a\u011b\7\61\2\2\u011b\u0120\5&\24")
+        buf.write("\2\u011c\u011d\7\65\2\2\u011d\u011f\5&\24\2\u011e\u011c")
+        buf.write("\3\2\2\2\u011f\u0122\3\2\2\2\u0120\u011e\3\2\2\2\u0120")
+        buf.write("\u0121\3\2\2\2\u0121\u0123\3\2\2\2\u0122\u0120\3\2\2\2")
+        buf.write("\u0123\u0124\7\62\2\2\u0124\u0126\3\2\2\2\u0125\u010f")
+        buf.write("\3\2\2\2\u0125\u011a\3\2\2\2\u0126/\3\2\2\2\u0127\u012b")
+        buf.write("\7\26\2\2\u0128\u012c\5J&\2\u0129\u012a\7,\2\2\u012a\u012c")
+        buf.write("\7\26\2\2\u012b\u0128\3\2\2\2\u012b\u0129\3\2\2\2\u012b")
+        buf.write("\u012c\3\2\2\2\u012c\u012d\3\2\2\2\u012d\u012e\5\62\32")
+        buf.write("\2\u012e\u012f\5&\24\2\u012f\u0130\t\b\2\2\u0130\61\3")
+        buf.write("\2\2\2\u0131\u0132\t\t\2\2\u0132\63\3\2\2\2\u0133\u0134")
+        buf.write("\7\3\2\2\u0134\u0135\7/\2\2\u0135\u0136\5&\24\2\u0136")
+        buf.write("\u0137\7\60\2\2\u0137\u0141\5H%\2\u0138\u0139\7\4\2\2")
+        buf.write("\u0139\u013a\7\3\2\2\u013a\u013b\7/\2\2\u013b\u013c\5")
+        buf.write("&\24\2\u013c\u013d\7\60\2\2\u013d\u013e\5H%\2\u013e\u0140")
+        buf.write("\3\2\2\2\u013f\u0138\3\2\2\2\u0140\u0143\3\2\2\2\u0141")
+        buf.write("\u013f\3\2\2\2\u0141\u0142\3\2\2\2\u0142\u0146\3\2\2\2")
+        buf.write("\u0143\u0141\3\2\2\2\u0144\u0145\7\4\2\2\u0145\u0147\5")
+        buf.write("H%\2\u0146\u0144\3\2\2\2\u0146\u0147\3\2\2\2\u0147\65")
+        buf.write("\3\2\2\2\u0148\u014b\7\5\2\2\u0149\u014c\58\35\2\u014a")
+        buf.write("\u014c\5@!\2\u014b\u0149\3\2\2\2\u014b\u014a\3\2\2\2\u014c")
+        buf.write("\u014d\3\2\2\2\u014d\u014e\5H%\2\u014e\67\3\2\2\2\u014f")
+        buf.write("\u0157\5<\37\2\u0150\u0151\5:\36\2\u0151\u0152\7\66\2")
+        buf.write("\2\u0152\u0153\5<\37\2\u0153\u0154\7\66\2\2\u0154\u0155")
+        buf.write("\5> \2\u0155\u0157\3\2\2\2\u0156\u014f\3\2\2\2\u0156\u0150")
+        buf.write("\3\2\2\2\u01579\3\2\2\2\u0158\u0159\7\26\2\2\u0159\u015a")
+        buf.write("\7&\2\2\u015a\u015b\5&\24\2\u015b;\3\2\2\2\u015c\u015d")
+        buf.write("\5&\24\2\u015d=\3\2\2\2\u015e\u015f\7\26\2\2\u015f\u0160")
+        buf.write("\5\62\32\2\u0160\u0161\5&\24\2\u0161?\3\2\2\2\u0162\u0163")
+        buf.write("\t\n\2\2\u0163\u0164\7\65\2\2\u0164\u0165\7\26\2\2\u0165")
+        buf.write("\u0166\7&\2\2\u0166\u0167\7\23\2\2\u0167\u0168\7\26\2")
+        buf.write("\2\u0168A\3\2\2\2\u0169\u016a\7\22\2\2\u016a\u016b\7\66")
+        buf.write("\2\2\u016bC\3\2\2\2\u016c\u016d\7\21\2\2\u016d\u016e\7")
+        buf.write("\66\2\2\u016eE\3\2\2\2\u016f\u0172\7\26\2\2\u0170\u0171")
+        buf.write("\7,\2\2\u0171\u0173\7\26\2\2\u0172\u0170\3\2\2\2\u0172")
+        buf.write("\u0173\3\2\2\2\u0173\u0174\3\2\2\2\u0174\u017d\7/\2\2")
+        buf.write("\u0175\u017a\5&\24\2\u0176\u0177\7\65\2\2\u0177\u0179")
+        buf.write("\5&\24\2\u0178\u0176\3\2\2\2\u0179\u017c\3\2\2\2\u017a")
+        buf.write("\u0178\3\2\2\2\u017a\u017b\3\2\2\2\u017b\u017e\3\2\2\2")
+        buf.write("\u017c\u017a\3\2\2\2\u017d\u0175\3\2\2\2\u017d\u017e\3")
+        buf.write("\2\2\2\u017e\u017f\3\2\2\2\u017f\u0180\7\60\2\2\u0180")
+        buf.write("\u0181\7\66\2\2\u0181G\3\2\2\2\u0182\u0186\7\61\2\2\u0183")
+        buf.write("\u0185\5*\26\2\u0184\u0183\3\2\2\2\u0185\u0188\3\2\2\2")
+        buf.write("\u0186\u0184\3\2\2\2\u0186\u0187\3\2\2\2\u0187\u0189\3")
+        buf.write("\2\2\2\u0188\u0186\3\2\2\2\u0189\u018a\7\62\2\2\u018a")
+        buf.write("I\3\2\2\2\u018b\u018c\7\63\2\2\u018c\u018d\7\67\2\2\u018d")
+        buf.write("\u018f\7\64\2\2\u018e\u018b\3\2\2\2\u018f\u0190\3\2\2")
+        buf.write("\2\u0190\u018e\3\2\2\2\u0190\u0191\3\2\2\2\u0191K\3\2")
+        buf.write("\2\2\u0192\u0194\7\6\2\2\u0193\u0195\5&\24\2\u0194\u0193")
+        buf.write("\3\2\2\2\u0194\u0195\3\2\2\2\u0195\u0196\3\2\2\2\u0196")
+        buf.write("\u0197\7\66\2\2\u0197M\3\2\2\2&QY`eimuy}\u0093\u0097\u009b")
+        buf.write("\u00a8\u00ba\u00c4\u00cc\u00d6\u00e7\u00e9\u00f0\u00f9")
+        buf.write("\u0105\u0115\u0120\u0125\u012b\u0141\u0146\u014b\u0156")
+        buf.write("\u0172\u017a\u017d\u0186\u0190\u0194")
         return buf.getvalue()
 
 
@@ -227,44 +241,47 @@ class MiniGoParser ( Parser ):
     RULE_funcDecl = 5
     RULE_typeDecl = 6
     RULE_constDecl = 7
-    RULE_typeDefinition = 8
-    RULE_structDefinition = 9
-    RULE_structFields = 10
-    RULE_interfaceDefinition = 11
-    RULE_interfaceFields = 12
-    RULE_listParams = 13
-    RULE_listIdentifier = 14
-    RULE_funcParams = 15
-    RULE_funcParam = 16
-    RULE_expression = 17
-    RULE_term = 18
-    RULE_statement = 19
-    RULE_arrayLiteral = 20
-    RULE_arraysBlock = 21
-    RULE_assignStatement = 22
-    RULE_assignmentOperator = 23
-    RULE_ifStatement = 24
-    RULE_forStatement = 25
-    RULE_forLoop = 26
-    RULE_initilization = 27
-    RULE_forCondition = 28
-    RULE_forUpdate = 29
-    RULE_forIteration = 30
-    RULE_breakStatement = 31
-    RULE_continueStatement = 32
-    RULE_callStatement = 33
-    RULE_block = 34
-    RULE_arrayDims = 35
+    RULE_methodDecl = 8
+    RULE_typeDefinition = 9
+    RULE_structDefinition = 10
+    RULE_structFields = 11
+    RULE_interfaceDefinition = 12
+    RULE_interfaceFields = 13
+    RULE_listParams = 14
+    RULE_listIdentifier = 15
+    RULE_funcParams = 16
+    RULE_funcParam = 17
+    RULE_expression = 18
+    RULE_term = 19
+    RULE_statement = 20
+    RULE_arrayLiteral = 21
+    RULE_arraysBlock = 22
+    RULE_assignStatement = 23
+    RULE_assignmentOperator = 24
+    RULE_ifStatement = 25
+    RULE_forStatement = 26
+    RULE_forLoop = 27
+    RULE_initilization = 28
+    RULE_forCondition = 29
+    RULE_forUpdate = 30
+    RULE_forIteration = 31
+    RULE_breakStatement = 32
+    RULE_continueStatement = 33
+    RULE_callStatement = 34
+    RULE_block = 35
+    RULE_arrayDims = 36
+    RULE_returnStatement = 37
 
     ruleNames =  [ "program", "tYPE", "parserRuleSpec", "decl", "varDecl", 
-                   "funcDecl", "typeDecl", "constDecl", "typeDefinition", 
+                   "funcDecl", "typeDecl", "constDecl", "methodDecl", "typeDefinition", 
                    "structDefinition", "structFields", "interfaceDefinition", 
                    "interfaceFields", "listParams", "listIdentifier", "funcParams", 
                    "funcParam", "expression", "term", "statement", "arrayLiteral", 
                    "arraysBlock", "assignStatement", "assignmentOperator", 
                    "ifStatement", "forStatement", "forLoop", "initilization", 
                    "forCondition", "forUpdate", "forIteration", "breakStatement", 
-                   "continueStatement", "callStatement", "block", "arrayDims" ]
+                   "continueStatement", "callStatement", "block", "arrayDims", 
+                   "returnStatement" ]
 
     EOF = Token.EOF
     IF=1
@@ -375,19 +392,19 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 73 
+            self.state = 77 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 72
+                self.state = 76
                 self.parserRuleSpec()
-                self.state = 75 
+                self.state = 79 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.IF) | (1 << MiniGoParser.FOR) | (1 << MiniGoParser.FUNC) | (1 << MiniGoParser.TYPE) | (1 << MiniGoParser.CONST) | (1 << MiniGoParser.VAR) | (1 << MiniGoParser.CONTINUE) | (1 << MiniGoParser.BREAK) | (1 << MiniGoParser.IDENTIFIER))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.IF) | (1 << MiniGoParser.FOR) | (1 << MiniGoParser.RETURN) | (1 << MiniGoParser.FUNC) | (1 << MiniGoParser.TYPE) | (1 << MiniGoParser.CONST) | (1 << MiniGoParser.VAR) | (1 << MiniGoParser.CONTINUE) | (1 << MiniGoParser.BREAK) | (1 << MiniGoParser.IDENTIFIER))) != 0)):
                     break
 
-            self.state = 77
+            self.state = 81
             self.match(MiniGoParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -436,7 +453,7 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 79
+            self.state = 83
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.BOOLEAN) | (1 << MiniGoParser.INTERGER) | (1 << MiniGoParser.FLOAT) | (1 << MiniGoParser.STRING))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -484,18 +501,18 @@ class MiniGoParser ( Parser ):
         localctx = MiniGoParser.ParserRuleSpecContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_parserRuleSpec)
         try:
-            self.state = 83
+            self.state = 87
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 81
+                self.state = 85
                 self.decl()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 82
+                self.state = 86
                 self.statement()
                 pass
 
@@ -532,6 +549,10 @@ class MiniGoParser ( Parser ):
             return self.getTypedRuleContext(MiniGoParser.ConstDeclContext,0)
 
 
+        def methodDecl(self):
+            return self.getTypedRuleContext(MiniGoParser.MethodDeclContext,0)
+
+
         def getRuleIndex(self):
             return MiniGoParser.RULE_decl
 
@@ -549,31 +570,39 @@ class MiniGoParser ( Parser ):
         localctx = MiniGoParser.DeclContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_decl)
         try:
-            self.state = 89
+            self.state = 94
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [MiniGoParser.VAR]:
+            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 85
+                self.state = 89
                 self.varDecl()
                 pass
-            elif token in [MiniGoParser.FUNC]:
+
+            elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 86
+                self.state = 90
                 self.funcDecl()
                 pass
-            elif token in [MiniGoParser.TYPE]:
+
+            elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 87
+                self.state = 91
                 self.typeDecl()
                 pass
-            elif token in [MiniGoParser.CONST]:
+
+            elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 88
+                self.state = 92
                 self.constDecl()
                 pass
-            else:
-                raise NoViableAltException(self)
+
+            elif la_ == 5:
+                self.enterOuterAlt(localctx, 5)
+                self.state = 93
+                self.methodDecl()
+                pass
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -634,43 +663,43 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 91
+            self.state = 96
             self.match(MiniGoParser.VAR)
-            self.state = 92
+            self.state = 97
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 94
+            self.state = 99
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MiniGoParser.LSB:
-                self.state = 93
+                self.state = 98
                 self.arrayDims()
 
 
-            self.state = 102
+            self.state = 107
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
-                self.state = 96
+                self.state = 101
                 self.tYPE()
                 pass
 
             elif la_ == 2:
-                self.state = 98
+                self.state = 103
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.BOOLEAN) | (1 << MiniGoParser.INTERGER) | (1 << MiniGoParser.FLOAT) | (1 << MiniGoParser.STRING))) != 0):
-                    self.state = 97
+                    self.state = 102
                     self.tYPE()
 
 
-                self.state = 100
+                self.state = 105
                 self.match(MiniGoParser.ASSIGNOP)
-                self.state = 101
+                self.state = 106
                 self.expression(0)
                 pass
 
 
-            self.state = 104
+            self.state = 109
             self.match(MiniGoParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -734,37 +763,37 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 106
+            self.state = 111
             self.match(MiniGoParser.FUNC)
-            self.state = 107
+            self.state = 112
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 108
+            self.state = 113
             self.match(MiniGoParser.LP)
-            self.state = 110
+            self.state = 115
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MiniGoParser.IDENTIFIER:
-                self.state = 109
+                self.state = 114
                 self.funcParams()
 
 
-            self.state = 112
+            self.state = 117
             self.match(MiniGoParser.RP)
-            self.state = 114
+            self.state = 119
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.BOOLEAN) | (1 << MiniGoParser.INTERGER) | (1 << MiniGoParser.FLOAT) | (1 << MiniGoParser.STRING))) != 0):
-                self.state = 113
+                self.state = 118
                 self.tYPE()
 
 
-            self.state = 116
+            self.state = 121
             self.block()
-            self.state = 118
+            self.state = 123
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MiniGoParser.SEMI:
-                self.state = 117
+                self.state = 122
                 self.match(MiniGoParser.SEMI)
 
 
@@ -812,11 +841,11 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_typeDecl)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 120
+            self.state = 125
             self.match(MiniGoParser.TYPE)
-            self.state = 121
+            self.state = 126
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 122
+            self.state = 127
             self.typeDefinition()
         except RecognitionException as re:
             localctx.exception = re
@@ -868,16 +897,124 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 14, self.RULE_constDecl)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 124
+            self.state = 129
             self.match(MiniGoParser.CONST)
-            self.state = 125
+            self.state = 130
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 126
+            self.state = 131
             self.match(MiniGoParser.ASSIGNOP)
-            self.state = 127
+            self.state = 132
             self.expression(0)
-            self.state = 128
+            self.state = 133
             self.match(MiniGoParser.SEMI)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class MethodDeclContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def FUNC(self):
+            return self.getToken(MiniGoParser.FUNC, 0)
+
+        def LP(self, i:int=None):
+            if i is None:
+                return self.getTokens(MiniGoParser.LP)
+            else:
+                return self.getToken(MiniGoParser.LP, i)
+
+        def IDENTIFIER(self, i:int=None):
+            if i is None:
+                return self.getTokens(MiniGoParser.IDENTIFIER)
+            else:
+                return self.getToken(MiniGoParser.IDENTIFIER, i)
+
+        def RP(self, i:int=None):
+            if i is None:
+                return self.getTokens(MiniGoParser.RP)
+            else:
+                return self.getToken(MiniGoParser.RP, i)
+
+        def block(self):
+            return self.getTypedRuleContext(MiniGoParser.BlockContext,0)
+
+
+        def funcParams(self):
+            return self.getTypedRuleContext(MiniGoParser.FuncParamsContext,0)
+
+
+        def tYPE(self):
+            return self.getTypedRuleContext(MiniGoParser.TYPEContext,0)
+
+
+        def SEMI(self):
+            return self.getToken(MiniGoParser.SEMI, 0)
+
+        def getRuleIndex(self):
+            return MiniGoParser.RULE_methodDecl
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMethodDecl" ):
+                return visitor.visitMethodDecl(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def methodDecl(self):
+
+        localctx = MiniGoParser.MethodDeclContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 16, self.RULE_methodDecl)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 135
+            self.match(MiniGoParser.FUNC)
+            self.state = 136
+            self.match(MiniGoParser.LP)
+            self.state = 137
+            self.match(MiniGoParser.IDENTIFIER)
+            self.state = 138
+            self.match(MiniGoParser.IDENTIFIER)
+            self.state = 139
+            self.match(MiniGoParser.RP)
+            self.state = 140
+            self.match(MiniGoParser.IDENTIFIER)
+            self.state = 141
+            self.match(MiniGoParser.LP)
+
+            self.state = 142
+            self.funcParams()
+            self.state = 143
+            self.match(MiniGoParser.RP)
+            self.state = 145
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.BOOLEAN) | (1 << MiniGoParser.INTERGER) | (1 << MiniGoParser.FLOAT) | (1 << MiniGoParser.STRING))) != 0):
+                self.state = 144
+                self.tYPE()
+
+
+            self.state = 147
+            self.block()
+            self.state = 149
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==MiniGoParser.SEMI:
+                self.state = 148
+                self.match(MiniGoParser.SEMI)
+
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -917,19 +1054,19 @@ class MiniGoParser ( Parser ):
     def typeDefinition(self):
 
         localctx = MiniGoParser.TypeDefinitionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_typeDefinition)
+        self.enterRule(localctx, 18, self.RULE_typeDefinition)
         try:
-            self.state = 132
+            self.state = 153
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MiniGoParser.STRUCT]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 130
+                self.state = 151
                 self.structDefinition()
                 pass
             elif token in [MiniGoParser.INTERFACE]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 131
+                self.state = 152
                 self.interfaceDefinition()
                 pass
             else:
@@ -979,16 +1116,16 @@ class MiniGoParser ( Parser ):
     def structDefinition(self):
 
         localctx = MiniGoParser.StructDefinitionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_structDefinition)
+        self.enterRule(localctx, 20, self.RULE_structDefinition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 134
+            self.state = 155
             self.match(MiniGoParser.STRUCT)
-            self.state = 135
+            self.state = 156
             self.match(MiniGoParser.LB)
-            self.state = 136
+            self.state = 157
             self.structFields()
-            self.state = 137
+            self.state = 158
             self.match(MiniGoParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -1040,21 +1177,21 @@ class MiniGoParser ( Parser ):
     def structFields(self):
 
         localctx = MiniGoParser.StructFieldsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_structFields)
+        self.enterRule(localctx, 22, self.RULE_structFields)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 143 
+            self.state = 164 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 139
+                self.state = 160
                 self.match(MiniGoParser.IDENTIFIER)
-                self.state = 140
+                self.state = 161
                 self.tYPE()
-                self.state = 141
+                self.state = 162
                 self.match(MiniGoParser.SEMI)
-                self.state = 145 
+                self.state = 166 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==MiniGoParser.IDENTIFIER):
@@ -1104,16 +1241,16 @@ class MiniGoParser ( Parser ):
     def interfaceDefinition(self):
 
         localctx = MiniGoParser.InterfaceDefinitionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_interfaceDefinition)
+        self.enterRule(localctx, 24, self.RULE_interfaceDefinition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 147
+            self.state = 168
             self.match(MiniGoParser.INTERFACE)
-            self.state = 148
+            self.state = 169
             self.match(MiniGoParser.LB)
-            self.state = 149
+            self.state = 170
             self.interfaceFields()
-            self.state = 150
+            self.state = 171
             self.match(MiniGoParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -1160,16 +1297,16 @@ class MiniGoParser ( Parser ):
     def interfaceFields(self):
 
         localctx = MiniGoParser.InterfaceFieldsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_interfaceFields)
+        self.enterRule(localctx, 26, self.RULE_interfaceFields)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 152
+            self.state = 173
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 153
+            self.state = 174
             self.listParams()
-            self.state = 154
+            self.state = 175
             self.tYPE()
-            self.state = 155
+            self.state = 176
             self.match(MiniGoParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -1222,25 +1359,25 @@ class MiniGoParser ( Parser ):
     def listParams(self):
 
         localctx = MiniGoParser.ListParamsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_listParams)
+        self.enterRule(localctx, 28, self.RULE_listParams)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 157
+            self.state = 178
             self.match(MiniGoParser.LP)
-            self.state = 163
+            self.state = 184
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==MiniGoParser.IDENTIFIER:
-                self.state = 158
+                self.state = 179
                 self.listIdentifier()
-                self.state = 159
+                self.state = 180
                 self.tYPE()
-                self.state = 165
+                self.state = 186
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 166
+            self.state = 187
             self.match(MiniGoParser.RP)
         except RecognitionException as re:
             localctx.exception = re
@@ -1285,21 +1422,21 @@ class MiniGoParser ( Parser ):
     def listIdentifier(self):
 
         localctx = MiniGoParser.ListIdentifierContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_listIdentifier)
+        self.enterRule(localctx, 30, self.RULE_listIdentifier)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 168
+            self.state = 189
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 173
+            self.state = 194
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==MiniGoParser.COMMA:
-                self.state = 169
+                self.state = 190
                 self.match(MiniGoParser.COMMA)
-                self.state = 170
+                self.state = 191
                 self.match(MiniGoParser.IDENTIFIER)
-                self.state = 175
+                self.state = 196
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -1347,21 +1484,21 @@ class MiniGoParser ( Parser ):
     def funcParams(self):
 
         localctx = MiniGoParser.FuncParamsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_funcParams)
+        self.enterRule(localctx, 32, self.RULE_funcParams)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 176
+            self.state = 197
             self.funcParam()
-            self.state = 181
+            self.state = 202
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==MiniGoParser.COMMA:
-                self.state = 177
+                self.state = 198
                 self.match(MiniGoParser.COMMA)
-                self.state = 178
+                self.state = 199
                 self.funcParam()
-                self.state = 183
+                self.state = 204
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -1403,12 +1540,12 @@ class MiniGoParser ( Parser ):
     def funcParam(self):
 
         localctx = MiniGoParser.FuncParamContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_funcParam)
+        self.enterRule(localctx, 34, self.RULE_funcParam)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 184
+            self.state = 205
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 185
+            self.state = 206
             self.tYPE()
         except RecognitionException as re:
             localctx.exception = re
@@ -1492,128 +1629,128 @@ class MiniGoParser ( Parser ):
         _parentState = self.state
         localctx = MiniGoParser.ExpressionContext(self, self._ctx, _parentState)
         _prevctx = localctx
-        _startState = 34
-        self.enterRecursionRule(localctx, 34, self.RULE_expression, _p)
+        _startState = 36
+        self.enterRecursionRule(localctx, 36, self.RULE_expression, _p)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 191
+            self.state = 212
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MiniGoParser.SUBOP, MiniGoParser.NOTOP]:
-                self.state = 188
+                self.state = 209
                 _la = self._input.LA(1)
                 if not(_la==MiniGoParser.SUBOP or _la==MiniGoParser.NOTOP):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
-                self.state = 189
+                self.state = 210
                 self.term()
                 pass
             elif token in [MiniGoParser.IDENTIFIER, MiniGoParser.LP, MiniGoParser.INTLIT, MiniGoParser.FLOATLIT, MiniGoParser.STRINGLIT]:
-                self.state = 190
+                self.state = 211
                 self.term()
                 pass
             else:
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 210
+            self.state = 231
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 208
+                    self.state = 229
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
                     if la_ == 1:
                         localctx = MiniGoParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 193
+                        self.state = 214
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 194
+                        self.state = 215
                         self.match(MiniGoParser.OROP)
-                        self.state = 195
+                        self.state = 216
                         self.term()
                         pass
 
                     elif la_ == 2:
                         localctx = MiniGoParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 196
+                        self.state = 217
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
-                        self.state = 197
+                        self.state = 218
                         self.match(MiniGoParser.ANDOP)
-                        self.state = 198
+                        self.state = 219
                         self.term()
                         pass
 
                     elif la_ == 3:
                         localctx = MiniGoParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 199
+                        self.state = 220
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
-                        self.state = 200
+                        self.state = 221
                         _la = self._input.LA(1)
                         if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.EQUALOP) | (1 << MiniGoParser.NOTEQUALOP) | (1 << MiniGoParser.LESSOP) | (1 << MiniGoParser.LESSEQUALOP) | (1 << MiniGoParser.GREATEROP) | (1 << MiniGoParser.GREATEREQUALOP))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 201
+                        self.state = 222
                         self.term()
                         pass
 
                     elif la_ == 4:
                         localctx = MiniGoParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 202
+                        self.state = 223
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
-                        self.state = 203
+                        self.state = 224
                         _la = self._input.LA(1)
                         if not(_la==MiniGoParser.ADDOP or _la==MiniGoParser.SUBOP):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 204
+                        self.state = 225
                         self.term()
                         pass
 
                     elif la_ == 5:
                         localctx = MiniGoParser.ExpressionContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 205
+                        self.state = 226
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
-                        self.state = 206
+                        self.state = 227
                         _la = self._input.LA(1)
                         if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.MULOP) | (1 << MiniGoParser.DIVOP) | (1 << MiniGoParser.MODOP))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 207
+                        self.state = 228
                         self.term()
                         pass
 
              
-                self.state = 212
+                self.state = 233
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1678,52 +1815,52 @@ class MiniGoParser ( Parser ):
     def term(self):
 
         localctx = MiniGoParser.TermContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_term)
+        self.enterRule(localctx, 38, self.RULE_term)
         try:
-            self.state = 226
+            self.state = 247
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MiniGoParser.IDENTIFIER]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 213
+                self.state = 234
                 self.match(MiniGoParser.IDENTIFIER)
-                self.state = 217
+                self.state = 238
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
                 if la_ == 1:
-                    self.state = 214
+                    self.state = 235
                     self.arrayDims()
 
                 elif la_ == 2:
-                    self.state = 215
+                    self.state = 236
                     self.match(MiniGoParser.DOT)
-                    self.state = 216
+                    self.state = 237
                     self.match(MiniGoParser.IDENTIFIER)
 
 
                 pass
             elif token in [MiniGoParser.INTLIT]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 219
+                self.state = 240
                 self.match(MiniGoParser.INTLIT)
                 pass
             elif token in [MiniGoParser.FLOATLIT]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 220
+                self.state = 241
                 self.match(MiniGoParser.FLOATLIT)
                 pass
             elif token in [MiniGoParser.STRINGLIT]:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 221
+                self.state = 242
                 self.match(MiniGoParser.STRINGLIT)
                 pass
             elif token in [MiniGoParser.LP]:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 222
+                self.state = 243
                 self.match(MiniGoParser.LP)
-                self.state = 223
+                self.state = 244
                 self.expression(0)
-                self.state = 224
+                self.state = 245
                 self.match(MiniGoParser.RP)
                 pass
             else:
@@ -1769,6 +1906,10 @@ class MiniGoParser ( Parser ):
             return self.getTypedRuleContext(MiniGoParser.CallStatementContext,0)
 
 
+        def returnStatement(self):
+            return self.getTypedRuleContext(MiniGoParser.ReturnStatementContext,0)
+
+
         def arrayLiteral(self):
             return self.getTypedRuleContext(MiniGoParser.ArrayLiteralContext,0)
 
@@ -1796,54 +1937,59 @@ class MiniGoParser ( Parser ):
     def statement(self):
 
         localctx = MiniGoParser.StatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_statement)
+        self.enterRule(localctx, 40, self.RULE_statement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 237
+            self.state = 259
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,21,self._ctx)
             if la_ == 1:
-                self.state = 228
+                self.state = 249
                 self.assignStatement()
                 pass
 
             elif la_ == 2:
-                self.state = 229
+                self.state = 250
                 self.ifStatement()
                 pass
 
             elif la_ == 3:
-                self.state = 230
+                self.state = 251
                 self.forStatement()
                 pass
 
             elif la_ == 4:
-                self.state = 231
+                self.state = 252
                 self.breakStatement()
                 pass
 
             elif la_ == 5:
-                self.state = 232
+                self.state = 253
                 self.continueStatement()
                 pass
 
             elif la_ == 6:
-                self.state = 233
+                self.state = 254
                 self.callStatement()
                 pass
 
             elif la_ == 7:
-                self.state = 234
-                self.arrayLiteral()
+                self.state = 255
+                self.returnStatement()
                 pass
 
             elif la_ == 8:
-                self.state = 235
-                self.varDecl()
+                self.state = 256
+                self.arrayLiteral()
                 pass
 
             elif la_ == 9:
-                self.state = 236
+                self.state = 257
+                self.varDecl()
+                pass
+
+            elif la_ == 10:
+                self.state = 258
                 self.constDecl()
                 pass
 
@@ -1906,25 +2052,25 @@ class MiniGoParser ( Parser ):
     def arrayLiteral(self):
 
         localctx = MiniGoParser.ArrayLiteralContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_arrayLiteral)
+        self.enterRule(localctx, 42, self.RULE_arrayLiteral)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 241
+            self.state = 263
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 242
+            self.state = 264
             self.match(MiniGoParser.SHORTASSIGNOP)
 
-            self.state = 243
+            self.state = 265
             self.arrayDims()
-            self.state = 244
+            self.state = 266
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.INTERFACE) | (1 << MiniGoParser.BOOLEAN) | (1 << MiniGoParser.FLOAT) | (1 << MiniGoParser.STRING))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 245
+            self.state = 267
             self.arraysBlock()
         except RecognitionException as re:
             localctx.exception = re
@@ -1983,53 +2129,53 @@ class MiniGoParser ( Parser ):
     def arraysBlock(self):
 
         localctx = MiniGoParser.ArraysBlockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_arraysBlock)
+        self.enterRule(localctx, 44, self.RULE_arraysBlock)
         self._la = 0 # Token type
         try:
-            self.state = 269
+            self.state = 291
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,22,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,24,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 247
+                self.state = 269
                 self.match(MiniGoParser.LB)
-                self.state = 248
+                self.state = 270
                 self.arraysBlock()
-                self.state = 253
+                self.state = 275
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==MiniGoParser.COMMA:
-                    self.state = 249
+                    self.state = 271
                     self.match(MiniGoParser.COMMA)
-                    self.state = 250
+                    self.state = 272
                     self.arraysBlock()
-                    self.state = 255
+                    self.state = 277
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 256
+                self.state = 278
                 self.match(MiniGoParser.RB)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 258
+                self.state = 280
                 self.match(MiniGoParser.LB)
-                self.state = 259
+                self.state = 281
                 self.expression(0)
-                self.state = 264
+                self.state = 286
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==MiniGoParser.COMMA:
-                    self.state = 260
+                    self.state = 282
                     self.match(MiniGoParser.COMMA)
-                    self.state = 261
+                    self.state = 283
                     self.expression(0)
-                    self.state = 266
+                    self.state = 288
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 267
+                self.state = 289
                 self.match(MiniGoParser.RB)
                 pass
 
@@ -2067,6 +2213,9 @@ class MiniGoParser ( Parser ):
         def SEMI(self):
             return self.getToken(MiniGoParser.SEMI, 0)
 
+        def NL(self):
+            return self.getToken(MiniGoParser.NL, 0)
+
         def arrayDims(self):
             return self.getTypedRuleContext(MiniGoParser.ArrayDimsContext,0)
 
@@ -2089,34 +2238,40 @@ class MiniGoParser ( Parser ):
     def assignStatement(self):
 
         localctx = MiniGoParser.AssignStatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_assignStatement)
+        self.enterRule(localctx, 46, self.RULE_assignStatement)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 271
+            self.state = 293
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 275
+            self.state = 297
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [MiniGoParser.LSB]:
-                self.state = 272
+                self.state = 294
                 self.arrayDims()
                 pass
             elif token in [MiniGoParser.DOT]:
-                self.state = 273
+                self.state = 295
                 self.match(MiniGoParser.DOT)
-                self.state = 274
+                self.state = 296
                 self.match(MiniGoParser.IDENTIFIER)
                 pass
             elif token in [MiniGoParser.SHORTASSIGNOP, MiniGoParser.INCASSIGNOP, MiniGoParser.DECASSIGNOP, MiniGoParser.MULASSIGNOP, MiniGoParser.DIVASSIGNOP, MiniGoParser.MODASSIGNOP]:
                 pass
             else:
                 pass
-            self.state = 277
+            self.state = 299
             self.assignmentOperator()
-            self.state = 278
+            self.state = 300
             self.expression(0)
-            self.state = 279
-            self.match(MiniGoParser.SEMI)
+            self.state = 301
+            _la = self._input.LA(1)
+            if not(_la==MiniGoParser.SEMI or _la==MiniGoParser.NL):
+                self._errHandler.recoverInline(self)
+            else:
+                self._errHandler.reportMatch(self)
+                self.consume()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2166,11 +2321,11 @@ class MiniGoParser ( Parser ):
     def assignmentOperator(self):
 
         localctx = MiniGoParser.AssignmentOperatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_assignmentOperator)
+        self.enterRule(localctx, 48, self.RULE_assignmentOperator)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 281
+            self.state = 303
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.SHORTASSIGNOP) | (1 << MiniGoParser.INCASSIGNOP) | (1 << MiniGoParser.DECASSIGNOP) | (1 << MiniGoParser.MULASSIGNOP) | (1 << MiniGoParser.DIVASSIGNOP) | (1 << MiniGoParser.MODASSIGNOP))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -2246,48 +2401,48 @@ class MiniGoParser ( Parser ):
     def ifStatement(self):
 
         localctx = MiniGoParser.IfStatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_ifStatement)
+        self.enterRule(localctx, 50, self.RULE_ifStatement)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 283
+            self.state = 305
             self.match(MiniGoParser.IF)
-            self.state = 284
+            self.state = 306
             self.match(MiniGoParser.LP)
-            self.state = 285
+            self.state = 307
             self.expression(0)
-            self.state = 286
+            self.state = 308
             self.match(MiniGoParser.RP)
-            self.state = 287
+            self.state = 309
             self.block()
-            self.state = 297
+            self.state = 319
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,26,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 288
+                    self.state = 310
                     self.match(MiniGoParser.ELSE)
-                    self.state = 289
+                    self.state = 311
                     self.match(MiniGoParser.IF)
-                    self.state = 290
+                    self.state = 312
                     self.match(MiniGoParser.LP)
-                    self.state = 291
+                    self.state = 313
                     self.expression(0)
-                    self.state = 292
+                    self.state = 314
                     self.match(MiniGoParser.RP)
-                    self.state = 293
+                    self.state = 315
                     self.block() 
-                self.state = 299
+                self.state = 321
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,26,self._ctx)
 
-            self.state = 302
+            self.state = 324
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MiniGoParser.ELSE:
-                self.state = 300
+                self.state = 322
                 self.match(MiniGoParser.ELSE)
-                self.state = 301
+                self.state = 323
                 self.block()
 
 
@@ -2337,26 +2492,26 @@ class MiniGoParser ( Parser ):
     def forStatement(self):
 
         localctx = MiniGoParser.ForStatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_forStatement)
+        self.enterRule(localctx, 52, self.RULE_forStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 304
+            self.state = 326
             self.match(MiniGoParser.FOR)
-            self.state = 307
+            self.state = 329
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,26,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,28,self._ctx)
             if la_ == 1:
-                self.state = 305
+                self.state = 327
                 self.forLoop()
                 pass
 
             elif la_ == 2:
-                self.state = 306
+                self.state = 328
                 self.forIteration()
                 pass
 
 
-            self.state = 309
+            self.state = 331
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -2407,28 +2562,28 @@ class MiniGoParser ( Parser ):
     def forLoop(self):
 
         localctx = MiniGoParser.ForLoopContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_forLoop)
+        self.enterRule(localctx, 54, self.RULE_forLoop)
         try:
-            self.state = 318
+            self.state = 340
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,27,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,29,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 311
+                self.state = 333
                 self.forCondition()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 312
+                self.state = 334
                 self.initilization()
-                self.state = 313
+                self.state = 335
                 self.match(MiniGoParser.SEMI)
-                self.state = 314
+                self.state = 336
                 self.forCondition()
-                self.state = 315
+                self.state = 337
                 self.match(MiniGoParser.SEMI)
-                self.state = 316
+                self.state = 338
                 self.forUpdate()
                 pass
 
@@ -2474,14 +2629,14 @@ class MiniGoParser ( Parser ):
     def initilization(self):
 
         localctx = MiniGoParser.InitilizationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_initilization)
+        self.enterRule(localctx, 56, self.RULE_initilization)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 320
+            self.state = 342
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 321
+            self.state = 343
             self.match(MiniGoParser.SHORTASSIGNOP)
-            self.state = 322
+            self.state = 344
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -2518,10 +2673,10 @@ class MiniGoParser ( Parser ):
     def forCondition(self):
 
         localctx = MiniGoParser.ForConditionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_forCondition)
+        self.enterRule(localctx, 58, self.RULE_forCondition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 324
+            self.state = 346
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -2565,14 +2720,14 @@ class MiniGoParser ( Parser ):
     def forUpdate(self):
 
         localctx = MiniGoParser.ForUpdateContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 58, self.RULE_forUpdate)
+        self.enterRule(localctx, 60, self.RULE_forUpdate)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 326
+            self.state = 348
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 327
+            self.state = 349
             self.assignmentOperator()
-            self.state = 328
+            self.state = 350
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -2623,26 +2778,26 @@ class MiniGoParser ( Parser ):
     def forIteration(self):
 
         localctx = MiniGoParser.ForIterationContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 60, self.RULE_forIteration)
+        self.enterRule(localctx, 62, self.RULE_forIteration)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 330
+            self.state = 352
             _la = self._input.LA(1)
             if not(_la==MiniGoParser.IDENTIFIER or _la==MiniGoParser.BLANK):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 331
+            self.state = 353
             self.match(MiniGoParser.COMMA)
-            self.state = 332
+            self.state = 354
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 333
+            self.state = 355
             self.match(MiniGoParser.SHORTASSIGNOP)
-            self.state = 334
+            self.state = 356
             self.match(MiniGoParser.RANGE)
-            self.state = 335
+            self.state = 357
             self.match(MiniGoParser.IDENTIFIER)
         except RecognitionException as re:
             localctx.exception = re
@@ -2681,12 +2836,12 @@ class MiniGoParser ( Parser ):
     def breakStatement(self):
 
         localctx = MiniGoParser.BreakStatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 62, self.RULE_breakStatement)
+        self.enterRule(localctx, 64, self.RULE_breakStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 337
+            self.state = 359
             self.match(MiniGoParser.BREAK)
-            self.state = 338
+            self.state = 360
             self.match(MiniGoParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -2725,12 +2880,12 @@ class MiniGoParser ( Parser ):
     def continueStatement(self):
 
         localctx = MiniGoParser.ContinueStatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 64, self.RULE_continueStatement)
+        self.enterRule(localctx, 66, self.RULE_continueStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 340
+            self.state = 362
             self.match(MiniGoParser.CONTINUE)
-            self.state = 341
+            self.state = 363
             self.match(MiniGoParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -2794,47 +2949,47 @@ class MiniGoParser ( Parser ):
     def callStatement(self):
 
         localctx = MiniGoParser.CallStatementContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 66, self.RULE_callStatement)
+        self.enterRule(localctx, 68, self.RULE_callStatement)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 343
+            self.state = 365
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 346
+            self.state = 368
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==MiniGoParser.DOT:
-                self.state = 344
+                self.state = 366
                 self.match(MiniGoParser.DOT)
-                self.state = 345
+                self.state = 367
                 self.match(MiniGoParser.IDENTIFIER)
 
 
-            self.state = 348
+            self.state = 370
             self.match(MiniGoParser.LP)
-            self.state = 357
+            self.state = 379
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.IDENTIFIER) | (1 << MiniGoParser.SUBOP) | (1 << MiniGoParser.NOTOP) | (1 << MiniGoParser.LP) | (1 << MiniGoParser.INTLIT) | (1 << MiniGoParser.FLOATLIT) | (1 << MiniGoParser.STRINGLIT))) != 0):
-                self.state = 349
+                self.state = 371
                 self.expression(0)
-                self.state = 354
+                self.state = 376
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==MiniGoParser.COMMA:
-                    self.state = 350
+                    self.state = 372
                     self.match(MiniGoParser.COMMA)
-                    self.state = 351
+                    self.state = 373
                     self.expression(0)
-                    self.state = 356
+                    self.state = 378
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
 
 
-            self.state = 359
+            self.state = 381
             self.match(MiniGoParser.RP)
-            self.state = 360
+            self.state = 382
             self.match(MiniGoParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
@@ -2880,23 +3035,23 @@ class MiniGoParser ( Parser ):
     def block(self):
 
         localctx = MiniGoParser.BlockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 68, self.RULE_block)
+        self.enterRule(localctx, 70, self.RULE_block)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 362
+            self.state = 384
             self.match(MiniGoParser.LB)
-            self.state = 366
+            self.state = 388
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.IF) | (1 << MiniGoParser.FOR) | (1 << MiniGoParser.CONST) | (1 << MiniGoParser.VAR) | (1 << MiniGoParser.CONTINUE) | (1 << MiniGoParser.BREAK) | (1 << MiniGoParser.IDENTIFIER))) != 0):
-                self.state = 363
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.IF) | (1 << MiniGoParser.FOR) | (1 << MiniGoParser.RETURN) | (1 << MiniGoParser.CONST) | (1 << MiniGoParser.VAR) | (1 << MiniGoParser.CONTINUE) | (1 << MiniGoParser.BREAK) | (1 << MiniGoParser.IDENTIFIER))) != 0):
+                self.state = 385
                 self.statement()
-                self.state = 368
+                self.state = 390
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 369
+            self.state = 391
             self.match(MiniGoParser.RB)
         except RecognitionException as re:
             localctx.exception = re
@@ -2947,27 +3102,84 @@ class MiniGoParser ( Parser ):
     def arrayDims(self):
 
         localctx = MiniGoParser.ArrayDimsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 70, self.RULE_arrayDims)
+        self.enterRule(localctx, 72, self.RULE_arrayDims)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 374 
+            self.state = 396 
             self._errHandler.sync(self)
             _alt = 1
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
-                    self.state = 371
+                    self.state = 393
                     self.match(MiniGoParser.LSB)
-                    self.state = 372
+                    self.state = 394
                     self.match(MiniGoParser.INTLIT)
-                    self.state = 373
+                    self.state = 395
                     self.match(MiniGoParser.RSB)
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 376 
+                self.state = 398 
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,32,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
 
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class ReturnStatementContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def RETURN(self):
+            return self.getToken(MiniGoParser.RETURN, 0)
+
+        def SEMI(self):
+            return self.getToken(MiniGoParser.SEMI, 0)
+
+        def expression(self):
+            return self.getTypedRuleContext(MiniGoParser.ExpressionContext,0)
+
+
+        def getRuleIndex(self):
+            return MiniGoParser.RULE_returnStatement
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitReturnStatement" ):
+                return visitor.visitReturnStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def returnStatement(self):
+
+        localctx = MiniGoParser.ReturnStatementContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 74, self.RULE_returnStatement)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 400
+            self.match(MiniGoParser.RETURN)
+            self.state = 402
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << MiniGoParser.IDENTIFIER) | (1 << MiniGoParser.SUBOP) | (1 << MiniGoParser.NOTOP) | (1 << MiniGoParser.LP) | (1 << MiniGoParser.INTLIT) | (1 << MiniGoParser.FLOATLIT) | (1 << MiniGoParser.STRINGLIT))) != 0):
+                self.state = 401
+                self.expression(0)
+
+
+            self.state = 404
+            self.match(MiniGoParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2981,7 +3193,7 @@ class MiniGoParser ( Parser ):
     def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
         if self._predicates == None:
             self._predicates = dict()
-        self._predicates[17] = self.expression_sempred
+        self._predicates[18] = self.expression_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))

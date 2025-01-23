@@ -34,11 +34,12 @@ tYPE: INTERGER | FLOAT | STRING | BOOLEAN;
 // type: ;
 parserRuleSpec: decl | statement;
 // Boolean expressions
-decl: varDecl | funcDecl | typeDecl | constDecl;
+decl: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
 varDecl: VAR IDENTIFIER arrayDims? (tYPE | tYPE? (ASSIGNOP expression)) SEMI;
 funcDecl: FUNC IDENTIFIER LP (funcParams)? RP tYPE? block SEMI?;
 typeDecl: TYPE IDENTIFIER typeDefinition;
 constDecl: CONST IDENTIFIER ASSIGNOP expression SEMI;
+methodDecl: FUNC LP IDENTIFIER IDENTIFIER RP IDENTIFIER LP (funcParams) RP tYPE? block SEMI?;
 
 // Type definitions
 typeDefinition: structDefinition | interfaceDefinition;
@@ -79,6 +80,7 @@ statement: (assignStatement
          | breakStatement
          | continueStatement
          | callStatement
+         | returnStatement
          | arrayLiteral
          | varDecl
          | constDecl) {print($text)};
@@ -91,7 +93,7 @@ arrayLiteral: IDENTIFIER SHORTASSIGNOP (arrayDims) (INTERFACE | FLOAT | STRING |
 arraysBlock: LB arraysBlock (COMMA arraysBlock)* RB | LB expression (COMMA expression)* RB;
 
 // Assign Statement
-assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator expression SEMI;
+assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator expression (SEMI | NL);
 assignmentOperator: SHORTASSIGNOP | INCASSIGNOP | DECASSIGNOP | MULASSIGNOP | DIVASSIGNOP | MODASSIGNOP;
 
 // If Statement
@@ -123,6 +125,9 @@ callStatement: IDENTIFIER (DOT IDENTIFIER)? LP (expression (COMMA expression)*)?
 
 block: LB (statement)* RB;
 arrayDims: (LSB INTLIT RSB)+;
+
+// Return Statement
+returnStatement: RETURN expression? SEMI;
 
 
 // TOKEN DEFINITION
