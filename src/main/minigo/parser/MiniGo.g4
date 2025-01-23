@@ -92,8 +92,10 @@ statement: (assignStatement
 arrayLiteral: IDENTIFIER SHORTASSIGNOP (arrayDims) (INTERFACE | FLOAT | STRING | BOOLEAN) arraysBlock;
 arraysBlock: LB arraysBlock (COMMA arraysBlock)* RB | LB expression (COMMA expression)* RB;
 
+structExpression: IDENTIFIER LB (IDENTIFIER COLON expression COMMA?)* RB;
+
 // Assign Statement
-assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator expression SEMI;
+assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression) SEMI;
 assignmentOperator: SHORTASSIGNOP | INCASSIGNOP | DECASSIGNOP | MULASSIGNOP | DIVASSIGNOP | MODASSIGNOP;
 
 // If Statement
