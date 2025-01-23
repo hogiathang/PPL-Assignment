@@ -35,7 +35,7 @@ tYPE: INTERGER | FLOAT | STRING | BOOLEAN;
 parserRuleSpec: decl | statement;
 // Boolean expressions
 decl: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
-varDecl: VAR IDENTIFIER arrayDims? (tYPE | tYPE? (ASSIGNOP expression)) SEMI;
+varDecl: VAR (IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGNOP expression))) SEMI;
 funcDecl: FUNC IDENTIFIER LP (funcParams)? RP tYPE? block SEMI?;
 typeDecl: TYPE IDENTIFIER typeDefinition;
 constDecl: CONST IDENTIFIER ASSIGNOP expression SEMI;
@@ -43,8 +43,8 @@ methodDecl: FUNC LP IDENTIFIER IDENTIFIER RP IDENTIFIER LP (funcParams) RP tYPE?
 
 // Type definitions
 typeDefinition: structDefinition | interfaceDefinition;
-structDefinition: STRUCT LB structFields RB;
-structFields: (IDENTIFIER tYPE SEMI)+;
+structDefinition: STRUCT LB structFields* RB;
+structFields: IDENTIFIER tYPE SEMI;
 
 // Interface definitions
 interfaceDefinition: INTERFACE LB interfaceFields RB;
@@ -83,7 +83,7 @@ statement: (assignStatement
          | returnStatement
          | arrayLiteral
          | varDecl
-         | constDecl) {print($text)};
+         | constDecl);
 
 
 
@@ -93,13 +93,13 @@ arrayLiteral: IDENTIFIER SHORTASSIGNOP (arrayDims) (INTERFACE | FLOAT | STRING |
 arraysBlock: LB arraysBlock (COMMA arraysBlock)* RB | LB expression (COMMA expression)* RB;
 
 // Assign Statement
-assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator expression (SEMI | NL);
+assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator expression SEMI;
 assignmentOperator: SHORTASSIGNOP | INCASSIGNOP | DECASSIGNOP | MULASSIGNOP | DIVASSIGNOP | MODASSIGNOP;
 
 // If Statement
 ifStatement: IF LP expression RP block
              (ELSE IF LP expression RP block)*
-             (ELSE block)?;
+             (ELSE block)? SEMI?;
 // For Statement
 forStatement: FOR ( forLoop | forIteration) block;
 
@@ -112,8 +112,6 @@ forUpdate: IDENTIFIER assignmentOperator expression;
 
 forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER SHORTASSIGNOP RANGE IDENTIFIER;
 
-
-
 // Break Statement
 breakStatement: BREAK SEMI;
 
@@ -123,11 +121,12 @@ continueStatement: CONTINUE SEMI;
 // Call Statement
 callStatement: IDENTIFIER (DOT IDENTIFIER)? LP (expression (COMMA expression)*)? RP SEMI;
 
+// Return Statement
+returnStatement: RETURN expression? SEMI;
+
 block: LB (statement)* RB;
 arrayDims: (LSB INTLIT RSB)+;
 
-// Return Statement
-returnStatement: RETURN expression? SEMI;
 
 
 // TOKEN DEFINITION

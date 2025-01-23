@@ -32,9 +32,9 @@ class ParserSuite(unittest.TestCase):
         print("-----------------------Test 206----------------------------------")
         input = """
             func main() {
-                var a int; var b float; var c string;
-                a := 1;
-                print(a);
+                var a int var b float var c string
+                a := 1
+                print(a)
                 for i := 0; i < 10; i += 1 {
                     print(i);
                 }
