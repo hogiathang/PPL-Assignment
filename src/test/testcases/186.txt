@@ -1,9 +1,4 @@
 
-            /*
-            * A struct representing a person.
-            */
-            type Person struct {
-                name string;
-                age int;
-            }
+            /* This is a
+            multi-line comment */
         

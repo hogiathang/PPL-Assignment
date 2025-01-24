@@ -26,7 +26,7 @@ options{
 	language = Python3;
 }
 
-program: (parserRuleSpec)+ EOF;
+program: /*(parserRuleSpec)+*/ EOF;
 
 // PARSER RULES
 
@@ -193,11 +193,11 @@ COMMA: ',';
 SEMI: ';';
 
 // LITERALS DEFINITION
-INTLIT: ZERO | DEC | HEX | OCT | BIN;
+INTLIT: (ZERO | DEC | HEX | OCT | BIN);
 fragment ZERO: '0'; 
 fragment DEC: [1-9] [0-9]*;
 fragment HEX: '0' [xX] [0-9a-fA-F]*;
-fragment OCT: '0' [o0] [0-7]*;
+fragment OCT: '0' [oO] [0-7]*;
 fragment BIN: '0' [bB] [01]*;
 
 // FLOATLITERALS DEFINITION

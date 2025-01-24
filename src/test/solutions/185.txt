@@ -1,1 +1,1 @@
-func,main,(,),{,aaaaa,bbbbb,ccc,},<EOF>
+<EOF>

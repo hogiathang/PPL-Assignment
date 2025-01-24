@@ -451,6 +451,59 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.checkLexeme(input, expect, 186))
 
     def test_nested_comment_187(self):
-        input = "12"
-        expect = ""
+        input = "func /* This is a nested comment */ main() {}"
+        expect = "func,main,(,),{,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 187))
+# ''' Gift'''
+    def test_nested_multi_line_comment(self):
+        input = "/* /* faf */ /* faf */ */"
+        expect = "<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 188))
+    
+    def test_eol(self): 
+        input = """var a int \nvar b int \r\nvar c int; var d int"""
+        expect = """var,a,int,
+,var,b,int,
+,var,c,int,;,var,d,int,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,expect,189))
+
+#     def test_expression(self):
+#         input = """a := -(5 + 3 - 2) * 4 / 2 % 1 == true && false"""
+#         expect = """a,:=,-,(,5,+,3,-,2,),*,4,/,2,%,1,==,true,&&,false,<EOF>"""
+#         self.assertTrue(TestLexer.checkLexeme(input,expect,190))
+
+#     def test_funcion(self):
+#         input = """
+#         func foo(x int, y int) int {
+#             return x + -y;
+#         }"""
+#         expect = """\n,func,foo,(,x,int,,,y,int,),int,{,\n,return,x,+,-,y,;,\n,},<EOF>"""
+#         self.assertTrue(TestLexer.checkLexeme(input,expect,191))
+
+#     def test_if(self):
+#         input = """
+#         func main() {
+#             if (x > 0) {
+#                 print("Positive");
+#             } else {
+#                 print("Negative");
+#             }
+#         }"""
+#         expect = """\n,func,main,(,),{,\n,if,(,x,>,0,),{,\n,print,(,"Positive",),;,\n,},else,{,\n,print,(,"Negative",),;,\n,},\n,},<EOF>"""
+#         self.assertTrue(TestLexer.checkLexeme(input,expect,192))
+    
+#     def test_for(self):
+#         input = """
+
+
+#         func main() {
+#             for i < 10 {
+#             }
+#             for i := 0; i < 10; i++ {
+#                 print(i);
+#             }
+#             for _, range arr {
+#             };
+#         }"""
+#         expect = """\n,\n,\n,func,main,(,),{,\n,for,i,<,10,{,\n,},\n,for,i,:=,0,;,i,<,10,;,i,++,{,\n,print,(,i,),;,\n,},\n,for,_,,,range,arr,{,\n,},;,\n,},<EOF>"""
+#         self.assertTrue(TestLexer.checkLexeme(input,expect,193))
