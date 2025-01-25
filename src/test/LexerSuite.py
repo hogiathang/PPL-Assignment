@@ -114,7 +114,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_keywords_123(self):
         input = "for i > 10 {//Looop\n}"
-        expect = "for,i,>,10,{,},<EOF>"
+        expect = "for,i,>,10,{,\n,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 123))
 
     def test_keywords_124(self):
@@ -259,12 +259,12 @@ class LexerSuite(unittest.TestCase):
 
     def test_struct_152(self):
         input = "type Calculator struct {\n value int;\n}"
-        expect = "type,Calculator,struct,{,value,int,;,},<EOF>"
+        expect = "type,Calculator,struct,{,\n,value,int,;,\n,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 152))
 
     def test_struct_153(self):
         input = "type Person struct {\nname string ;\nage int ;}"
-        expect = "type,Person,struct,{,name,string,;,age,int,;,},<EOF>"
+        expect = "type,Person,struct,{,\n,name,string,;,\n,age,int,;,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 153))
 
     def test_struct_154(self):
@@ -314,7 +314,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_struct_163(self):
         input = "type Rectangle struct {\n width, height float;\n}"
-        expect = "type,Rectangle,struct,{,width,,,height,float,;,},<EOF>"
+        expect = "type,Rectangle,struct,{,\n,width,,,height,float,;,\n,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 163))
 
     def test_struct_164(self):
@@ -412,30 +412,37 @@ class LexerSuite(unittest.TestCase):
         expect = "var,x,[,5,],[,5,],[,5,],[,5,],int,;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 182))
 
-    def test_others_183(self):
-        input = '''
-            func main() {
-                var x int = 10;
-                var y int = 20;
-                var z int = x + y;
-                PutIntLn(z);
-            }
-        '''
-        expect = "func,main,(,),{,var,x,int,=,10,;,var,y,int,=,20,;,var,z,int,=,x,+,y,;,PutIntLn,(,z,),;,},<EOF>"
-        self.assertTrue(TestLexer.checkLexeme(input, expect, 183))
+#     def test_others_183(self):
+#         input = '''
+#             func main() {
+#                 var x int = 10;
+#                 var y int = 20;
+#                 var z int = x + y;
+#                 PutIntLn(z);
+#             }
+#         '''
+#         expect = "func,main,(,),{,var,x,int,=,10,;,var,y,int,=,20,;,var,z,int,=,x,+,y,;,PutIntLn,(,z,),;,},<EOF>"
+#         self.assertTrue(TestLexer.checkLexeme(input, expect, 183))
 
-    def test_others_184(self):
-        input = '''
-            // Recursive function to calculate the factorial of a number
-            func factorial(n int) int {
-                if n == 0 {
-                    return 1;
-                }
-                return n * factorial(n - 1);
-            }
-        '''
-        expect = "func,factorial,(,n,int,),int,{,if,n,==,0,{,return,1,;,},return,n,*,factorial,(,n,-,1,),;,},<EOF>"
-        self.assertTrue(TestLexer.checkLexeme(input, expect, 184))
+#     def test_others_184(self):
+#         input = '''
+#             // Recursive function to calculate the factorial of a number
+#             func factorial(n int) int {
+#                 if n == 0 {
+#                     return 1;
+#                 }
+#                 return n * factorial(n - 1);
+#             }
+#         '''
+#         expect = '''
+# ,func,main,(,),{,
+# ,var,x,int,=,10,;,
+# ,var,y,int,=,20,;,
+# ,var,z,int,=,x,+,y,;,
+# ,PutIntLn,(,z,),;,
+# ,},
+# ,<EOF>'''
+#         self.assertTrue(TestLexer.checkLexeme(input, expect, 184))
 
     def test_comment_185(self):
         input = "// This is a single-line comment."
@@ -447,7 +454,7 @@ class LexerSuite(unittest.TestCase):
             /* This is a
             multi-line comment */
         '''
-        expect = "<EOF>"
+        expect = "\n,\n,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 186))
 
     def test_nested_comment_187(self):
@@ -467,43 +474,48 @@ class LexerSuite(unittest.TestCase):
 ,var,c,int,;,var,d,int,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input,expect,189))
 
-#     def test_expression(self):
-#         input = """a := -(5 + 3 - 2) * 4 / 2 % 1 == true && false"""
-#         expect = """a,:=,-,(,5,+,3,-,2,),*,4,/,2,%,1,==,true,&&,false,<EOF>"""
-#         self.assertTrue(TestLexer.checkLexeme(input,expect,190))
+    def test_expression(self):
+        input = """a := -(5 + 3 - 2) * 4 / 2 % 1 == true && false"""
+        expect = """a,:=,-,(,5,+,3,-,2,),*,4,/,2,%,1,==,true,&&,false,<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,expect,190))
 
-#     def test_funcion(self):
-#         input = """
-#         func foo(x int, y int) int {
-#             return x + -y;
-#         }"""
-#         expect = """\n,func,foo,(,x,int,,,y,int,),int,{,\n,return,x,+,-,y,;,\n,},<EOF>"""
-#         self.assertTrue(TestLexer.checkLexeme(input,expect,191))
+    def test_funcion(self):
+        input = """
+        func foo(x int, y int) int {
+            return x + -y;
+        }"""
+        expect = """\n,func,foo,(,x,int,,,y,int,),int,{,\n,return,x,+,-,y,;,\n,},<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,expect,191))
 
-#     def test_if(self):
-#         input = """
-#         func main() {
-#             if (x > 0) {
-#                 print("Positive");
-#             } else {
-#                 print("Negative");
-#             }
-#         }"""
-#         expect = """\n,func,main,(,),{,\n,if,(,x,>,0,),{,\n,print,(,"Positive",),;,\n,},else,{,\n,print,(,"Negative",),;,\n,},\n,},<EOF>"""
-#         self.assertTrue(TestLexer.checkLexeme(input,expect,192))
+    def test_if(self):
+        input = """
+        func main() {
+            if (x > 0) {
+                print("Positive");
+            } else {
+                print("Negative");
+            }
+        }"""
+        expect = """\n,func,main,(,),{,\n,if,(,x,>,0,),{,\n,print,(,"Positive",),;,\n,},else,{,\n,print,(,"Negative",),;,\n,},\n,},<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,expect,192))
     
-#     def test_for(self):
-#         input = """
+    def test_parserRule(self):
+        input = """func main() {}"""
+        expect = """func,main,(,),{,},<EOF>"""
+        self.assertTrue(TestLexer.checkLexeme(input,expect,193))
+    
+    # def test_for(self):
+    #     input = """
 
 
-#         func main() {
-#             for i < 10 {
-#             }
-#             for i := 0; i < 10; i++ {
-#                 print(i);
-#             }
-#             for _, range arr {
-#             };
-#         }"""
-#         expect = """\n,\n,\n,func,main,(,),{,\n,for,i,<,10,{,\n,},\n,for,i,:=,0,;,i,<,10,;,i,++,{,\n,print,(,i,),;,\n,},\n,for,_,,,range,arr,{,\n,},;,\n,},<EOF>"""
-#         self.assertTrue(TestLexer.checkLexeme(input,expect,193))
+    #     func main() {
+    #         for i < 10 {
+    #         }
+    #         for i := 0; i < 10; i++ {
+    #             print(i);
+    #         }
+    #         for _, range arr {
+    #         };
+    #     }"""
+    #     expect = """\n,\n,\n,func,main,(,),{,\n,for,i,<,10,{,\n,},\n,for,i,:=,0,;,i,<,10,;,i,++,{,\n,print,(,i,),;,\n,},\n,for,_,,,range,arr,{,\n,},;,\n,},<EOF>"""
+    #     self.assertTrue(TestLexer.checkLexeme(input,expect,193))

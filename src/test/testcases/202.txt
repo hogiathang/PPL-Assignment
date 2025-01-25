@@ -1,5 +1,5 @@
 func foo () {
-            var a int;
+            var a int
             a := 1;
             print(a);
         };

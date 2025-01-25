@@ -26,31 +26,35 @@ options{
 	language = Python3;
 }
 
-program: /*(parserRuleSpec)+*/ EOF;
+program: (parserRuleSpec) + EOF;
 
 // PARSER RULES
 
 tYPE: INTERGER | FLOAT | STRING | BOOLEAN;
+
+endOfStatement: SEMI | NL | EOF;
+
 // type: ;
-parserRuleSpec: decl | statement;
+parserRuleSpec: (decl | statement);
 // Boolean expressions
 decl: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
-varDecl: VAR (IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGNOP expression))) SEMI;
-funcDecl: FUNC IDENTIFIER LP (funcParams)? RP tYPE? block SEMI?;
+varDecl: VAR (IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGNOP expression))) endOfStatement;
+funcDecl: FUNC IDENTIFIER LP (funcParams)? RP tYPE? block endOfStatement;
 typeDecl: TYPE IDENTIFIER typeDefinition;
-constDecl: CONST IDENTIFIER ASSIGNOP expression SEMI;
-methodDecl: FUNC LP IDENTIFIER IDENTIFIER RP IDENTIFIER LP (funcParams) RP tYPE? block SEMI?;
+constDecl: CONST IDENTIFIER ASSIGNOP expression endOfStatement;
+methodDecl: FUNC LP IDENTIFIER IDENTIFIER RP IDENTIFIER LP (funcParams) RP tYPE? block endOfStatement;
 
 // Type definitions
 typeDefinition: structDefinition | interfaceDefinition;
-structDefinition: STRUCT LB structFields* RB;
-structFields: IDENTIFIER tYPE SEMI;
+structDefinition: STRUCT LB structFields* RB endOfStatement;
+structFields: IDENTIFIER tYPE endOfStatement;
 
 // Interface definitions
-interfaceDefinition: INTERFACE LB interfaceFields RB;
-interfaceFields: IDENTIFIER listParams tYPE SEMI;
+interfaceDefinition: INTERFACE LB interfaceFields RB endOfStatement;
 listParams: LP (listIdentifier tYPE)* RP;
 listIdentifier: IDENTIFIER (COMMA IDENTIFIER)*;
+interfaceFields: IDENTIFIER listParams tYPE? endOfStatement;
+
 
 
 // Function Params
@@ -95,13 +99,13 @@ arraysBlock: LB arraysBlock (COMMA arraysBlock)* RB | LB expression (COMMA expre
 structExpression: IDENTIFIER LB (IDENTIFIER COLON expression COMMA?)* RB;
 
 // Assign Statement
-assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression) SEMI;
+assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression) endOfStatement;
 assignmentOperator: SHORTASSIGNOP | INCASSIGNOP | DECASSIGNOP | MULASSIGNOP | DIVASSIGNOP | MODASSIGNOP;
 
 // If Statement
 ifStatement: IF LP expression RP block
              (ELSE IF LP expression RP block)*
-             (ELSE block)? SEMI?;
+             (ELSE block)? endOfStatement;
 // For Statement
 forStatement: FOR ( forLoop | forIteration) block;
 
@@ -115,16 +119,16 @@ forUpdate: IDENTIFIER assignmentOperator expression;
 forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER SHORTASSIGNOP RANGE IDENTIFIER;
 
 // Break Statement
-breakStatement: BREAK SEMI;
+breakStatement: BREAK endOfStatement;
 
 // Continue Statement
-continueStatement: CONTINUE SEMI;
+continueStatement: CONTINUE endOfStatement;
 
 // Call Statement
-callStatement: IDENTIFIER (DOT IDENTIFIER)? LP (expression (COMMA expression)*)? RP SEMI;
+callStatement: IDENTIFIER (DOT IDENTIFIER)? LP (expression (COMMA expression)*)? RP endOfStatement;
 
 // Return Statement
-returnStatement: RETURN expression? SEMI;
+returnStatement: RETURN expression? endOfStatement;
 
 block: LB (statement)* RB;
 arrayDims: (LSB INTLIT RSB)+;
@@ -211,8 +215,8 @@ STRINGLIT: '"' (ESCAPE | ~["\\])* '"';
 fragment ESCAPE: '\\' [ntr"\\];
 
 // Skip Rules
-NL: '\n' -> skip; //skip newlines
-WS: [ \t\r]+ -> skip; // skip spaces, tabs
+NL: '\n' -> channel(HIDDEN);
+WS: [ \t\r\f]+ -> skip; // skip spaces, tabs
 COMMENT: ('//' ~[\r\n]*) -> skip;
 MULTI_COMMENT: NESTED_COMMENT -> skip;
 fragment NESTED_COMMENT: '/*' (NESTED_COMMENT | ~'*' | '*' ~'/')* '*/';
