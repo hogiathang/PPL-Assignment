@@ -1,8 +1,0 @@
-
-            type Person struct {
-                name string;
-                age int;
-            }
-
-            p := Person{name: "John", age: 20};
-        

@@ -1,1 +1,8 @@
-str5 := "banana";
+ 
+            /* Start of code */
+            func main() {
+                s = "Unclosed string
+                print(s)
+                x = 10 % 3
+            }
+        
