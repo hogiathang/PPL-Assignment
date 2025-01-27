@@ -1,1 +1,0 @@
-rect,.,width,=,15.0,<EOF>

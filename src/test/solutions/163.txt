@@ -1,3 +1,0 @@
-type,Rectangle,struct,{,
-,width,,,height,float,;,
-,},<EOF>
