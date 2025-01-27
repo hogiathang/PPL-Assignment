@@ -275,321 +275,315 @@ class LexerSuite(unittest.TestCase):
         expect = "x,=,5,ErrorToken $"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 148))
 
-    # def test_error_token_149(self):
-    #     input = '''func main() { print("Hi"); # }'''
-    #     expect = "func,main,(,),{,print,(,Hi,),;,Error Token #"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 149))
+    def test_error_token_149(self):
+        input = '''func main() { print("Hi"); # }'''
+        expect = "func,main,(,),{,print,(,Hi,),;,ErrorToken #"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 149))
 
-    # def test_function_declaration_150(self):
-    #     input = """func sum(a int, b int) int { return a + b }"""
-    #     expect = "func,sum,(,a,int,,,b,int,),int,{,return,a,+,b,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 150))
+    def test_function_declaration_150(self):
+        input = """func sum(a int, b int) int { return a + b }"""
+        expect = "func,sum,(,a,int,,,b,int,),int,{,return,a,+,b,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 150))
 
-    # def test_for_range_array_151(self):
-    #     input = """for i, v := range arr { putIntLn(v) }"""
-    #     expect = "for,i,,,v,:=,range,arr,{,putIntLn,(,v,),},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 151))
+    def test_for_range_array_151(self):
+        input = """for i, v := range arr { putIntLn(v) }"""
+        expect = "for,i,,,v,:=,range,arr,{,putIntLn,(,v,),},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 151))
 
-    # def test_nested_struct_152(self):
-    #     input = """type Address struct { city string; zip int }
-    #                type Person struct { name string; addr Address }"""
-    #     expect = "type,Address,struct,{,city,string,;,zip,int,},;,type,Person,struct,{,name,string,;,addr,Address,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 152))
+    def test_nested_struct_152(self):
+        input = """type Address struct { city string; zip int }
+                   type Person struct { name string; addr Address }"""
+        expect = "type,Address,struct,{,city,string,;,zip,int,},type,Person,struct,{,name,string,;,addr,Address,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 152))
 
-    # def test_operator_precedence_153(self):
-    #     input = """x := (a + b) * c / d % e"""
-    #     expect = "x,:=,(,a,+,b,),*,c,/,d,%,e,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 153))
+    def test_operator_precedence_153(self):
+        input = """x := (a + b) * c / d % e"""
+        expect = "x,:=,(,a,+,b,),*,c,/,d,%,e,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 153))
 
-    # def test_mixed_escape_string_154(self):
-    #     input = """s = "Line1\\nLine2\\kLine3" """
-    #     expect = "s,=,Illegal escape in string: Line1\\nLine2\\k"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 154))
+    def test_mixed_escape_string_154(self):
+        input = """s = "Line1\\nLine2\\kLine3" """
+        expect = "s,=,Illegal escape in string: Line1\\nLine2\\k"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 154))
 
-    # def test_invalid_char_in_expression_155(self):
-    #     input = """result = x @ y + z"""
-    #     expect = "result,=,x,Error Token @"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 155))
+    def test_invalid_char_in_expression_155(self):
+        input = """result = x @ y + z"""
+        expect = "result,=,x,ErrorToken @"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 155))
 
-    # def test_nested_if_else_156(self):
-    #     input = """if (a > b) { 
-    #         if (c < d) { return true } 
-    #     } else { return false }"""
-    #     expect = "if,(,a,>,b,),{,if,(,c,<,d,),{,return,true,},},else,{,return,false,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 156))
+    def test_nested_if_else_156(self):
+        input = """if (a > b) { 
+            if (c < d) { return true } 
+        } else { return false }"""
+        expect = "if,(,a,>,b,),{,if,(,c,<,d,),{,return,true,},},else,{,return,false,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 156))
 
-    # def test_multi_dim_array_157(self):
-    #     input = """var matrix [3][3]int = [[1,2,3], [4,5,6], [7,8,9]]"""
-    #     expect = "var,matrix,[,3,],[,3,],int,=,[,[,1,,,2,,,3,],,,[,4,,,5,,,6,],,,[,7,,,8,,,9,],],<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 157))
+    def test_multi_dim_array_157(self):
+        input = """var matrix [3][3]int = [[1,2,3], [4,5,6], [7,8,9]]"""
+        expect = "var,matrix,[,3,],[,3,],int,=,[,[,1,,,2,,,3,],,,[,4,,,5,,,6,],,,[,7,,,8,,,9,],],<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 157))
 
-    # def test_unclosed_string_in_func_158(self):
-    #     input = """func greet() { s = "Hello, World }"""
-    #     expect = "func,greet,(,),{,s,=,Unclosed string: Hello, World }"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 158))
+    def test_unclosed_string_in_func_158(self):
+        input = """func greet() { s = "Hello, World }"""
+        expect = "func,greet,(,),{,s,=,Unclosed string: Hello, World }"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 158))
 
-    # def test_break_continue_159(self):
-    #     input = """for i := 0; i < 10; i++ { 
-    #         if i == 5 { break } 
-    #         else { continue } 
-    #     }"""
-    #     expect = "for,i,:=,0,;,i,<,10,;,i,+,+,{,if,i,==,5,{,break,},else,{,continue,},},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 159))
+    def test_break_continue_159(self):
+        input = """for i := 0; i < 10; i++ { 
+            if i == 5 { break } 
+            else { continue } 
+        }"""
+        expect = "for,i,:=,0,;,i,<,10,;,i,+,+,{,if,i,==,5,{,break,},else,{,continue,},},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 159))
 
-    # def test_struct_assignment_160(self):
-    #     input = """p.name = "Alice"; p.age = 30"""
-    #     expect = "p,.,name,=,Alice,;,p,.,age,=,30,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 160))
+    def test_struct_assignment_160(self):
+        input = """p.name = "Alice"; p.age = 30"""
+        expect = "p,.,name,=,Alice,;,p,.,age,=,30,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 160))
 
-    # def test_invalid_hex_161(self):
-    #     input = """x = 0xGHI"""
-    #     expect = "x,=,0,xGHI,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 161))
+    def test_invalid_hex_161(self):
+        input = """x = 0xGHI"""
+        expect = "x,=,0,xGHI,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 161))
 
-    # def test_interface_method_162(self):
-    #     input = """type Shape interface { Area() float }"""
-    #     expect = "type,Shape,interface,{,Area,(,),float,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 162))
+    def test_interface_method_162(self):
+        input = """type Shape interface { Area() float }"""
+        expect = "type,Shape,interface,{,Area,(,),float,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 162))
 
-    # def test_dollar_in_variable_163(self):
-    #     input = """var $count = 10"""
-    #     expect = "var,Error Token $"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 163))
+    def test_dollar_in_variable_163(self):
+        input = """var $count = 10"""
+        expect = "var,ErrorToken $"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 163))
 
-    # def test_for_no_condition_164(self):
-    #     input = """for { /* Infinite loop */ }"""
-    #     expect = "for,{,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 164))
+    def test_for_no_condition_164(self):
+        input = """for { /* Infinite loop */ }"""
+        expect = "for,{,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 164))
 
-    # def test_invalid_float_165(self):
-    #     input = """x = 12.34.56"""
-    #     expect = "x,=,12.34,.56,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 165))
+    def test_invalid_float_165(self):
+        input = """x = 12.34.56"""
+        expect = "x,=,12.34,.,56,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 165))
 
-    # def test_array_in_struct_166(self):
-    #     input = """s.points[0] = 100"""
-    #     expect = "s,.,points,[,0,],=,100,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 166))
+    def test_array_in_struct_166(self):
+        input = """s.points[0] = 100"""
+        expect = "s,.,points,[,0,],=,100,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 166))
 
-    # def test_unclosed_comment_167(self):
-    #     input = """/* This is an unclosed comment"""
-    #     expect = "Unclosed comment"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 167))
+    def test_unclosed_comment_167(self):
+        input = """/* This is an unclosed comment"""
+        expect = "/,*,This,is,an,unclosed,comment,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 167))
 
-    # def test_complex_logic_expr_168(self):
-    #     input = """if (a > 5 && b < 10 || c == 0) { return }"""
-    #     expect = "if,(,a,>,5,&&,b,<,10,||,c,==,0,),{,return,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 168))
+    def test_complex_logic_expr_168(self):
+        input = """if (a > 5 && b < 10 || c == 0) { return }"""
+        expect = "if,(,a,>,5,&&,b,<,10,||,c,==,0,),{,return,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 168))
 
-    # def test_escape_at_end_169(self):
-    #     input = """s = "End with backslash\\" """
-    #     expect = "Illegal escape in string: End with backslash\\\""
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 169))
+    def test_escape_at_end_169(self):
+        input = """s = "End with backslash\\" """
+        expect = '''s,=,Unclosed string: End with backslash\\" '''
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 169))
 
-    # def test_const_with_expr_170(self):
-    #     input = """const MAX = 100 + 50"""
-    #     expect = "const,MAX,=,100,+,50,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 170))
+    def test_const_with_expr_170(self):
+        input = """const MAX = 100 + 50"""
+        expect = "const,MAX,=,100,+,50,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 170))
 
-    # def test_unclosed_struct_171(self):
-    #     input = """type Point struct { x int; y int"""
-    #     expect = "type,Point,struct,{,x,int,;,y,int,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 171))
+    def test_unclosed_struct_171(self):
+        input = """type Point struct { x int; y int"""
+        expect = "type,Point,struct,{,x,int,;,y,int,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 171))
 
-    # def test_compound_assignment_172(self):
-    #     input = """x += y * z / 2"""
-    #     expect = "x,+,=,y,*,z,/,2,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 172))
+    def test_compound_assignment_172(self):
+        input = """x += y * z / 2"""
+        expect = "x,+=,y,*,z,/,2,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 172))
 
-    # def test_special_char_in_func_173(self):
-    #     input = """func calc$sum() { return 0 }"""
-    #     expect = "func,calc,Error Token $"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 173))
+    def test_special_char_in_func_173(self):
+        input = """func calc$sum() { return 0 }"""
+        expect = "func,calc,ErrorToken $"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 173))
 
-    # def test_empty_string_escape_174(self):
-    #     input = """s = ""; t = "\\t" """
-    #     expect = "s,=,,;,t,=,\\t,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 174))
+    def test_empty_string_escape_174(self):
+        input = """s = ""; t = "\\t" """
+        expect = "s,=,,;,t,=,\\t,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 174))
 
-    # def test_array_missing_size_175(self):
-    #     input = """var arr []int = {1,2,3}"""
-    #     expect = "var,arr,[,],int,=,{,1,,,2,,,3,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 175))
+    def test_array_missing_size_175(self):
+        input = """var arr []int = {1,2,3}"""
+        expect = "var,arr,[,],int,=,{,1,,,2,,,3,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 175))
 
-    # def test_func_missing_param_176(self):
-    #     input = """func add(int, int) int { return 0 }"""
-    #     expect = "func,add,(,int,,,int,),int,{,return,0,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 176))
+    def test_func_missing_param_176(self):
+        input = """func add(int, int) int { return 0 }"""
+        expect = "func,add,(,int,,,int,),int,{,return,0,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 176))
 
-    # def test_string_comparison_177(self):
-    #     input = """if (s1 == s2) { print("Equal") }"""
-    #     expect = "if,(,s1,==,s2,),{,print,(,Equal,),},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 177))
+    def test_string_comparison_177(self):
+        input = """if (s1 == s2) { print("Equal") }"""
+        expect = "if,(,s1,==,s2,),{,print,(,Equal,),},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 177))
 
-    # def test_invalid_octal_178(self):
-    #     input = """x = 0o89"""
-    #     expect = "x,=,0o8,9,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 178))
+    def test_invalid_octal_178(self):
+        input = """x = 0o89"""
+        expect = "x,=,0,o89,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 178))
 
-    # def test_method_call_179(self):
-    #     input = """calc.Add(5, 3)"""
-    #     expect = "calc,.,Add,(,5,,,3,),<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 179))
+    def test_method_call_179(self):
+        input = """calc.Add(5, 3)"""
+        expect = "calc,.,Add,(,5,,,3,),<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 179))
 
-    # def test_duplicate_var_180(self):
-    #     input = """var x = 5; var x = 10"""
-    #     expect = "var,x,=,5,;,var,x,=,10,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 180))
+    def test_duplicate_var_180(self):
+        input = """var x = 5; var x = 10"""
+        expect = "var,x,=,5,;,var,x,=,10,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 180))
 
-    # def test_logical_not_181(self):
-    #     input = """if !(a && b) { return }"""
-    #     expect = "if,!,(,a,&&,b,),{,return,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 181))
+    def test_logical_not_181(self):
+        input = """if !(a && b) { return }"""
+        expect = "if,!,(,a,&&,b,),{,return,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 181))
 
-    # def test_unicode_in_string_182(self):
-    #     input = """s = "Tiếng Việt" """
-    #     expect = "s,=,Tiếng Việt,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 182))
+    def test_unicode_in_string_182(self):
+        input = """s = "DOG" """
+        expect = "s,=,DOG,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 182))
 
-    # def test_struct_missing_name_183(self):
-    #     input = """type struct { x int }"""
-    #     expect = "type,struct,{,x,int,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 183))
+    def test_struct_missing_name_183(self):
+        input = """type struct { x int }"""
+        expect = "type,struct,{,x,int,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 183))
 
-    # def test_multi_var_for_184(self):
-    #     input = """for i, j := 0, 10; i < j; i++ { }"""
-    #     expect = "for,i,,,j,:=,0,,,10,;,i,<,j,;,i,+,+,{,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 184))
+    def test_multi_var_for_184(self):
+        input = """for i, j := 0, 10; i < j; i++ { }"""
+        expect = "for,i,,,j,:=,0,,,10,;,i,<,j,;,i,+,+,{,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 184))
 
-    # def test_empty_interface_185(self):
-    #     input = """type Empty interface { }"""
-    #     expect = "type,Empty,interface,{,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 185))
+    def test_empty_interface_185(self):
+        input = """type Empty interface { }"""
+        expect = "type,Empty,interface,{,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 185))
 
-    # def test_bitwise_operator_186(self):
-    #     input = """x = y | z"""
-    #     expect = "x,=,y,Error Token |"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 186))
+    def test_bitwise_operator_186(self):
+        input = """x = y | z"""
+        expect = "x,=,y,ErrorToken |"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 186))
 
-    # def test_const_no_value_187(self):
-    #     input = """const PI"""
-    #     expect = "const,PI,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 187))
+    def test_const_no_value_187(self):
+        input = """const PI"""
+        expect = "const,PI,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 187))
 
-    # def test_nil_in_expr_188(self):
-    #     input = """if ptr == nil { return }"""
-    #     expect = "if,ptr,==,nil,{,return,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 188))
+    def test_nil_in_expr_188(self):
+        input = """if ptr == nil { return }"""
+        expect = "if,ptr,==,nil,{,return,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 188))
 
-    # def test_special_char_in_number_189(self):
-    #     input = """x = 123$45"""
-    #     expect = "x,=,123,Error Token $"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 189))
+    def test_special_char_in_number_189(self):
+        input = """x = 123$45"""
+        expect = "x,=,123,ErrorToken $"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 189))
 
-    # def test_slice_decl_190(self):
-    #     input = """s := arr[1:5]"""
-    #     expect = "s,:=,arr,[,1,:,5,],<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 190))
+    def test_slice_decl_190(self):
+        input = """s := arr[1:5]"""
+        expect = "s,:=,arr,[,1,:,5,],<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 190))
 
-    # def test_function_unary_191(self):
-    #     input = """func foo(x int, y int) int { return x + -y }"""
-    #     expect = "func,foo,(,x,int,,,y,int,),int,{,return,x,+,-,y,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 191))
+    def test_function_unary_191(self):
+        input = """func foo(x int, y int) int { return x + -y }"""
+        expect = "func,foo,(,x,int,,,y,int,),int,{,return,x,+,-,y,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 191))
 
-    # def test_negative_array_size_192(self):
-    #     input = """var arr [-5]int"""
-    #     expect = "var,arr,[,-,5,],int,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 192))
+    def test_negative_array_size_192(self):
+        input = """var arr [-5]int"""
+        expect = "var,arr,[,-,5,],int,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 192))
 
-    # def test_keyword_as_var_193(self):
-    #     input = """var func = 10"""
-    #     expect = "var,func,=,10,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 193))
+    def test_keyword_as_var_193(self):
+        input = """var func = 10"""
+        expect = "var,func,=,10,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 193))
 
-    # def test_escape_special_char_194(self):
-    #     input = """s = "Hello\\"World\""""
-    #     expect = "s,=,Hello\\\"World,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 194))
+    def test_escape_special_char_194(self):
+        input = """s = "Hello\\"World\""""
+        expect = "s,=,Hello\\\"World,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 194))
 
-    # def test_method_no_receiver_195(self):
-    #     input = """func ( ) Greet() { }"""
-    #     expect = "func,(,),Greet,(,),{,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 195))
+    def test_method_no_receiver_195(self):
+        input = """func ( ) Greet() { }"""
+        expect = "func,(,),Greet,(,),{,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 195))
 
-    # def test_multiple_unary_196(self):
-    #     input = """x = ---5"""
-    #     expect = "x,=,-,-,-,5,<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 196))
+    def test_multiple_unary_196(self):
+        input = """x = ---5"""
+        expect = "x,=,-,-,-,5,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 196))
 
-    # def test_duplicate_struct_field_197(self):
-    #     input = """type Point struct { x int; x float }"""
-    #     expect = "type,Point,struct,{,x,int,;,x,float,},<EOF>"
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 197))
+    def test_duplicate_struct_field_197(self):
+        input = """type Point struct { x int; x float }"""
+        expect = "type,Point,struct,{,x,int,;,x,float,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 197))
 
-    # def test_full_program_198(self):
-    #     input= '''
-    #     const Pi = 3.14;  
+    def test_full_program_198(self):
+        input= '''
+        const Pi = 3.14;  
 
-    #     func main() {  
-    #         var radius float = 5.0;  
-    #         area := Pi * radius * radius;  
-    #         putString("Diện tích hình tròn: ");  
-    #         putFloatln(area);  
-    #     }  
-    #     '''
-    #     expect = '''
-    #     const,Pi,=,3.14,;,func,main,(,),{,var,radius,float,=,5.0,;,area,:=,Pi,*,radius,*,radius,;,putString,(,Diện tích hình tròn: ,),;,putFloatln,(,area,),;,},<EOF>
-    #     '''
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 198))
+        func main() {  
+            var radius float = 5.0;  
+            area := Pi * radius * radius;  
+            putString("Area: ");  
+            putFloatln(area);  
+        }  
+        '''
+        expect = "const,Pi,=,3.14,;,func,main,(,),{,var,radius,float,=,5.0,;,area,:=,Pi,*,radius,*,radius,;,putString,(,Area: ,),;,putFloatln,(,area,),;,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 198))
 
-    # def test_full_program_199(self):
-    #     input= '''
-    #     type Shape interface {  
-    #         Area() float;  
-    #     }  
+    def test_full_program_199(self):
+        input= '''
+        type Shape interface {  
+            Area() float;  
+        }  
 
-    #     type Circle struct {  
-    #         radius float;  
-    #     }  
+        type Circle struct {  
+            radius float;  
+        }  
 
-    #     func (c Circle) Area() float {  
-    #         return 3.14 * c.radius * c.radius;  
-    #     }  
+        func (c Circle) Area() float {  
+            return 3.14 * c.radius * c.radius;  
+        }  
 
-    #     func main() {  
-    #         c := Circle{radius: 3.0};  
-    #         var s Shape = c;  
-    #         putString("Diện tích: ");  
-    #         putFloatln(s.Area());  
-    #     } 
-    #     '''
-    #     expect= '''
-    #     type,Shape,interface,{,Area,(,),float,;,},type,Circle,struct,{,radius,float,;,},func,(,c,Circle,),Area,(,),float,{,return,3.14,*,c,.,radius,*,c,.,radius,;,},func,main,(,),{,c,:=,Circle,{,radius,:,3.0,},;,var,s,Shape,=,c,;,putString,(,Diện tích: ,),;,putFloatln,(,s,.,Area,(,),),;,},<EOF>
-    #     '''
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 199))
+        func main() {  
+            c := Circle{radius: 3.0};  
+            var s Shape = c;  
+            putString("Square: ");  
+            putFloatln(s.Area());  
+        } 
+        '''
+        expect= "type,Shape,interface,{,Area,(,),float,;,},type,Circle,struct,{,radius,float,;,},func,(,c,Circle,),Area,(,),float,{,return,3.14,*,c,.,radius,*,c,.,radius,;,},func,main,(,),{,c,:=,Circle,{,radius,:,3.0,},;,var,s,Shape,=,c,;,putString,(,Square: ,),;,putFloatln,(,s,.,Area,(,),),;,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 199))
 
-    # def test_full_program_200(self):
-    #     input='''
-    #     func main() {  
-    #         // For loop với điều kiện  
-    #         for i := 0; i < 5; i += 1 {  
-    #             if i == 2 {  
-    #                 continue;  
-    #             }  
-    #             putIntLn(i);  
-    #         }  
+    def test_full_program_200(self):
+        input='''
+        func main() {  
+            // For loop with condition
+            for i := 0; i < 5; i += 1 {  
+                if i == 2 {  
+                    continue;  
+                }  
+                putIntLn(i);  
+            }  
 
-    #         // For loop với range  
-    #         arr := [3]int{10, 20, 30};  
-    #         sum := 0;  
-    #         for _, val := range arr {  
-    #             sum += val;  
-    #         }  
-    #         putString("Tổng: ");  
-    #         putIntLn(sum);  
-    #     } 
-    #     '''
-    #     expect= '''
-    #     func,main,(,),{,for,i,:=,0,;,i,<,5,;,i,+,=,1,{,if,i,==,2,{,continue,;,},putIntLn,(,i,),;,},arr,:=,[,3,],int,{,10,,,20,,,30,},;,sum,:=,0,;,for,_,,,val,:=,range,arr,{,sum,+,=,val,;,putString,(,Tổng: ,),;,putIntLn,(,sum,),;,},<EOF>
-    #     '''
-    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 200))
+            // For loop with range  
+            arr := [3]int{10, 20, 30};  
+            sum := 0;  
+            for _, val := range arr {  
+                sum += val;  
+            }  
+            putString("Sum: ");  
+            putIntLn(sum);  
+        } 
+        '''
+        expect= "func,main,(,),{,for,i,:=,0,;,i,<,5,;,i,+=,1,{,if,i,==,2,{,continue,;,},putIntLn,(,i,),;,},arr,:=,[,3,],int,{,10,,,20,,,30,},;,sum,:=,0,;,for,_,,,val,:=,range,arr,{,sum,+=,val,;,},putString,(,Sum: ,),;,putIntLn,(,sum,),;,},<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 200))
