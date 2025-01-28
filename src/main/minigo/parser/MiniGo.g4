@@ -1,5 +1,3 @@
-// STUDENT ID: 2213187
-
 grammar MiniGo;
 
 @lexer::header {
@@ -22,12 +20,97 @@ def emit(self):
         return super().emit();
 }
 
-options{
-	language = Python3;
+options {
+    language = Python3;
 }
 
 //------------------ Parser Rules ------------------
-program: EOF;
+program: (declaration)* mainFunction (declaration)* EOF;
+
+mainFunction: FUNC 'main' LPAREN RPAREN block;
+
+tYPE: INT | FLOAT | STRING | BOOLEAN;
+
+endOfStatement: SEMI | '\n' | EOF;
+
+parserRuleSpec: (declaration | statement);
+
+declaration: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
+varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGN expression)) endOfStatement;
+funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN tYPE? block endOfStatement;
+typeDecl: TYPE IDENTIFIER typeDefinition;
+constDecl: CONST IDENTIFIER ASSIGN expression endOfStatement;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams) RPAREN tYPE? block endOfStatement;
+
+typeDefinition: structDefinition | interfaceDefinition;
+structDefinition: STRUCT LBRACE structFields* RBRACE endOfStatement;
+structFields: IDENTIFIER tYPE endOfStatement;
+
+interfaceDefinition: INTERFACE LBRACE interfaceFields RBRACE endOfStatement;
+listParams: LPAREN (listIdentifier tYPE)* RPAREN;
+listIdentifier: IDENTIFIER (COMMA IDENTIFIER)*;
+interfaceFields: IDENTIFIER listParams tYPE? endOfStatement;
+
+funcParams: funcParam (COMMA funcParam)*;
+funcParam: IDENTIFIER tYPE;
+
+expression: expression OR term
+          | expression AND term
+          | expression (EQ | NEQ | LT | LEQ | GT | GEQ) term
+          | expression (PLUS | MINUS) term
+          | expression (MUL | DIV | MOD) term
+          | (NOT | MINUS) term
+          | term;
+term: IDENTIFIER (arrayDims | DOT IDENTIFIER)?
+    | INT_LIT
+    | FLOAT_LIT
+    | STRING_LIT
+    | LPAREN expression RPAREN;
+
+statement: (assignStatement
+         | ifStatement
+         | forStatement
+         | breakStatement
+         | continueStatement
+         | callStatement
+         | returnStatement
+         | arrayLiteral
+         | varDecl
+         | constDecl);
+
+arrayLiteral: IDENTIFIER DECLARE (arrayDims) (INTERFACE | FLOAT | STRING | BOOLEAN) arraysBlock;
+arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
+
+structExpression: IDENTIFIER LBRACE (IDENTIFIER COLON expression COMMA?)* RBRACE;
+
+assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression) endOfStatement;
+assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
+
+ifStatement: IF LPAREN expression RPAREN block
+             (ELSE IF LPAREN expression RPAREN block)*
+             (ELSE block)? endOfStatement;
+
+forStatement: FOR ( forLoop | forIteration) block;
+
+forLoop: forCondition
+         | initilization SEMI forCondition SEMI forUpdate;
+
+initilization: IDENTIFIER DECLARE expression;
+forCondition: expression;
+forUpdate: IDENTIFIER assignmentOperator expression;
+
+forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER DECLARE RANGE IDENTIFIER;
+
+breakStatement: BREAK endOfStatement;
+
+continueStatement: CONTINUE endOfStatement;
+
+callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression)*)? RPAREN endOfStatement;
+
+returnStatement: RETURN expression? endOfStatement;
+
+block: LBRACE (statement)* RBRACE;
+arrayDims: (LBRACKET INT_LIT RBRACKET)+;
 
 //------------------ Lexer Rules -------------------
 // Keywords
@@ -75,6 +158,7 @@ MUL_ASSIGN   : '*=';
 DIV_ASSIGN   : '/=';
 MOD_ASSIGN   : '%=';
 DOT     : '.';
+BLANK   : '_';
 
 // Separators
 LPAREN  : '(';

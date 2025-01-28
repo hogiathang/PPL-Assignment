@@ -1,0 +1,4 @@
+func main() {
+                    var matrix [2][3]int;
+                    matrix[1][2] = 5;
+                   }
