@@ -1,3 +1,4 @@
+// STUDENT ID: 2213187
 grammar MiniGo;
 
 @lexer::header {
@@ -5,8 +6,10 @@ from lexererr import *
 }
 
 @lexer::members {
+lastTokenType = None;
 def emit(self):
     tk = self.type
+    self.lastTokenType = tk
     if tk == self.UNCLOSE_STRING:       
         result = super().emit();
         raise UncloseString(result.text);
@@ -25,24 +28,23 @@ options {
 }
 
 //------------------ Parser Rules ------------------
-program: (declaration)* mainFunction (declaration)* EOF;
+program: declaration* mainFunction? declaration* EOF;
 
-mainFunction: FUNC 'main' LPAREN RPAREN block;
+mainFunction: FUNC 'main' LPAREN RPAREN block {print("main function")};
 
-tYPE: INT | FLOAT | STRING | BOOLEAN;
+tYPE: baseType | arrayType | IDENTIFIER;
+baseType: INT | FLOAT | STRING | BOOLEAN;
+arrayType: (baseType | IDENTIFIER) arrayDims;
 
 endOfStatement: SEMI | '\n' | EOF;
-
-parserRuleSpec: (declaration | statement);
 
 declaration: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
 varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGN expression)) endOfStatement;
 funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN tYPE? block endOfStatement;
-typeDecl: TYPE IDENTIFIER typeDefinition;
+typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
 constDecl: CONST IDENTIFIER ASSIGN expression endOfStatement;
-methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams) RPAREN tYPE? block endOfStatement;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN tYPE? block endOfStatement;
 
-typeDefinition: structDefinition | interfaceDefinition;
 structDefinition: STRUCT LBRACE structFields* RBRACE endOfStatement;
 structFields: IDENTIFIER tYPE endOfStatement;
 
@@ -197,9 +199,16 @@ BOOL_LIT: TRUE | FALSE;
 // Comments
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT|.)*? '*/' -> skip;
 LINE_COMMENT: '//' ~[\r\n]* -> skip;
+WS: [ \t\f\r]+ -> skip;
 
 // Whitespace
-WS: [ \t\f\r\n]+ -> skip;
+NEWLINE: '\n' {
+    lastToken = self.lastTokenType
+    if lastToken in [self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT, self.BOOL_LIT, self.RBRACKET, self.RPAREN]:
+        self.text = ';';
+    else:
+        self.skip();
+};
 
 // Error handling
 UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\\r\n])* {self.text = self.text[1:]};

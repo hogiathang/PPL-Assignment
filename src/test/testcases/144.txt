@@ -1,8 +1,10 @@
- 
+/* Start of code *//* Start of code *//* Start of code *//* Start of code *//* Start of code */ 
             /* Start of code */
             func main() {
                 s = "Unclosed string
                 print(s)
                 x = 10 % 3
             }
+            Hello World
+
         

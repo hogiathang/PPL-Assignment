@@ -1,1 +1,1 @@
-Error on line 2 col 20: func
+'MiniGoParser' object has no attribute 'text'

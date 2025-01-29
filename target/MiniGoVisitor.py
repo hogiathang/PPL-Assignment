@@ -24,13 +24,18 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#endOfStatement.
-    def visitEndOfStatement(self, ctx:MiniGoParser.EndOfStatementContext):
+    # Visit a parse tree produced by MiniGoParser#baseType.
+    def visitBaseType(self, ctx:MiniGoParser.BaseTypeContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#parserRuleSpec.
-    def visitParserRuleSpec(self, ctx:MiniGoParser.ParserRuleSpecContext):
+    # Visit a parse tree produced by MiniGoParser#arrayType.
+    def visitArrayType(self, ctx:MiniGoParser.ArrayTypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#endOfStatement.
+    def visitEndOfStatement(self, ctx:MiniGoParser.EndOfStatementContext):
         return self.visitChildren(ctx)
 
 
@@ -61,11 +66,6 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#methodDecl.
     def visitMethodDecl(self, ctx:MiniGoParser.MethodDeclContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#typeDefinition.
-    def visitTypeDefinition(self, ctx:MiniGoParser.TypeDefinitionContext):
         return self.visitChildren(ctx)
 
 

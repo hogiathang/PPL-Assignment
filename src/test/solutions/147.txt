@@ -1,1 +1,1 @@
-func,main,(,),{,x,=,0xF3,s,=,Unclosed string: Hello\"
+func,main,(,),{,x,=,0xF3,;,s,=,Unclosed string: Hello\"

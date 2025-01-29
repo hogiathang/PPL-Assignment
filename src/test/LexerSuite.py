@@ -172,25 +172,29 @@ class LexerSuite(unittest.TestCase):
         expect = '''Unclosed string: Hello World'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 134))
 
-    def test_unclosed_string_with_newline_135(self):
+    def test_replace_newline_by_semi(self):
         input = '''
+        AAAA
         "This is a test \\n "
+        BBB
+        2222
+        ydywgdywg
         '''
-        expect = '''This is a test \\n ,<EOF>'''
+        expect = '''AAAA,;,This is a test \\n ,;,BBB,;,2222,;,ydywgdywg,;,<EOF>'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 135))
 
     def test_error_string_literal_136(self):
         input = '''
         "this is a string"
         '''
-        expect = """this is a string,<EOF>"""
+        expect = """this is a string,;,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 136))
 
     def test_backslash(self):
         input = """
         "C:\\\\Document\\\\Download\\\\hello.py"
         """
-        expect = "C:\\\\Document\\\\Download\\\\hello.py,<EOF>"
+        expect = "C:\\\\Document\\\\Download\\\\hello.py,;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 137))
 
     def test_newline_backslash(self):
@@ -219,22 +223,26 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.checkLexeme(input, expect, 142))
 
     def test_mixed_valid_and_error_143(self):
-        input = ''' 
+        input = '''
             x := 10 + "Hello\\mWorld"  // Illegal escape
             arr[5] = {1, 2, 3}
+
+
             y@ = 5.5 
         '''
         expect = '''x,:=,10,+,Illegal escape in string: Hello\\m'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 143))
 
     def test_mixed_unclosed_string_144(self):
-        input = ''' 
+        input = '''/* Start of code *//* Start of code *//* Start of code *//* Start of code *//* Start of code */ 
             /* Start of code */
             func main() {
                 s = "Unclosed string
                 print(s)
                 x = 10 % 3
             }
+            Hello World
+
         '''
         expect = '''func,main,(,),{,s,=,Unclosed string: Unclosed string'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 144))
@@ -245,7 +253,7 @@ class LexerSuite(unittest.TestCase):
             points := [3]Point{{1,2}, {3,4}, {5,6}}
             distance := points[0].x * points[1].y 
         '''
-        expect = "type,Point,struct,{,x,,,y,int,},points,:=,[,3,],Point,{,{,1,,,2,},,,{,3,,,4,},,,{,5,,,6,},},distance,:=,points,[,0,],.,x,*,points,[,1,],.,y,<EOF>"
+        expect = "type,Point,struct,{,x,,,y,int,},points,:=,[,3,],Point,{,{,1,,,2,},,,{,3,,,4,},,,{,5,,,6,},},distance,:=,points,[,0,],.,x,*,points,[,1,],.,y,;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 145))
 
     def test_mixed_illegal_escape_146(self):
@@ -267,7 +275,7 @@ class LexerSuite(unittest.TestCase):
                 z = $value 
             }
         '''
-        expect = '''func,main,(,),{,x,=,0xF3,s,=,Unclosed string: Hello\\"'''
+        expect = '''func,main,(,),{,x,=,0xF3,;,s,=,Unclosed string: Hello\\"'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 147))
 
     def test_error_token_148(self):
@@ -533,7 +541,7 @@ class LexerSuite(unittest.TestCase):
         func main() {  
             var radius float = 5.0;  
             area := Pi * radius * radius;  
-            putString("Area: ");  
+            putString("Area: ")  
             putFloatln(area);  
         }  
         '''
