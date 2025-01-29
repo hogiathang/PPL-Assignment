@@ -1,1 +1,1 @@
-'MiniGoParser' object has no attribute 'text'
+successful

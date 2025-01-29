@@ -30,13 +30,13 @@ options {
 //------------------ Parser Rules ------------------
 program: declaration* mainFunction? declaration* EOF;
 
-mainFunction: FUNC 'main' LPAREN RPAREN block {print("main function")};
+mainFunction: FUNC 'main' LPAREN RPAREN block endOfStatement;
 
 tYPE: baseType | arrayType | IDENTIFIER;
 baseType: INT | FLOAT | STRING | BOOLEAN;
 arrayType: (baseType | IDENTIFIER) arrayDims;
 
-endOfStatement: SEMI | EOF;
+endOfStatement: SEMI | EOF | NEWLINE;
 
 declaration: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
 varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGN expression)) endOfStatement;
@@ -48,11 +48,10 @@ methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcPara
 structDefinition: STRUCT LBRACE structFields* RBRACE endOfStatement;
 structFields: IDENTIFIER tYPE endOfStatement;
 
-interfaceDefinition: INTERFACE LBRACE interfaceFields RBRACE endOfStatement;
+interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE endOfStatement;
 listParams: LPAREN (listIdentifier tYPE)* RPAREN;
 listIdentifier: IDENTIFIER (COMMA IDENTIFIER)*;
 interfaceFields: IDENTIFIER listParams tYPE? endOfStatement;
-
 funcParams: funcParam (COMMA funcParam)*;
 funcParam: IDENTIFIER tYPE;
 
@@ -92,7 +91,7 @@ ifStatement: IF LPAREN expression RPAREN block
              (ELSE IF LPAREN expression RPAREN block)*
              (ELSE block)? endOfStatement;
 
-forStatement: FOR ( forLoop | forIteration) block;
+forStatement: FOR ( forLoop | forIteration) block endOfStatement;
 
 forLoop: forCondition
          | initilization SEMI forCondition SEMI forUpdate;
