@@ -66,6 +66,7 @@ term: IDENTIFIER (arrayDims | DOT IDENTIFIER)?
     | INT_LIT
     | FLOAT_LIT
     | STRING_LIT
+    | (TRUE | FALSE)
     | LPAREN expression RPAREN;
 
 statement: (assignStatement
@@ -192,9 +193,6 @@ fragment EXPONENT: [eE] [+-]? [0-9]+;
 STRING_LIT: '"' (ESC_SEQ | ~["\\\r\n])* '"' {self.text = self.text[1:-1]};
 fragment ESC_SEQ: '\\' [nrt"\\];
 
-// Boolean
-BOOL_LIT: TRUE | FALSE;
-
 // Comments
 BLOCK_COMMENT: '/*' (BLOCK_COMMENT|.)*? '*/' -> skip;
 LINE_COMMENT: '//' ~[\r\n]* -> skip;
@@ -208,9 +206,14 @@ NEWLINE: '\n' {
                         self.INT_LIT,
                         self.FLOAT_LIT,
                         self.STRING_LIT,
-                        self.BOOL_LIT,
                         self.RPAREN,
-                        self.RBRACE
+                        self.RBRACE,
+                        self.INT,
+                        self.FLOAT,
+                        self.STRING,
+                        self.BOOLEAN,
+                        self.TRUE,
+                        self.FALSE
                     ]
 
     if lastToken in listAllowedToken:

@@ -133,22 +133,13 @@ class ParserSuite(unittest.TestCase):
         expect = "Error on line 2 col 23: var"
         self.assertTrue(TestParser.checkParser(input, expect, 216))
 
-    # def test_mixed_newline_and_semicolon_217(self):
-    #     """Mixed semicolon and newline"""
-    #     input = """func main() {
-    #         var x int; var y float
-    #         x := 10
-    #         putInt(x)
-    #     }"""
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input, expect, 217))
-
-    # def test_invalid_missing_separator(self):
-    #     """Missing separator where required"""
-    #     input = """func main() {
-    #         var x int x := 10
-    #         putInt(x)
-    #     }"""
-    #     expect = "Error"
-    #     self.assertTrue(TestParser.checkParser(input, expect, 218))
+    def test_mixed_newline_and_semicolon_217(self):
+        """Mixed semicolon and newline"""
+        input = """func main() {
+            var x int; var y float; var z boolean = true
+            x := 10
+            putInt(x)
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 217))
     

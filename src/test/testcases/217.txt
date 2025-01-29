@@ -1,5 +1,5 @@
 func main() {
-            var x int; var y float;
+            var x int; var y float; var z boolean = true
             x := 10
             putInt(x)
         }
