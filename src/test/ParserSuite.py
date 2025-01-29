@@ -69,7 +69,7 @@ class ParserSuite(unittest.TestCase):
     def test_for_loop_range_209(self):
         """For loop with range iteration"""
         input = """func main() {
-//                    arr := [3]int{1,2,3};
+                    arr := [3]int{1,2,3}
                     for idx, val := range arr {
                         putIntLn(val);
                     }
@@ -87,58 +87,58 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input,expect,210))
 
-    # def test_structural_211(self):
-    #     """Struct literal missing required field"""
-    #     input = """type Person struct {name string; age int;}
-    #                func main() { p := Person{age: 30}; }"""
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input,expect,211))
+    def test_structural_211(self):
+        """Struct literal missing required field"""
+        input = """type Person struct {name string; age int;}
+                   func main() { p := Person{age: 30}; }"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,211))
 
-    # def test_nested_comments_212(self):
-    #     """Nested multi-line comments"""
-    #     input = """/* Outer /* Inner */ comment */
-    #                func main() {}"""
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input,expect,212))
+    def test_nested_comments_212(self):
+        """Nested multi-line comments"""
+        input = """/* Outer /* Inner */ comment */
+                   func main() {}"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,212))
 
-    # def test_method_declaration_213(self):
-    #     """Method with struct receiver"""
-    #     input = """ type Counter struct { value int; }
-    #                 func (c Counter) increment() { c.value+=1; }
-    #                 func main() {}
-    #             """
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input,expect,213))
+    def test_method_declaration_213(self):
+        """Method with struct receiver"""
+        input = """ type Counter struct { value int; }
+                    func (c Counter) increment() { c.value+=1; }
+                    func main() {}
+                """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,213))
 
-    # def test_invalid_operator_precedence(self):
-    #     """Malformed expression with operator"""
-    #     input = """func main() { x := 5 + * 3; }"""
-    #     expect = "Error"
-    #     self.assertTrue(TestParser.checkParser(input,expect,214))
+    def test_invalid_operator_precedence_214(self):
+        """Malformed expression with operator"""
+        input = """func main() { x := 5 + * 3; }"""
+        expect = "Error on line 1 col 24: *"
+        self.assertTrue(TestParser.checkParser(input,expect,214))
 
-    # def test_constant_declaration(self):
-    #     """Global constant declaration"""
-    #     input = """const MAX_SIZE = 100;
-    #                func main() { putInt(MAX_SIZE); }"""
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input,expect,215))
+    def test_constant_declaration_215(self):
+        """Global constant declaration"""
+        input = """const MAX_SIZE = 100;
+                   func main() { putInt(MAX_SIZE); }"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,215))
 
-    # def test_newline_as_separator(self):
-    #     """Newline instead of semicolon"""
-    #     input = """func main() {
-    #         var x int;
-    #         x := 10;
-    #         putInt(x);
-    #     }"""
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input, expect, 216))
+    def test_invalid_seperator_216(self):
+        """Newline instead of semicolon"""
+        input = """func main() {
+            var x int var y float
+            x := 10
+            putInt(x)
+        }"""
+        expect = "Error on line 2 col 23: var"
+        self.assertTrue(TestParser.checkParser(input, expect, 216))
 
-    # def test_mixed_newline_and_semicolon(self):
+    # def test_mixed_newline_and_semicolon_217(self):
     #     """Mixed semicolon and newline"""
     #     input = """func main() {
-    #         var x int;
-    #         x := 10;
-    #         putInt(x);
+    #         var x int; var y float
+    #         x := 10
+    #         putInt(x)
     #     }"""
     #     expect = "successful"
     #     self.assertTrue(TestParser.checkParser(input, expect, 217))

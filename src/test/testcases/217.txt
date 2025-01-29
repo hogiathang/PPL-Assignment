@@ -1,5 +1,5 @@
 func main() {
-            var x int;
-            x := 10;
-            putInt(x);
+            var x int; var y float;
+            x := 10
+            putInt(x)
         }

@@ -79,8 +79,8 @@ statement: (assignStatement
          | varDecl
          | constDecl);
 
-arrayLiteral: IDENTIFIER DECLARE (arrayDims) (INTERFACE | FLOAT | STRING | BOOLEAN) arraysBlock;
-arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
+arrayLiteral: IDENTIFIER DECLARE (arrayDims) (baseType | IDENTIFIER) arraysBlock;
+arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE endOfStatement;
 
 structExpression: IDENTIFIER LBRACE (IDENTIFIER COLON expression COMMA?)* RBRACE;
 
@@ -203,7 +203,17 @@ WS: [ \t\f\r]+ -> skip;
 // Whitespace
 NEWLINE: '\n' {
     lastToken = self.lastTokenType
-    if lastToken in [self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT, self.BOOL_LIT, self.RPAREN, self.RBRACE]:
+    listAllowedToken = [   
+                        self.IDENTIFIER,
+                        self.INT_LIT,
+                        self.FLOAT_LIT,
+                        self.STRING_LIT,
+                        self.BOOL_LIT,
+                        self.RPAREN,
+                        self.RBRACE
+                    ]
+
+    if lastToken in listAllowedToken:
         self.text = ';';
     else:
         self.skip();

@@ -402,7 +402,17 @@ class MiniGoLexer(Lexer):
         if actionIndex == 1:
 
                 lastToken = self.lastTokenType
-                if lastToken in [self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT, self.BOOL_LIT, self.RPAREN, self.RBRACE]:
+                listAllowedToken = [   
+                                    self.IDENTIFIER,
+                                    self.INT_LIT,
+                                    self.FLOAT_LIT,
+                                    self.STRING_LIT,
+                                    self.BOOL_LIT,
+                                    self.RPAREN,
+                                    self.RBRACE
+                                ]
+
+                if lastToken in listAllowedToken:
                     self.text = ';';
                 else:
                     self.skip();

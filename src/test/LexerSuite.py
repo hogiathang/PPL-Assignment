@@ -599,7 +599,7 @@ class LexerSuite(unittest.TestCase):
     def test_lex_parser_201(self):
         input = '''
 func main() {
-//                    arr := [3]int{1,2,3};
+                    arr := [3]int{1,2,3}
                     for idx, val := range arr {
                         putIntLn(val);
                     }

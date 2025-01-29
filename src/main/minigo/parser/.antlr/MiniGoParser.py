@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,65,473,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,65,477,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
@@ -35,53 +35,53 @@ def serializedATN():
         8,20,10,20,12,20,280,9,20,1,21,1,21,1,21,1,21,3,21,286,8,21,1,21,
         1,21,1,21,1,21,1,21,1,21,1,21,3,21,295,8,21,1,22,1,22,1,22,1,22,
         1,22,1,22,1,22,1,22,1,22,1,22,3,22,307,8,22,1,23,1,23,1,23,1,23,
-        1,23,1,23,1,24,1,24,1,24,1,24,5,24,319,8,24,10,24,12,24,322,9,24,
-        1,24,1,24,1,24,1,24,1,24,1,24,5,24,330,8,24,10,24,12,24,333,9,24,
-        1,24,1,24,3,24,337,8,24,1,25,1,25,1,25,1,25,1,25,1,25,3,25,345,8,
-        25,5,25,347,8,25,10,25,12,25,350,9,25,1,25,1,25,1,26,1,26,1,26,1,
-        26,3,26,358,8,26,1,26,1,26,1,26,3,26,363,8,26,1,26,1,26,1,27,1,27,
-        1,28,1,28,1,28,1,28,1,28,1,28,1,28,1,28,1,28,1,28,1,28,1,28,5,28,
-        381,8,28,10,28,12,28,384,9,28,1,28,1,28,3,28,388,8,28,1,28,1,28,
-        1,29,1,29,1,29,3,29,395,8,29,1,29,1,29,1,29,1,30,1,30,1,30,1,30,
-        1,30,1,30,1,30,3,30,407,8,30,1,31,1,31,1,31,1,31,1,32,1,32,1,33,
-        1,33,1,33,1,33,1,34,1,34,1,34,1,34,1,34,1,34,1,34,1,35,1,35,1,35,
-        1,36,1,36,1,36,1,37,1,37,1,37,3,37,435,8,37,1,37,1,37,1,37,1,37,
-        5,37,441,8,37,10,37,12,37,444,9,37,3,37,446,8,37,1,37,1,37,1,37,
-        1,38,1,38,3,38,453,8,38,1,38,1,38,1,39,1,39,5,39,459,8,39,10,39,
-        12,39,462,9,39,1,39,1,39,1,40,1,40,1,40,4,40,469,8,40,11,40,12,40,
-        470,1,40,0,1,40,41,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,
-        34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,
-        78,80,0,9,1,0,10,13,2,1,52,52,62,62,2,0,25,25,37,37,1,0,29,34,1,
-        0,24,25,1,0,26,28,2,0,9,10,12,13,2,0,23,23,38,42,2,0,44,44,54,54,
-        495,0,85,1,0,0,0,2,99,1,0,0,0,4,109,1,0,0,0,6,111,1,0,0,0,8,115,
-        1,0,0,0,10,119,1,0,0,0,12,126,1,0,0,0,14,128,1,0,0,0,16,150,1,0,
-        0,0,18,163,1,0,0,0,20,169,1,0,0,0,22,175,1,0,0,0,24,192,1,0,0,0,
-        26,203,1,0,0,0,28,207,1,0,0,0,30,218,1,0,0,0,32,229,1,0,0,0,34,237,
-        1,0,0,0,36,244,1,0,0,0,38,252,1,0,0,0,40,259,1,0,0,0,42,294,1,0,
-        0,0,44,306,1,0,0,0,46,308,1,0,0,0,48,336,1,0,0,0,50,338,1,0,0,0,
-        52,353,1,0,0,0,54,366,1,0,0,0,56,368,1,0,0,0,58,391,1,0,0,0,60,406,
-        1,0,0,0,62,408,1,0,0,0,64,412,1,0,0,0,66,414,1,0,0,0,68,418,1,0,
-        0,0,70,425,1,0,0,0,72,428,1,0,0,0,74,431,1,0,0,0,76,450,1,0,0,0,
-        78,456,1,0,0,0,80,468,1,0,0,0,82,84,3,12,6,0,83,82,1,0,0,0,84,87,
-        1,0,0,0,85,83,1,0,0,0,85,86,1,0,0,0,86,89,1,0,0,0,87,85,1,0,0,0,
-        88,90,3,2,1,0,89,88,1,0,0,0,89,90,1,0,0,0,90,94,1,0,0,0,91,93,3,
-        12,6,0,92,91,1,0,0,0,93,96,1,0,0,0,94,92,1,0,0,0,94,95,1,0,0,0,95,
-        97,1,0,0,0,96,94,1,0,0,0,97,98,5,0,0,1,98,1,1,0,0,0,99,100,5,6,0,
-        0,100,101,5,1,0,0,101,102,5,45,0,0,102,103,5,46,0,0,103,104,3,78,
-        39,0,104,105,3,10,5,0,105,3,1,0,0,0,106,110,3,6,3,0,107,110,3,8,
-        4,0,108,110,5,54,0,0,109,106,1,0,0,0,109,107,1,0,0,0,109,108,1,0,
-        0,0,110,5,1,0,0,0,111,112,7,0,0,0,112,7,1,0,0,0,113,116,3,6,3,0,
-        114,116,5,54,0,0,115,113,1,0,0,0,115,114,1,0,0,0,116,117,1,0,0,0,
-        117,118,3,80,40,0,118,9,1,0,0,0,119,120,7,1,0,0,120,11,1,0,0,0,121,
-        127,3,14,7,0,122,127,3,16,8,0,123,127,3,18,9,0,124,127,3,20,10,0,
-        125,127,3,22,11,0,126,121,1,0,0,0,126,122,1,0,0,0,126,123,1,0,0,
-        0,126,124,1,0,0,0,126,125,1,0,0,0,127,13,1,0,0,0,128,129,5,18,0,
-        0,129,134,5,54,0,0,130,131,5,51,0,0,131,133,5,54,0,0,132,130,1,0,
-        0,0,133,136,1,0,0,0,134,132,1,0,0,0,134,135,1,0,0,0,135,138,1,0,
-        0,0,136,134,1,0,0,0,137,139,3,80,40,0,138,137,1,0,0,0,138,139,1,
-        0,0,0,139,146,1,0,0,0,140,147,3,4,2,0,141,143,3,4,2,0,142,141,1,
-        0,0,0,142,143,1,0,0,0,143,144,1,0,0,0,144,145,5,22,0,0,145,147,3,
-        40,20,0,146,140,1,0,0,0,146,142,1,0,0,0,147,148,1,0,0,0,148,149,
+        1,23,3,23,314,8,23,1,23,1,23,1,24,1,24,1,24,1,24,5,24,322,8,24,10,
+        24,12,24,325,9,24,1,24,1,24,1,24,1,24,1,24,1,24,5,24,333,8,24,10,
+        24,12,24,336,9,24,1,24,1,24,1,24,3,24,341,8,24,1,25,1,25,1,25,1,
+        25,1,25,1,25,3,25,349,8,25,5,25,351,8,25,10,25,12,25,354,9,25,1,
+        25,1,25,1,26,1,26,1,26,1,26,3,26,362,8,26,1,26,1,26,1,26,3,26,367,
+        8,26,1,26,1,26,1,27,1,27,1,28,1,28,1,28,1,28,1,28,1,28,1,28,1,28,
+        1,28,1,28,1,28,1,28,5,28,385,8,28,10,28,12,28,388,9,28,1,28,1,28,
+        3,28,392,8,28,1,28,1,28,1,29,1,29,1,29,3,29,399,8,29,1,29,1,29,1,
+        29,1,30,1,30,1,30,1,30,1,30,1,30,1,30,3,30,411,8,30,1,31,1,31,1,
+        31,1,31,1,32,1,32,1,33,1,33,1,33,1,33,1,34,1,34,1,34,1,34,1,34,1,
+        34,1,34,1,35,1,35,1,35,1,36,1,36,1,36,1,37,1,37,1,37,3,37,439,8,
+        37,1,37,1,37,1,37,1,37,5,37,445,8,37,10,37,12,37,448,9,37,3,37,450,
+        8,37,1,37,1,37,1,37,1,38,1,38,3,38,457,8,38,1,38,1,38,1,39,1,39,
+        5,39,463,8,39,10,39,12,39,466,9,39,1,39,1,39,1,40,1,40,1,40,4,40,
+        473,8,40,11,40,12,40,474,1,40,0,1,40,41,0,2,4,6,8,10,12,14,16,18,
+        20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,
+        64,66,68,70,72,74,76,78,80,0,8,1,0,10,13,2,1,52,52,62,62,2,0,25,
+        25,37,37,1,0,29,34,1,0,24,25,1,0,26,28,2,0,23,23,38,42,2,0,44,44,
+        54,54,500,0,85,1,0,0,0,2,99,1,0,0,0,4,109,1,0,0,0,6,111,1,0,0,0,
+        8,115,1,0,0,0,10,119,1,0,0,0,12,126,1,0,0,0,14,128,1,0,0,0,16,150,
+        1,0,0,0,18,163,1,0,0,0,20,169,1,0,0,0,22,175,1,0,0,0,24,192,1,0,
+        0,0,26,203,1,0,0,0,28,207,1,0,0,0,30,218,1,0,0,0,32,229,1,0,0,0,
+        34,237,1,0,0,0,36,244,1,0,0,0,38,252,1,0,0,0,40,259,1,0,0,0,42,294,
+        1,0,0,0,44,306,1,0,0,0,46,308,1,0,0,0,48,340,1,0,0,0,50,342,1,0,
+        0,0,52,357,1,0,0,0,54,370,1,0,0,0,56,372,1,0,0,0,58,395,1,0,0,0,
+        60,410,1,0,0,0,62,412,1,0,0,0,64,416,1,0,0,0,66,418,1,0,0,0,68,422,
+        1,0,0,0,70,429,1,0,0,0,72,432,1,0,0,0,74,435,1,0,0,0,76,454,1,0,
+        0,0,78,460,1,0,0,0,80,472,1,0,0,0,82,84,3,12,6,0,83,82,1,0,0,0,84,
+        87,1,0,0,0,85,83,1,0,0,0,85,86,1,0,0,0,86,89,1,0,0,0,87,85,1,0,0,
+        0,88,90,3,2,1,0,89,88,1,0,0,0,89,90,1,0,0,0,90,94,1,0,0,0,91,93,
+        3,12,6,0,92,91,1,0,0,0,93,96,1,0,0,0,94,92,1,0,0,0,94,95,1,0,0,0,
+        95,97,1,0,0,0,96,94,1,0,0,0,97,98,5,0,0,1,98,1,1,0,0,0,99,100,5,
+        6,0,0,100,101,5,1,0,0,101,102,5,45,0,0,102,103,5,46,0,0,103,104,
+        3,78,39,0,104,105,3,10,5,0,105,3,1,0,0,0,106,110,3,6,3,0,107,110,
+        3,8,4,0,108,110,5,54,0,0,109,106,1,0,0,0,109,107,1,0,0,0,109,108,
+        1,0,0,0,110,5,1,0,0,0,111,112,7,0,0,0,112,7,1,0,0,0,113,116,3,6,
+        3,0,114,116,5,54,0,0,115,113,1,0,0,0,115,114,1,0,0,0,116,117,1,0,
+        0,0,117,118,3,80,40,0,118,9,1,0,0,0,119,120,7,1,0,0,120,11,1,0,0,
+        0,121,127,3,14,7,0,122,127,3,16,8,0,123,127,3,18,9,0,124,127,3,20,
+        10,0,125,127,3,22,11,0,126,121,1,0,0,0,126,122,1,0,0,0,126,123,1,
+        0,0,0,126,124,1,0,0,0,126,125,1,0,0,0,127,13,1,0,0,0,128,129,5,18,
+        0,0,129,134,5,54,0,0,130,131,5,51,0,0,131,133,5,54,0,0,132,130,1,
+        0,0,0,133,136,1,0,0,0,134,132,1,0,0,0,134,135,1,0,0,0,135,138,1,
+        0,0,0,136,134,1,0,0,0,137,139,3,80,40,0,138,137,1,0,0,0,138,139,
+        1,0,0,0,139,146,1,0,0,0,140,147,3,4,2,0,141,143,3,4,2,0,142,141,
+        1,0,0,0,142,143,1,0,0,0,143,144,1,0,0,0,144,145,5,22,0,0,145,147,
+        3,40,20,0,146,140,1,0,0,0,146,142,1,0,0,0,147,148,1,0,0,0,148,149,
         3,10,5,0,149,15,1,0,0,0,150,151,5,6,0,0,151,152,5,54,0,0,152,154,
         5,45,0,0,153,155,3,36,18,0,154,153,1,0,0,0,154,155,1,0,0,0,155,156,
         1,0,0,0,156,158,5,46,0,0,157,159,3,4,2,0,158,157,1,0,0,0,158,159,
@@ -131,55 +131,57 @@ def serializedATN():
         296,1,0,0,0,306,297,1,0,0,0,306,298,1,0,0,0,306,299,1,0,0,0,306,
         300,1,0,0,0,306,301,1,0,0,0,306,302,1,0,0,0,306,303,1,0,0,0,306,
         304,1,0,0,0,306,305,1,0,0,0,307,45,1,0,0,0,308,309,5,54,0,0,309,
-        310,5,23,0,0,310,311,3,80,40,0,311,312,7,6,0,0,312,313,3,48,24,0,
-        313,47,1,0,0,0,314,315,5,47,0,0,315,320,3,48,24,0,316,317,5,51,0,
-        0,317,319,3,48,24,0,318,316,1,0,0,0,319,322,1,0,0,0,320,318,1,0,
-        0,0,320,321,1,0,0,0,321,323,1,0,0,0,322,320,1,0,0,0,323,324,5,48,
-        0,0,324,337,1,0,0,0,325,326,5,47,0,0,326,331,3,40,20,0,327,328,5,
-        51,0,0,328,330,3,40,20,0,329,327,1,0,0,0,330,333,1,0,0,0,331,329,
-        1,0,0,0,331,332,1,0,0,0,332,334,1,0,0,0,333,331,1,0,0,0,334,335,
-        5,48,0,0,335,337,1,0,0,0,336,314,1,0,0,0,336,325,1,0,0,0,337,49,
-        1,0,0,0,338,339,5,54,0,0,339,348,5,47,0,0,340,341,5,54,0,0,341,342,
-        5,53,0,0,342,344,3,40,20,0,343,345,5,51,0,0,344,343,1,0,0,0,344,
-        345,1,0,0,0,345,347,1,0,0,0,346,340,1,0,0,0,347,350,1,0,0,0,348,
-        346,1,0,0,0,348,349,1,0,0,0,349,351,1,0,0,0,350,348,1,0,0,0,351,
-        352,5,48,0,0,352,51,1,0,0,0,353,357,5,54,0,0,354,358,3,80,40,0,355,
-        356,5,43,0,0,356,358,5,54,0,0,357,354,1,0,0,0,357,355,1,0,0,0,357,
-        358,1,0,0,0,358,359,1,0,0,0,359,362,3,54,27,0,360,363,3,40,20,0,
-        361,363,3,50,25,0,362,360,1,0,0,0,362,361,1,0,0,0,363,364,1,0,0,
-        0,364,365,3,10,5,0,365,53,1,0,0,0,366,367,7,7,0,0,367,55,1,0,0,0,
-        368,369,5,2,0,0,369,370,5,45,0,0,370,371,3,40,20,0,371,372,5,46,
-        0,0,372,382,3,78,39,0,373,374,5,3,0,0,374,375,5,2,0,0,375,376,5,
-        45,0,0,376,377,3,40,20,0,377,378,5,46,0,0,378,379,3,78,39,0,379,
-        381,1,0,0,0,380,373,1,0,0,0,381,384,1,0,0,0,382,380,1,0,0,0,382,
-        383,1,0,0,0,383,387,1,0,0,0,384,382,1,0,0,0,385,386,5,3,0,0,386,
-        388,3,78,39,0,387,385,1,0,0,0,387,388,1,0,0,0,388,389,1,0,0,0,389,
-        390,3,10,5,0,390,57,1,0,0,0,391,394,5,4,0,0,392,395,3,60,30,0,393,
-        395,3,68,34,0,394,392,1,0,0,0,394,393,1,0,0,0,395,396,1,0,0,0,396,
-        397,3,78,39,0,397,398,3,10,5,0,398,59,1,0,0,0,399,407,3,64,32,0,
-        400,401,3,62,31,0,401,402,5,52,0,0,402,403,3,64,32,0,403,404,5,52,
-        0,0,404,405,3,66,33,0,405,407,1,0,0,0,406,399,1,0,0,0,406,400,1,
-        0,0,0,407,61,1,0,0,0,408,409,5,54,0,0,409,410,5,23,0,0,410,411,3,
-        40,20,0,411,63,1,0,0,0,412,413,3,40,20,0,413,65,1,0,0,0,414,415,
-        5,54,0,0,415,416,3,54,27,0,416,417,3,40,20,0,417,67,1,0,0,0,418,
-        419,7,8,0,0,419,420,5,51,0,0,420,421,5,54,0,0,421,422,5,23,0,0,422,
-        423,5,21,0,0,423,424,5,54,0,0,424,69,1,0,0,0,425,426,5,20,0,0,426,
-        427,3,10,5,0,427,71,1,0,0,0,428,429,5,19,0,0,429,430,3,10,5,0,430,
-        73,1,0,0,0,431,434,5,54,0,0,432,433,5,43,0,0,433,435,5,54,0,0,434,
-        432,1,0,0,0,434,435,1,0,0,0,435,436,1,0,0,0,436,445,5,45,0,0,437,
-        442,3,40,20,0,438,439,5,51,0,0,439,441,3,40,20,0,440,438,1,0,0,0,
-        441,444,1,0,0,0,442,440,1,0,0,0,442,443,1,0,0,0,443,446,1,0,0,0,
-        444,442,1,0,0,0,445,437,1,0,0,0,445,446,1,0,0,0,446,447,1,0,0,0,
-        447,448,5,46,0,0,448,449,3,10,5,0,449,75,1,0,0,0,450,452,5,5,0,0,
-        451,453,3,40,20,0,452,451,1,0,0,0,452,453,1,0,0,0,453,454,1,0,0,
-        0,454,455,3,10,5,0,455,77,1,0,0,0,456,460,5,47,0,0,457,459,3,44,
-        22,0,458,457,1,0,0,0,459,462,1,0,0,0,460,458,1,0,0,0,460,461,1,0,
-        0,0,461,463,1,0,0,0,462,460,1,0,0,0,463,464,5,48,0,0,464,79,1,0,
-        0,0,465,466,5,49,0,0,466,467,5,55,0,0,467,469,5,50,0,0,468,465,1,
-        0,0,0,469,470,1,0,0,0,470,468,1,0,0,0,470,471,1,0,0,0,471,81,1,0,
-        0,0,44,85,89,94,109,115,126,134,138,142,146,154,158,167,183,187,
-        197,212,224,234,240,249,259,276,278,285,294,306,320,331,336,344,
-        348,357,362,382,387,394,406,434,442,445,452,460,470
+        310,5,23,0,0,310,313,3,80,40,0,311,314,3,6,3,0,312,314,5,54,0,0,
+        313,311,1,0,0,0,313,312,1,0,0,0,314,315,1,0,0,0,315,316,3,48,24,
+        0,316,47,1,0,0,0,317,318,5,47,0,0,318,323,3,48,24,0,319,320,5,51,
+        0,0,320,322,3,48,24,0,321,319,1,0,0,0,322,325,1,0,0,0,323,321,1,
+        0,0,0,323,324,1,0,0,0,324,326,1,0,0,0,325,323,1,0,0,0,326,327,5,
+        48,0,0,327,341,1,0,0,0,328,329,5,47,0,0,329,334,3,40,20,0,330,331,
+        5,51,0,0,331,333,3,40,20,0,332,330,1,0,0,0,333,336,1,0,0,0,334,332,
+        1,0,0,0,334,335,1,0,0,0,335,337,1,0,0,0,336,334,1,0,0,0,337,338,
+        5,48,0,0,338,339,3,10,5,0,339,341,1,0,0,0,340,317,1,0,0,0,340,328,
+        1,0,0,0,341,49,1,0,0,0,342,343,5,54,0,0,343,352,5,47,0,0,344,345,
+        5,54,0,0,345,346,5,53,0,0,346,348,3,40,20,0,347,349,5,51,0,0,348,
+        347,1,0,0,0,348,349,1,0,0,0,349,351,1,0,0,0,350,344,1,0,0,0,351,
+        354,1,0,0,0,352,350,1,0,0,0,352,353,1,0,0,0,353,355,1,0,0,0,354,
+        352,1,0,0,0,355,356,5,48,0,0,356,51,1,0,0,0,357,361,5,54,0,0,358,
+        362,3,80,40,0,359,360,5,43,0,0,360,362,5,54,0,0,361,358,1,0,0,0,
+        361,359,1,0,0,0,361,362,1,0,0,0,362,363,1,0,0,0,363,366,3,54,27,
+        0,364,367,3,40,20,0,365,367,3,50,25,0,366,364,1,0,0,0,366,365,1,
+        0,0,0,367,368,1,0,0,0,368,369,3,10,5,0,369,53,1,0,0,0,370,371,7,
+        6,0,0,371,55,1,0,0,0,372,373,5,2,0,0,373,374,5,45,0,0,374,375,3,
+        40,20,0,375,376,5,46,0,0,376,386,3,78,39,0,377,378,5,3,0,0,378,379,
+        5,2,0,0,379,380,5,45,0,0,380,381,3,40,20,0,381,382,5,46,0,0,382,
+        383,3,78,39,0,383,385,1,0,0,0,384,377,1,0,0,0,385,388,1,0,0,0,386,
+        384,1,0,0,0,386,387,1,0,0,0,387,391,1,0,0,0,388,386,1,0,0,0,389,
+        390,5,3,0,0,390,392,3,78,39,0,391,389,1,0,0,0,391,392,1,0,0,0,392,
+        393,1,0,0,0,393,394,3,10,5,0,394,57,1,0,0,0,395,398,5,4,0,0,396,
+        399,3,60,30,0,397,399,3,68,34,0,398,396,1,0,0,0,398,397,1,0,0,0,
+        399,400,1,0,0,0,400,401,3,78,39,0,401,402,3,10,5,0,402,59,1,0,0,
+        0,403,411,3,64,32,0,404,405,3,62,31,0,405,406,5,52,0,0,406,407,3,
+        64,32,0,407,408,5,52,0,0,408,409,3,66,33,0,409,411,1,0,0,0,410,403,
+        1,0,0,0,410,404,1,0,0,0,411,61,1,0,0,0,412,413,5,54,0,0,413,414,
+        5,23,0,0,414,415,3,40,20,0,415,63,1,0,0,0,416,417,3,40,20,0,417,
+        65,1,0,0,0,418,419,5,54,0,0,419,420,3,54,27,0,420,421,3,40,20,0,
+        421,67,1,0,0,0,422,423,7,7,0,0,423,424,5,51,0,0,424,425,5,54,0,0,
+        425,426,5,23,0,0,426,427,5,21,0,0,427,428,5,54,0,0,428,69,1,0,0,
+        0,429,430,5,20,0,0,430,431,3,10,5,0,431,71,1,0,0,0,432,433,5,19,
+        0,0,433,434,3,10,5,0,434,73,1,0,0,0,435,438,5,54,0,0,436,437,5,43,
+        0,0,437,439,5,54,0,0,438,436,1,0,0,0,438,439,1,0,0,0,439,440,1,0,
+        0,0,440,449,5,45,0,0,441,446,3,40,20,0,442,443,5,51,0,0,443,445,
+        3,40,20,0,444,442,1,0,0,0,445,448,1,0,0,0,446,444,1,0,0,0,446,447,
+        1,0,0,0,447,450,1,0,0,0,448,446,1,0,0,0,449,441,1,0,0,0,449,450,
+        1,0,0,0,450,451,1,0,0,0,451,452,5,46,0,0,452,453,3,10,5,0,453,75,
+        1,0,0,0,454,456,5,5,0,0,455,457,3,40,20,0,456,455,1,0,0,0,456,457,
+        1,0,0,0,457,458,1,0,0,0,458,459,3,10,5,0,459,77,1,0,0,0,460,464,
+        5,47,0,0,461,463,3,44,22,0,462,461,1,0,0,0,463,466,1,0,0,0,464,462,
+        1,0,0,0,464,465,1,0,0,0,465,467,1,0,0,0,466,464,1,0,0,0,467,468,
+        5,48,0,0,468,79,1,0,0,0,469,470,5,49,0,0,470,471,5,55,0,0,471,473,
+        5,50,0,0,472,469,1,0,0,0,473,474,1,0,0,0,474,472,1,0,0,0,474,475,
+        1,0,0,0,475,81,1,0,0,0,45,85,89,94,109,115,126,134,138,142,146,154,
+        158,167,183,187,197,212,224,234,240,249,259,276,278,285,294,306,
+        313,323,334,340,348,352,361,366,386,391,398,410,438,446,449,456,
+        464,474
     ]
 
 class MiniGoParser ( Parser ):
@@ -2070,8 +2072,11 @@ class MiniGoParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def IDENTIFIER(self):
-            return self.getToken(MiniGoParser.IDENTIFIER, 0)
+        def IDENTIFIER(self, i:int=None):
+            if i is None:
+                return self.getTokens(MiniGoParser.IDENTIFIER)
+            else:
+                return self.getToken(MiniGoParser.IDENTIFIER, i)
 
         def DECLARE(self):
             return self.getToken(MiniGoParser.DECLARE, 0)
@@ -2080,20 +2085,12 @@ class MiniGoParser ( Parser ):
             return self.getTypedRuleContext(MiniGoParser.ArraysBlockContext,0)
 
 
-        def INTERFACE(self):
-            return self.getToken(MiniGoParser.INTERFACE, 0)
-
-        def FLOAT(self):
-            return self.getToken(MiniGoParser.FLOAT, 0)
-
-        def STRING(self):
-            return self.getToken(MiniGoParser.STRING, 0)
-
-        def BOOLEAN(self):
-            return self.getToken(MiniGoParser.BOOLEAN, 0)
-
         def arrayDims(self):
             return self.getTypedRuleContext(MiniGoParser.ArrayDimsContext,0)
+
+
+        def baseType(self):
+            return self.getTypedRuleContext(MiniGoParser.BaseTypeContext,0)
 
 
         def getRuleIndex(self):
@@ -2106,7 +2103,6 @@ class MiniGoParser ( Parser ):
 
         localctx = MiniGoParser.ArrayLiteralContext(self, self._ctx, self.state)
         self.enterRule(localctx, 46, self.RULE_arrayLiteral)
-        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 308
@@ -2116,14 +2112,21 @@ class MiniGoParser ( Parser ):
 
             self.state = 310
             self.arrayDims()
-            self.state = 311
-            _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 13824) != 0)):
-                self._errHandler.recoverInline(self)
+            self.state = 313
+            self._errHandler.sync(self)
+            token = self._input.LA(1)
+            if token in [10, 11, 12, 13]:
+                self.state = 311
+                self.baseType()
+                pass
+            elif token in [54]:
+                self.state = 312
+                self.match(MiniGoParser.IDENTIFIER)
+                pass
             else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-            self.state = 312
+                raise NoViableAltException(self)
+
+            self.state = 315
             self.arraysBlock()
         except RecognitionException as re:
             localctx.exception = re
@@ -2167,6 +2170,10 @@ class MiniGoParser ( Parser ):
                 return self.getTypedRuleContext(MiniGoParser.ExpressionContext,i)
 
 
+        def endOfStatement(self):
+            return self.getTypedRuleContext(MiniGoParser.EndOfStatementContext,0)
+
+
         def getRuleIndex(self):
             return MiniGoParser.RULE_arraysBlock
 
@@ -2179,51 +2186,53 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 48, self.RULE_arraysBlock)
         self._la = 0 # Token type
         try:
-            self.state = 336
+            self.state = 340
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,29,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,30,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 314
+                self.state = 317
                 self.match(MiniGoParser.LBRACE)
-                self.state = 315
+                self.state = 318
                 self.arraysBlock()
-                self.state = 320
+                self.state = 323
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==51:
-                    self.state = 316
+                    self.state = 319
                     self.match(MiniGoParser.COMMA)
-                    self.state = 317
+                    self.state = 320
                     self.arraysBlock()
-                    self.state = 322
+                    self.state = 325
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 323
+                self.state = 326
                 self.match(MiniGoParser.RBRACE)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 325
+                self.state = 328
                 self.match(MiniGoParser.LBRACE)
-                self.state = 326
+                self.state = 329
                 self.expression(0)
-                self.state = 331
+                self.state = 334
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==51:
-                    self.state = 327
+                    self.state = 330
                     self.match(MiniGoParser.COMMA)
-                    self.state = 328
+                    self.state = 331
                     self.expression(0)
-                    self.state = 333
+                    self.state = 336
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 334
+                self.state = 337
                 self.match(MiniGoParser.RBRACE)
+                self.state = 338
+                self.endOfStatement()
                 pass
 
 
@@ -2287,33 +2296,33 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 338
+            self.state = 342
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 339
+            self.state = 343
             self.match(MiniGoParser.LBRACE)
-            self.state = 348
+            self.state = 352
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==54:
-                self.state = 340
-                self.match(MiniGoParser.IDENTIFIER)
-                self.state = 341
-                self.match(MiniGoParser.COLON)
-                self.state = 342
-                self.expression(0)
                 self.state = 344
+                self.match(MiniGoParser.IDENTIFIER)
+                self.state = 345
+                self.match(MiniGoParser.COLON)
+                self.state = 346
+                self.expression(0)
+                self.state = 348
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==51:
-                    self.state = 343
+                    self.state = 347
                     self.match(MiniGoParser.COMMA)
 
 
-                self.state = 350
+                self.state = 354
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 351
+            self.state = 355
             self.match(MiniGoParser.RBRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -2372,42 +2381,42 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 52, self.RULE_assignStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 353
-            self.match(MiniGoParser.IDENTIFIER)
             self.state = 357
+            self.match(MiniGoParser.IDENTIFIER)
+            self.state = 361
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [49]:
-                self.state = 354
+                self.state = 358
                 self.arrayDims()
                 pass
             elif token in [43]:
-                self.state = 355
+                self.state = 359
                 self.match(MiniGoParser.DOT)
-                self.state = 356
+                self.state = 360
                 self.match(MiniGoParser.IDENTIFIER)
                 pass
             elif token in [23, 38, 39, 40, 41, 42]:
                 pass
             else:
                 pass
-            self.state = 359
+            self.state = 363
             self.assignmentOperator()
-            self.state = 362
+            self.state = 366
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,33,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,34,self._ctx)
             if la_ == 1:
-                self.state = 360
+                self.state = 364
                 self.expression(0)
                 pass
 
             elif la_ == 2:
-                self.state = 361
+                self.state = 365
                 self.structExpression()
                 pass
 
 
-            self.state = 364
+            self.state = 368
             self.endOfStatement()
         except RecognitionException as re:
             localctx.exception = re
@@ -2456,7 +2465,7 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 366
+            self.state = 370
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 8521223503872) != 0)):
                 self._errHandler.recoverInline(self)
@@ -2534,48 +2543,48 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 368
-            self.match(MiniGoParser.IF)
-            self.state = 369
-            self.match(MiniGoParser.LPAREN)
-            self.state = 370
-            self.expression(0)
-            self.state = 371
-            self.match(MiniGoParser.RPAREN)
             self.state = 372
+            self.match(MiniGoParser.IF)
+            self.state = 373
+            self.match(MiniGoParser.LPAREN)
+            self.state = 374
+            self.expression(0)
+            self.state = 375
+            self.match(MiniGoParser.RPAREN)
+            self.state = 376
             self.block()
-            self.state = 382
+            self.state = 386
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,35,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 373
-                    self.match(MiniGoParser.ELSE)
-                    self.state = 374
-                    self.match(MiniGoParser.IF)
-                    self.state = 375
-                    self.match(MiniGoParser.LPAREN)
-                    self.state = 376
-                    self.expression(0)
                     self.state = 377
-                    self.match(MiniGoParser.RPAREN)
+                    self.match(MiniGoParser.ELSE)
                     self.state = 378
+                    self.match(MiniGoParser.IF)
+                    self.state = 379
+                    self.match(MiniGoParser.LPAREN)
+                    self.state = 380
+                    self.expression(0)
+                    self.state = 381
+                    self.match(MiniGoParser.RPAREN)
+                    self.state = 382
                     self.block() 
-                self.state = 384
+                self.state = 388
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,35,self._ctx)
 
-            self.state = 387
+            self.state = 391
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==3:
-                self.state = 385
+                self.state = 389
                 self.match(MiniGoParser.ELSE)
-                self.state = 386
+                self.state = 390
                 self.block()
 
 
-            self.state = 389
+            self.state = 393
             self.endOfStatement()
         except RecognitionException as re:
             localctx.exception = re
@@ -2624,25 +2633,25 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 58, self.RULE_forStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 391
+            self.state = 395
             self.match(MiniGoParser.FOR)
-            self.state = 394
+            self.state = 398
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,36,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,37,self._ctx)
             if la_ == 1:
-                self.state = 392
+                self.state = 396
                 self.forLoop()
                 pass
 
             elif la_ == 2:
-                self.state = 393
+                self.state = 397
                 self.forIteration()
                 pass
 
 
-            self.state = 396
+            self.state = 400
             self.block()
-            self.state = 397
+            self.state = 401
             self.endOfStatement()
         except RecognitionException as re:
             localctx.exception = re
@@ -2689,26 +2698,26 @@ class MiniGoParser ( Parser ):
         localctx = MiniGoParser.ForLoopContext(self, self._ctx, self.state)
         self.enterRule(localctx, 60, self.RULE_forLoop)
         try:
-            self.state = 406
+            self.state = 410
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,37,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,38,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 399
+                self.state = 403
                 self.forCondition()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 400
-                self.initilization()
-                self.state = 401
-                self.match(MiniGoParser.SEMI)
-                self.state = 402
-                self.forCondition()
-                self.state = 403
-                self.match(MiniGoParser.SEMI)
                 self.state = 404
+                self.initilization()
+                self.state = 405
+                self.match(MiniGoParser.SEMI)
+                self.state = 406
+                self.forCondition()
+                self.state = 407
+                self.match(MiniGoParser.SEMI)
+                self.state = 408
                 self.forUpdate()
                 pass
 
@@ -2751,11 +2760,11 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 62, self.RULE_initilization)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 408
+            self.state = 412
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 409
+            self.state = 413
             self.match(MiniGoParser.DECLARE)
-            self.state = 410
+            self.state = 414
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -2789,7 +2798,7 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 64, self.RULE_forCondition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 412
+            self.state = 416
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -2830,11 +2839,11 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 66, self.RULE_forUpdate)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 414
+            self.state = 418
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 415
+            self.state = 419
             self.assignmentOperator()
-            self.state = 416
+            self.state = 420
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -2883,22 +2892,22 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 418
+            self.state = 422
             _la = self._input.LA(1)
             if not(_la==44 or _la==54):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 419
-            self.match(MiniGoParser.COMMA)
-            self.state = 420
-            self.match(MiniGoParser.IDENTIFIER)
-            self.state = 421
-            self.match(MiniGoParser.DECLARE)
-            self.state = 422
-            self.match(MiniGoParser.RANGE)
             self.state = 423
+            self.match(MiniGoParser.COMMA)
+            self.state = 424
+            self.match(MiniGoParser.IDENTIFIER)
+            self.state = 425
+            self.match(MiniGoParser.DECLARE)
+            self.state = 426
+            self.match(MiniGoParser.RANGE)
+            self.state = 427
             self.match(MiniGoParser.IDENTIFIER)
         except RecognitionException as re:
             localctx.exception = re
@@ -2935,9 +2944,9 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 70, self.RULE_breakStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 425
+            self.state = 429
             self.match(MiniGoParser.BREAK)
-            self.state = 426
+            self.state = 430
             self.endOfStatement()
         except RecognitionException as re:
             localctx.exception = re
@@ -2974,9 +2983,9 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 72, self.RULE_continueStatement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 428
+            self.state = 432
             self.match(MiniGoParser.CONTINUE)
-            self.state = 429
+            self.state = 433
             self.endOfStatement()
         except RecognitionException as re:
             localctx.exception = re
@@ -3039,43 +3048,43 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 431
+            self.state = 435
             self.match(MiniGoParser.IDENTIFIER)
-            self.state = 434
+            self.state = 438
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==43:
-                self.state = 432
+                self.state = 436
                 self.match(MiniGoParser.DOT)
-                self.state = 433
+                self.state = 437
                 self.match(MiniGoParser.IDENTIFIER)
 
 
-            self.state = 436
+            self.state = 440
             self.match(MiniGoParser.LPAREN)
-            self.state = 445
+            self.state = 449
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 270251299486826496) != 0):
-                self.state = 437
+                self.state = 441
                 self.expression(0)
-                self.state = 442
+                self.state = 446
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==51:
-                    self.state = 438
+                    self.state = 442
                     self.match(MiniGoParser.COMMA)
-                    self.state = 439
+                    self.state = 443
                     self.expression(0)
-                    self.state = 444
+                    self.state = 448
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
 
 
-            self.state = 447
+            self.state = 451
             self.match(MiniGoParser.RPAREN)
-            self.state = 448
+            self.state = 452
             self.endOfStatement()
         except RecognitionException as re:
             localctx.exception = re
@@ -3117,17 +3126,17 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 450
+            self.state = 454
             self.match(MiniGoParser.RETURN)
-            self.state = 452
+            self.state = 456
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 270251299486826496) != 0):
-                self.state = 451
+                self.state = 455
                 self.expression(0)
 
 
-            self.state = 454
+            self.state = 458
             self.endOfStatement()
         except RecognitionException as re:
             localctx.exception = re
@@ -3171,19 +3180,19 @@ class MiniGoParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 456
-            self.match(MiniGoParser.LBRACE)
             self.state = 460
+            self.match(MiniGoParser.LBRACE)
+            self.state = 464
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & 18014398511448116) != 0):
-                self.state = 457
+                self.state = 461
                 self.statement()
-                self.state = 462
+                self.state = 466
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 463
+            self.state = 467
             self.match(MiniGoParser.RBRACE)
         except RecognitionException as re:
             localctx.exception = re
@@ -3231,23 +3240,23 @@ class MiniGoParser ( Parser ):
         self.enterRule(localctx, 80, self.RULE_arrayDims)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 468 
+            self.state = 472 
             self._errHandler.sync(self)
             _alt = 1
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
-                    self.state = 465
+                    self.state = 469
                     self.match(MiniGoParser.LBRACKET)
-                    self.state = 466
+                    self.state = 470
                     self.match(MiniGoParser.INT_LIT)
-                    self.state = 467
+                    self.state = 471
                     self.match(MiniGoParser.RBRACKET)
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 470 
+                self.state = 474 
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,43,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,44,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
