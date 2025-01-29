@@ -253,7 +253,7 @@ class LexerSuite(unittest.TestCase):
             points := [3]Point{{1,2}, {3,4}, {5,6}}
             distance := points[0].x * points[1].y 
         '''
-        expect = "type,Point,struct,{,x,,,y,int,},points,:=,[,3,],Point,{,{,1,,,2,},,,{,3,,,4,},,,{,5,,,6,},},distance,:=,points,[,0,],.,x,*,points,[,1,],.,y,;,<EOF>"
+        expect = "type,Point,struct,{,x,,,y,int,},;,points,:=,[,3,],Point,{,{,1,,,2,},,,{,3,,,4,},,,{,5,,,6,},},;,distance,:=,points,[,0,],.,x,*,points,[,1,],.,y,;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 145))
 
     def test_mixed_illegal_escape_146(self):
@@ -301,7 +301,7 @@ class LexerSuite(unittest.TestCase):
     def test_nested_struct_152(self):
         input = """type Address struct { city string; zip int }
                    type Person struct { name string; addr Address }"""
-        expect = "type,Address,struct,{,city,string,;,zip,int,},type,Person,struct,{,name,string,;,addr,Address,},<EOF>"
+        expect = "type,Address,struct,{,city,string,;,zip,int,},;,type,Person,struct,{,name,string,;,addr,Address,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 152))
 
     def test_operator_precedence_153(self):
@@ -323,7 +323,7 @@ class LexerSuite(unittest.TestCase):
         input = """if (a > b) { 
             if (c < d) { return true } 
         } else { return false }"""
-        expect = "if,(,a,>,b,),{,if,(,c,<,d,),{,return,true,},},else,{,return,false,},<EOF>"
+        expect = "if,(,a,>,b,),{,if,(,c,<,d,),{,return,true,},;,},else,{,return,false,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 156))
 
     def test_multi_dim_array_157(self):
@@ -341,7 +341,7 @@ class LexerSuite(unittest.TestCase):
             if i == 5 { break } 
             else { continue } 
         }"""
-        expect = "for,i,:=,0,;,i,<,10,;,i,+,+,{,if,i,==,5,{,break,},else,{,continue,},},<EOF>"
+        expect = "for,i,:=,0,;,i,<,10,;,i,+,+,{,if,i,==,5,{,break,},;,else,{,continue,},;,},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 159))
 
     def test_struct_assignment_160(self):
@@ -545,7 +545,7 @@ class LexerSuite(unittest.TestCase):
             putFloatln(area);  
         }  
         '''
-        expect = "const,Pi,=,3.14,;,func,main,(,),{,var,radius,float,=,5.0,;,area,:=,Pi,*,radius,*,radius,;,putString,(,Area: ,),;,putFloatln,(,area,),;,},<EOF>"
+        expect = "const,Pi,=,3.14,;,func,main,(,),{,var,radius,float,=,5.0,;,area,:=,Pi,*,radius,*,radius,;,putString,(,Area: ,),;,putFloatln,(,area,),;,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 198))
 
     def test_full_program_199(self):
@@ -569,7 +569,7 @@ class LexerSuite(unittest.TestCase):
             putFloatln(s.Area());  
         } 
         '''
-        expect= "type,Shape,interface,{,Area,(,),float,;,},type,Circle,struct,{,radius,float,;,},func,(,c,Circle,),Area,(,),float,{,return,3.14,*,c,.,radius,*,c,.,radius,;,},func,main,(,),{,c,:=,Circle,{,radius,:,3.0,},;,var,s,Shape,=,c,;,putString,(,Square: ,),;,putFloatln,(,s,.,Area,(,),),;,},<EOF>"
+        expect= "type,Shape,interface,{,Area,(,),float,;,},;,type,Circle,struct,{,radius,float,;,},;,func,(,c,Circle,),Area,(,),float,{,return,3.14,*,c,.,radius,*,c,.,radius,;,},;,func,main,(,),{,c,:=,Circle,{,radius,:,3.0,},;,var,s,Shape,=,c,;,putString,(,Square: ,),;,putFloatln,(,s,.,Area,(,),),;,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 199))
 
     def test_full_program_200(self):
@@ -593,5 +593,14 @@ class LexerSuite(unittest.TestCase):
             putIntLn(sum);  
         } 
         '''
-        expect= "func,main,(,),{,for,i,:=,0,;,i,<,5,;,i,+=,1,{,if,i,==,2,{,continue,;,},putIntLn,(,i,),;,},arr,:=,[,3,],int,{,10,,,20,,,30,},;,sum,:=,0,;,for,_,,,val,:=,range,arr,{,sum,+=,val,;,},putString,(,Sum: ,),;,putIntLn,(,sum,),;,},<EOF>"
+        expect= "func,main,(,),{,for,i,:=,0,;,i,<,5,;,i,+=,1,{,if,i,==,2,{,continue,;,},;,putIntLn,(,i,),;,},;,arr,:=,[,3,],int,{,10,,,20,,,30,},;,sum,:=,0,;,for,_,,,val,:=,range,arr,{,sum,+=,val,;,},;,putString,(,Sum: ,),;,putIntLn,(,sum,),;,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 200))
+    
+    def test_lex_parser_201(self):
+        input = '''
+                type Counter struct { value int; }
+                func (c Counter) inc() { c.value += 1; };
+                func main() {}
+        '''
+        expect = "type,Counter,struct,{,value,int,;,},;,func,(,c,Counter,),inc,(,),{,c,.,value,+=,1,;,},;,func,main,(,),{,},;,<EOF>"
+        self.assertTrue(TestLexer.checkLexeme(input, expect, 201))

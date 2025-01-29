@@ -57,10 +57,10 @@ def serializedATN():
         buf.write("\3\'\3\'\3(\3(\5(\u01c1\n(\3(\3(\3)\3)\7)\u01c7\n)\f)")
         buf.write("\16)\u01ca\13)\3)\3)\3*\3*\3*\6*\u01d1\n*\r*\16*\u01d2")
         buf.write("\3*\2\3*+\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&")
-        buf.write("(*,.\60\62\64\668:<>@BDFHJLNPR\2\13\3\2\f\17\4\3\66\66")
-        buf.write("@@\4\2\33\33\'\'\3\2\37$\3\2\32\33\3\2\34\36\4\2\13\f")
-        buf.write("\16\17\4\2\31\31(,\4\2..88\2\u01ea\2W\3\2\2\2\4e\3\2\2")
-        buf.write("\2\6o\3\2\2\2\bq\3\2\2\2\nu\3\2\2\2\fy\3\2\2\2\16\u0080")
+        buf.write("(*,.\60\62\64\668:<>@BDFHJLNPR\2\13\3\2\f\17\3\3\66\66")
+        buf.write("\4\2\33\33\'\'\3\2\37$\3\2\32\33\3\2\34\36\4\2\13\f\16")
+        buf.write("\17\4\2\31\31(,\4\2..88\2\u01ea\2W\3\2\2\2\4e\3\2\2\2")
+        buf.write("\6o\3\2\2\2\bq\3\2\2\2\nu\3\2\2\2\fy\3\2\2\2\16\u0080")
         buf.write("\3\2\2\2\20\u0082\3\2\2\2\22\u0098\3\2\2\2\24\u00a5\3")
         buf.write("\2\2\2\26\u00ab\3\2\2\2\30\u00b1\3\2\2\2\32\u00c2\3\2")
         buf.write("\2\2\34\u00cd\3\2\2\2\36\u00d1\3\2\2\2 \u00d7\3\2\2\2")
@@ -725,9 +725,6 @@ class MiniGoParser ( Parser ):
         def SEMI(self):
             return self.getToken(MiniGoParser.SEMI, 0)
 
-        def NEWLINE(self):
-            return self.getToken(MiniGoParser.NEWLINE, 0)
-
         def EOF(self):
             return self.getToken(MiniGoParser.EOF, 0)
 
@@ -752,7 +749,7 @@ class MiniGoParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 119
             _la = self._input.LA(1)
-            if not(((((_la - -1)) & ~0x3f) == 0 and ((1 << (_la - -1)) & ((1 << (MiniGoParser.EOF - -1)) | (1 << (MiniGoParser.SEMI - -1)) | (1 << (MiniGoParser.NEWLINE - -1)))) != 0)):
+            if not(_la==MiniGoParser.EOF or _la==MiniGoParser.SEMI):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)

@@ -36,7 +36,7 @@ tYPE: baseType | arrayType | IDENTIFIER;
 baseType: INT | FLOAT | STRING | BOOLEAN;
 arrayType: (baseType | IDENTIFIER) arrayDims;
 
-endOfStatement: SEMI | '\n' | EOF;
+endOfStatement: SEMI | EOF;
 
 declaration: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
 varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGN expression)) endOfStatement;
@@ -204,7 +204,7 @@ WS: [ \t\f\r]+ -> skip;
 // Whitespace
 NEWLINE: '\n' {
     lastToken = self.lastTokenType
-    if lastToken in [self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT, self.BOOL_LIT, self.RBRACKET, self.RPAREN]:
+    if lastToken in [self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT, self.BOOL_LIT, self.RPAREN, self.RBRACE]:
         self.text = ';';
     else:
         self.skip();
