@@ -1,4 +1,1 @@
-func main() {
-            var x int x := 10
-            putInt(x)
-        }
+func main() { if x > 10 { } return;}

@@ -143,3 +143,39 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 217))
     
+    def test_if_statement_missing_parenthesis_218(self):
+        """If statement missing '('"""
+        input = """func main() { if x > 10 { } return;}"""
+        expect = "Error on line 1 col 18: x"
+        self.assertTrue(TestParser.checkParser(input, expect, 218))
+    
+    def test_missing_return_value_219(self):
+        """Missing return value in function with return type"""
+        input = """
+        func add(x int, y int) int {
+            return;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 219))
+
+    def test_a_valid_function_220(self):
+        """A valid function"""
+        input = """
+        func quicksort(arr []int) []int {
+            if len(arr) < 2 {
+                return arr;
+            }
+            pivot := arr[0];
+            var less, greater []int;
+            for _, val := range arr[1:] {
+                if val <= pivot {
+                    less = append(less, val);
+                } else {
+                    greater = append(greater, val);
+                }
+            }
+            return append(append(quicksort(less), pivot), quicksort(greater));
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 220))
+    
