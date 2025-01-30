@@ -236,3 +236,93 @@ class ParserSuite(unittest.TestCase):
         """
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 225))
+
+    def test_quicksort_226(self):
+        input = """
+        func partition(arr[] int, low int, high int) int {
+            pivot := arr[high];
+            i := low - 1;
+            for j := low; j < high; j+=1 {
+                if arr[j] < pivot {
+                    i+=1;
+                    arr[i], arr[j] := arr[j], arr[i];
+                }
+            }
+            arr[i + 1], arr[high] := arr[high], arr[i + 1];
+            return i + 1;
+        }
+
+        func quickSort(arr[] int, low int, high int) {
+            if low < high {
+                pi := partition(arr, low, high);
+                quickSort(arr, low, pi - 1);
+                quickSort(arr, pi + 1, high);
+            }
+        }
+        
+        func main() {
+            var arr[] int;
+            var n int;
+            n := len(arr);
+            quickSort(arr, 0, n - 1);
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 226))
+
+    def test_merge_sort_227(self):
+        input = """
+        func merge(arr[] int, l int, m int, r int) {
+            n1 := m - l + 1;
+            n2 := r - m;
+            var L[] int;
+            var R[] int;
+            for i := 0; i < n1; i+=1 {
+                L[i] := arr[l + i];
+            }
+            for j := 0; j < n2; j+=1 {
+                R[j] := arr[m + 1 + j];
+            }
+            i := 0;
+            j := 0;
+            k := l;
+            for i < n1 && j < n2 {
+                if L[i] <= R[j] {
+                    arr[k] := L[i];
+                    i+=1;
+                } else {
+                    arr[k] := R[j];
+                    j+=1;
+                }
+                k+=1;
+            }
+            for i < n1 {
+                arr[k] := L[i];
+                i+=1;
+                k+=1;
+            }
+            for j < n2 {
+                arr[k] := R[j];
+                j+=1;
+                k+=1;
+            }
+        }
+
+        func mergeSort(arr[] int, l int, r int) {
+            if l < r {
+                m := l + (r - l) / 2;
+                mergeSort(arr, l, m);
+                mergeSort(arr, m + 1, r);
+                merge(arr, l, m, r);
+            }
+        }
+
+        func main() {
+            var arr[] int;
+            var n int;
+            n := len(arr);
+            mergeSort(arr, 0, n - 1);
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 227))

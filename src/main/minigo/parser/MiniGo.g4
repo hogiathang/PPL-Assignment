@@ -83,7 +83,9 @@ arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression 
 
 structExpression: IDENTIFIER LBRACE (IDENTIFIER COLON expression COMMA?)* RBRACE;
 
-assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression);
+a1: IDENTIFIER (arrayDims | DOT IDENTIFIER)?;
+a2: expression | structExpression;
+assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
 ifStatement: IF expression block
