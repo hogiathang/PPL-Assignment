@@ -19,18 +19,8 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#tYPE.
-    def visitTYPE(self, ctx:MiniGoParser.TYPEContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#baseType.
     def visitBaseType(self, ctx:MiniGoParser.BaseTypeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#arrayType.
-    def visitArrayType(self, ctx:MiniGoParser.ArrayTypeContext):
         return self.visitChildren(ctx)
 
 
@@ -111,6 +101,41 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#expression.
     def visitExpression(self, ctx:MiniGoParser.ExpressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#logicOrExp.
+    def visitLogicOrExp(self, ctx:MiniGoParser.LogicOrExpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#logicAndExp.
+    def visitLogicAndExp(self, ctx:MiniGoParser.LogicAndExpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#equalityExp.
+    def visitEqualityExp(self, ctx:MiniGoParser.EqualityExpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#additiveExp.
+    def visitAdditiveExp(self, ctx:MiniGoParser.AdditiveExpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#multiplicativeExp.
+    def visitMultiplicativeExp(self, ctx:MiniGoParser.MultiplicativeExpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#unaryExp.
+    def visitUnaryExp(self, ctx:MiniGoParser.UnaryExpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#primaryExp.
+    def visitPrimaryExp(self, ctx:MiniGoParser.PrimaryExpContext):
         return self.visitChildren(ctx)
 
 

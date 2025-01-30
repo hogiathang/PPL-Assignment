@@ -32,42 +32,38 @@ program: declaration* mainFunction? declaration* EOF;
 
 mainFunction: FUNC 'main' LPAREN RPAREN block endOfStatement;
 
-tYPE: baseType | arrayType | IDENTIFIER;
-baseType: INT | FLOAT | STRING | BOOLEAN;
-arrayType: (baseType | IDENTIFIER) arrayDims;
+baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 
 endOfStatement: SEMI | EOF | NEWLINE;
 
-declaration: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
-varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGN expression)) endOfStatement;
-funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN tYPE? block endOfStatement;
+declaration: (varDecl | funcDecl | typeDecl | constDecl | methodDecl) endOfStatement;
+varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
+funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? block;
 typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
-constDecl: CONST IDENTIFIER ASSIGN expression endOfStatement;
-methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN tYPE? block endOfStatement;
+constDecl: CONST IDENTIFIER ASSIGN expression;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN baseType? block;
 
-structDefinition: STRUCT LBRACE structFields* RBRACE endOfStatement;
-structFields: IDENTIFIER tYPE endOfStatement;
+structDefinition: STRUCT LBRACE structFields* RBRACE;
+structFields: IDENTIFIER baseType endOfStatement;
 
-interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE endOfStatement;
-listParams: LPAREN (listIdentifier tYPE)* RPAREN;
+interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE;
+listParams: LPAREN (listIdentifier baseType)* RPAREN;
 listIdentifier: IDENTIFIER (COMMA IDENTIFIER)*;
-interfaceFields: IDENTIFIER listParams tYPE? endOfStatement;
-funcParams: funcParam (COMMA funcParam)*;
-funcParam: IDENTIFIER tYPE;
+interfaceFields: IDENTIFIER listParams baseType? endOfStatement;
 
-expression: expression OR term
-          | expression AND term
-          | expression (EQ | NEQ | LT | LEQ | GT | GEQ) term
-          | expression (PLUS | MINUS) term
-          | expression (MUL | DIV | MOD) term
-          | (NOT | MINUS) term
-          | term;
-term: IDENTIFIER (arrayDims | DOT IDENTIFIER)?
-    | INT_LIT
-    | FLOAT_LIT
-    | STRING_LIT
-    | (TRUE | FALSE)
-    | LPAREN expression RPAREN;
+funcParams: funcParam (COMMA funcParam)*;
+funcParam: IDENTIFIER (arrayDims? baseType);
+
+expression: logicOrExp;
+logicOrExp: logicAndExp (OR logicOrExp)*;
+logicAndExp: equalityExp (AND logicAndExp)*;
+equalityExp: additiveExp  ((EQ | NEQ | LT | LEQ | GT | GEQ) additiveExp)*;
+additiveExp: multiplicativeExp ((PLUS | MINUS) multiplicativeExp)*;
+multiplicativeExp: unaryExp ((MUL | DIV | MOD) unaryExp)*;
+unaryExp: ((MINUS | NOT) unaryExp) | primaryExp;
+primaryExp: term | (LPAREN expression RPAREN);
+term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | IDENTIFIER (arrayDims | DOT IDENTIFIER)? | callStatement;
+
 
 statement: (assignStatement
          | ifStatement
@@ -78,21 +74,23 @@ statement: (assignStatement
          | returnStatement
          | arrayLiteral
          | varDecl
-         | constDecl);
+         | typeDecl
+         | methodDecl
+         | constDecl) endOfStatement;
 
-arrayLiteral: IDENTIFIER DECLARE (arrayDims) (baseType | IDENTIFIER) arraysBlock;
-arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE endOfStatement;
+arrayLiteral: IDENTIFIER DECLARE (arrayDims) baseType arraysBlock;
+arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
 
 structExpression: IDENTIFIER LBRACE (IDENTIFIER COLON expression COMMA?)* RBRACE;
 
-assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression) endOfStatement;
+assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression);
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
-ifStatement: IF LPAREN expression RPAREN block
-             (ELSE IF LPAREN expression RPAREN block)*
-             (ELSE block)? endOfStatement;
+ifStatement: IF expression block
+             (ELSE IF expression block)*
+             (ELSE block)?;
 
-forStatement: FOR ( forLoop | forIteration) block endOfStatement;
+forStatement: FOR ( forLoop | forIteration) block;
 
 forLoop: forCondition
          | initilization SEMI forCondition SEMI forUpdate;
@@ -103,16 +101,16 @@ forUpdate: IDENTIFIER assignmentOperator expression;
 
 forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER DECLARE RANGE IDENTIFIER;
 
-breakStatement: BREAK endOfStatement;
+breakStatement: BREAK;
 
-continueStatement: CONTINUE endOfStatement;
+continueStatement: CONTINUE;
 
-callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression)*)? RPAREN endOfStatement;
+callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression)*)? RPAREN;
 
-returnStatement: RETURN expression? endOfStatement;
+returnStatement: RETURN expression?;
 
 block: LBRACE (statement)* RBRACE;
-arrayDims: (LBRACKET INT_LIT RBRACKET)+;
+arrayDims: (LBRACKET expression? RBRACKET)+;
 
 //------------------ Lexer Rules -------------------
 // Keywords

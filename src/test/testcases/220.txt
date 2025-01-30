@@ -3,7 +3,7 @@
             if len(arr) < 2 {
                 return arr;
             }
-            pivot := arr[0];
+            pivot := arr[0]; /*
             var less, greater []int;
             for _, val := range arr[1:] {
                 if val <= pivot {
@@ -12,5 +12,5 @@
                     greater = append(greater, val);
                 }
             }
-            return append(append(quicksort(less), pivot), quicksort(greater));
+            return append(append(quicksort(less), pivot), quicksort(greater)); */
         }

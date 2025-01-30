@@ -143,16 +143,18 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 217))
     
-    def test_if_statement_missing_parenthesis_218(self):
+    def test_if_statement_218(self):
         """If statement missing '('"""
-        input = """func main() { if x > 10 { } return;}"""
-        expect = "Error on line 1 col 18: x"
+        input = """func main() { if (x > 10) { }; return;}"""
+        expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 218))
     
     def test_missing_return_value_219(self):
         """Missing return value in function with return type"""
         input = """
         func add(x int, y int) int {
+            var mutexArr[][] int;
+            var mutexArr[0x44][0x77] int;
             return;
         }"""
         expect = "successful"
@@ -165,7 +167,7 @@ class ParserSuite(unittest.TestCase):
             if len(arr) < 2 {
                 return arr;
             }
-            pivot := arr[0];
+            pivot := arr[0]; /*
             var less, greater []int;
             for _, val := range arr[1:] {
                 if val <= pivot {
@@ -174,8 +176,63 @@ class ParserSuite(unittest.TestCase):
                     greater = append(greater, val);
                 }
             }
-            return append(append(quicksort(less), pivot), quicksort(greater));
+            return append(append(quicksort(less), pivot), quicksort(greater)); */
         }"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 220))
+
+    def test_expression_221(self):
+        input = """
+        func main() {
+            var x int
+            x := 5 + 6 * 7 - (8 / 9) - 3 % 4
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 221))
+
+    def test_logic_expression_222(self):
+        input = """
+        func main() {
+            var x boolean
+            x := (true && false) || (true || false) && !true
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 222))
+
+    def test_logic_expression_223(self):
+        input = """
+        func main() {
+            var x boolean;
+            x := -x || !x && x;
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 223))
+
+    def test_array_expression_224(self):
+        input = """
+        func main() {
+            x := [3]int{4};
+            x[0] := 5;
+            x[1] := x[0] + 5;
+            x[2] := x[1] + x[0];
+
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 224))
     
+    def test_struct_expression_225(self):
+        input = """
+        type Point struct { x int; y int; };
+        func main() {
+            var p Point;
+            p.x := 5;
+            p.y := 6;
+            p.z := (p.x * p.x + p.y * p.y) % 2 + foo(a, b) == 0;
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 225))

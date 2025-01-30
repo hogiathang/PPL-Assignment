@@ -1,4 +1,6 @@
 
         func add(x int, y int) int {
+            var mutexArr[][] int;
+            var mutexArr[0x44][0x77] int;
             return;
         }
