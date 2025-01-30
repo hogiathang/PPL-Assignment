@@ -404,6 +404,7 @@ class MiniGoLexer(Lexer):
                                     self.STRING_LIT,
                                     self.RPAREN,
                                     self.RBRACE,
+                                    self.RBRACKET,
                                     self.INT,
                                     self.FLOAT,
                                     self.STRING,
