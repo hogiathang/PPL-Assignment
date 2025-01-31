@@ -1,0 +1,46 @@
+
+        type Drawable interface {
+            Draw() string;
+        }
+
+        type Point struct {
+            x int;
+            y int;
+        }
+
+        type Circle struct {
+            center Point;
+            radius float;
+        }
+
+        func (c Circle) Draw() string {
+            return "Drawing circle at (" + toString(c.center.x) + "," + toString(c.center.y) + ")";
+        }
+    
+        type ShapeManager struct {
+            id int;                  
+            name string;             
+            coordinates [5]Point;    
+            active bool;             
+            drawer Drawable;         
+            metadata struct {        
+                createdBy string;
+                version float;
+            };
+        }
+        
+        func main() {
+            /*manager := ShapeManager{
+                id: 1,
+                name: "Manager",
+                coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
+                active: true,
+                drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
+                metadata: struct{createdBy string; version float}{"Admin", 1.1},
+            };*/
+            
+            putStringLn(manager.name);                  
+            putStringLn(manager.drawer.Draw());       
+            putBoolLn(manager.coordinates[2].x == 2);
+        }
+        

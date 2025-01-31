@@ -598,12 +598,9 @@ class LexerSuite(unittest.TestCase):
     
     def test_lex_parser_201(self):
         input = '''
-func main() {
-                    arr := [3]int{1,2,3}
-                    for idx, val := range arr {
-                        putIntLn(val);
-                    }
-                   }
+        func (c Circle) Draw() string {
+            return "Drawing circle at (" + toString(c.center.x) + "," + toString(c.center.y) + ")";
+        }
         '''
         expect = "type,Counter,struct,{,value,int,;,},;,func,(,c,Counter,),inc,(,),{,c,.,value,+=,1,;,},;,func,main,(,),{,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 201))

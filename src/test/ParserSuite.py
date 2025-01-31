@@ -240,31 +240,31 @@ class ParserSuite(unittest.TestCase):
     def test_quicksort_226(self):
         input = """
         func partition(arr[] int, low int, high int) int {
-            pivot := arr[high];
-            i := low - 1;
+            pivot := arr[high]
+            i := low - 1
             for j := low; j < high; j+=1 {
                 if arr[j] < pivot {
-                    i+=1;
-                    arr[i], arr[j] := arr[j], arr[i];
+                    i+=1
+                    arr[i], arr[j] := arr[j], arr[i]
                 }
             }
-            arr[i + 1], arr[high] := arr[high], arr[i + 1];
-            return i + 1;
+            arr[i + 1], arr[high] := arr[high], arr[i + 1]
+            return i + 1
         }
 
         func quickSort(arr[] int, low int, high int) {
             if low < high {
-                pi := partition(arr, low, high);
-                quickSort(arr, low, pi - 1);
-                quickSort(arr, pi + 1, high);
+                pi := partition(arr, low, high)
+                quickSort(arr, low, pi - 1)
+                quickSort(arr, pi + 1, high)
             }
         }
         
         func main() {
-            var arr[] int;
-            var n int;
-            n := len(arr);
-            quickSort(arr, 0, n - 1);
+            var arr[] int
+            var n int
+            n := len(arr)
+            quickSort(arr, 0, n - 1)
         }
         """
         expect = "successful"
@@ -326,3 +326,145 @@ class ParserSuite(unittest.TestCase):
         """
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 227))
+
+    def test_function_return_array_228(self):
+        """Function returning an array"""
+        input = """
+        func getNumbers() [5]int {
+            return [5]int{1,2,3,4,5};
+        }
+        func main() {}"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 228))
+
+    # def test_variable_shadowing_230(self):
+    #     """Variable shadowing in nested scope"""
+    #     input = """
+    #     func main() {
+    #         var x int = 10;
+    #         {
+    #             var x float = 5.5;
+    #             putFloat(x);
+    #         }
+    #         putInt(x);
+    #     }"""
+    #     expect = "successful"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 230))
+    
+    def test_struct_with_array_231(self):
+        """Struct containing an array field"""
+        input = """
+        type Matrix struct {
+            data [3][3]float;
+        }
+        func main() {
+            var m Matrix;
+            m.data[0][0] := 1.0;
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 231))
+
+    def test_nested_struct_232(self):
+        input = """
+        type Point struct {
+            x int;
+            y int;
+        }
+        type Circle struct {
+            center Point;
+            radius float;
+        }
+        func main() {
+            var c Circle;
+            c.center.x := 1;
+            c.center.y := 2;
+            c.radius := 3.0;
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 232))
+    
+    def test_keyword_as_identifier_233(self):
+        """Using 'if' as a variable name"""
+        input = """func main() { var if int = 5; }"""
+        expect = "Error on line 1 col 19: if"
+        self.assertTrue(TestParser.checkParser(input, expect, 233))
+
+    def test_unterminated_comment_234(self):
+        """Unterminated multi-line comment"""
+        input = """/* This comment is not closed
+        func main() {}"""
+        expect = "Error on line 1 col 1: /"
+        self.assertTrue(TestParser.checkParser(input, expect, 234))
+
+    def test_method_multiple_params_235(self):
+        """Method with multiple parameters"""
+        input = """
+        type Counter struct { value int; }
+        func (c Counter) add(x int, y int) int {
+            return x + y + c.value;
+        }
+        func main() {}"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 235))
+
+    def test_interface_multiple_methods_236(self):
+        """Interface with multiple methods"""
+        input = """
+        type Writer interface {
+            write(data string) int;
+            close();
+        }
+        func main() {}"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 236)) 
+
+    def test_interface_struct(self):
+        input = """
+        type Drawable interface {
+            Draw() string;
+        }
+
+        type Point struct {
+            x int;
+            y int;
+        }
+
+        type Circle struct {
+            center Point;
+            radius float;
+        }
+
+        func (c Circle) Draw() string {
+            return "Drawing circle at (" + toString(c.center.x) + "," + toString(c.center.y) + ")";
+        }
+    
+        type ShapeManager struct {
+            id int;                  
+            name string;             
+            coordinates [5]Point;    
+            active bool;             
+            drawer Drawable;         
+            metadata struct {        
+                createdBy string;
+                version float;
+            };
+        }
+        
+        func main() {
+            /*manager := ShapeManager{
+                id: 1,
+                name: "Manager",
+                coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
+                active: true,
+                drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
+                metadata: struct{createdBy string; version float}{"Admin", 1.1},
+            };*/
+            
+            putStringLn(manager.name);                  
+            putStringLn(manager.drawer.Draw());       
+            putBoolLn(manager.coordinates[2].x == 2);
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 237))

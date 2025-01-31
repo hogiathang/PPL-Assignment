@@ -44,7 +44,7 @@ constDecl: CONST IDENTIFIER ASSIGN expression;
 methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN baseType? block;
 
 structDefinition: STRUCT LBRACE structFields* RBRACE;
-structFields: IDENTIFIER baseType endOfStatement;
+structFields: IDENTIFIER (arrayDims? baseType | structDefinition) endOfStatement;
 
 interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE;
 listParams: LPAREN (listIdentifier baseType)* RPAREN;
@@ -57,12 +57,14 @@ funcParam: IDENTIFIER (arrayDims? baseType);
 expression: logicOrExp;
 logicOrExp: logicAndExp (OR logicOrExp)*;
 logicAndExp: equalityExp (AND logicAndExp)*;
-equalityExp: additiveExp  ((EQ | NEQ | LT | LEQ | GT | GEQ) additiveExp)*;
+equalityExp: additiveExp ((EQ | NEQ | LT | LEQ | GT | GEQ) additiveExp)*;
 additiveExp: multiplicativeExp ((PLUS | MINUS) multiplicativeExp)*;
 multiplicativeExp: unaryExp ((MUL | DIV | MOD) unaryExp)*;
 unaryExp: ((MINUS | NOT) unaryExp) | primaryExp;
-primaryExp: term | (LPAREN expression RPAREN);
-term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | IDENTIFIER (arrayDims | DOT IDENTIFIER)? | callStatement;
+primaryExp: postfixExp | LPAREN expression RPAREN;
+postfixExp: (term | LPAREN expression RPAREN) (postfixOp)*;
+postfixOp: LBRACKET expression RBRACKET | DOT term;
+term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | callStatement | IDENTIFIER;
 
 
 statement: (assignStatement
@@ -78,12 +80,12 @@ statement: (assignStatement
          | methodDecl
          | constDecl) endOfStatement;
 
-arrayLiteral: IDENTIFIER DECLARE (arrayDims) baseType arraysBlock;
+arrayLiteral: IDENTIFIER DECLARE arrayDims baseType arraysBlock;
 arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
 
 structExpression: IDENTIFIER LBRACE (IDENTIFIER COLON expression COMMA?)* RBRACE;
 
-a1: IDENTIFIER (arrayDims | DOT IDENTIFIER)?;
+a1: IDENTIFIER (DOT IDENTIFIER)* arrayDims?;
 a2: expression | structExpression;
 assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
@@ -109,7 +111,7 @@ continueStatement: CONTINUE;
 
 callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression)*)? RPAREN;
 
-returnStatement: RETURN expression?;
+returnStatement: RETURN (expression | (arrayDims baseType arraysBlock))?;
 
 block: LBRACE (statement)* RBRACE;
 arrayDims: (LBRACKET expression? RBRACKET)+;

@@ -139,6 +139,16 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#postfixExp.
+    def visitPostfixExp(self, ctx:MiniGoParser.PostfixExpContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#postfixOp.
+    def visitPostfixOp(self, ctx:MiniGoParser.PostfixOpContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#term.
     def visitTerm(self, ctx:MiniGoParser.TermContext):
         return self.visitChildren(ctx)

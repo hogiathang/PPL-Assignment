@@ -1,0 +1,9 @@
+
+        func main() {
+            var x int = 10;
+            {
+                var x float = 5.5;
+                putFloat(x);
+            }
+            putInt(x);
+        }

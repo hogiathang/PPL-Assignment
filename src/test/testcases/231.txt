@@ -1,0 +1,8 @@
+
+        type Matrix struct {
+            data [3][3]float;
+        }
+        func main() {
+            var m Matrix;
+            m.data[0][0] := 1.0;
+        }
