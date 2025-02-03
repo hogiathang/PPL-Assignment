@@ -346,7 +346,10 @@ class ParserSuite(unittest.TestCase):
                 var x float = 5.5;
                 putFloat(x);
             }
-            putInt(x);
+            {
+                var x string = "Hello";
+                putString(x);
+            }
         }"""
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 230))
@@ -492,11 +495,19 @@ class ParserSuite(unittest.TestCase):
                 } 
                 else if (a == 10) {
                     print("Same")
-                }
-                else {
+                }; else {
                     print("Less")
                 }
             }
         """
-        expect = "successful"
+        expect = "Error on line 8 col 20: else"
         self.assertTrue(TestParser.checkParser(input, expect, 239))
+
+    # def test_sample_240(self):
+    #     input = """
+    #         func main() {
+    #             var s = "Hello \\n world"
+    #         }
+    #     """
+    #     expect = "successful"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 240))

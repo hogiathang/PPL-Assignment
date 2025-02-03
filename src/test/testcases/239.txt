@@ -5,8 +5,7 @@
                 } 
                 else if (a == 10) {
                     print("Same")
-                };
-                else {
+                }; else {
                     print("Less")
                 }
             }

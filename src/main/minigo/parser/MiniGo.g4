@@ -36,10 +36,10 @@ baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 endOfStatement: SEMI | EOF | NEWLINE;
 
 declaration: varDecl endOfStatement 
-           | funcDecl
+           | funcDecl endOfStatement?
            | typeDecl endOfStatement
            | constDecl endOfStatement 
-           | methodDecl;
+           | methodDecl endOfStatement?;
 
 
 varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
@@ -73,8 +73,8 @@ term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | callStatement | ID
 
 
 statement: assignStatement endOfStatement
-         | ifStatement
-         | forStatement
+         | ifStatement endOfStatement
+         | forStatement endOfStatement
          | breakStatement endOfStatement
          | continueStatement endOfStatement
          | callStatement endOfStatement
@@ -82,7 +82,8 @@ statement: assignStatement endOfStatement
          | varDecl endOfStatement
          | typeDecl endOfStatement
          | methodDecl endOfStatement
-         | constDecl endOfStatement;
+         | constDecl endOfStatement
+         | block endOfStatement?;
 
 
 arrayLit: arrayDims baseType arraysBlock;
@@ -100,8 +101,8 @@ a1: IDENTIFIER (DOT IDENTIFIER)* arrayDims?;
 a2: expression | arrayLit | structExpression;
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
-ifStatement: IF expression block
-             (ELSE IF expression block)*
+ifStatement: IF expression block NEWLINE?
+             (ELSE IF expression block NEWLINE?)*
              (ELSE block)?;
 
 forStatement: FOR ( forLoop | forIteration) block;
@@ -123,7 +124,7 @@ callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression
 
 returnStatement: RETURN (expression | (arrayDims baseType arraysBlock))?;
 
-block: LBRACE (statement | block)* RBRACE endOfStatement?;
+block: LBRACE statement* RBRACE;
 arrayDims: (LBRACKET expression? RBRACKET)+;
 
 //------------------ Lexer Rules -------------------
@@ -226,7 +227,11 @@ NEWLINE: '\n' {
                         self.STRING,
                         self.BOOLEAN,
                         self.TRUE,
-                        self.FALSE
+                        self.FALSE,
+                        self.NIL,
+                        self.BREAK,
+                        self.CONTINUE,
+                        self.RETURN
                     ]
 
     if lastToken in listAllowedToken:

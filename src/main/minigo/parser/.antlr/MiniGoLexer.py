@@ -370,7 +370,11 @@ class MiniGoLexer(Lexer):
                                     self.STRING,
                                     self.BOOLEAN,
                                     self.TRUE,
-                                    self.FALSE
+                                    self.FALSE,
+                                    self.NIL,
+                                    self.BREAK,
+                                    self.CONTINUE,
+                                    self.RETURN
                                 ]
 
                 if lastToken in listAllowedToken:

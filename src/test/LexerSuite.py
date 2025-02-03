@@ -598,15 +598,8 @@ class LexerSuite(unittest.TestCase):
     
     def test_lex_parser_201(self):
         input = '''
-        func main() {
-                if (a > 10) {
-                    print("Bigger");
-                } 
-                else if (a == 10) {
-                    print("Same")
-                } else {
-                    print("Less")
-                }
+            func main() {
+                s := "Hello \n World"
             }
         '''
         expect = "type,Counter,struct,{,value,int,;,},;,func,(,c,Counter,),inc,(,),{,c,.,value,+=,1,;,},;,func,main,(,),{,},;,<EOF>"

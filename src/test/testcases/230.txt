@@ -5,5 +5,8 @@
                 var x float = 5.5;
                 putFloat(x);
             }
-            putInt(x);
+            {
+                var x string = "Hello";
+                putString(x);
+            }
         }
