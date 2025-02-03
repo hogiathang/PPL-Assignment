@@ -23,22 +23,24 @@
             coordinates [5]Point;    
             active bool;             
             drawer Drawable;         
-            metadata struct {        
-                createdBy string;
-                version float;
-            };
+            metadata struct {createdBy string;version float;};
         }
         
         func main() {
-            /*manager := ShapeManager{
+            manager := ShapeManager{
                 id: 1,
                 name: "Manager",
                 coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
                 active: true,
                 drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
-                metadata: struct{createdBy string; version float}{"Admin", 1.1},
-            };*/
-            
+                metadata: struct {
+                    createdBy string
+                    version float
+                } {
+                    createdBy: "John Doe",
+                    version: 1.0,
+                },
+            };
             putStringLn(manager.name);                  
             putStringLn(manager.drawer.Draw());       
             putBoolLn(manager.coordinates[2].x == 2);

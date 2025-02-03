@@ -598,9 +598,16 @@ class LexerSuite(unittest.TestCase):
     
     def test_lex_parser_201(self):
         input = '''
-        func (c Circle) Draw() string {
-            return "Drawing circle at (" + toString(c.center.x) + "," + toString(c.center.y) + ")";
-        }
+        func main() {
+                if (a > 10) {
+                    print("Bigger");
+                } 
+                else if (a == 10) {
+                    print("Same")
+                } else {
+                    print("Less")
+                }
+            }
         '''
         expect = "type,Counter,struct,{,value,int,;,},;,func,(,c,Counter,),inc,(,),{,c,.,value,+=,1,;,},;,func,main,(,),{,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 201))

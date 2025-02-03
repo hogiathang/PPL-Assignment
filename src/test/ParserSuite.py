@@ -337,19 +337,19 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 228))
 
-    # def test_variable_shadowing_230(self):
-    #     """Variable shadowing in nested scope"""
-    #     input = """
-    #     func main() {
-    #         var x int = 10;
-    #         {
-    #             var x float = 5.5;
-    #             putFloat(x);
-    #         }
-    #         putInt(x);
-    #     }"""
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input, expect, 230))
+    def test_variable_shadowing_230(self):
+        """Variable shadowing in nested scope"""
+        input = """
+        func main() {
+            var x int = 10;
+            {
+                var x float = 5.5;
+                putFloat(x);
+            }
+            putInt(x);
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 230))
     
     def test_struct_with_array_231(self):
         """Struct containing an array field"""
@@ -445,22 +445,24 @@ class ParserSuite(unittest.TestCase):
             coordinates [5]Point;    
             active bool;             
             drawer Drawable;         
-            metadata struct {        
-                createdBy string;
-                version float;
-            };
+            metadata struct {createdBy string;version float;};
         }
         
         func main() {
-            /*manager := ShapeManager{
+            manager := ShapeManager{
                 id: 1,
                 name: "Manager",
                 coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
                 active: true,
                 drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
-                metadata: struct{createdBy string; version float}{"Admin", 1.1},
-            };*/
-            
+                metadata: struct {
+                    createdBy string
+                    version float
+                } {
+                    createdBy: "John Doe",
+                    version: 1.0,
+                },
+            };
             putStringLn(manager.name);                  
             putStringLn(manager.drawer.Draw());       
             putBoolLn(manager.coordinates[2].x == 2);
@@ -468,3 +470,33 @@ class ParserSuite(unittest.TestCase):
         """
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 237))
+
+    def test_error_sample_238(self):
+        input = """
+            var t int
+            
+            func (c c) Add(x int) {}
+                                        
+            func Add(x int) {} var c int;
+                                        
+            var c int; type Calculator struct{} type Calculator struct{} var c int;
+        """
+        expect = "Error on line 8 col 49: type"
+        self.assertTrue(TestParser.checkParser(input, expect, 238))
+
+    def test_if_sample_239(self):
+        input = """
+            func main() {
+                if (a > 10) {
+                    print("Bigger");
+                } 
+                else if (a == 10) {
+                    print("Same")
+                }
+                else {
+                    print("Less")
+                }
+            }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 239))

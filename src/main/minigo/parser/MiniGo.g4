@@ -1,4 +1,3 @@
-// STUDENT ID: 2213187
 grammar MiniGo;
 
 @lexer::header {
@@ -36,7 +35,13 @@ baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 
 endOfStatement: SEMI | EOF | NEWLINE;
 
-declaration: (varDecl | funcDecl | typeDecl | constDecl | methodDecl) endOfStatement;
+declaration: varDecl endOfStatement 
+           | funcDecl
+           | typeDecl endOfStatement
+           | constDecl endOfStatement 
+           | methodDecl;
+
+
 varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
 funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? block;
 typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
@@ -67,27 +72,32 @@ postfixOp: LBRACKET expression RBRACKET | DOT term;
 term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | callStatement | IDENTIFIER;
 
 
-statement: (assignStatement
+statement: assignStatement endOfStatement
          | ifStatement
          | forStatement
-         | breakStatement
-         | continueStatement
-         | callStatement
-         | returnStatement
-         | arrayLiteral
-         | varDecl
-         | typeDecl
-         | methodDecl
-         | constDecl) endOfStatement;
+         | breakStatement endOfStatement
+         | continueStatement endOfStatement
+         | callStatement endOfStatement
+         | returnStatement endOfStatement
+         | varDecl endOfStatement
+         | typeDecl endOfStatement
+         | methodDecl endOfStatement
+         | constDecl endOfStatement;
 
-arrayLiteral: IDENTIFIER DECLARE arrayDims baseType arraysBlock;
+
+arrayLit: arrayDims baseType arraysBlock;
 arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
 
-structExpression: IDENTIFIER LBRACE (IDENTIFIER COLON expression COMMA?)* RBRACE;
+structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* COMMA?)? RBRACE;
+structBlock: expression 
+           | arrayLit 
+           | structExpression 
+           | structDefinition LBRACE ((IDENTIFIER COLON)? expression (COMMA (IDENTIFIER COLON)? expression)* COMMA?)? RBRACE;
+structFieldsAssign: IDENTIFIER COLON structBlock;
 
-a1: IDENTIFIER (DOT IDENTIFIER)* arrayDims?;
-a2: expression | structExpression;
 assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
+a1: IDENTIFIER (DOT IDENTIFIER)* arrayDims?;
+a2: expression | arrayLit | structExpression;
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
 ifStatement: IF expression block
@@ -113,7 +123,7 @@ callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression
 
 returnStatement: RETURN (expression | (arrayDims baseType arraysBlock))?;
 
-block: LBRACE (statement)* RBRACE;
+block: LBRACE (statement | block)* RBRACE endOfStatement?;
 arrayDims: (LBRACKET expression? RBRACKET)+;
 
 //------------------ Lexer Rules -------------------
