@@ -44,5 +44,8 @@
             putStringLn(manager.name);                  
             putStringLn(manager.drawer.Draw());       
             putBoolLn(manager.coordinates[2].x == 2);
+            arr := [3][3] int {1,2,3}
+            //func().attr := 5;
+            //test.func.arr[5].attr.find();
         }
         

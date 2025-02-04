@@ -1,1 +1,1 @@
-s,=,DOG,<EOF>
+s,=,"DOG",<EOF>

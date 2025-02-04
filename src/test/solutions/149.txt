@@ -1,1 +1,1 @@
-func,main,(,),{,print,(,Hi,),;,ErrorToken #
+func,main,(,),{,print,(,"Hi",),;,ErrorToken #

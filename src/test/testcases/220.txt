@@ -1,10 +1,10 @@
 
-        func quicksort(arr []int) []int {
+        func quicksort(arr [3]int) [3]int {
             if len(arr) < 2 {
                 return arr;
             }
             pivot := arr[0]; /*
-            var less, greater []int;
+            var less, greater [3]int;
             for _, val := range arr[1:] {
                 if val <= pivot {
                     less = append(less, val);

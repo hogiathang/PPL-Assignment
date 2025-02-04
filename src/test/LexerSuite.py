@@ -104,12 +104,12 @@ class LexerSuite(unittest.TestCase):
 
     def test_string_escape_121(self):
         input = "\"Hello\\nWorld\""
-        expect = "Hello\\nWorld,<EOF>"
+        expect = "\"Hello\\nWorld\",<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 121))
 
     def test_unclosed_string_122(self):
         input = "\"Unclosed string"
-        expect = """Unclosed string: Unclosed string"""
+        expect = """Unclosed string: "Unclosed string"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 122))
 
     def test_boolean_literal_123(self):
@@ -139,12 +139,12 @@ class LexerSuite(unittest.TestCase):
 
     def test_invalid_escape_128(self):
         input = "\"Hello\\q\""
-        expect = """Illegal escape in string: Hello\\q"""
+        expect = """Illegal escape in string: \"Hello\\q"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 128))
 
     def test_struct_literal_129(self):
         input = "Person{name: \"Alice\"}"
-        expect = "Person,{,name,:,Alice,},<EOF>"
+        expect = """Person,{,name,:,"Alice",},<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 129))
 
     def test_function_decl_130(self):
@@ -169,7 +169,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_unclosed_string_134(self):
         input = "\"Hello World"  # Thiếu dấu đóng "
-        expect = '''Unclosed string: Hello World'''
+        expect = """Unclosed string: \"Hello World"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 134))
 
     def test_replace_newline_by_semi(self):
@@ -180,46 +180,46 @@ class LexerSuite(unittest.TestCase):
         2222
         ydywgdywg
         '''
-        expect = '''AAAA,;,This is a test \\n ,;,BBB,;,2222,;,ydywgdywg,;,<EOF>'''
+        expect = '''AAAA,;,"This is a test \\n ",;,BBB,;,2222,;,ydywgdywg,;,<EOF>'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 135))
 
     def test_error_string_literal_136(self):
         input = '''
         "this is a string"
         '''
-        expect = """this is a string,;,<EOF>"""
+        expect = """\"this is a string\",;,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 136))
 
     def test_backslash(self):
         input = """
         "C:\\\\Document\\\\Download\\\\hello.py"
         """
-        expect = "C:\\\\Document\\\\Download\\\\hello.py,;,<EOF>"
+        expect = """"C:\\\\Document\\\\Download\\\\hello.py",;,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 137))
 
     def test_newline_backslash(self):
         input = '''"This is line 1\\nThis is line 2\\nThis is line 3"'''
-        expect = "This is line 1\\nThis is line 2\\nThis is line 3,<EOF>"
+        expect = '''"This is line 1\\nThis is line 2\\nThis is line 3",<EOF>'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 138))
 
     def test_illegal_hex_escape_139(self):
         input = "\"Invalid escape \\x1F\""  # \x không được hỗ trợ
-        expect = """Illegal escape in string: Invalid escape \\x"""
+        expect = """Illegal escape in string: \"Invalid escape \\x"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 139))
 
     def test_mixed_errors_140(self):
         input = "func main() {\n  str = \"Unclosed\\e\n  x@ = 5;\n}"
-        expect = """func,main,(,),{,str,=,Illegal escape in string: Unclosed\\e"""
+        expect = """func,main,(,),{,str,=,Illegal escape in string: \"Unclosed\\e"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 140))
 
     def test_empty_unclosed_string_141(self):
         input = "\""  # Chuỗi rỗng không đóng
-        expect = "Unclosed string: "
+        expect = "Unclosed string: \""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 141))
 
     def test_escape_before_eof_142(self):
         input = "\"Backslash at end\\x\""  # Thêm ký tự 'x' và đóng chuỗi
-        expect = '''Illegal escape in string: Backslash at end\\x'''
+        expect = '''Illegal escape in string: \"Backslash at end\\x'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 142))
 
     def test_mixed_valid_and_error_143(self):
@@ -230,21 +230,12 @@ class LexerSuite(unittest.TestCase):
 
             y@ = 5.5 
         '''
-        expect = '''x,:=,10,+,Illegal escape in string: Hello\\m'''
+        expect = '''x,:=,10,+,Illegal escape in string: "Hello\\m'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 143))
 
     def test_mixed_unclosed_string_144(self):
-        input = '''/* Start of code *//* Start of code *//* Start of code *//* Start of code *//* Start of code */ 
-            /* Start of code */
-            func main() {
-                s = "Unclosed string
-                print(s)
-                x = 10 % 3
-            }
-            Hello World
-
-        '''
-        expect = '''func,main,(,),{,s,=,Unclosed string: Unclosed string'''
+        input = '''func().attr[3][3][4].get(3,4,5).make := 123455'''
+        expect = '''func,(,),.,attr,[,3,],[,3,],[,4,],.,get,(,3,,,4,,,5,),.,make,:=,123455,<EOF>'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 144))
 
     def test_complex_expression_145(self):
@@ -263,19 +254,19 @@ class LexerSuite(unittest.TestCase):
                 return true 
             }
         '''
-        expect = '''s,=,Illegal escape in string: Line1\\nLine2\\k'''
+        expect = '''s,=,Illegal escape in string: \"Line1\\nLine2\\k'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 146))
 
     def test_multiple_errors_147(self):
         input = ''' 
             func main() {
                 x = 0xF3  // Hex Value
-                s = "Hello\\"
+                s = "Hello\\""
                 y = 5.67  // Float Value
                 z = $value 
             }
         '''
-        expect = '''func,main,(,),{,x,=,0xF3,;,s,=,Unclosed string: Hello\\"'''
+        expect = '''func,main,(,),{,x,=,0xF3,;,s,=,"Hello\\"",;,y,=,5.67,;,z,=,ErrorToken $'''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 147))
 
     def test_error_token_148(self):
@@ -285,7 +276,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_error_token_149(self):
         input = '''func main() { print("Hi"); # }'''
-        expect = "func,main,(,),{,print,(,Hi,),;,ErrorToken #"
+        expect = "func,main,(,),{,print,(,\"Hi\",),;,ErrorToken #"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 149))
 
     def test_function_declaration_150(self):
@@ -311,7 +302,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_mixed_escape_string_154(self):
         input = """s = "Line1\\nLine2\\kLine3" """
-        expect = "s,=,Illegal escape in string: Line1\\nLine2\\k"
+        expect = "s,=,Illegal escape in string: \"Line1\\nLine2\\k"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 154))
 
     def test_invalid_char_in_expression_155(self):
@@ -333,7 +324,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_unclosed_string_in_func_158(self):
         input = """func greet() { s = "Hello, World }"""
-        expect = "func,greet,(,),{,s,=,Unclosed string: Hello, World }"
+        expect = """func,greet,(,),{,s,=,Unclosed string: "Hello, World }"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 158))
 
     def test_break_continue_159(self):
@@ -346,7 +337,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_struct_assignment_160(self):
         input = """p.name = "Alice"; p.age = 30"""
-        expect = "p,.,name,=,Alice,;,p,.,age,=,30,<EOF>"
+        expect = """p,.,name,=,"Alice",;,p,.,age,=,30,<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 160))
 
     def test_invalid_hex_161(self):
@@ -391,7 +382,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_escape_at_end_169(self):
         input = """s = "End with backslash\\" """
-        expect = '''s,=,Unclosed string: End with backslash\\" '''
+        expect = '''s,=,Unclosed string: \"End with backslash\\" '''
         self.assertTrue(TestLexer.checkLexeme(input, expect, 169))
 
     def test_const_with_expr_170(self):
@@ -416,7 +407,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_empty_string_escape_174(self):
         input = """s = ""; t = "\\t" """
-        expect = "s,=,,;,t,=,\\t,<EOF>"
+        expect = """s,=,"",;,t,=,"\\t",<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 174))
 
     def test_array_missing_size_175(self):
@@ -431,7 +422,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_string_comparison_177(self):
         input = """if (s1 == s2) { print("Equal") }"""
-        expect = "if,(,s1,==,s2,),{,print,(,Equal,),},<EOF>"
+        expect = "if,(,s1,==,s2,),{,print,(,\"Equal\",),},<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 177))
 
     def test_invalid_octal_178(self):
@@ -456,7 +447,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_unicode_in_string_182(self):
         input = """s = "DOG" """
-        expect = "s,=,DOG,<EOF>"
+        expect = """s,=,"DOG",<EOF>"""
         self.assertTrue(TestLexer.checkLexeme(input, expect, 182))
 
     def test_struct_missing_name_183(self):
@@ -516,7 +507,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_escape_special_char_194(self):
         input = """s = "Hello\\"World\""""
-        expect = "s,=,Hello\\\"World,<EOF>"
+        expect = "s,=,\"Hello\\\"World\",<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 194))
 
     def test_method_no_receiver_195(self):
@@ -545,7 +536,7 @@ class LexerSuite(unittest.TestCase):
             putFloatln(area);  
         }  
         '''
-        expect = "const,Pi,=,3.14,;,func,main,(,),{,var,radius,float,=,5.0,;,area,:=,Pi,*,radius,*,radius,;,putString,(,Area: ,),;,putFloatln,(,area,),;,},;,<EOF>"
+        expect = "const,Pi,=,3.14,;,func,main,(,),{,var,radius,float,=,5.0,;,area,:=,Pi,*,radius,*,radius,;,putString,(,\"Area: \",),;,putFloatln,(,area,),;,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 198))
 
     def test_full_program_199(self):
@@ -569,7 +560,7 @@ class LexerSuite(unittest.TestCase):
             putFloatln(s.Area());  
         } 
         '''
-        expect= "type,Shape,interface,{,Area,(,),float,;,},;,type,Circle,struct,{,radius,float,;,},;,func,(,c,Circle,),Area,(,),float,{,return,3.14,*,c,.,radius,*,c,.,radius,;,},;,func,main,(,),{,c,:=,Circle,{,radius,:,3.0,},;,var,s,Shape,=,c,;,putString,(,Square: ,),;,putFloatln,(,s,.,Area,(,),),;,},;,<EOF>"
+        expect = "type,Shape,interface,{,Area,(,),float,;,},;,type,Circle,struct,{,radius,float,;,},;,func,(,c,Circle,),Area,(,),float,{,return,3.14,*,c,.,radius,*,c,.,radius,;,},;,func,main,(,),{,c,:=,Circle,{,radius,:,3.0,},;,var,s,Shape,=,c,;,putString,(,\"Square: \",),;,putFloatln,(,s,.,Area,(,),),;,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 199))
 
     def test_full_program_200(self):
@@ -593,14 +584,12 @@ class LexerSuite(unittest.TestCase):
             putIntLn(sum);  
         } 
         '''
-        expect= "func,main,(,),{,for,i,:=,0,;,i,<,5,;,i,+=,1,{,if,i,==,2,{,continue,;,},;,putIntLn,(,i,),;,},;,arr,:=,[,3,],int,{,10,,,20,,,30,},;,sum,:=,0,;,for,_,,,val,:=,range,arr,{,sum,+=,val,;,},;,putString,(,Sum: ,),;,putIntLn,(,sum,),;,},;,<EOF>"
+        expect= "func,main,(,),{,for,i,:=,0,;,i,<,5,;,i,+=,1,{,if,i,==,2,{,continue,;,},;,putIntLn,(,i,),;,},;,arr,:=,[,3,],int,{,10,,,20,,,30,},;,sum,:=,0,;,for,_,,,val,:=,range,arr,{,sum,+=,val,;,},;,putString,(,\"Sum: \",),;,putIntLn,(,sum,),;,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 200))
     
-    def test_lex_parser_201(self):
-        input = '''
-            func main() {
-                s := "Hello \n World"
-            }
-        '''
-        expect = "type,Counter,struct,{,value,int,;,},;,func,(,c,Counter,),inc,(,),{,c,.,value,+=,1,;,},;,func,main,(,),{,},;,<EOF>"
-        self.assertTrue(TestLexer.checkLexeme(input, expect, 201))
+    # def test_lex_parser_201(self):
+    #     input = '''
+    #         helloworld := "Hello world!!!"
+    #     '''
+    #     expect = "type,Counter,struct,{,value,int,;,},;,func,(,c,Counter,),inc,(,),{,c,.,value,+=,1,;,},;,func,main,(,),{,},;,<EOF>"
+    #     self.assertTrue(TestLexer.checkLexeme(input, expect, 201))

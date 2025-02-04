@@ -1,1 +1,1 @@
-func,main,(,),{,str,=,Illegal escape in string: Unclosed\e
+func,main,(,),{,str,=,Illegal escape in string: "Unclosed\e

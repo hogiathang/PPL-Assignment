@@ -1,1 +1,1 @@
-Illegal escape in string: Invalid escape \x
+Illegal escape in string: "Invalid escape \x

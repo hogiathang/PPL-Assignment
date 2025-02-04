@@ -153,7 +153,7 @@ class ParserSuite(unittest.TestCase):
         """Missing return value in function with return type"""
         input = """
         func add(x int, y int) int {
-            var mutexArr[][] int;
+            var mutexArr[3][3] int;
             var mutexArr[0x44][0x77] int;
             return;
         }"""
@@ -163,12 +163,12 @@ class ParserSuite(unittest.TestCase):
     def test_a_valid_function_220(self):
         """A valid function"""
         input = """
-        func quicksort(arr []int) []int {
+        func quicksort(arr [3]int) [3]int {
             if len(arr) < 2 {
                 return arr;
             }
             pivot := arr[0]; /*
-            var less, greater []int;
+            var less, greater [3]int;
             for _, val := range arr[1:] {
                 if val <= pivot {
                     less = append(less, val);
@@ -239,7 +239,7 @@ class ParserSuite(unittest.TestCase):
 
     def test_quicksort_226(self):
         input = """
-        func partition(arr[] int, low int, high int) int {
+        func partition(arr[3] int, low int, high int) int {
             pivot := arr[high]
             i := low - 1
             for j := low; j < high; j+=1 {
@@ -252,7 +252,7 @@ class ParserSuite(unittest.TestCase):
             return i + 1
         }
 
-        func quickSort(arr[] int, low int, high int) {
+        func quickSort(arr[3] int, low int, high int) {
             if low < high {
                 pi := partition(arr, low, high)
                 quickSort(arr, low, pi - 1)
@@ -261,7 +261,7 @@ class ParserSuite(unittest.TestCase):
         }
         
         func main() {
-            var arr[] int
+            var arr[3] int
             var n int
             n := len(arr)
             quickSort(arr, 0, n - 1)
@@ -272,11 +272,11 @@ class ParserSuite(unittest.TestCase):
 
     def test_merge_sort_227(self):
         input = """
-        func merge(arr[] int, l int, m int, r int) {
+        func merge(arr[3] int, l int, m int, r int) {
             n1 := m - l + 1
             n2 := r - m
-            var L[] int
-            var R[] int
+            var L[3] int
+            var R[3] int
             for i := 0; i < n1; i+=1 {
                 L[i] := arr[l + i]
             }
@@ -308,7 +308,7 @@ class ParserSuite(unittest.TestCase):
             }
         }
         
-        func mergeSort(arr[] int, l int, r int) {
+        func mergeSort(arr[3] int, l int, r int) {
             if l < r {
                 m := l + (r - l) / 2
                 mergeSort(arr, l, m)
@@ -318,7 +318,7 @@ class ParserSuite(unittest.TestCase):
         }
 
         func main() {
-            var arr[] int
+            var arr[3] int
             var n int
             n := len(arr)
             mergeSort(arr, 0, n - 1)
@@ -469,6 +469,9 @@ class ParserSuite(unittest.TestCase):
             putStringLn(manager.name);                  
             putStringLn(manager.drawer.Draw());       
             putBoolLn(manager.coordinates[2].x == 2);
+            arr := [3][3] int {1,2,3}
+            //func().attr := 5;
+            //test.func.arr[5].attr.find();
         }
         """
         expect = "successful"
@@ -498,16 +501,20 @@ class ParserSuite(unittest.TestCase):
                 }; else {
                     print("Less")
                 }
+
             }
         """
         expect = "Error on line 8 col 20: else"
         self.assertTrue(TestParser.checkParser(input, expect, 239))
 
-    # def test_sample_240(self):
-    #     input = """
-    #         func main() {
-    #             var s = "Hello \\n world"
-    #         }
-    #     """
-    #     expect = "successful"
-    #     self.assertTrue(TestParser.checkParser(input, expect, 240))
+    def test_sample_240(self):
+        input = """
+            func main() {
+                for i, v := range arr 
+                {
+                    arr[i] += i
+                }
+            }
+        """
+        expect = "Error on line 3 col 40: ;"
+        self.assertTrue(TestParser.checkParser(input, expect, 240))

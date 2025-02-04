@@ -1,5 +1,5 @@
 
-        func partition(arr[] int, low int, high int) int {
+        func partition(arr[3] int, low int, high int) int {
             pivot := arr[high]
             i := low - 1
             for j := low; j < high; j+=1 {
@@ -12,7 +12,7 @@
             return i + 1
         }
 
-        func quickSort(arr[] int, low int, high int) {
+        func quickSort(arr[3] int, low int, high int) {
             if low < high {
                 pi := partition(arr, low, high)
                 quickSort(arr, low, pi - 1)
@@ -21,7 +21,7 @@
         }
         
         func main() {
-            var arr[] int
+            var arr[3] int
             var n int
             n := len(arr)
             quickSort(arr, 0, n - 1)

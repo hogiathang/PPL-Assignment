@@ -29,7 +29,7 @@ options {
 //------------------ Parser Rules ------------------
 program: declaration* mainFunction? declaration* EOF;
 
-mainFunction: FUNC 'main' LPAREN RPAREN block endOfStatement;
+mainFunction: FUNC 'main' LPAREN RPAREN block endOfStatement?;
 
 baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 
@@ -125,7 +125,7 @@ callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression
 returnStatement: RETURN (expression | (arrayDims baseType arraysBlock))?;
 
 block: LBRACE statement* RBRACE;
-arrayDims: (LBRACKET expression? RBRACKET)+;
+arrayDims: (LBRACKET expression RBRACKET)+;
 
 //------------------ Lexer Rules -------------------
 // Keywords
@@ -203,7 +203,7 @@ fragment DEC_PART: [0-9]+;
 fragment EXPONENT: [eE] [+-]? [0-9]+;
 
 // String
-STRING_LIT: '"' (ESC_SEQ | ~["\\\r\n])* '"' {self.text = self.text[1:-1]};
+STRING_LIT: '"' (ESC_SEQ | ~["\\])* '"';
 fragment ESC_SEQ: '\\' [nrt"\\];
 
 // Comments
@@ -231,16 +231,37 @@ NEWLINE: '\n' {
                         self.NIL,
                         self.BREAK,
                         self.CONTINUE,
-                        self.RETURN
+                        self.RETURN,
+                        self.ASSIGN,
+                        self.DECLARE,
+                        self.PLUS,
+                        self.MINUS,
+                        self.MUL,
+                        self.DIV,
+                        self.MOD,
+                        self.EQ,
+                        self.NEQ,
+                        self.LT,
+                        self.LEQ,
+                        self.GT,
+                        self.GEQ,
+                        self.AND,
+                        self.OR,
+                        self.NOT,
+                        self.PLUS_ASSIGN,
+                        self.MINUS_ASSIGN,
+                        self.MUL_ASSIGN,
+                        self.DIV_ASSIGN,
+                        self.MOD_ASSIGN,
+                        self.DOT,
+                        self.BLANK
                     ]
-
     if lastToken in listAllowedToken:
         self.text = ';';
     else:
         self.skip();
 };
 
-// Error handling
-UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\\r\n])* {self.text = self.text[1:]};
-ILLEGAL_ESCAPE: '"' (ESC_SEQ | ~["\\\r\n])* '\\' ~[nrt"\\] {self.text = self.text[1:]};
+UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\])*;
+ILLEGAL_ESCAPE: '"' (ESC_SEQ | ~["\\])* '\\' ~[nrt"\\];
 ERROR_CHAR: .;

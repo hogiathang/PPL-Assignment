@@ -1,1 +1,1 @@
-Illegal escape in string: Hello\q
+Illegal escape in string: "Hello\q

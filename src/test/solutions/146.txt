@@ -1,1 +1,1 @@
-s,=,Illegal escape in string: Line1\nLine2\k
+s,=,Illegal escape in string: "Line1\nLine2\k

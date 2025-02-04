@@ -1,10 +1,1 @@
-/* Start of code *//* Start of code *//* Start of code *//* Start of code *//* Start of code */ 
-            /* Start of code */
-            func main() {
-                s = "Unclosed string
-                print(s)
-                x = 10 % 3
-            }
-            Hello World
-
-        
+func().attr[3][3][4].get(3,4,5).make := 123455
