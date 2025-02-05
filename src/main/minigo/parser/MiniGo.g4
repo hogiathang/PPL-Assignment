@@ -65,11 +65,19 @@ logicAndExp: equalityExp (AND logicAndExp)*;
 equalityExp: additiveExp ((EQ | NEQ | LT | LEQ | GT | GEQ) additiveExp)*;
 additiveExp: multiplicativeExp ((PLUS | MINUS) multiplicativeExp)*;
 multiplicativeExp: unaryExp ((MUL | DIV | MOD) unaryExp)*;
-unaryExp: ((MINUS | NOT) unaryExp) | primaryExp;
-primaryExp: postfixExp | LPAREN expression RPAREN;
-postfixExp: (term | LPAREN expression RPAREN) (postfixOp)*;
-postfixOp: LBRACKET expression RBRACKET | DOT term;
-term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | callStatement | IDENTIFIER;
+unaryExp: (MINUS | NOT)* postfixExp;
+
+postfixExp: primaryExp 
+          | postfixExp LBRACKET expression RBRACKET
+          | postfixExp DOT IDENTIFIER
+          | postfixExp LPAREN arguments? RPAREN;
+
+primaryExp: LPAREN expression RPAREN
+          | literal
+          | callStatement
+          | IDENTIFIER;
+
+literal: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL;
 
 
 statement: assignStatement endOfStatement
@@ -97,7 +105,8 @@ structBlock: expression
 structFieldsAssign: IDENTIFIER COLON structBlock;
 
 assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
-a1: IDENTIFIER (DOT IDENTIFIER)* arrayDims?;
+a1: (callStatement | IDENTIFIER) DOT a1 
+  | IDENTIFIER arrayDims?;
 a2: expression | arrayLit | structExpression;
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
@@ -120,13 +129,15 @@ breakStatement: BREAK;
 
 continueStatement: CONTINUE;
 
-callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression)*)? RPAREN;
+primaryCall: IDENTIFIER LPAREN arguments? RPAREN;
+callStatement: IDENTIFIER arrayDims? DOT callStatement 
+            |  primaryCall (DOT callStatement)?;
 
-returnStatement: RETURN (expression | (arrayDims baseType arraysBlock))?;
+returnStatement: RETURN (expression | arrayLit)?;
 
+arguments: expression (COMMA expression)*;
 block: LBRACE statement* RBRACE;
-arrayDims: (LBRACKET expression RBRACKET)+;
-
+arrayDims: (LBRACKET expression? RBRACKET)+;
 //------------------ Lexer Rules -------------------
 // Keywords
 IF      : 'if';

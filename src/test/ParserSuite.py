@@ -337,6 +337,12 @@ class ParserSuite(unittest.TestCase):
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 228))
 
+    def test_229(self):
+        input = """
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 229))
+
     def test_variable_shadowing_230(self):
         """Variable shadowing in nested scope"""
         input = """
@@ -470,8 +476,8 @@ class ParserSuite(unittest.TestCase):
             putStringLn(manager.drawer.Draw());       
             putBoolLn(manager.coordinates[2].x == 2);
             arr := [3][3] int {1,2,3}
-            //func().attr := 5;
-            //test.func.arr[5].attr.find();
+            attr().attr := 5;
+            test.test[2][3].test().find();
         }
         """
         expect = "successful"
@@ -509,12 +515,243 @@ class ParserSuite(unittest.TestCase):
 
     def test_sample_240(self):
         input = """
+            type Color interface {
+                getColor() string
+                setColor(s string)
+            }
+            type Car struct {
+                color string
+            }
+            func (c Car) getColor() string {
+                return c.color
+            }
+            func (c Car) setColor(s string) {
+                c.color := s
+            }
+
             func main() {
-                for i, v := range arr 
-                {
-                    arr[i] += i
+                car := Car{color: "white"}
+                col := Color(car)
+                car := col(Car)         // L(1)
+                car.setColor("yellow")
+                fmt.Println(col)        // L(2)
+                fmt.Println(car)
+                car.color := "black"
+                fmt.Println(col)        // L(3)
+                fmt.Println(car)
+            }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 240))
+    
+    def test_interface_struct_241(self):
+        input = """
+        type Drawable interface {
+            Draw() string;
+        }
+
+        type Point struct {
+            x int;
+            y int;
+        }
+
+        type Circle struct {
+            center Point;
+            radius float;
+        }
+
+        func (c Circle) Draw() string {
+            return "Drawing circle at (" + toString(c.center.x) + "," + toString(c.center.y) + ")";
+        }
+    
+        type MetaData struct {
+            createdBy string;
+            version float;
+        }
+
+        type ShapeManager struct {
+            id int;                  
+            name string;             
+            coordinates [5]Point;    
+            active bool;             
+            drawer Drawable;         
+            metadata MetaData;
+        }
+        
+        func main() {
+            manager := ShapeManager{
+                id: 1,
+                name: "Manager",
+                coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
+                active: true,
+                drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
+                metadata: MetaData {
+                    createdBy: "John Doe",
+                    version: 1.0,
+                },
+            };
+            putStringLn(manager.name);                  
+            putStringLn(manager.drawer.Draw());       
+            putBoolLn(manager.coordinates[2].x == 2);
+            arr := [3][3] int {1,2,3}
+            attr().attr := 5;
+            test.test[2][3].test().find();
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 241))
+
+    def test_interface_struct_242(self):
+        input= """
+        type Shape interface {
+            Area() float
+            Perimeter() float
+        }
+
+        type Rectangle struct {
+            Width  float
+            Height float
+        }
+
+        func (r Rectangle) Area() float {
+            return r.Width * r.Height
+        }
+
+        func (r Rectangle) Perimeter() float {
+            return 2 * (r.Width + r.Height)
+        }
+
+        type Circle struct {
+            Radius float
+        }
+
+        func (c Circle) Area() float {
+            return 3.14 * c.Radius * c.Radius
+        }
+
+        func (c Circle) Perimeter() float {
+            return 2 * 3.14 * c.Radius
+        }
+
+        type Geometry struct {
+            Name    string        // Primitive type (string)
+            Sides   []int         // Array
+            Shape   Shape         // Interface field
+            Details Rectangle     // Nested struct
+        }
+
+        func main() {
+            rect := Rectangle{Width: 10, Height: 5}
+
+            geo1 := Geometry{
+                Name:    "My Rectangle",
+                Sides:   []int{10, 5, 10, 5},
+                Shape:   rect,
+                Details: rect,
+            }
+
+            fmt.Println("Geometry 1:", geo1.Name)
+            fmt.Println("Area:", geo1.Shape.Area())
+            fmt.Println("Perimeter:", geo1.Shape.Perimeter())
+
+            circle := Circle{Radius: 7}
+
+            geo2 := Geometry{
+                Name:    "My Circle",
+                Sides:   []int{1}, // Array
+                Shape:   circle,
+                Details: rect,   // Nested struct
+            }
+
+            fmt.Println("\nGeometry 2:", geo2.Name)
+            fmt.Println("Area:", geo2.Shape.Area())
+            fmt.Println("Perimeter:", geo2.Shape.Perimeter())
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 242))
+        
+    def test_parser_error_243(self):
+        input = """
+            func main() {
+                if x > 10 {
+                    putIntLn(x)
+                else {
+                    putIntLn(0);
                 }
             }
         """
-        expect = "Error on line 3 col 40: ;"
-        self.assertTrue(TestParser.checkParser(input, expect, 240))
+        expect = "Error on line 5 col 17: else"
+        self.assertTrue(TestParser.checkParser(input, expect, 243))
+
+    def test_parser_error_244(self):
+        input = """ 
+        type Person struct {
+            name string,
+            age int;
+        }
+        """
+        expect = "Error on line 3 col 24: ,"
+        self.assertTrue(TestParser.checkParser(input, expect, 244))
+
+    def test_parser_error_245(self):
+        input = """ 
+        arr := [3]int{10, 20, };
+        """
+        expect = "Error on line 2 col 9: arr"
+        self.assertTrue(TestParser.checkParser(input, expect, 245))
+
+    # def test_parser_error_246(self):
+    #     input = """ 
+    #     for i := 0; i < 10; i++ {
+    #         putIntLn(i);
+    #     }
+    #     """
+    #     expect = "Error on line 2 col 9: for"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 246))
+
+    # def test_parser_error_247(self):
+    #     input = """ 
+    #     const Pi = 3.14
+    #     """
+    #     expect = "Error on line 2: Missing semicolon"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 247))
+
+    # def test_parser_error_248(self):
+    #     input = """ 
+    #     func add(x int y int) int {
+    #         return x + y;
+    #     }
+    #     """
+    #     expect = "Error on line 2: y"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 248))
+
+    # def test_parser_error_249(self):
+    #     input = """ 
+    #     type Calculator interface {
+    #         Add(x int) int;
+    #         Subtract(x, y int)
+    #     }
+    #     """
+    #     expect = "Error on line 4: }"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 249))
+
+    # def test_parser_error_250(self):
+    #     input = """ 
+    #     var x = 5
+    #     x += 1;
+    #     """
+    #     expect = "Error on line 2: Missing semicolon"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 250))
+
+    # def test_parser_error_251(self):
+    #     input = """ 
+    #     func main() {
+    #         for i := 0; i < 10; i += {
+    #             putIntLn(i);
+    #         }
+    #     }
+    #     """
+    #     expect = "Error on line 3: {"
+    #     self.assertTrue(TestParser.checkParser(input, expect, 251))
+

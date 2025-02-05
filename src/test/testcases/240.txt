@@ -1,8 +1,27 @@
 
+            type Color interface {
+                getColor() string
+                setColor(s string)
+            }
+            type Car struct {
+                color string
+            }
+            func (c Car) getColor() string {
+                return c.color
+            }
+            func (c Car) setColor(s string) {
+                c.color := s
+            }
+
             func main() {
-                for i, v := range arr 
-                {
-                    arr[i] += i
-                }
+                car := Car{color: "white"}
+                col := Color(car)
+                car := col(Car)         // L(1)
+                car.setColor("yellow")
+                fmt.Println(col)        // L(2)
+                fmt.Println(car)
+                car.color := "black"
+                fmt.Println(col)        // L(3)
+                fmt.Println(car)
             }
         

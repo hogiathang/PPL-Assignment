@@ -17,13 +17,18 @@
             return "Drawing circle at (" + toString(c.center.x) + "," + toString(c.center.y) + ")";
         }
     
+        type MetaData struct {
+            createdBy string;
+            version float;
+        }
+
         type ShapeManager struct {
             id int;                  
             name string;             
             coordinates [5]Point;    
             active bool;             
             drawer Drawable;         
-            metadata struct {createdBy string;version float;};
+            metadata MetaData;
         }
         
         func main() {
@@ -33,10 +38,7 @@
                 coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
                 active: true,
                 drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
-                metadata: struct {
-                    createdBy string
-                    version float
-                } {
+                metadata: MetaData {
                     createdBy: "John Doe",
                     version: 1.0,
                 },

@@ -1,0 +1,9 @@
+
+            func main() {
+                if x > 10 {
+                    putIntLn(x)
+                else {
+                    putIntLn(0);
+                }
+            }
+        

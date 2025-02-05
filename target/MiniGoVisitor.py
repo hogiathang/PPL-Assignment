@@ -134,23 +134,18 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#primaryExp.
-    def visitPrimaryExp(self, ctx:MiniGoParser.PrimaryExpContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#postfixExp.
     def visitPostfixExp(self, ctx:MiniGoParser.PostfixExpContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#postfixOp.
-    def visitPostfixOp(self, ctx:MiniGoParser.PostfixOpContext):
+    # Visit a parse tree produced by MiniGoParser#primaryExp.
+    def visitPrimaryExp(self, ctx:MiniGoParser.PrimaryExpContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#term.
-    def visitTerm(self, ctx:MiniGoParser.TermContext):
+    # Visit a parse tree produced by MiniGoParser#literal.
+    def visitLiteral(self, ctx:MiniGoParser.LiteralContext):
         return self.visitChildren(ctx)
 
 
@@ -249,6 +244,11 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#primaryCall.
+    def visitPrimaryCall(self, ctx:MiniGoParser.PrimaryCallContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#callStatement.
     def visitCallStatement(self, ctx:MiniGoParser.CallStatementContext):
         return self.visitChildren(ctx)
@@ -256,6 +256,11 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#returnStatement.
     def visitReturnStatement(self, ctx:MiniGoParser.ReturnStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#arguments.
+    def visitArguments(self, ctx:MiniGoParser.ArgumentsContext):
         return self.visitChildren(ctx)
 
 
