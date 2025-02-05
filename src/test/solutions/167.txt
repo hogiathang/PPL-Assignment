@@ -1,1 +1,1 @@
-type,Guard,interface,{,CheckAge,(,age,int,),bool,},<EOF>
+/,*,This,is,an,unclosed,comment,<EOF>

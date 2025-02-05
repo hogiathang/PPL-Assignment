@@ -1,1 +1,1 @@
-var_123_abc,<EOF>
+0b1,2,<EOF>

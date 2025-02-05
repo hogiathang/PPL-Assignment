@@ -1,1 +1,1 @@
-var,s,string,=,"Hello, World!",;,<EOF>
+x,=,0,o89,<EOF>

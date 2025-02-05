@@ -1,1 +1,1 @@
-func,add,(,a,,,b,int,),int,{,return,a,+,b,},<EOF>
+const,MAX,=,100,+,50,<EOF>

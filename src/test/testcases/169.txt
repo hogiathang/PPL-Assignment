@@ -1,1 +1,1 @@
-type Drawable interface {Draw()}
+s = "End with backslash\" 

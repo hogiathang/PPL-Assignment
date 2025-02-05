@@ -1,1 +1,1 @@
-2.0e10,<EOF>
+func,main,(,),{,str,=,Illegal escape in string: "Unclosed\e

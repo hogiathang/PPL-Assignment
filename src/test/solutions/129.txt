@@ -1,1 +1,1 @@
-continue,;,<EOF>
+Person,{,name,:,"Alice",},<EOF>

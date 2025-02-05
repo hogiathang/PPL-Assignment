@@ -1,1 +1,1 @@
-var arr [10] float;
+func sum(a int, b int) int { return a + b }

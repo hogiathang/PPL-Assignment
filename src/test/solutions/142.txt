@@ -1,1 +1,1 @@
-str3,:=,str1,+," ",+,str2,;,<EOF>
+Illegal escape in string: "Backslash at end\x

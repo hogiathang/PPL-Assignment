@@ -1,1 +1,1 @@
-PutStringLn(p.name) // Output: Bob
+p.name = "Alice"; p.age = 30

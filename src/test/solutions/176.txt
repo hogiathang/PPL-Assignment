@@ -1,1 +1,1 @@
-var,y,float,=,10.5,;,<EOF>
+func,add,(,int,,,int,),int,{,return,0,},<EOF>

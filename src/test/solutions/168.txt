@@ -1,1 +1,1 @@
-type,Shape,interface,{,Area,(,),float,;,Perimeter,(,),float,},<EOF>
+if,(,a,>,5,&&,b,<,10,||,c,==,0,),{,return,},<EOF>

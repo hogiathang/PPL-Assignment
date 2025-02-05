@@ -1,1 +1,1 @@
-var,arr,[,5,],int,;,<EOF>
+x,=,5,ErrorToken $

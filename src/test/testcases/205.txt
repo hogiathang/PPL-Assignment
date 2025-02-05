@@ -1,1 +1,7 @@
-var i ;
+func main() {
+                    if (x > 0) {
+                        putString("Positive");
+                    } else {
+                        putString("Non-positive");
+                    }
+                   }

@@ -1,1 +1,1 @@
-z,:=,y,-,5,;,<EOF>
+func,main,(,),{,x,=,0xF3,;,s,=,"Hello\"",;,y,=,5.67,;,z,=,ErrorToken $

@@ -1,6 +1,6 @@
-
-            type Person struct {
-                name string;
-                age int;
-            }
-        
+func main() {
+                    arr := [3]int{1,2,3}
+                    for idx, val := range arr {
+                        putIntLn(val);
+                    }
+                   }

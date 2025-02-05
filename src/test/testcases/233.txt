@@ -1,0 +1,1 @@
+func main() { var if int = 5; }

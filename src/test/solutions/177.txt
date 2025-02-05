@@ -1,1 +1,1 @@
-var,z,bool,=,true,;,<EOF>
+if,(,s1,==,s2,),{,print,(,"Equal",),},<EOF>

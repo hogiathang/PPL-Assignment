@@ -1,1 +1,1 @@
-If,(,a,>,b,),a,=,b,;,else,b,=,a,;,<EOF>
+"Hello\nWorld",<EOF>

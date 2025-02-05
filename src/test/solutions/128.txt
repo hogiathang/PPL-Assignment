@@ -1,1 +1,1 @@
-break,;,<EOF>
+Illegal escape in string: "Hello\q

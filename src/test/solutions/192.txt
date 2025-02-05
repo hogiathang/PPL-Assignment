@@ -1,8 +1,1 @@
-
-,func,main,(,),{,
-,if,(,x,>,0,),{,
-,print,(,"Positive",),;,
-,},else,{,
-,print,(,"Negative",),;,
-,},
-,},<EOF>
+var,arr,[,-,5,],int,<EOF>

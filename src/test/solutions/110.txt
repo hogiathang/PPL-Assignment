@@ -1,1 +1,1 @@
-MyVar,<EOF>
+nil,<EOF>

@@ -1,8 +1,1 @@
-
-        func main() {
-            if (x > 0) {
-                print("Positive");
-            } else {
-                print("Negative");
-            }
-        }
+var arr [-5]int

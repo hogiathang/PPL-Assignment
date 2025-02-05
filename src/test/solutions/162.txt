@@ -1,1 +1,1 @@
-PutStringLn,(,p,.,Greet,(,),),<EOF>
+type,Shape,interface,{,Area,(,),float,},<EOF>

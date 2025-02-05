@@ -1,1 +1,1 @@
- p := Person{}
+result = x @ y + z

@@ -1,6 +1,1 @@
-
-            func (c Calculator) Add(x int) int {
-                c.value += x;
-                return c.value;
-            }
-        
+func main() { var 2var int; }

@@ -1,1 +1,1 @@
-var z bool = true;
+if (s1 == s2) { print("Equal") }

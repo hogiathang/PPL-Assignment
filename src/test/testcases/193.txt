@@ -1,1 +1,1 @@
-func main() {}
+var func = 10

@@ -1,0 +1,6 @@
+
+        type Counter struct { value int; }
+        func (c Counter) add(x int, y int) int {
+            return x + y + c.value;
+        }
+        func main() {}

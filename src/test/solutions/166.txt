@@ -1,1 +1,1 @@
-type,Calculator,interface,{,Add,(,x,,,y,int,),int,;,Subtract,(,a,,,b,float,,,c,int,),float,;,Reset,(,),SayHello,(,name,string,),},<EOF>
+s,.,points,[,0,],=,100,<EOF>

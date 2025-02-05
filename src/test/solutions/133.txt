@@ -1,1 +1,1 @@
-0o1234567,<EOF>
+price,ErrorToken $

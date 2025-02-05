@@ -1,1 +1,1 @@
-123.456e+2,<EOF>
+Illegal escape in string: "Invalid escape \x

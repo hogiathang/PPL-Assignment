@@ -1,5 +1,3 @@
-// STUDENT ID: 2213187
-
 grammar MiniGo;
 
 @lexer::header {
@@ -7,8 +5,10 @@ from lexererr import *
 }
 
 @lexer::members {
+lastTokenType = None;
 def emit(self):
     tk = self.type
+    self.lastTokenType = tk
     if tk == self.UNCLOSE_STRING:       
         result = super().emit();
         raise UncloseString(result.text);
@@ -22,208 +22,246 @@ def emit(self):
         return super().emit();
 }
 
-options{
-	language = Python3;
+options {
+    language = Python3;
 }
 
-program: (parserRuleSpec) + EOF;
+//------------------ Parser Rules ------------------
+program: declaration* mainFunction? declaration* EOF;
 
-// PARSER RULES
+mainFunction: FUNC 'main' LPAREN RPAREN block endOfStatement?;
 
-tYPE: INTERGER | FLOAT | STRING | BOOLEAN;
+baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 
-endOfStatement: SEMI | NL | EOF;
+endOfStatement: SEMI | EOF | NEWLINE;
 
-// type: ;
-parserRuleSpec: (decl | statement);
-// Boolean expressions
-decl: varDecl | funcDecl | typeDecl | constDecl | methodDecl;
-varDecl: VAR (IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (tYPE | tYPE? (ASSIGNOP expression))) endOfStatement;
-funcDecl: FUNC IDENTIFIER LP (funcParams)? RP tYPE? block endOfStatement;
-typeDecl: TYPE IDENTIFIER typeDefinition;
-constDecl: CONST IDENTIFIER ASSIGNOP expression endOfStatement;
-methodDecl: FUNC LP IDENTIFIER IDENTIFIER RP IDENTIFIER LP (funcParams) RP tYPE? block endOfStatement;
+declaration: varDecl endOfStatement 
+           | funcDecl endOfStatement?
+           | typeDecl endOfStatement
+           | constDecl endOfStatement 
+           | methodDecl endOfStatement?;
 
-// Type definitions
-typeDefinition: structDefinition | interfaceDefinition;
-structDefinition: STRUCT LB structFields* RB endOfStatement;
-structFields: IDENTIFIER tYPE endOfStatement;
 
-// Interface definitions
-interfaceDefinition: INTERFACE LB interfaceFields RB endOfStatement;
-listParams: LP (listIdentifier tYPE)* RP;
+varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
+funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? block;
+typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
+constDecl: CONST IDENTIFIER ASSIGN expression;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN baseType? block;
+
+structDefinition: STRUCT LBRACE structFields* RBRACE;
+structFields: IDENTIFIER (arrayDims? baseType | structDefinition) endOfStatement;
+
+interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE;
+listParams: LPAREN (listIdentifier baseType)* RPAREN;
 listIdentifier: IDENTIFIER (COMMA IDENTIFIER)*;
-interfaceFields: IDENTIFIER listParams tYPE? endOfStatement;
+interfaceFields: IDENTIFIER listParams baseType? endOfStatement;
 
-
-
-// Function Params
 funcParams: funcParam (COMMA funcParam)*;
-funcParam: IDENTIFIER tYPE;
+funcParam: IDENTIFIER (arrayDims? baseType);
 
-// expressions
-expression: expression OROP  term
-          | expression ANDOP term
-          | expression (EQUALOP | NOTEQUALOP | LESSOP | LESSEQUALOP | GREATEROP | GREATEREQUALOP) term
-          | expression (ADDOP | SUBOP) term
-          | expression (MULOP | DIVOP | MODOP) term
-          | (NOTOP | SUBOP) term
-          | term;
-term: IDENTIFIER (arrayDims | DOT IDENTIFIER)?
-    | INTLIT
-    | FLOATLIT
-    | STRINGLIT
-    | LP expression RP;
+expression: logicOrExp;
+logicOrExp: logicAndExp (OR logicOrExp)*;
+logicAndExp: equalityExp (AND logicAndExp)*;
+equalityExp: additiveExp ((EQ | NEQ | LT | LEQ | GT | GEQ) additiveExp)*;
+additiveExp: multiplicativeExp ((PLUS | MINUS) multiplicativeExp)*;
+multiplicativeExp: unaryExp ((MUL | DIV | MOD) unaryExp)*;
+unaryExp: ((MINUS | NOT) unaryExp) | primaryExp;
+primaryExp: postfixExp | LPAREN expression RPAREN;
+postfixExp: (term | LPAREN expression RPAREN) (postfixOp)*;
+postfixOp: LBRACKET expression RBRACKET | DOT term;
+term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | callStatement | IDENTIFIER;
 
 
-
-// Statements
-statement: (assignStatement
-         | ifStatement
-         | forStatement
-         | breakStatement
-         | continueStatement
-         | callStatement
-         | returnStatement
-         | arrayLiteral
-         | varDecl
-         | constDecl);
-
-
+statement: assignStatement endOfStatement
+         | ifStatement endOfStatement
+         | forStatement endOfStatement
+         | breakStatement endOfStatement
+         | continueStatement endOfStatement
+         | callStatement endOfStatement
+         | returnStatement endOfStatement
+         | varDecl endOfStatement
+         | typeDecl endOfStatement
+         | methodDecl endOfStatement
+         | constDecl endOfStatement
+         | block endOfStatement?;
 
 
-// Array Literals
-arrayLiteral: IDENTIFIER SHORTASSIGNOP (arrayDims) (INTERFACE | FLOAT | STRING | BOOLEAN) arraysBlock;
-arraysBlock: LB arraysBlock (COMMA arraysBlock)* RB | LB expression (COMMA expression)* RB;
+arrayLit: arrayDims baseType arraysBlock;
+arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
 
-structExpression: IDENTIFIER LB (IDENTIFIER COLON expression COMMA?)* RB;
+structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* COMMA?)? RBRACE;
+structBlock: expression 
+           | arrayLit 
+           | structExpression 
+           | structDefinition LBRACE ((IDENTIFIER COLON)? expression (COMMA (IDENTIFIER COLON)? expression)* COMMA?)? RBRACE;
+structFieldsAssign: IDENTIFIER COLON structBlock;
 
-// Assign Statement
-assignStatement: IDENTIFIER (arrayDims | DOT IDENTIFIER)? assignmentOperator (expression | structExpression) endOfStatement;
-assignmentOperator: SHORTASSIGNOP | INCASSIGNOP | DECASSIGNOP | MULASSIGNOP | DIVASSIGNOP | MODASSIGNOP;
+assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
+a1: IDENTIFIER (DOT IDENTIFIER)* arrayDims?;
+a2: expression | arrayLit | structExpression;
+assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
-// If Statement
-ifStatement: IF LP expression RP block
-             (ELSE IF LP expression RP block)*
-             (ELSE block)? endOfStatement;
-// For Statement
+ifStatement: IF expression block NEWLINE?
+             (ELSE IF expression block NEWLINE?)*
+             (ELSE block)?;
+
 forStatement: FOR ( forLoop | forIteration) block;
 
 forLoop: forCondition
          | initilization SEMI forCondition SEMI forUpdate;
 
-initilization: IDENTIFIER SHORTASSIGNOP expression;
+initilization: IDENTIFIER DECLARE expression;
 forCondition: expression;
 forUpdate: IDENTIFIER assignmentOperator expression;
 
-forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER SHORTASSIGNOP RANGE IDENTIFIER;
+forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER DECLARE RANGE IDENTIFIER;
 
-// Break Statement
-breakStatement: BREAK endOfStatement;
+breakStatement: BREAK;
 
-// Continue Statement
-continueStatement: CONTINUE endOfStatement;
+continueStatement: CONTINUE;
 
-// Call Statement
-callStatement: IDENTIFIER (DOT IDENTIFIER)? LP (expression (COMMA expression)*)? RP endOfStatement;
+callStatement: IDENTIFIER (DOT IDENTIFIER)? LPAREN (expression (COMMA expression)*)? RPAREN;
 
-// Return Statement
-returnStatement: RETURN expression? endOfStatement;
+returnStatement: RETURN (expression | (arrayDims baseType arraysBlock))?;
 
-block: LB (statement)* RB;
-arrayDims: (LSB INTLIT RSB)+;
+block: LBRACE statement* RBRACE;
+arrayDims: (LBRACKET expression RBRACKET)+;
 
-
-
-// TOKEN DEFINITION
-//KEYWORDS DEFINITION
-IF: 'if';
-ELSE: 'else';
-FOR: 'for';
-RETURN: 'return';
-FUNC: 'func';
-TYPE: 'type';
-STRUCT: 'struct';
+//------------------ Lexer Rules -------------------
+// Keywords
+IF      : 'if';
+ELSE    : 'else';
+FOR     : 'for';
+RETURN  : 'return';
+FUNC    : 'func';
+TYPE    : 'type';
+STRUCT  : 'struct';
 INTERFACE: 'interface';
-BOOLEAN: 'boolean';
-CONST: 'const';
-VAR: 'var';
-INTERGER: 'int';
-FLOAT: 'float';
-STRING: 'string';
+STRING  : 'string';
+INT     : 'int';
+FLOAT   : 'float';
+BOOLEAN : 'boolean';
+TRUE    : 'true';
+FALSE   : 'false';
+NIL     : 'nil';
+CONST   : 'const';
+VAR     : 'var';
 CONTINUE: 'continue';
-BREAK: 'break';
-RANGE: 'range';
-BOOLEANLIT: 'true' | 'false';
-NILLIT: 'nil';
+BREAK   : 'break';
+RANGE   : 'range';
 
-// IDENTIFIER DEFINITION
-IDENTIFIER: [a-zA-Z_] [a-zA-Z_0-9]*;
+// Operators
+ASSIGN  : '=';
+DECLARE : ':=';
+PLUS    : '+';
+MINUS   : '-';
+MUL     : '*';
+DIV     : '/';
+MOD     : '%';
+EQ      : '==';
+NEQ     : '!=';
+LT      : '<';
+LEQ     : '<=';
+GT      : '>';
+GEQ     : '>=';
+AND     : '&&';
+OR      : '||';
+NOT     : '!';
+PLUS_ASSIGN  : '+=';
+MINUS_ASSIGN : '-=';
+MUL_ASSIGN   : '*=';
+DIV_ASSIGN   : '/=';
+MOD_ASSIGN   : '%=';
+DOT     : '.';
+BLANK   : '_';
 
-// OPERATORS DEFINITION
-ADDOP: '+';
-SUBOP: '-';
-MULOP: '*';
-DIVOP: '/';
-MODOP: '%';
-EQUALOP: '==';
-NOTEQUALOP: '!=';
-LESSOP: '<';
-LESSEQUALOP: '<=';
-GREATEROP: '>';
-GREATEREQUALOP: '>=';
-ANDOP: '&&';
-OROP: '||';
-NOTOP: '!';
-ASSIGNOP: '=';
-SHORTASSIGNOP: ':=';
-INCASSIGNOP: '+=';
-DECASSIGNOP: '-=';
-MULASSIGNOP: '*=';
-DIVASSIGNOP: '/=';
-MODASSIGNOP: '%=';
-DOT: '.';
-COLON: ':';
-BLANK: '_';
+// Separators
+LPAREN  : '(';
+RPAREN  : ')';
+LBRACE  : '{';
+RBRACE  : '}';
+LBRACKET: '[';
+RBRACKET: ']';
+COMMA   : ',';
+SEMI    : ';';
+COLON   : ':';
 
-// SEPARATORS DEFINITION
-LP: '(';
-RP: ')';
-LB: '{';
-RB: '}';
-LSB: '[';
-RSB: ']';
-COMMA: ',';
-SEMI: ';';
+// Identifiers
+IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
 
-// LITERALS DEFINITION
-INTLIT: (ZERO | DEC | HEX | OCT | BIN);
-fragment ZERO: '0'; 
-fragment DEC: [1-9] [0-9]*;
-fragment HEX: '0' [xX] [0-9a-fA-F]*;
-fragment OCT: '0' [oO] [0-7]*;
-fragment BIN: '0' [bB] [01]*;
+// Literals
+// Integer
+INT_LIT: DEC_LIT | BIN_LIT | OCT_LIT | HEX_LIT;
+fragment DEC_LIT: '0' | [1-9][0-9]*;
+fragment BIN_LIT: '0' [bB] [0-1]+;
+fragment OCT_LIT: '0' [oO] [0-7]+ | '0' [0-7]+;
+fragment HEX_LIT: '0' [xX] [0-9a-fA-F]+;
 
-// FLOATLITERALS DEFINITION
-FLOATLIT: (INT FRAC FIC| INT FRAC | INT FIC);
-fragment INT: [0-9]+;
-fragment FRAC: '.' [0-9]*;
-fragment FIC: [eE][+-]? [0-9]+; 
+// Float
+FLOAT_LIT: DEC_PART ('.' DEC_PART? EXPONENT? | EXPONENT);
+fragment DEC_PART: [0-9]+;
+fragment EXPONENT: [eE] [+-]? [0-9]+;
 
-// STRING LITERALS DEFINITION
-STRINGLIT: '"' (ESCAPE | ~["\\])* '"';
-fragment ESCAPE: '\\' [ntr"\\];
+// String
+STRING_LIT: '"' (ESC_SEQ | ~["\\])* '"';
+fragment ESC_SEQ: '\\' [nrt"\\];
 
-// Skip Rules
-NL: '\n' -> channel(HIDDEN);
-WS: [ \t\r\f]+ -> skip; // skip spaces, tabs
-COMMENT: ('//' ~[\r\n]*) -> skip;
-MULTI_COMMENT: NESTED_COMMENT -> skip;
-fragment NESTED_COMMENT: '/*' (NESTED_COMMENT | ~'*' | '*' ~'/')* '*/';
+// Comments
+BLOCK_COMMENT: '/*' (BLOCK_COMMENT|.)*? '*/' -> skip;
+LINE_COMMENT: '//' ~[\r\n]* -> skip;
+WS: [ \t\f\r]+ -> skip;
 
+// Whitespace
+NEWLINE: '\n' {
+    lastToken = self.lastTokenType
+    listAllowedToken = [   
+                        self.IDENTIFIER,
+                        self.INT_LIT,
+                        self.FLOAT_LIT,
+                        self.STRING_LIT,
+                        self.RPAREN,
+                        self.RBRACE,
+                        self.RBRACKET,
+                        self.INT,
+                        self.FLOAT,
+                        self.STRING,
+                        self.BOOLEAN,
+                        self.TRUE,
+                        self.FALSE,
+                        self.NIL,
+                        self.BREAK,
+                        self.CONTINUE,
+                        self.RETURN,
+                        self.ASSIGN,
+                        self.DECLARE,
+                        self.PLUS,
+                        self.MINUS,
+                        self.MUL,
+                        self.DIV,
+                        self.MOD,
+                        self.EQ,
+                        self.NEQ,
+                        self.LT,
+                        self.LEQ,
+                        self.GT,
+                        self.GEQ,
+                        self.AND,
+                        self.OR,
+                        self.NOT,
+                        self.PLUS_ASSIGN,
+                        self.MINUS_ASSIGN,
+                        self.MUL_ASSIGN,
+                        self.DIV_ASSIGN,
+                        self.MOD_ASSIGN,
+                        self.DOT,
+                        self.BLANK
+                    ]
+    if lastToken in listAllowedToken:
+        self.text = ';';
+    else:
+        self.skip();
+};
 
-
-// Error Rules
+UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\])*;
+ILLEGAL_ESCAPE: '"' (ESC_SEQ | ~["\\])* '\\' ~[nrt"\\];
 ERROR_CHAR: .;
-ILLEGAL_ESCAPE: .;
-UNCLOSE_STRING: .;

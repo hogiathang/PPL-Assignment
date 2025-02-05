@@ -1,1 +1,1 @@
-func,main,(,),{,},<EOF>
+var,func,=,10,<EOF>

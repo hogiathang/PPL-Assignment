@@ -1,0 +1,6 @@
+
+        type Writer interface {
+            write(data string) int;
+            close();
+        }
+        func main() {}

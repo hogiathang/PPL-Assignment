@@ -1,1 +1,1 @@
-PutStringLn,(,p,.,name,),<EOF>
+p,.,name,=,"Alice",;,p,.,age,=,30,<EOF>

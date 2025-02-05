@@ -1,1 +1,1 @@
-Xc_123_Xc1_Z,<EOF>
+123,var,<EOF>

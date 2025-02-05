@@ -1,1 +1,1 @@
-y,:=,x,+,20,;,<EOF>
+s,=,Illegal escape in string: "Line1\nLine2\k

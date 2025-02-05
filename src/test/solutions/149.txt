@@ -1,1 +1,1 @@
-var,multiarr,[,2,],[,5,],int,;,<EOF>
+func,main,(,),{,print,(,"Hi",),;,ErrorToken #

@@ -1,1 +1,1 @@
-type,Drawable,interface,{,Draw,(,),},<EOF>
+s,=,Unclosed string: "End with backslash\" 

@@ -1,2 +1,1 @@
-for,i,>,10,{,
-,},<EOF>
+false,<EOF>

@@ -1,1 +1,1 @@
-0x1234567890abcdef,<EOF>
+AAAA,;,"This is a test \n ",;,BBB,;,2222,;,ydywgdywg,;,<EOF>
