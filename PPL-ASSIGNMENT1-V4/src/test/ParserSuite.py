@@ -116,14 +116,11 @@ class ParserSuite(unittest.TestCase):
         PutStringLn(p.name) // Output: Alice
         PutIntLn(p.age) // Output: 30
         var people []Person
+        const Greeting = "Hello, MiniGo!"
+        const MaxSize = 100 + 50;
+        const Pi = 3.14;
         testPerson.people.aiw(people).lost.pole(3)
-        if (x > 10) {
-            println("x is greater than 10")
-        } else if (x < 10) {
-            println("x is less than 10")
-        } else {
-            println("x is equal to 10")
-        }
+        
         type Calculator interface {
             Add(x, y int) int;
             Subtract(a, b float, c int) float;
@@ -133,4 +130,72 @@ class ParserSuite(unittest.TestCase):
         """
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 210))
+    def testcase_211(self):
+        input = """
+        func Add(x int, y int) int {
+            return x + y;
+        }
+             type Calculator struct {
+            value int;
+            }
+            
+            func (c Calculator) Add(x int) int {
+            c.value += x;
+            return c.value;
+            }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 211))
+
+    def testcase_212(self):
+        input = """
+        if (x > 10) {
+            println("x is greater than 10")
+        } else if (x < 10) {
+            println("x is less than 10")
+        } else {
+            println("x is equal to 10")
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 212))
     
+    def testcase_213(self):
+        input = """
+        for condition {
+            // statements
+        }
+        for i < 10 {
+            // loop body
+        }
+        for i := 0; i < 10; i += 1 {
+            // loop body
+        }
+                    for index, value := range array {
+            // statements
+            }      arr := [3]int{10, 20, 30}
+            for index, value := range arr {
+            // index: 0, 1, 2
+            // value: 10, 20, 30
+            }
+"""
+        expect = "Error on line 13 col 20: arr"
+        self.assertTrue(TestParser.checkParser(input, expect, 213))
+    
+    def testcase_214(self):
+        input = """
+        a[2][3] := b[2] + 1;
+        person.name := "John";
+        person.age := 30;
+        arr := [3]int{10, 20, 30}
+        marr := [2][3]int{{1, 2, 3}, {4, 5, 6}}
+        p := Person{name: "Alice", age: 30}
+        q := Person{}
+        add(3, 4)
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 214))
+
+    def testcase_215(self):
+        input = """
+        """
