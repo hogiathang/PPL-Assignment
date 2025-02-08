@@ -121,48 +121,12 @@ WS: [ \t\f\r]+ -> skip;
 // Whitespace
 NEWLINE: '\n' {
     lastToken = self.lastTokenType
-    listAllowedToken = [   
-                        self.IDENTIFIER,
-                        self.INT_LIT,
-                        self.FLOAT_LIT,
-                        self.STRING_LIT,
-                        self.RPAREN,
-                        self.RBRACE,
-                        self.RBRACKET,
-                        self.INT,
-                        self.FLOAT,
-                        self.STRING,
-                        self.BOOLEAN,
-                        self.TRUE,
-                        self.FALSE,
-                        self.NIL,
-                        self.BREAK,
-                        self.CONTINUE,
-                        self.RETURN,
-                        self.ASSIGN,
-                        self.DECLARE,
-                        self.PLUS,
-                        self.MINUS,
-                        self.MUL,
-                        self.DIV,
-                        self.MOD,
-                        self.EQ,
-                        self.NEQ,
-                        self.LT,
-                        self.LEQ,
-                        self.GT,
-                        self.GEQ,
-                        self.AND,
-                        self.OR,
-                        self.NOT,
-                        self.PLUS_ASSIGN,
-                        self.MINUS_ASSIGN,
-                        self.MUL_ASSIGN,
-                        self.DIV_ASSIGN,
-                        self.MOD_ASSIGN,
-                        self.DOT,
-                        self.BLANK
-                    ]
+    listAllowedToken = [
+        self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT,
+        self.RPAREN, self.RBRACE, self.RBRACKET,
+        self.INT, self.FLOAT, self.STRING, self.BOOLEAN,
+        self.TRUE, self.FALSE, self.BREAK, self.CONTINUE, self.RETURN
+    ]
     if lastToken in listAllowedToken:
         self.text = ';';
     else:
