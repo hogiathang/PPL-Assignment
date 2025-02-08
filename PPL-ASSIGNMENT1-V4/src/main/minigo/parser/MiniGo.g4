@@ -26,23 +26,23 @@ options{
 	language=Python3;
 }
 
-program  : (declaration | statement | mainFunction)+ EOF ;
+program  : (declaration | statement)+ EOF ;
 
-mainFunction: FUNC 'main' LPAREN RPAREN block endOfStatement?;
+// mainFunction: FUNC 'main' LPAREN RPAREN LBRACE statement* RBRACE endOfStatement?;
 
 baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 
-endOfStatement: SEMI | EOF | NEWLINE;
+endOfStatement: SEMI | NEWLINE;
 
 declaration: varDecl endOfStatement 
-           | funcDecl endOfStatement?
+           | funcDecl endOfStatement
            | typeDecl endOfStatement
            | constDecl endOfStatement 
-           | methodDecl endOfStatement?;
+           | methodDecl endOfStatement;
 
 
 varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
-funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? block;
+funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? LBRACE statement* RBRACE;
 typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
 constDecl: CONST IDENTIFIER ASSIGN expression;
 methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN baseType? block;
@@ -91,7 +91,7 @@ statement: assignStatement endOfStatement
          | typeDecl endOfStatement
          | methodDecl endOfStatement
          | constDecl endOfStatement
-         | block endOfStatement?;
+         | block endOfStatement;
 
 
 arrayLit: arrayDims baseType arraysBlock;
@@ -136,7 +136,7 @@ callStatement: IDENTIFIER arrayDims? DOT callStatement
 returnStatement: RETURN (expression | arrayLit)?;
 
 arguments: expression (COMMA expression)*;
-block: LBRACE statement* RBRACE;
+block: LBRACE statement+ RBRACE;
 arrayDims: (LBRACKET expression? RBRACKET)+;
 
 //------------------ Lexer Rules -------------------

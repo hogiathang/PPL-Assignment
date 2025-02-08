@@ -1,1 +1,1 @@
-Error on line 13 col 20: arr
+Error on line 4 col 9: }

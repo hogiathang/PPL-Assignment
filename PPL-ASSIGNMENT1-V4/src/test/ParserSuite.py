@@ -179,7 +179,7 @@ class ParserSuite(unittest.TestCase):
             // value: 10, 20, 30
             }
 """
-        expect = "Error on line 13 col 20: arr"
+        expect = "Error on line 4 col 9: }"
         self.assertTrue(TestParser.checkParser(input, expect, 213))
     
     def testcase_214(self):
@@ -198,4 +198,47 @@ class ParserSuite(unittest.TestCase):
 
     def testcase_215(self):
         input = """
+        arr := [3]int{10, 20, 30}
+        for _, value := range arr {
+            // value: 10, 20, 30
+            modify(value)
+        }
+        
+        for i := 0; i < 10; i+=1 {
+        
+            if (i == 5) {
+                break;
+            }
+            // other statements
+        }
+        
+        for i := 0; i < 10; i+=1 {
+            if (i == 5) {
+                continue;
+            }
+            // statements that will not execute when i == 5
+        }// Errorr
         """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 215))
+    def testcase_216(self):
+        input = """
+        foo(2 + x, 4 / y); m.goo();
+        func foo(x int, y int) {
+        }; func goo() {
+        } func (c Test) goo() {
+        }; func (c Test) goo() int {
+        }"""
+        expect = "Error on line 5 col 11: func"
+        self.assertTrue(TestParser.checkParser(input, expect, 216))
+
+    def testcase_217(self):
+        input = """
+        {}"""
+        expect = "Error on line 2 col 10: }"
+        self.assertTrue(TestParser.checkParser(input, expect, 217))
+
+    # def testcase_218(self):
+    #     input = """x := true.x"""
+    #     expect = """successful"""
+    #     self.assertTrue(TestParser.checkParser(input, expect, 218))

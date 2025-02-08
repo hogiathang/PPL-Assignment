@@ -1,0 +1,22 @@
+
+        arr := [3]int{10, 20, 30}
+        for _, value := range arr {
+            // value: 10, 20, 30
+            modify(value)
+        }
+        
+        for i := 0; i < 10; i+=1 {
+        
+            if (i == 5) {
+                break;
+            }
+            // other statements
+        }
+        
+        for i := 0; i < 10; i+=1 {
+            if (i == 5) {
+                continue;
+            }
+            // statements that will not execute when i == 5
+        }// Errorr
+        

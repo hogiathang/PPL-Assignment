@@ -14,11 +14,6 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#mainFunction.
-    def visitMainFunction(self, ctx:MiniGoParser.MainFunctionContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#baseType.
     def visitBaseType(self, ctx:MiniGoParser.BaseTypeContext):
         return self.visitChildren(ctx)
