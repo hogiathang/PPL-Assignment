@@ -84,6 +84,11 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#listGroup.
+    def visitListGroup(self, ctx:MiniGoParser.ListGroupContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#interfaceFields.
     def visitInterfaceFields(self, ctx:MiniGoParser.InterfaceFieldsContext):
         return self.visitChildren(ctx)

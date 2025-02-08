@@ -51,8 +51,9 @@ structDefinition: STRUCT LBRACE structFields* RBRACE;
 structFields: IDENTIFIER (arrayDims? baseType | structDefinition) endOfStatement;
 
 interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE;
-listParams: LPAREN (listIdentifier baseType)* RPAREN;
-listIdentifier: IDENTIFIER (COMMA IDENTIFIER)*;
+listParams: LPAREN listIdentifier? RPAREN;
+listIdentifier: listGroup (COMMA listGroup)*;
+listGroup: IDENTIFIER (COMMA IDENTIFIER)* baseType;
 interfaceFields: IDENTIFIER listParams baseType? endOfStatement;
 
 funcParams: funcParam (COMMA funcParam)*;
