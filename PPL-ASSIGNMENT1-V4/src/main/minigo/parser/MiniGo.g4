@@ -8,6 +8,7 @@ from lexererr import *
 lastTokenType = None;
 def emit(self):
     tk = self.type
+    self.lastTokenType = tk
     if tk == self.UNCLOSE_STRING:       
         result = super().emit();
         raise UncloseString(result.text);
