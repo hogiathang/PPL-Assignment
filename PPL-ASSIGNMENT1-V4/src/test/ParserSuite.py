@@ -238,7 +238,101 @@ class ParserSuite(unittest.TestCase):
         expect = "Error on line 2 col 10: }"
         self.assertTrue(TestParser.checkParser(input, expect, 217))
 
-    # def testcase_218(self):
-    #     input = """x := true.x"""
-    #     expect = """successful"""
-    #     self.assertTrue(TestParser.checkParser(input, expect, 218))
+    def testcase_218(self):
+        input = """x := true.x;"""
+        expect = """successful"""
+        self.assertTrue(TestParser.checkParser(input, expect, 218))
+
+    def testcase_219(self):
+        input = """
+            for index, value := range arr {
+                for _, v := range pointer {
+                    println(v);
+                }
+
+                for i := 0; i < 10; i += 1 {
+                    println(i);
+
+                    if (i == 5) {
+                        break;
+                    } else if (i == 3) {
+                        continue;
+                    }
+                    else {
+                        println(i);
+                    }
+                }
+            }
+        """
+        expect = """successful"""
+        self.assertTrue(TestParser.checkParser(input, expect, 219))
+
+    def testcase_220(self):
+        input = """
+        type Address struct {
+            street string;
+            city   string;
+        }
+
+        type DateCreated struct {
+            day   int;
+            month int;
+            year  int;
+        }
+
+        type Account struct {
+            username string;
+            password string;
+            address Address;
+            created DateCreated;
+        }
+
+        func (a Account) GetUsername() string {
+            return a.username;
+        }
+
+        func (a Account) GetPassword() string {
+            return a.password;
+        }
+
+        func (a Account) GetAddress() Address {
+            return a.address;
+        }
+
+        func (a Account) GetCreated() DateCreated {
+            return a.created;
+        }
+
+        func (a Account) SetUsername(username string) {
+            a.username := username;
+        }
+
+        func (a Account) CopyAnInstance(b Account) {
+            a.username := b.username;
+            a.password := b.password;
+            a.address := b.address;
+            a.created := b.created;
+        }
+
+        func foo() {
+            a := Account{
+                username: "John Doe",
+                password: "123456",
+                address: Address{
+                    street: "123 Main St",
+                    city: "New York",
+                },
+                created: DateCreated{
+                    day: 1,
+                    month: 1,
+                    year: 2020,
+                },
+            };
+
+            b := Account{};
+            b.CopyAnInstance(a);
+            b.SetUsername("Jane Doe");
+        }
+        """
+        expect = """successful"""
+        self.assertTrue(TestParser.checkParser(input, expect, 220))

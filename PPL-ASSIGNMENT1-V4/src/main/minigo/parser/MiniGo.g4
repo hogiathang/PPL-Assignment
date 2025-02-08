@@ -101,7 +101,6 @@ structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssig
 structBlock: expression 
            | arrayLit 
            | structExpression;
-          // | structDefinition LBRACE ((IDENTIFIER COLON)? expression (COMMA (IDENTIFIER COLON)? expression)* COMMA?)? RBRACE;
 structFieldsAssign: IDENTIFIER COLON structBlock;
 
 assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
