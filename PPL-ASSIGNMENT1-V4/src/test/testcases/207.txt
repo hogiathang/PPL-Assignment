@@ -1,0 +1,8 @@
+
+            type Outer struct {
+                field1 int;
+                type Inner struct {  // Not allowed
+                    field2 string;
+                };
+            }
+        

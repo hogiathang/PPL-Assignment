@@ -1,0 +1,20 @@
+
+        p := Person{}
+        PutStringLn(p.name) // Output: Alice
+        PutIntLn(p.age) // Output: 30
+        var people []Person
+        testPerson.people.aiw(people).lost.pole(3)
+        if (x > 10) {
+            println("x is greater than 10")
+        } else if (x < 10) {
+            println("x is less than 10")
+        } else {
+            println("x is equal to 10")
+        }
+        type Calculator interface {
+            Add(x, y int) int;
+            Subtract(a, b float, c int) float;
+            Reset()
+            SayHello(name string)
+        }
+        

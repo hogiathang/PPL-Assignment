@@ -26,13 +26,117 @@ options{
 	language=Python3;
 }
 
-program  : decl+ EOF ;
+program  : (declaration | statement | mainFunction)+ EOF ;
 
-decl: funcdecl | vardecl  ;
+mainFunction: FUNC 'main' LPAREN RPAREN block endOfStatement?;
 
-vardecl: 'var' IDENTIFIER 'int' ';' ;
+baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 
-funcdecl: 'func' IDENTIFIER '(' ')' '{' '}' ';' ;
+endOfStatement: SEMI | EOF | NEWLINE;
+
+declaration: varDecl endOfStatement 
+           | funcDecl endOfStatement?
+           | typeDecl endOfStatement
+           | constDecl endOfStatement 
+           | methodDecl endOfStatement?;
+
+
+varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
+funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? block;
+typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
+constDecl: CONST IDENTIFIER ASSIGN expression;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN baseType? block;
+
+structDefinition: STRUCT LBRACE structFields* RBRACE;
+structFields: IDENTIFIER (arrayDims? baseType | structDefinition) endOfStatement;
+
+interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE;
+listParams: LPAREN (listIdentifier baseType)* RPAREN;
+listIdentifier: IDENTIFIER (COMMA IDENTIFIER)*;
+interfaceFields: IDENTIFIER listParams baseType? endOfStatement;
+
+funcParams: funcParam (COMMA funcParam)*;
+funcParam: IDENTIFIER (arrayDims? baseType);
+
+expression: logicOrExp;
+logicOrExp: logicAndExp (OR logicOrExp)*;
+logicAndExp: equalityExp (AND logicAndExp)*;
+equalityExp: additiveExp ((EQ | NEQ | LT | LEQ | GT | GEQ) additiveExp)*;
+additiveExp: multiplicativeExp ((PLUS | MINUS) multiplicativeExp)*;
+multiplicativeExp: unaryExp ((MUL | DIV | MOD) unaryExp)*;
+unaryExp: (MINUS | NOT)* postfixExp;
+
+postfixExp: primaryExp 
+          | postfixExp LBRACKET expression RBRACKET
+          | postfixExp DOT IDENTIFIER
+          | postfixExp LPAREN arguments? RPAREN;
+
+primaryExp: LPAREN expression RPAREN
+          | literal
+          | callStatement
+          | IDENTIFIER;
+
+literal: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL;
+
+
+statement: assignStatement endOfStatement
+         | ifStatement endOfStatement
+         | forStatement endOfStatement
+         | breakStatement endOfStatement
+         | continueStatement endOfStatement
+         | callStatement endOfStatement
+         | returnStatement endOfStatement
+         | varDecl endOfStatement
+         | typeDecl endOfStatement
+         | methodDecl endOfStatement
+         | constDecl endOfStatement
+         | block endOfStatement?;
+
+
+arrayLit: arrayDims baseType arraysBlock;
+arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
+
+structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* COMMA?)? RBRACE;
+structBlock: expression 
+           | arrayLit 
+           | structExpression;
+          // | structDefinition LBRACE ((IDENTIFIER COLON)? expression (COMMA (IDENTIFIER COLON)? expression)* COMMA?)? RBRACE;
+structFieldsAssign: IDENTIFIER COLON structBlock;
+
+assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
+a1: (callStatement | IDENTIFIER) DOT a1 
+  | IDENTIFIER arrayDims?;
+a2: expression | arrayLit | structExpression;
+assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
+
+ifStatement: IF expression block NEWLINE?
+             (ELSE IF expression block NEWLINE?)*
+             (ELSE block)?;
+
+forStatement: FOR ( forLoop | forIteration) block;
+
+forLoop: forCondition
+         | initilization SEMI forCondition SEMI forUpdate;
+
+initilization: IDENTIFIER DECLARE expression;
+forCondition: expression;
+forUpdate: IDENTIFIER assignmentOperator expression;
+
+forIteration: (IDENTIFIER | BLANK) COMMA IDENTIFIER DECLARE RANGE IDENTIFIER;
+
+breakStatement: BREAK;
+
+continueStatement: CONTINUE;
+
+primaryCall: IDENTIFIER LPAREN arguments? RPAREN;
+callStatement: IDENTIFIER arrayDims? DOT callStatement 
+            |  primaryCall (DOT callStatement)?;
+
+returnStatement: RETURN (expression | arrayLit)?;
+
+arguments: expression (COMMA expression)*;
+block: LBRACE statement* RBRACE;
+arrayDims: (LBRACKET expression? RBRACKET)+;
 
 //------------------ Lexer Rules -------------------
 // Keywords
@@ -118,16 +222,14 @@ BLOCK_COMMENT: '/*' (BLOCK_COMMENT|.)*? '*/' -> skip;
 LINE_COMMENT: '//' ~[\r\n]* -> skip;
 WS: [ \t\f\r]+ -> skip;
 
-// Whitespace
 NEWLINE: '\n' {
-    lastToken = self.lastTokenType
     listAllowedToken = [
         self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT,
         self.RPAREN, self.RBRACE, self.RBRACKET,
         self.INT, self.FLOAT, self.STRING, self.BOOLEAN,
         self.TRUE, self.FALSE, self.BREAK, self.CONTINUE, self.RETURN
-    ]
-    if lastToken in listAllowedToken:
+    ];
+    if self.lastTokenType in listAllowedToken:
         self.text = ';';
     else:
         self.skip();
