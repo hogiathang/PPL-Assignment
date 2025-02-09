@@ -59,9 +59,9 @@ class ParserSuite(unittest.TestCase):
             }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 206))
+        self.assertTrue(TestParser.checkParser(input, expect, 207))
 
-    def testcase_207(self):
+    def testcase_208(self):
         input = """
             type Outer struct {
                 field1 int;
@@ -71,9 +71,9 @@ class ParserSuite(unittest.TestCase):
             }
         """
         expect = "Error on line 4 col 17: type"
-        self.assertTrue(TestParser.checkParser(input, expect, 207))
+        self.assertTrue(TestParser.checkParser(input, expect, 208))
     
-    def testcase_208(self):
+    def testcase_209(self):
         input = """
             manager := ShapeManager{
             id: 1,
@@ -88,9 +88,9 @@ class ParserSuite(unittest.TestCase):
         };
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 208))
+        self.assertTrue(TestParser.checkParser(input, expect, 209))
 
-    def testcase_209(self):
+    def testcase_210(self):
         input = """
         manager := ShapeManager{
             id: 1,
@@ -103,14 +103,14 @@ class ParserSuite(unittest.TestCase):
                 version float
             } {
                 createdBy: "John Doe",
-                version: 1.0,
+                version: 1.0,   
             },
         };
         """
         expect = "Error on line 8 col 23: struct"
-        self.assertTrue(TestParser.checkParser(input, expect, 209))
+        self.assertTrue(TestParser.checkParser(input, expect, 210))
 
-    def testcase_210(self):
+    def testcase_211(self):
         input = """
         p := Person{}
         PutStringLn(p.name) // Output: Alice
@@ -129,8 +129,8 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 210))
-    def testcase_211(self):
+        self.assertTrue(TestParser.checkParser(input, expect, 211))
+    def testcase_212(self):
         input = """
         func Add(x int, y int) int {
             return x + y;
@@ -145,9 +145,9 @@ class ParserSuite(unittest.TestCase):
             }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 211))
+        self.assertTrue(TestParser.checkParser(input, expect, 212))
 
-    def testcase_212(self):
+    def testcase_213(self):
         input = """
         if (x > 10) {
             println("x is greater than 10")
@@ -158,9 +158,9 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 212))
+        self.assertTrue(TestParser.checkParser(input, expect, 213))
     
-    def testcase_213(self):
+    def testcase_214(self):
         input = """
         for condition {
             // statements
@@ -180,9 +180,9 @@ class ParserSuite(unittest.TestCase):
             }
 """
         expect = "Error on line 4 col 9: }"
-        self.assertTrue(TestParser.checkParser(input, expect, 213))
+        self.assertTrue(TestParser.checkParser(input, expect, 214))
     
-    def testcase_214(self):
+    def testcase_215(self):
         input = """
         a[2][3] := b[2] + 1;
         person.name := "John";
@@ -194,9 +194,9 @@ class ParserSuite(unittest.TestCase):
         add(3, 4)
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 214))
+        self.assertTrue(TestParser.checkParser(input, expect, 215))
 
-    def testcase_215(self):
+    def testcase_216(self):
         input = """
         arr := [3]int{10, 20, 30}
         for _, value := range arr {
@@ -220,8 +220,8 @@ class ParserSuite(unittest.TestCase):
         }// Errorr
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 215))
-    def testcase_216(self):
+        self.assertTrue(TestParser.checkParser(input, expect, 216))
+    def testcase_217(self):
         input = """
         foo(2 + x, 4 / y); m.goo();
         func foo(x int, y int) {
@@ -230,20 +230,20 @@ class ParserSuite(unittest.TestCase):
         }; func (c Test) goo() int {
         }"""
         expect = "Error on line 5 col 11: func"
-        self.assertTrue(TestParser.checkParser(input, expect, 216))
-
-    def testcase_217(self):
-        input = """
-        {}"""
-        expect = "Error on line 2 col 10: }"
         self.assertTrue(TestParser.checkParser(input, expect, 217))
 
     def testcase_218(self):
-        input = """x := true.x;"""
-        expect = """successful"""
+        input = """
+        {}"""
+        expect = "Error on line 2 col 10: }"
         self.assertTrue(TestParser.checkParser(input, expect, 218))
 
     def testcase_219(self):
+        input = """x := true.x;"""
+        expect = """successful"""
+        self.assertTrue(TestParser.checkParser(input, expect, 219))
+
+    def testcase_220(self):
         input = """
             for index, value := range arr {
                 for _, v := range pointer {
@@ -265,9 +265,9 @@ class ParserSuite(unittest.TestCase):
             }
         """
         expect = """successful"""
-        self.assertTrue(TestParser.checkParser(input, expect, 219))
+        self.assertTrue(TestParser.checkParser(input, expect, 220))
 
-    def testcase_220(self):
+    def testcase_221(self):
         input = """
         type Address struct {
             street string;
@@ -335,9 +335,9 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = """successful"""
-        self.assertTrue(TestParser.checkParser(input, expect, 220))
+        self.assertTrue(TestParser.checkParser(input, expect, 221))
     
-    def test_logic_expression_221(self):
+    def test_logic_expression_222(self):
         input = """
         func main() {
             var x boolean
@@ -345,9 +345,9 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 221))
+        self.assertTrue(TestParser.checkParser(input, expect, 222))
 
-    def test_logic_expression_222(self):
+    def test_logic_expression_223(self):
         input = """
         func main() {
             var x boolean;
@@ -355,9 +355,9 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 222))
+        self.assertTrue(TestParser.checkParser(input, expect, 223))
 
-    def test_array_expression_223(self):
+    def test_array_expression_224(self):
         input = """
         func main() {
             arr := [3]int{1,2,3}
@@ -368,9 +368,9 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 223))
+        self.assertTrue(TestParser.checkParser(input, expect, 224))
     
-    def test_struct_expression_224(self):
+    def test_struct_expression_225(self):
         input = """
         type Point struct { x int; y int; };
         func main() {
@@ -381,9 +381,9 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 224))
+        self.assertTrue(TestParser.checkParser(input, expect, 225))
 
-    def test_if_null_expression_225(self):
+    def test_if_null_expression_226(self):
         input = """
         func main() {
             var x int;
@@ -394,18 +394,18 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "Error on line 5 col 13: }"
-        self.assertTrue(TestParser.checkParser(input, expect, 225))
+        self.assertTrue(TestParser.checkParser(input, expect, 226))
 
-    def test_nested_functioncall_226(self):
+    def test_nested_functioncall_227(self):
         input = """
         func (p Person) Greet() string {
             return "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
         }
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 226))
+        self.assertTrue(TestParser.checkParser(input, expect, 227))
 
-    def test_nested_functionl_227(self):
+    def test_nested_functionl_228(self):
         input = """
         func (p Person) Greet() string {
             str := "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
@@ -418,16 +418,20 @@ class ParserSuite(unittest.TestCase):
         }
         """
         expect = "Error on line 5 col 18: func"
-        self.assertTrue(TestParser.checkParser(input, expect, 227))
+        self.assertTrue(TestParser.checkParser(input, expect, 228))
 
-    def test_nested_array_228(self):
+    def test_nested_array_229(self):
         input = """
         var matrix [2][3]int = {{1, 2, 3}, {4, 5, 6}};
+        var matrix2 [1]int = {1};
+        arr2 := [1]int{1};
         arr := [2][3]int{{1, 2, 3}, {4, 5, 6}};
         putIntLn(matrix[1][2]);  // In ra 6
         """
         expect = "successful"
-        self.assertTrue(TestParser.checkParser(input, expect, 228))
+        self.assertTrue(TestParser.checkParser(input, expect, 229))
+
+    
 
 
     

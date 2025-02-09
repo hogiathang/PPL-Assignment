@@ -1,9 +1,6 @@
 
         func main() {
-            arr := [3]int{1,2,3}
-            arr[0] := 5;
-            arr[1] := arr[0] + 5;
-            arr[2] := arr[1] + arr[0];
-
+            var x boolean;
+            x := -x || !x && x;
         }
         

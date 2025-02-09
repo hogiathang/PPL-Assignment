@@ -1,17 +1,9 @@
 
-        for condition {
-            // statements
+        if (x > 10) {
+            println("x is greater than 10")
+        } else if (x < 10) {
+            println("x is less than 10")
+        } else {
+            println("x is equal to 10")
         }
-        for i < 10 {
-            // loop body
-        }
-        for i := 0; i < 10; i += 1 {
-            // loop body
-        }
-                    for index, value := range array {
-            // statements
-            }      arr := [3]int{10, 20, 30}
-            for index, value := range arr {
-            // index: 0, 1, 2
-            // value: 10, 20, 30
-            }
+        

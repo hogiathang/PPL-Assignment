@@ -1,9 +1,13 @@
 
-        if (x > 10) {
-            println("x is greater than 10")
-        } else if (x < 10) {
-            println("x is less than 10")
-        } else {
-            println("x is equal to 10")
+        func Add(x int, y int) int {
+            return x + y;
         }
+             type Calculator struct {
+            value int;
+            }
+            
+            func (c Calculator) Add(x int) int {
+            c.value += x;
+            return c.value;
+            }
         

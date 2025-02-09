@@ -1,5 +1,9 @@
 
-        func (p Person) Greet() string {
-            return "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
+        func main() {
+            var x int;
+            if x == nil {
+            } else {
+                return;
+            }
         }
         

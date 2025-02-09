@@ -1,13 +1,8 @@
 
-            manager := ShapeManager{
-            id: 1,
-            name: "Manager",
-            coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
-            active: true,
-            drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
-            metadata: Metadata{
-                createdBy: "John Doe",
-                version: 1.0,
-            },
-        };
+            type Outer struct {
+                field1 int;
+                type Inner struct {  // Not allowed
+                    field2 string;
+                };
+            }
         

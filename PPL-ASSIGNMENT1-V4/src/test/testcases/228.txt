@@ -1,5 +1,11 @@
 
-        var matrix [2][3]int = {{1, 2, 3}, {4, 5, 6}};
-        arr := [2][3]int{{1, 2, 3}, {4, 5, 6}};
-        putIntLn(matrix[1][2]);  // In ra 6
+        func (p Person) Greet() string {
+            str := "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
+
+            k := func hello() string {
+                return "Hello";
+            }
+
+            return str + k();
+        }
         

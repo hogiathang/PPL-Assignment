@@ -1,22 +1,10 @@
 
+        a[2][3] := b[2] + 1;
+        person.name := "John";
+        person.age := 30;
         arr := [3]int{10, 20, 30}
-        for _, value := range arr {
-            // value: 10, 20, 30
-            modify(value)
-        }
-        
-        for i := 0; i < 10; i+=1 {
-        
-            if (i == 5) {
-                break;
-            }
-            // other statements
-        }
-        
-        for i := 0; i < 10; i+=1 {
-            if (i == 5) {
-                continue;
-            }
-            // statements that will not execute when i == 5
-        }// Errorr
+        marr := [2][3]int{{1, 2, 3}, {4, 5, 6}}
+        p := Person{name: "Alice", age: 30}
+        q := Person{}
+        add(3, 4)
         

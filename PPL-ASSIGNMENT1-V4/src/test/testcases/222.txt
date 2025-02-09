@@ -1,6 +1,6 @@
 
         func main() {
-            var x boolean;
-            x := -x || !x && x;
+            var x boolean
+            x := (true && false) || (true || false) && !true
         }
         

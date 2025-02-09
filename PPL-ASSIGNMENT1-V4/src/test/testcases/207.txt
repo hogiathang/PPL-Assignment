@@ -1,8 +1,12 @@
 
-            type Outer struct {
-                field1 int;
-                type Inner struct {  // Not allowed
-                    field2 string;
-                };
+            type Address struct {
+                street string;
+                city   string;
+            }
+
+            type Person struct {
+                name    string;
+                age     int;
+                address Address;
             }
         
