@@ -336,3 +336,98 @@ class ParserSuite(unittest.TestCase):
         """
         expect = """successful"""
         self.assertTrue(TestParser.checkParser(input, expect, 220))
+    
+    def test_logic_expression_221(self):
+        input = """
+        func main() {
+            var x boolean
+            x := (true && false) || (true || false) && !true
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 221))
+
+    def test_logic_expression_222(self):
+        input = """
+        func main() {
+            var x boolean;
+            x := -x || !x && x;
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 222))
+
+    def test_array_expression_223(self):
+        input = """
+        func main() {
+            arr := [3]int{1,2,3}
+            arr[0] := 5;
+            arr[1] := arr[0] + 5;
+            arr[2] := arr[1] + arr[0];
+
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 223))
+    
+    def test_struct_expression_224(self):
+        input = """
+        type Point struct { x int; y int; };
+        func main() {
+            var p Point;
+            p.x := 5;
+            p.y := 6;
+            p.z := (p.x * p.x + p.y * p.y) % 2 + foo(a, b) == 0;
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 224))
+
+    def test_if_null_expression_225(self):
+        input = """
+        func main() {
+            var x int;
+            if x == nil {
+            } else {
+                return;
+            }
+        }
+        """
+        expect = "Error on line 5 col 13: }"
+        self.assertTrue(TestParser.checkParser(input, expect, 225))
+
+    def test_nested_functioncall_226(self):
+        input = """
+        func (p Person) Greet() string {
+            return "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 226))
+
+    def test_nested_functionl_227(self):
+        input = """
+        func (p Person) Greet() string {
+            str := "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
+
+            k := func hello() string {
+                return "Hello";
+            }
+
+            return str + k();
+        }
+        """
+        expect = "Error on line 5 col 18: func"
+        self.assertTrue(TestParser.checkParser(input, expect, 227))
+
+    def test_nested_array_228(self):
+        input = """
+        var matrix [2][3]int = {{1, 2, 3}, {4, 5, 6}};
+        arr := [2][3]int{{1, 2, 3}, {4, 5, 6}};
+        putIntLn(matrix[1][2]);  // In ra 6
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input, expect, 228))
+
+
+    

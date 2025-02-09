@@ -41,7 +41,11 @@ declaration: varDecl endOfStatement
            | methodDecl endOfStatement;
 
 
-varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
+// varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
+varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* (arrayDecl | baseType | assignDecl);
+arrayDecl : arrayDims baseType (ASSIGN (arraysBlock | expression))?;
+assignDecl: (baseType? ASSIGN expression);
+
 funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? LBRACE statement* RBRACE;
 typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
 constDecl: CONST IDENTIFIER ASSIGN expression;
@@ -227,7 +231,7 @@ NEWLINE: '\n' {
         self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT,
         self.RPAREN, self.RBRACE, self.RBRACKET,
         self.INT, self.FLOAT, self.STRING, self.BOOLEAN,
-        self.TRUE, self.FALSE, self.BREAK, self.CONTINUE, self.RETURN
+        self.TRUE, self.FALSE, self.BREAK, self.CONTINUE, self.RETURN, self.NIL
     ];
     if self.lastTokenType in listAllowedToken:
         self.text = ';';

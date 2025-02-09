@@ -1,0 +1,6 @@
+
+        func main() {
+            var x boolean;
+            x := -x || !x && x;
+        }
+        
