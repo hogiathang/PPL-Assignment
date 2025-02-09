@@ -385,7 +385,7 @@ class MiniGoLexer(Lexer):
                     self.IDENTIFIER, self.INT_LIT, self.FLOAT_LIT, self.STRING_LIT,
                     self.RPAREN, self.RBRACE, self.RBRACKET,
                     self.INT, self.FLOAT, self.STRING, self.BOOLEAN,
-                    self.TRUE, self.FALSE, self.BREAK, self.CONTINUE, self.RETURN
+                    self.TRUE, self.FALSE, self.BREAK, self.CONTINUE, self.RETURN, self.NIL
                 ];
                 if self.lastTokenType in listAllowedToken:
                     self.text = ';';
