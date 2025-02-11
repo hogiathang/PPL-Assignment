@@ -1,6 +1,1 @@
-type Calculator interface {
-            add(x, y float) float;
-            subtract(x, y float) float;
-            multiply(x, y float) float;
-            divide(x, y float) float;
-        }
+type empty interface {}

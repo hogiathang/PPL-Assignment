@@ -1,3 +1,6 @@
-func main() {
-            var c = a.x
+
+        func main() {
+            var x boolean
+            x := (true && false) || (true || false) && !true
         }
+        

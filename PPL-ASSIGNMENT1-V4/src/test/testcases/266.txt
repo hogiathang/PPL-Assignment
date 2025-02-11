@@ -1,3 +1,15 @@
-func (c Complex) add(other Complex) Complex {
-            return Complex{real: c.real + other.real, imaginary: c.imaginary + other.imaginary};
+
+        type Shape interface {
+            area() float;
+            perimeter() float;
+        }
+        /*type Rectangle struct {
+            width, height float;
+        }*/
+        func (r Rectangle) area() float {
+            return r.width * r.height;
+        }
+        func main() {
+            var shapes [2]Shape;
+            shapes[0] := Rectangle{width: 5.0, height: 3.0};
         }

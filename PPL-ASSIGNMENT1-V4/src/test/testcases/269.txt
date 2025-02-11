@@ -1,4 +1,12 @@
-func (t Tree) insert(val int) Tree {
-            if t == nil { return Tree{value: val}; };
-            return t;
+
+        type Animal interface {
+            makeSound() string;
+            move(distance float);
+        }
+        type Dog struct {
+            name string;
+            age int;
+        }
+        func (d Dog) makeSound() string {
+            return "Woof!";
         }

@@ -1,1 +1,3 @@
-func foo(a, b int, c GOAT) GOAT {};
+var a int 
+var b int 
+var c int; var d int

@@ -1,4 +1,4 @@
-type Matrix struct {
-            rows, cols int;
-            elements [100][100]float;
+type LinkedList struct {
+            data int;
+            next Node;
         }

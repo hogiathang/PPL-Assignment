@@ -1,13 +1,12 @@
 
-        type Stack struct {
-            elements [100]int;
-            size int;
+        type Calculator interface {
+            calculate(x float, y float) float;
         }
-        func (s Stack) push(element int) {
-            s.elements[s.size] := element;
-            s.size := s.size + 1;
+        type Addition struct {}
+        func (a Addition) calculate(x float, y float) float {
+            return x + y;
         }
-        func (s Stack) pop() int {
-            s.size := s.size - 1;
-            return s.elements[s.size];
+        func main() {
+            var calc Calculator = Addition{};
+            result := calc.calculate(10.5, 20.5);
         }

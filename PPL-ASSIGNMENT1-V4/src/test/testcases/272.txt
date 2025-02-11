@@ -1,15 +1,14 @@
 
-        type Shape interface {
-            area() float;
-            perimeter() float;
+        type Tree struct {
+            value int;
+        //    left, right Tree;
         }
-        /*type Rectangle struct {
-            width, height float;
-        }*/
-        func (r Rectangle) area() float {
-            return r.width * r.height;
-        }
-        func main() {
-            var shapes [2]Shape;
-            shapes[0] := Rectangle{width: 5.0, height: 3.0};
+        func (t Tree) insert(val int) {
+            if val < t.value {
+                if t.left == nil {
+                    t.left := Tree{value: val};
+                } else {
+                    t.left.insert(val);
+                }
+            }
         }

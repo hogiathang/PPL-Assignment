@@ -1,3 +1,4 @@
-func main() {
-            c := a.x[0]
+
+        func foo(x int, y int) int {
+            return x + -y;
         }

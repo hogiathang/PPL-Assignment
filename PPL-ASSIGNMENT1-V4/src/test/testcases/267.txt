@@ -1,4 +1,13 @@
-func (b BankAccount) transfer(amount float, target BankAccount) bool {
-            if b.balance >= amount { return true; };
-            return false;
+
+        type Stack struct {
+            elements [100]int;
+            size int;
+        }
+        func (s Stack) push(element int) {
+            s.elements[s.size] := element;
+            s.size := s.size + 1;
+        }
+        func (s Stack) pop() int {
+            s.size := s.size - 1;
+            return s.elements[s.size];
         }

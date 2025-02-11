@@ -1,12 +1,1 @@
-
-        type Logger interface {
-            log(message string);
-            error(message string);
-        }
-        type FileLogger struct {
-            filename string;
-        }
-        func (fl FileLogger) log(message string) {
-            // Write to file
-            print(fl.filename + ": " + message);
-        }
+var arr = []{1,2,3};

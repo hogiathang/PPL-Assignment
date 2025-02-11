@@ -1,6 +1,6 @@
-type Database interface {
-            connect(host string, port int) bool;
-            query(sql string) [2]string;
-            execute(command string) bool;
-            disconnect();
+type Animal interface {
+            makeSound() string;
+            move(distance float);
+            getSpecies() string;
+            age() int;
         }

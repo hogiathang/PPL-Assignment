@@ -1,12 +1,12 @@
 
-        type BankAccount struct {
-            balance float;
-            owner string;
+        type Database interface {
+            connect(host string) bool;
+            query(sql string) [100]string;
+            close();
         }
-        func (b BankAccount) withdraw(amount float) bool {
-            if b.balance >= amount {
-                b.balance := b.balance - amount;
-                return true;
+        func executeQuery(db Database, query string) {
+            if db.connect("localhost") {
+                results := db.query(query);
+                db.close();
             }
-            return false;
         }

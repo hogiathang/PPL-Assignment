@@ -1,4 +1,1 @@
-type Reader interface {
-            read() string;
-            close();
-        }
+type empty interface {}

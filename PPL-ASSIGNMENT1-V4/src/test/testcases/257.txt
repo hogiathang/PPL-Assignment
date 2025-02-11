@@ -1,5 +1,5 @@
-type BankAccount struct {
-            accountNumber string;
-            balance float;
-            owner Person;
+type Employee struct {
+            id int;
+            salary float;
+            department struct;
         }

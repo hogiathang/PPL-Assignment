@@ -94,8 +94,7 @@ statement: assignStatement endOfStatement
          | varDecl endOfStatement
          | typeDecl endOfStatement
          | methodDecl endOfStatement
-         | constDecl endOfStatement
-         | block endOfStatement;
+         | constDecl endOfStatement;
 
 
 arrayLit: arrayDims baseType arraysBlock;

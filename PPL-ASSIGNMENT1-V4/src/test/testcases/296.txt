@@ -1,1 +1,3 @@
-func main() { := 5; }
+func main() { 
+            var a = "abc;\q";
+        }

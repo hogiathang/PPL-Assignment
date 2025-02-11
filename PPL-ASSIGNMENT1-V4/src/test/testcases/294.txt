@@ -1,1 +1,1 @@
-func main() { { x := 5; } } var a int = 10
+var f = func(x int) { return x + 1 };

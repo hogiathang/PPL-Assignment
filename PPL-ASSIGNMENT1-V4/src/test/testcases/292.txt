@@ -1,3 +1,1 @@
-func main() {
-            var a = 1 + 2 a.b = 3;
-        }
+func main() { ch <- 5 <- 3; }

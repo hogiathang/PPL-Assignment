@@ -1,6 +1,5 @@
-type Animal interface {
-            makeSound() string;
-            move(distance float);
-            getSpecies() string;
-            age() int;
+type Container interface {
+            push(element [3]Point);
+            pop() [3]Point;
+            isEmpty() bool;
         }

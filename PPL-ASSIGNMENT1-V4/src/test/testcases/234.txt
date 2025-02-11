@@ -1,3 +1,1 @@
-type A struct {
-            x [2]int;
-        }
+var a int var b int var c int

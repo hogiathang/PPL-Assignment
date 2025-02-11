@@ -1,4 +1,4 @@
-func (s Student) average() float {
-            sum := 0.0;
-            return sum / 10.0;
+func (t Tree) insert(val int) Tree {
+            if t == nil { return Tree{value: val}; };
+            return t;
         }

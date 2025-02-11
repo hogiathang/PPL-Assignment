@@ -1,12 +1,15 @@
 
-        type Animal interface {
-            makeSound() string;
-            move(distance float);
+        type Circle struct {
+            radius float;
+            center Point;
         }
-        type Dog struct {
-            name string;
-            age int;
+        func (c Circle) area() float {
+            return 3.14 * c.radius * c.radius;
         }
-        func (d Dog) makeSound() string {
-            return "Woof!";
+        func main() {
+            circles := [3]Circle{
+                Circle{radius: 1.0, center: Point{x: 0, y: 0}},
+                Circle{radius: 2.0, center: Point{x: 1, y: 1}},
+                Circle{radius: 3.0, center: Point{x: 2, y: 2}}
+            };
         }

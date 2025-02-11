@@ -1,12 +1,1 @@
-
-        type HashTable struct {
-            buckets [100]LinkedList;
-            size int;
-        }
-        func (ht HashTable) hash(key string) int {
-            sum := 0;
-            for i := 0; i < len(key); i+=1 {
-                sum := sum + key[i];
-            }
-            return sum % 100;
-        }
+func divide(x, y float) float { return x/y, 0; }

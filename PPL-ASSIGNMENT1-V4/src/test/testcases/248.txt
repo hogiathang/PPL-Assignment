@@ -1,5 +1,5 @@
-type Container interface {
-            push(element [3]Point);
-            pop() [3]Point;
-            isEmpty() bool;
+type Complex interface {
+            getValue() [2]float;
+            setValue(real, imag float);
+            toString() string;
         }

@@ -1,3 +1,5 @@
-func main() {
-            abc.x.y.z[3].t[10][2][5] := foo.baz() * bar.code();
+
+        func main() {
+            ;
         }
+        

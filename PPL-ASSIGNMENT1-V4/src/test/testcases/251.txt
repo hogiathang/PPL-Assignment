@@ -1,5 +1,6 @@
-type Point struct {
-            x, y float;
-            a [3]int;
-            b [2][2]Matrix;
+type Database interface {
+            connect(host string, port int) bool;
+            query(sql []string) [2]string;
+            execute(command []string) bool;
+            disconnect();
         }

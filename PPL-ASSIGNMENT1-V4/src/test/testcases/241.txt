@@ -1,4 +1,1 @@
-type A interface {
-            foo(a, b int, c float) int;
-            bar(d GOAT) int;
-        }
+var a [2]A;

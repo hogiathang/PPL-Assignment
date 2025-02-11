@@ -1,1 +1,4 @@
-func test(x,) int { return 1; }
+func main() { 
+            var a = "abc
+";
+        }

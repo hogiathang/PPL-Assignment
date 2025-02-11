@@ -1,3 +1,4 @@
-func main() {
-            var c = a[0].x
+
+        func main() {
+            var a = A{x: 1, y: 2}
         }

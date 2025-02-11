@@ -1,3 +1,12 @@
-func (c Car) start() string {
-            return c.brand + " engine starting...";
+
+        type BankAccount struct {
+            balance float;
+            owner string;
+        }
+        func (b BankAccount) withdraw(amount float) bool {
+            if b.balance >= amount {
+                b.balance := b.balance - amount;
+                return true;
+            }
+            return false;
         }

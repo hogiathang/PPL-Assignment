@@ -1,1 +1,8 @@
-var a [2]A;
+
+        func main() {
+            if (x > 0) {
+                print("Positive");
+            } else {
+                print("Negative");
+            }
+        }

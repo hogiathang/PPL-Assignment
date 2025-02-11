@@ -1,13 +1,1 @@
-
-        type Person struct {
-            name string;
-            age int;
-            address string;
-        }
-        func (p Person) updateAge(newAge int) Person {
-            return Person{
-                name: p.name,
-                age: newAge,
-                address: p.address
-            };
-        }
+func main() { := 5; }
