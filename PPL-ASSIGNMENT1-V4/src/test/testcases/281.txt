@@ -1,0 +1,12 @@
+
+        type Vehicle interface {
+            start() string;
+            stop() string;
+        }
+        type Car struct {
+            brand string;
+            model string;
+        }
+        func (c Car) start() string {
+            return c.brand + " " + c.model + " is starting";
+        }

@@ -1,0 +1,4 @@
+func (s Student) average() float {
+            sum := 0.0;
+            return sum / 10.0;
+        }

@@ -1,1 +1,1 @@
-var x, y, z int;
+if !(a && b) { return }

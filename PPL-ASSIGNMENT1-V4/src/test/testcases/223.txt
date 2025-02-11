@@ -1,6 +1,1 @@
-
-        func main() {
-            var x boolean;
-            x := -x || !x && x;
-        }
-        
+func (a A) foo() int { return a.x; }

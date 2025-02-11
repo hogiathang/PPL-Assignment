@@ -1,1 +1,1 @@
-var x int;
+calc.Add(5, 3)

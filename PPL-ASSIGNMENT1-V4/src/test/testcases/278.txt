@@ -1,0 +1,12 @@
+
+        type Queue interface {
+            enqueue(element int);
+            dequeue() int;
+            isEmpty() bool;
+        }
+        func processQueue(q Queue) {
+            for !q.isEmpty() {
+                x := q.dequeue();
+                print(x);
+            }
+        }

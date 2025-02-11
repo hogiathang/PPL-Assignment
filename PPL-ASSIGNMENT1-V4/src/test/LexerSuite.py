@@ -583,6 +583,12 @@ class LexerSuite(unittest.TestCase):
         '''
         expect= "func,main,(,),{,for,i,:=,0,;,i,<,5,;,i,+=,1,{,if,i,==,2,{,continue,;,},;,putIntLn,(,i,),;,},;,arr,:=,[,3,],int,{,10,,,20,,,30,},;,sum,:=,0,;,for,_,,,val,:=,range,arr,{,sum,+=,val,;,},;,putString,(,\"Sum: \",),;,putIntLn,(,sum,),;,},;,<EOF>"
         self.assertTrue(TestLexer.checkLexeme(input, expect, 200))
+
+    # def test_tank_3(self):
+    #     input = """func main() {
+    #         abc.x.y.z[3].t[10][2][5] := ":))" + foo[1].bar.code(a, b).baz[mez().conz().chauz]
+    #     }"""
+    #     self.assertTrue(TestLexer.checkLexeme(input,'', 600))
     
 #     def test_lex(self):
 #         input = '''func main() {

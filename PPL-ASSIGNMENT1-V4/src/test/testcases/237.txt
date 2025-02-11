@@ -1,0 +1,3 @@
+func main() {
+            var c = a[0].x
+        }

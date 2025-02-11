@@ -1,0 +1,4 @@
+type Reader interface {
+            read() string;
+            close();
+        }

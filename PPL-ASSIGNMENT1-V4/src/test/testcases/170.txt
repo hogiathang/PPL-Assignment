@@ -1,10 +1,1 @@
-
-        func bar() {
-            for i := 1; i <= 10; i+=1 {
-                if (i % 3 == 0) {
-                    print("Divisible by 3");
-                } else {
-                    print("Not divisible by 3");
-                }
-            }
-        }
+const MAX = 100 + 50

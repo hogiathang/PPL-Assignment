@@ -1,1 +1,1 @@
-func,foo,(,),{,for,i,:=,0,;,i,<,5,;,i,+=,1,{,if,(,i,%,2,==,0,),{,print,(,"Even",),;,},else,{,print,(,"Odd",),;,},;,},;,},<EOF>
+s,=,Unclosed string: "End with backslash\" 

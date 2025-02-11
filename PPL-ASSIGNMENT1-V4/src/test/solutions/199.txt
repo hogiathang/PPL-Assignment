@@ -1,1 +1,1 @@
-var,x,int,=,10,;,var,y,int,=,20,;,var,z,int,=,x,+,y,;,func,main,(,),{,print,(,z,),;,},;,<EOF>
+type,Shape,interface,{,Area,(,),float,;,},;,type,Circle,struct,{,radius,float,;,},;,func,(,c,Circle,),Area,(,),float,{,return,3.14,*,c,.,radius,*,c,.,radius,;,},;,func,main,(,),{,c,:=,Circle,{,radius,:,3.0,},;,var,s,Shape,=,c,;,putString,(,"Square: ",),;,putFloatln,(,s,.,Area,(,),),;,},;,<EOF>

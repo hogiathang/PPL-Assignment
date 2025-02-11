@@ -1,0 +1,19 @@
+
+        type Cache interface {
+            get(key string) string;
+            set(key string, value string);
+            clear();
+        }
+        type SimpleCache struct {
+            keys [100]string;
+            values [100]string;
+            size int;
+        }
+        func (sc SimpleCache) get(key string) string {
+            for i := 0; i < sc.size; i+=1 {
+                if sc.keys[i] == key {
+                    return sc.values[i];
+                }
+            }
+            return "";
+        }

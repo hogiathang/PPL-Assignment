@@ -32,7 +32,7 @@ program  : (declaration | statement)+ EOF ;
 
 baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 
-endOfStatement: SEMI | NEWLINE;
+endOfStatement: SEMI | NEWLINE | EOF;
 
 declaration: varDecl endOfStatement 
            | funcDecl endOfStatement
@@ -44,24 +44,23 @@ declaration: varDecl endOfStatement
 // varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
 varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* (arrayDecl | baseType | assignDecl);
 arrayDecl : arrayDims baseType (ASSIGN (arraysBlock | expression))?;
-assignDecl: (baseType? ASSIGN expression);
+assignDecl: (baseType? ASSIGN (expression | structExpression));
 
-funcDecl: FUNC IDENTIFIER LPAREN (funcParams)? RPAREN (arrayDims? baseType)? LBRACE statement* RBRACE;
+funcDecl: FUNC IDENTIFIER listParams (arrayDims? baseType)? LBRACE statement* RBRACE;
 typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
 constDecl: CONST IDENTIFIER ASSIGN expression;
-methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN (funcParams)? RPAREN baseType? block;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER listParams baseType? LBRACE statement* RBRACE;
 
 structDefinition: STRUCT LBRACE structFields* RBRACE;
-structFields: IDENTIFIER (arrayDims? baseType | structDefinition) endOfStatement;
+structFields: IDENTIFIER arrayDims? baseType endOfStatement;
 
 interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE;
-listParams: LPAREN listIdentifier? RPAREN;
-listIdentifier: listGroup (COMMA listGroup)*;
-listGroup: IDENTIFIER (COMMA IDENTIFIER)* baseType;
 interfaceFields: IDENTIFIER listParams baseType? endOfStatement;
 
-funcParams: funcParam (COMMA funcParam)*;
-funcParam: IDENTIFIER (arrayDims? baseType);
+listParams: LPAREN listIdentifier? RPAREN;
+listIdentifier: listGroup (COMMA listGroup)*;
+listGroup: funcParam (COMMA funcParam)* baseType;
+funcParam: IDENTIFIER arrayDims?;
 
 expression: logicOrExp;
 logicOrExp: logicAndExp (OR logicOrExp)*;
@@ -109,7 +108,7 @@ structFieldsAssign: IDENTIFIER COLON structBlock;
 
 assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
 a1: (callStatement | IDENTIFIER) DOT a1 
-  | IDENTIFIER arrayDims?;
+  | IDENTIFIER arrayDims? (DOT a1)?;
 a2: expression | arrayLit | structExpression;
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
@@ -136,7 +135,7 @@ primaryCall: IDENTIFIER LPAREN arguments? RPAREN;
 callStatement: IDENTIFIER arrayDims? DOT callStatement 
             |  primaryCall (DOT callStatement)?;
 
-returnStatement: RETURN (expression | arrayLit)?;
+returnStatement: RETURN (expression | arrayLit | structExpression)?;
 
 arguments: expression (COMMA expression)*;
 block: LBRACE statement+ RBRACE;

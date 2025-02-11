@@ -1,10 +1,1 @@
-
-        func garply() {
-            for i := 0; i < 8; i+=1 {
-                if (i % 4 == 0) {
-                    print("Divisible by 4");
-                } else {
-                    print("Not divisible by 4");
-                }
-            }
-        }
+func add(int, int) int { return 0 }

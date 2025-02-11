@@ -1,0 +1,5 @@
+type BankAccount struct {
+            accountNumber string;
+            balance float;
+            owner Person;
+        }
