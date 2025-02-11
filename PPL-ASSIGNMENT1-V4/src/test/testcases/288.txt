@@ -5,8 +5,8 @@
             isFinished bool;
         }
         func (g Game) start() {
-            g.isFinished = false;
+            g.isFinished := false;
             for i := 0; i < 2; i+=1 {
-                g.score[i] = 0;
+                g.score[i] := 0;
             }
         }

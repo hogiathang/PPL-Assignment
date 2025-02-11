@@ -39,6 +39,11 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#arrayLitDecl.
+    def visitArrayLitDecl(self, ctx:MiniGoParser.ArrayLitDeclContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#assignDecl.
     def visitAssignDecl(self, ctx:MiniGoParser.AssignDeclContext):
         return self.visitChildren(ctx)

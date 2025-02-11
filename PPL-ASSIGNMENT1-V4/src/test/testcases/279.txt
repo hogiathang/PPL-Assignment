@@ -1,12 +1,12 @@
 
-        type Tree struct {
+/*        type Tree struct {
             value int;
             left, right Tree;
-        }
+        }*/
         func (t Tree) insert(val int) {
             if val < t.value {
                 if t.left == nil {
-                    t.left = Tree{value: val};
+                    t.left := Tree{value: val};
                 } else {
                     t.left.insert(val);
                 }

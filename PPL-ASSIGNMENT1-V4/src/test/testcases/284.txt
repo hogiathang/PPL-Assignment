@@ -9,6 +9,6 @@
             top int;
         }
         func (s ArrayStack) push(value int) {
-            s.items[s.top] = value;
-            s.top = s.top + 1;
+            s.items[s.top] := value;
+            s.top := s.top + 1;
         }

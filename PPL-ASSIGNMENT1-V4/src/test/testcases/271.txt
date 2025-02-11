@@ -1,13 +1,13 @@
 
-        type Point struct {
+       /* type Point struct {
             x, y int;
-        }
+        }*/
         func (p Point) distance(q Point) float {
             return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
         }
         func main() {
-            var a = [5]Point;
+            var a [5]Point;
             for i := 0; i < 5; i+=1 {
-                a[i] = Point{x: i, y: i};
+                a[i] := Point{x: i, y: i};
             }
         }

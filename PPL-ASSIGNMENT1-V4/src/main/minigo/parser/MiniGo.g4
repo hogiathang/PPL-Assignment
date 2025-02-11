@@ -42,20 +42,21 @@ declaration: varDecl endOfStatement
 
 
 // varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
-varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* (arrayDecl | baseType | assignDecl);
+varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* (arrayDecl | baseType | assignDecl | arrayLitDecl);
 arrayDecl : arrayDims baseType (ASSIGN (arraysBlock | expression))?;
+arrayLitDecl: (arrayDims baseType)? ASSIGN (LBRACKET expression RBRACKET)+ baseType arraysBlock;
 assignDecl: (baseType? ASSIGN (expression | structExpression));
 
 funcDecl: FUNC IDENTIFIER listParams (arrayDims? baseType)? LBRACE statement* RBRACE;
 typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
 constDecl: CONST IDENTIFIER ASSIGN expression;
-methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER listParams baseType? LBRACE statement* RBRACE;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER listParams (arrayDims? baseType)? LBRACE statement* RBRACE;
 
 structDefinition: STRUCT LBRACE structFields* RBRACE;
 structFields: IDENTIFIER arrayDims? baseType endOfStatement;
 
 interfaceDefinition: INTERFACE LBRACE interfaceFields* RBRACE;
-interfaceFields: IDENTIFIER listParams baseType? endOfStatement;
+interfaceFields: IDENTIFIER listParams (arrayDims? baseType)? endOfStatement;
 
 listParams: LPAREN listIdentifier? RPAREN;
 listIdentifier: listGroup (COMMA listGroup)*;
@@ -98,9 +99,10 @@ statement: assignStatement endOfStatement
 
 
 arrayLit: arrayDims baseType arraysBlock;
-arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE | LBRACE expression (COMMA expression)* RBRACE;
+arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE 
+           | LBRACE ((expression | structExpression) (COMMA (expression | structExpression))* (COMMA | NEWLINE)?)? RBRACE;
 
-structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* COMMA?)? RBRACE;
+structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* (COMMA | NEWLINE)?)? RBRACE;
 structBlock: expression 
            | arrayLit 
            | structExpression;
