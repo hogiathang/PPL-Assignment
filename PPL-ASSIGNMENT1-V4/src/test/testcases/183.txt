@@ -1,1 +1,1 @@
-type struct { x int }
+var x = 10;

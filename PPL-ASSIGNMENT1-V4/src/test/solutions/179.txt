@@ -1,1 +1,1 @@
-calc,.,Add,(,5,,,3,),<EOF>
+var,x,int,;,<EOF>

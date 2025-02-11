@@ -218,7 +218,7 @@ fragment DEC_PART: [0-9]+;
 fragment EXPONENT: [eE] [+-]? [0-9]+;
 
 // String
-STRING_LIT: '"' (ESC_SEQ | ~["\\])* '"';
+STRING_LIT: '"' (ESC_SEQ | ~["\\\r\n])* '"';
 fragment ESC_SEQ: '\\' [nrt"\\];
 
 // Comments
@@ -239,6 +239,6 @@ NEWLINE: '\n' {
         self.skip();
 };
 
-UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\])*;
-ILLEGAL_ESCAPE: '"' (ESC_SEQ | ~["\\])* '\\' ~[nrt"\\];
+UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\\r\n])* ([\r\n] | EOF);
+ILLEGAL_ESCAPE: '"' (ESC_SEQ | ~["\\\r\n])* '\\' ~[nrt"\\];
 ERROR_CHAR: .;

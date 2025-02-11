@@ -1,20 +1,17 @@
 
-        func main() {  
-            // For loop with condition
-            for i := 0; i < 5; i += 1 {  
-                if i == 2 {  
-                    continue;  
-                }  
-                putIntLn(i);  
-            }  
+        type Person struct {
+            name string;
+            age int;
+        }
 
-            // For loop with range  
-            arr := [3]int{10, 20, 30};  
-            sum := 0;  
-            for _, val := range arr {  
-                sum += val;  
-            }  
-            putString("Sum: ");  
-            putIntLn(sum);  
-        } 
+        func (p Person) greet() string {
+            return "Hello, " + p.name;
+        }
+
+        func main() {
+            var p Person;
+            p.name = "Alice";
+            p.age = 30;
+            print(p.greet());
+        }
         

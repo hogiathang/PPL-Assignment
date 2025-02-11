@@ -1,1 +1,1 @@
-var,arr,[,],int,=,{,1,,,2,,,3,},<EOF>
+func,grault,(,),{,for,i,:=,1,;,i,<=,5,;,i,+=,1,{,if,(,i,%,2,==,0,),{,print,(,"Even",),;,},else,{,print,(,"Odd",),;,},;,},;,},<EOF>

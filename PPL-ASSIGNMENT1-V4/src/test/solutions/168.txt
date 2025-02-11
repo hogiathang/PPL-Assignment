@@ -1,1 +1,1 @@
-if,(,a,>,5,&&,b,<,10,||,c,==,0,),{,return,},<EOF>
+type,Point,struct,{,x,int,;,y,int,;,},;,func,newPoint,(,x,int,,,y,int,),Point,{,return,Point,{,x,:,x,,,y,:,y,},;,},;,func,(,p,Point,),distance,(,),int,{,return,p,.,x,*,p,.,x,+,p,.,y,*,p,.,y,;,},;,func,main,(,),{,var,p,Point,=,newPoint,(,3,,,4,),;,print,(,p,.,distance,(,),),;,},;,<EOF>

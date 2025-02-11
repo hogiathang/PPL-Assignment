@@ -1,1 +1,1 @@
-type,struct,{,x,int,},<EOF>
+var,x,=,10,;,<EOF>
