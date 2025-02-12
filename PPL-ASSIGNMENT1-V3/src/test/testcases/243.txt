@@ -1,9 +1,3 @@
-
-            func main() {
-                if x > 10 {
-                    putIntLn(x)
-                else {
-                    putIntLn(0);
-                }
-            }
-        
+func main() {
+            abc.x.y.z[3].t[10][2][5] := foo.baz() * bar.code();
+        }

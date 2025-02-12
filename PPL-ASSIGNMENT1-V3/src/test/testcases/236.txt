@@ -1,6 +1,8 @@
 
-        type Writer interface {
-            write(data string) int;
-            close();
+        func main() {
+            if (x > 0) {
+                print("Positive");
+            } else {
+                print("Negative");
+            }
         }
-        func main() {}

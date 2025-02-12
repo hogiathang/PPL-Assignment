@@ -1,0 +1,12 @@
+
+        type Game struct {
+            players [2]Player;
+            score [2]int;
+            isFinished bool;
+        }
+        func (g Game) start() {
+            g.isFinished := false;
+            for i := 0; i < 2; i+=1 {
+                g.score[i] := 0;
+            }
+        }

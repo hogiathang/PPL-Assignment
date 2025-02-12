@@ -1,0 +1,4 @@
+func (b BankAccount) transfer(amount float, target BankAccount) bool {
+            if b.balance >= amount { return true; };
+            return false;
+        }

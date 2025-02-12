@@ -1,5 +1,11 @@
 
-        func getNumbers() [5]int {
-            return [5]int{1,2,3,4,5};
+        func (p Person) Greet() string {
+            str := "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
+
+            k := func hello() string {
+                return "Hello";
+            }
+
+            return str + k();
         }
-        func main() {}
+        

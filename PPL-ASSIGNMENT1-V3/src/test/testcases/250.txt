@@ -1,0 +1,6 @@
+type Animal interface {
+            makeSound() string;
+            move(distance float);
+            getSpecies() string;
+            age() int;
+        }

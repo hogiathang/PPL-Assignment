@@ -1,6 +1,1 @@
-
-        func add(x int, y int) int {
-            var mutexArr[3][3] int;
-            var mutexArr[0x44][0x77] int;
-            return;
-        }
+x := true.x;

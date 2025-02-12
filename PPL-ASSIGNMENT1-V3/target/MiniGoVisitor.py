@@ -14,18 +14,13 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#mainFunction.
-    def visitMainFunction(self, ctx:MiniGoParser.MainFunctionContext):
+    # Visit a parse tree produced by MiniGoParser#endOfStatement.
+    def visitEndOfStatement(self, ctx:MiniGoParser.EndOfStatementContext):
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by MiniGoParser#baseType.
     def visitBaseType(self, ctx:MiniGoParser.BaseTypeContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#endOfStatement.
-    def visitEndOfStatement(self, ctx:MiniGoParser.EndOfStatementContext):
         return self.visitChildren(ctx)
 
 
@@ -36,6 +31,21 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#varDecl.
     def visitVarDecl(self, ctx:MiniGoParser.VarDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#arrayDecl.
+    def visitArrayDecl(self, ctx:MiniGoParser.ArrayDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#arrayLitDecl.
+    def visitArrayLitDecl(self, ctx:MiniGoParser.ArrayLitDeclContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#assignDecl.
+    def visitAssignDecl(self, ctx:MiniGoParser.AssignDeclContext):
         return self.visitChildren(ctx)
 
 
@@ -74,6 +84,11 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#interfaceFields.
+    def visitInterfaceFields(self, ctx:MiniGoParser.InterfaceFieldsContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#listParams.
     def visitListParams(self, ctx:MiniGoParser.ListParamsContext):
         return self.visitChildren(ctx)
@@ -84,13 +99,8 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#interfaceFields.
-    def visitInterfaceFields(self, ctx:MiniGoParser.InterfaceFieldsContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#funcParams.
-    def visitFuncParams(self, ctx:MiniGoParser.FuncParamsContext):
+    # Visit a parse tree produced by MiniGoParser#listGroup.
+    def visitListGroup(self, ctx:MiniGoParser.ListGroupContext):
         return self.visitChildren(ctx)
 
 
@@ -154,43 +164,18 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#arrayLit.
-    def visitArrayLit(self, ctx:MiniGoParser.ArrayLitContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#arraysBlock.
-    def visitArraysBlock(self, ctx:MiniGoParser.ArraysBlockContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#structExpression.
-    def visitStructExpression(self, ctx:MiniGoParser.StructExpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#structBlock.
-    def visitStructBlock(self, ctx:MiniGoParser.StructBlockContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#structFieldsAssign.
-    def visitStructFieldsAssign(self, ctx:MiniGoParser.StructFieldsAssignContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#assignStatement.
     def visitAssignStatement(self, ctx:MiniGoParser.AssignStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#a1.
-    def visitA1(self, ctx:MiniGoParser.A1Context):
+    # Visit a parse tree produced by MiniGoParser#assignTarget.
+    def visitAssignTarget(self, ctx:MiniGoParser.AssignTargetContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#a2.
-    def visitA2(self, ctx:MiniGoParser.A2Context):
+    # Visit a parse tree produced by MiniGoParser#assignValue.
+    def visitAssignValue(self, ctx:MiniGoParser.AssignValueContext):
         return self.visitChildren(ctx)
 
 
@@ -244,18 +229,13 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#primaryCall.
-    def visitPrimaryCall(self, ctx:MiniGoParser.PrimaryCallContext):
+    # Visit a parse tree produced by MiniGoParser#returnStatement.
+    def visitReturnStatement(self, ctx:MiniGoParser.ReturnStatementContext):
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by MiniGoParser#callStatement.
     def visitCallStatement(self, ctx:MiniGoParser.CallStatementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#returnStatement.
-    def visitReturnStatement(self, ctx:MiniGoParser.ReturnStatementContext):
         return self.visitChildren(ctx)
 
 
@@ -271,6 +251,26 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#arrayDims.
     def visitArrayDims(self, ctx:MiniGoParser.ArrayDimsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#arrayLit.
+    def visitArrayLit(self, ctx:MiniGoParser.ArrayLitContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#arraysBlock.
+    def visitArraysBlock(self, ctx:MiniGoParser.ArraysBlockContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#structExpression.
+    def visitStructExpression(self, ctx:MiniGoParser.StructExpressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#structFieldsAssign.
+    def visitStructFieldsAssign(self, ctx:MiniGoParser.StructFieldsAssignContext):
         return self.visitChildren(ctx)
 
 

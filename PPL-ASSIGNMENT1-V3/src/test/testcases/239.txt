@@ -1,13 +1,5 @@
 
-            func main() {
-                if (a > 10) {
-                    print("Bigger");
-                } 
-                else if (a == 10) {
-                    print("Same")
-                }; else {
-                    print("Less")
-                }
-
-            }
+        func main() {
+            ;
+        }
         

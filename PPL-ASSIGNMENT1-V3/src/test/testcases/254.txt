@@ -1,0 +1,4 @@
+type Student struct {
+            name string;
+            grades [10]float
+        }

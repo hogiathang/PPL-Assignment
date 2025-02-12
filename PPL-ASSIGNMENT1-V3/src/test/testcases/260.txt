@@ -1,0 +1,3 @@
+func (c Complex) add(other Complex) Complex {
+            return Complex{real: c.real + other.real, imaginary: c.imaginary + other.imaginary};
+        }

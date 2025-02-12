@@ -1,1 +1,3 @@
-func main() { var if int = 5; }
+var a int 
+var b int 
+var c int; var d int
