@@ -1,1 +1,1 @@
-"This is line 1\nThis is line 2\nThis is line 3",<EOF>
+This is line 1\nThis is line 2\nThis is line 3,<EOF>
