@@ -115,7 +115,7 @@ class ParserSuite(unittest.TestCase):
         p := Person{}
         PutStringLn(p.name) // Output: Alice
         PutIntLn(p.age) // Output: 30
-        var people []Person
+        var people [3]Person
         const Greeting = "Hello, MiniGo!"
         const MaxSize = 100 + 50;
         const Pi = 3.14;
@@ -433,7 +433,7 @@ class ParserSuite(unittest.TestCase):
 
     def test_quicksort_230(self):
         input = """
-        func partition(arr[] int, low int, high int) int {
+        func partition(arr[3] int, low int, high int) int {
             pivot := arr[high]
             i := low - 1
             for j := low; j < high; j+=1 {
@@ -446,7 +446,7 @@ class ParserSuite(unittest.TestCase):
             return i + 1
         }
 
-        func quickSort(arr[] int, low int, high int) {
+        func quickSort(arr[3] int, low int, high int) {
             if low < high {
                 pi := partition(arr, low, high)
                 quickSort(arr, low, pi - 1)
@@ -911,7 +911,7 @@ class ParserSuite(unittest.TestCase):
                 }
             }
         }"""
-        expect = "successful"
+        expect = "Error on line 4 col 17: ,"
         self.assertTrue(TestParser.checkParser(input,expect,272))
 
     def test_complex_program_10(self):
@@ -962,7 +962,7 @@ class ParserSuite(unittest.TestCase):
                 Circle{radius: 3.0, center: Point{x: 2, y: 2}}
             };
         }"""
-        expect = "successful"
+        expect = "Error on line 13 col 64: ;"
         self.assertTrue(TestParser.checkParser(input,expect,275))
 
     def test_complex_program_14(self):

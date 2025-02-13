@@ -183,7 +183,7 @@ def serializedATN():
         441,449,1,0,0,0,442,445,5,50,0,0,443,446,3,40,20,0,444,446,3,66,
         33,0,445,443,1,0,0,0,445,444,1,0,0,0,446,448,1,0,0,0,447,442,1,0,
         0,0,448,451,1,0,0,0,449,447,1,0,0,0,449,450,1,0,0,0,450,453,1,0,
-        0,0,451,449,1,0,0,0,452,454,7,7,0,0,453,452,1,0,0,0,453,454,1,0,
+        0,0,451,449,1,0,0,0,452,454,5,50,0,0,453,452,1,0,0,0,453,454,1,0,
         0,0,454,456,1,0,0,0,455,440,1,0,0,0,455,456,1,0,0,0,456,457,1,0,
         0,0,457,459,5,47,0,0,458,426,1,0,0,0,458,437,1,0,0,0,459,65,1,0,
         0,0,460,461,5,53,0,0,461,473,5,46,0,0,462,467,3,70,35,0,463,464,
@@ -2779,9 +2779,6 @@ class MiniGoParser ( Parser ):
                 return self.getTypedRuleContext(MiniGoParser.StructExpressionContext,i)
 
 
-        def NEWLINE(self):
-            return self.getToken(MiniGoParser.NEWLINE, 0)
-
         def getRuleIndex(self):
             return MiniGoParser.RULE_arraysBlock
 
@@ -2869,14 +2866,9 @@ class MiniGoParser ( Parser ):
                     self.state = 453
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if _la==50 or _la==60:
+                    if _la==50:
                         self.state = 452
-                        _la = self._input.LA(1)
-                        if not(_la==50 or _la==60):
-                            self._errHandler.recoverInline(self)
-                        else:
-                            self._errHandler.reportMatch(self)
-                            self.consume()
+                        self.match(MiniGoParser.COMMA)
 
 
 

@@ -1,1 +1,1 @@
-var,i,;,var,k,;,<EOF>
+"multi\nline",<EOF>

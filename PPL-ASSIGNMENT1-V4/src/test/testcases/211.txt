@@ -2,7 +2,7 @@
         p := Person{}
         PutStringLn(p.name) // Output: Alice
         PutIntLn(p.age) // Output: 30
-        var people []Person
+        var people [3]Person
         const Greeting = "Hello, MiniGo!"
         const MaxSize = 100 + 50;
         const Pi = 3.14;

@@ -1,7 +1,7 @@
 
         type Tree struct {
             value int;
-        //    left, right Tree;
+            left, right Tree;
         }
         func (t Tree) insert(val int) {
             if val < t.value {

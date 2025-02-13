@@ -99,7 +99,7 @@ statement: assignStatement endOfStatement
 
 arrayLit: arrayDims baseType arraysBlock;
 arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE 
-           | LBRACE ((expression | structExpression) (COMMA (expression | structExpression))* (COMMA | NEWLINE)?)? RBRACE;
+           | LBRACE ((expression | structExpression) (COMMA (expression | structExpression))* COMMA?)? RBRACE;
 
 structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* (COMMA | NEWLINE)?)? RBRACE;
 structBlock: expression 
