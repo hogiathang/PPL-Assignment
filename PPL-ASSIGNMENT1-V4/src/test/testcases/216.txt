@@ -1,4 +1,5 @@
 
+        func modify(x int) {
         arr := [3]int{10, 20, 30}
         for _, value := range arr {
             // value: 10, 20, 30
@@ -19,4 +20,5 @@
             }
             // statements that will not execute when i == 5
         }// Errorr
+        }
         

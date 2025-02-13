@@ -26,7 +26,7 @@ options{
 	language=Python3;
 }
 
-program  : (declaration | statement)+ EOF ;
+program  : declaration+ EOF ;
 
 // mainFunction: FUNC 'main' LPAREN RPAREN LBRACE statement* RBRACE endOfStatement?;
 
@@ -40,12 +40,10 @@ declaration: varDecl endOfStatement
            | constDecl endOfStatement 
            | methodDecl endOfStatement;
 
-
-// varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* arrayDims? (baseType | baseType? (ASSIGN expression));
-varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* (arrayDecl | baseType | assignDecl | arrayLitDecl);
-arrayDecl : arrayDims baseType (ASSIGN (arraysBlock | expression))?;
-arrayLitDecl: (arrayDims baseType)? ASSIGN (LBRACKET expression RBRACKET)+ baseType arraysBlock;
-assignDecl: (baseType? ASSIGN (expression | structExpression));
+varDecl: VAR IDENTIFIER (COMMA IDENTIFIER)* (baseType |assignDecl | arrayDecl | arrayLitDecl);
+arrayDecl : (LBRACKET (INT_LIT | IDENTIFIER) RBRACKET)+ baseType (ASSIGN arraysBlock)?;
+arrayLitDecl: ((LBRACKET (INT_LIT | IDENTIFIER) RBRACKET)+ baseType)? ASSIGN (LBRACKET (INT_LIT | IDENTIFIER) RBRACKET)+ baseType arraysBlock;
+assignDecl: (baseType? ASSIGN (expression | structLit));
 
 funcDecl: FUNC IDENTIFIER listParams (arrayDims? baseType)? LBRACE statement* RBRACE;
 typeDecl: TYPE IDENTIFIER (structDefinition | interfaceDefinition);
@@ -99,18 +97,20 @@ statement: assignStatement endOfStatement
 
 arrayLit: arrayDims baseType arraysBlock;
 arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE 
-           | LBRACE ((expression | structExpression) (COMMA (expression | structExpression))* COMMA?)? RBRACE;
+           | LBRACE (literals (COMMA literals)* COMMA?)? RBRACE;
 
-structExpression: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* (COMMA | NEWLINE)?)? RBRACE;
+literals: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | structLit;
+
+structLit: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* (COMMA | NEWLINE)?)? RBRACE;
 structBlock: expression 
            | arrayLit 
-           | structExpression;
+           | structLit;
 structFieldsAssign: IDENTIFIER COLON structBlock;
 
 assignStatement: (a1 (COMMA a1)*) assignmentOperator a2 (COMMA a2)*;
 a1: (callStatement | IDENTIFIER) DOT a1 
   | IDENTIFIER arrayDims? (DOT a1)?;
-a2: expression | arrayLit | structExpression;
+a2: expression | arrayLit | structLit;
 assignmentOperator: DECLARE | PLUS_ASSIGN | MINUS_ASSIGN | MUL_ASSIGN | DIV_ASSIGN | MOD_ASSIGN;
 
 ifStatement: IF expression block NEWLINE?
@@ -136,7 +136,7 @@ primaryCall: IDENTIFIER LPAREN arguments? RPAREN;
 callStatement: IDENTIFIER arrayDims? DOT callStatement 
             |  primaryCall (DOT callStatement)?;
 
-returnStatement: RETURN (expression | arrayLit | structExpression)?;
+returnStatement: RETURN (expression | arrayLit | structLit)?;
 
 arguments: expression (COMMA expression)*;
 block: LBRACE statement+ RBRACE;

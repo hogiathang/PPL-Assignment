@@ -1,4 +1,5 @@
 
+        func main() {
         p := Person{}
         PutStringLn(p.name) // Output: Alice
         PutIntLn(p.age) // Output: 30
@@ -13,5 +14,6 @@
             Subtract(a, b float, c int) float;
             Reset()
             SayHello(name string)
+        }
         }
         

@@ -1,4 +1,5 @@
 
+        func main() {
         for condition {
             // statements
         }
@@ -15,3 +16,4 @@
             // index: 0, 1, 2
             // value: 10, 20, 30
             }
+        }

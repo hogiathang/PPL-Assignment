@@ -1,1 +1,5 @@
-var arr = []{1,2,3};
+
+        //const a = 2.x;
+        var a [2]int;
+        var b [345]Too;
+        
