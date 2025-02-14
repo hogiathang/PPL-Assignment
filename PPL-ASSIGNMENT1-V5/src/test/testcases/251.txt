@@ -3,4 +3,4 @@ type Database interface {
             query(sql []string) [2]string;
             execute(command []string) bool;
             disconnect();
-        }
+        };

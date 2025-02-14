@@ -5,8 +5,8 @@
             close();
         }
         func executeQuery(db Database, query string) {
-            if db.connect("localhost") {
+            if (db.connect("localhost")) {
                 results := db.query(query);
                 db.close();
             }
-        }
+        };

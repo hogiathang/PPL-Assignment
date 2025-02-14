@@ -3,4 +3,4 @@ type Animal interface {
             move(distance float);
             getSpecies() string;
             age() int;
-        }
+        };

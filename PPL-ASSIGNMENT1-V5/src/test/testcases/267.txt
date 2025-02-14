@@ -10,4 +10,4 @@
         func (s Stack) pop() int {
             s.size := s.size - 1;
             return s.elements[s.size];
-        }
+        };

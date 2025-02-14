@@ -1,1 +1,1 @@
-type empty interface {}
+type empty interface {};

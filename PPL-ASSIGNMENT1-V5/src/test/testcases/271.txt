@@ -8,4 +8,4 @@
                 l.next := LinkedList{value: val, next: nil};
             }
             return l;
-        }
+        };

@@ -1,1 +1,1 @@
-func divide(x, y float) float { return x/y, 0; }
+func divide(x, y float) float { return x/y, 0; };

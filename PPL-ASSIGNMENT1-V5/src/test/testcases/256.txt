@@ -3,4 +3,4 @@ type Car struct {
             year int;
             specs [5]string;
             engine Engine;
-        }
+        };

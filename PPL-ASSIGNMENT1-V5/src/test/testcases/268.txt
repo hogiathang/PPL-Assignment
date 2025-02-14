@@ -4,9 +4,10 @@
             owner string;
         }
         func (b BankAccount) withdraw(amount float) bool {
-            if b.balance >= amount {
+            if (b.balance >= amount) {
                 b.balance := b.balance - amount;
                 return true;
             }
             return false;
         }
+        

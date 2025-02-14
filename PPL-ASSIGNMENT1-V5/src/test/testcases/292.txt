@@ -1,1 +1,1 @@
-func main() { ch <- 5 <- 3; }
+func main() { ch <- 5 <- 3; };

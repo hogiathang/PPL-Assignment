@@ -1,1 +1,1 @@
-type Person struct { ,name string; }
+type Person struct { ,name string; };

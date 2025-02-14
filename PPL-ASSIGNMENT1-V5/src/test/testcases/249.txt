@@ -2,4 +2,4 @@ type Container interface {
             push(element [3]Point);
             pop() [3]Point;
             isEmpty() bool;
-        }
+        };

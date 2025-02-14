@@ -45,9 +45,7 @@ varDetail: varDeclType varDeclExpr
 varDeclType: baseType 
            | arrayType baseType;
 arrayType: LBRACKET intLitOrConstant RBRACKET arrayType | LBRACKET intLitOrConstant RBRACKET;
-varDeclExpr: DECLARE expr
-           | DECLARE arrayLit
-           | DECLARE structLit;
+varDeclExpr: DECLARE expr;
 
 constDecl: CONST IDENTIFIER varDeclExpr;
 
@@ -62,7 +60,7 @@ optionalStructFields: structFieldList |;
 structFieldList: structFieldAssign structFieldListTail;
 structFieldListTail: COMMA structFieldAssign structFieldListTail |;
 structFieldAssign: IDENTIFIER COLON structBlock;
-structBlock: expr | arrayLit | structLit;
+structBlock: expr;
 
 methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement* RBRACE;
 funcDecl: FUNC IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement* RBRACE;
@@ -78,22 +76,28 @@ typeDecl: TYPE IDENTIFIER STRUCT structDeclBlock | TYPE IDENTIFIER INTERFACE int
 
 structType: baseType | arrayType baseType;
 structDeclBlock: LBRACE structDeclField RBRACE;
-structDeclField: IDENTIFIER  structType endOfStatement structDeclField | IDENTIFIER structType endOfStatement;
+structDeclField: IDENTIFIER  structType endOfStatement structDeclField |;
 
 interfaceDeclBlock: LBRACE interfaceDeclField RBRACE;
 interfaceDeclField: IDENTIFIER LPAREN funcParam RPAREN funcType endOfStatement interfaceDeclField |;
 
-expr: logicOrExpr;
+expr: logicOrExpr | arrayLit | structLit;
 logicOrExpr: logicOrExpr OR logicAndExpr | logicAndExpr;
 logicAndExpr: logicAndExpr AND equalityExpr | equalityExpr;
 equalityExpr: equalityExpr relationOp additiveExpr | additiveExpr;
 additiveExpr: additiveExpr addOp multiplicativeExpr | multiplicativeExpr;
 multiplicativeExpr: multiplicativeExpr mulOp unaryExpr | unaryExpr;
 unaryExpr: unaryOp unaryExpr | primaryExpr;
-primaryExpr: primaryExpr DOT IDENTIFIER
-           | primaryExpr LBRACKET expr RBRACKET
-           | term;
+primaryExpr
+    : term primarySuffix*;
 
+primarySuffix
+    : DOT IDENTIFIER                         
+    | LBRACKET expr RBRACKET                 
+    | LPAREN argList? RPAREN;
+
+argList
+    : expr (COMMA expr)*;
 statement: declarationStatement endOfStatement
         | assignStatement endOfStatement
         | ifStatement endOfStatement
@@ -116,9 +120,7 @@ assignStatement: assignStateLHS ASSIGN assignStateRHS
 assignStateLHS: IDENTIFIER assignStateLHSTail;
 assignStateLHSTail: DOT IDENTIFIER assignStateLHSTail | LBRACKET expr RBRACKET assignStateLHSTail |;
 
-assignStateRHS: expr 
-              | arrayLit 
-              | structLit;
+assignStateRHS: expr;
 // If Statement
 ifStatement: IF LPAREN expr RPAREN LBRACE statement* RBRACE
            | IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement ELSE LBRACE statement* RBRACE;
@@ -147,8 +149,7 @@ callStatementArrayTail: LBRACKET expr RBRACKET callStatementArrayTail |;
 callStatementParam: expr COMMA callStatementParam | expr |;
 
 // Return Statement
-returnStatement: RETURN returnStatementTail;
-returnStatementTail: expr | arrayLit | structLit |;
+returnStatement: RETURN expr | RETURN;
 
 index: IDENTIFIER | BLANK;
 value: IDENTIFIER;

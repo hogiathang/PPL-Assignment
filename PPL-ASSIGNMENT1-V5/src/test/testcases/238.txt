@@ -1,1 +1,1 @@
-type A interface { foo() int; }
+type A interface { foo() int; };

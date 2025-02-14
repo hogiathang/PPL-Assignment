@@ -1,1 +1,1 @@
-func main() { := 5; }
+func main() { := 5; };

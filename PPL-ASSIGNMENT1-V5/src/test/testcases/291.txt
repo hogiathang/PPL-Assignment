@@ -1,1 +1,1 @@
-func main() { for i := range { print(i); } }
+func main() { for i := range { print(i); } };

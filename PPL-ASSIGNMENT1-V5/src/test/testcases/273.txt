@@ -9,4 +9,4 @@
         func main() {
             var calc Calculator = Addition{};
             result := calc.calculate(10.5, 20.5);
-        }
+        };

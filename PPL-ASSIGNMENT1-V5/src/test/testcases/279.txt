@@ -9,4 +9,4 @@
                 sum := sum + key[i];
             }
             return sum % 100;
-        }
+        };

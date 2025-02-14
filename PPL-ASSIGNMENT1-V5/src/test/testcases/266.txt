@@ -12,4 +12,4 @@
         func main() {
             var shapes [2]Shape;
             shapes[0] := Rectangle{width: 5.0, height: 3.0};
-        }
+        };

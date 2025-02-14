@@ -1,1 +1,14 @@
-type Drawable interface { draw(,) int; }
+
+        func foo(z int) {
+            for it, val := range [20]int{1,2,3} {
+                for z < 10 {
+                    sample := "test tao lao"
+                }
+
+                for _,val := range itq{Teq:11, God: 11} {
+                    // sample
+                }
+            }
+        
+        }
+        

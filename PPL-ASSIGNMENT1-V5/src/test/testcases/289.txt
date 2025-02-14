@@ -1,1 +1,1 @@
-type Drawable interface { draw(,) int; }
+type Drawable interface { draw(,) int; };

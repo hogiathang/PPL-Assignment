@@ -1,1 +1,1 @@
-func test(x,) int { return 1; }
+func test(x,) int { return 1; };
