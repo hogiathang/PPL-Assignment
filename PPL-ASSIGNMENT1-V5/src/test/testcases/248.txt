@@ -1,4 +1,5 @@
-// Test case 49: Invalid expression in return statement (Error)
-func exampleFunc() int {
-  return "hello" + 5;
-}
+type Complex interface {
+            getValue() [2]float;
+            setValue(real, imag float);
+            toString() string;
+        }

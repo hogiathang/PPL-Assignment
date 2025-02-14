@@ -1,1 +1,1 @@
-,Shingeki,==,no, Kyojin,<EOF>
+0b1,2,<EOF>

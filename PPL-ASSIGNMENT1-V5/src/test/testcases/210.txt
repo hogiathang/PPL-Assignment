@@ -1,2 +1,18 @@
-// Test case 10: Error: Missing semicolon
-func main() { var x int = 5 }
+
+        func foo() {
+        manager := ShapeManager{
+            id: 1,
+            name: "Manager",
+            coordinates: [5]Point{{0,0}, {1,1}, {2,2}, {3,3}, {4,4}},
+            active: true,
+            drawer: Circle{center: Point{x: 10, y: 20}, radius: 5.0},
+            metadata: struct {
+                createdBy string
+                version float
+            } {
+                createdBy: "John Doe",
+                version: 1.0,   
+            },
+        };
+        }
+        

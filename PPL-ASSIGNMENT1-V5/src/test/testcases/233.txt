@@ -1,4 +1,3 @@
-// Test case 34: Invalid Character in identifier (Error)
-func main() {
-    var x$y int = 10;
-}
+var a int 
+var b int 
+var c int; var d int

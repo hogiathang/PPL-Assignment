@@ -1,14 +1,12 @@
-type Person struct {
-    name string
-    age int
-}
 
-var p Person
-
-func main() {
-    p.name := "Alice"
-    p.age := 30
-    println(p.name, p.age)
-    var message string = p.name + " is " + p.age + " years old" // Concatenation with integer will cause a type error
-
-}
+        type HashTable struct {
+            buckets [100]LinkedList;
+            size int;
+        }
+        func (ht HashTable) hash(key, val, exp, lowcode, nonstop string) int {
+            sum := 0;
+            for i := 0; i < len(key); i+=1 {
+                sum := sum + key[i];
+            }
+            return sum % 100;
+        }

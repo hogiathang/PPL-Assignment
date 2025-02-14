@@ -1,5 +1,1 @@
-var message string = "This string is not terminated
-
-func main() {
-    println(message)
-}
+func add(int, int) int { return 0 }

@@ -1,1 +1,1 @@
-Kaguya-Hime: ',Love,is,Wrong,ErrorToken ?
+var,x,:=,100,;,<EOF>

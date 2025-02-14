@@ -1,1 +1,1 @@
-Illegal escape in string: "kanji'lang\'
+func,abc,(,),<EOF>

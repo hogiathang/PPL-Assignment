@@ -1,1 +1,1 @@
-Unclosed string: "Fate/destiny: 
+true,<EOF>

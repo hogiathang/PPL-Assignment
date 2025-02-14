@@ -1,9 +1,1 @@
-
-type Printer interface {
-    print(message string)
-}
-
-func main() {
-    // No implementation here to test just declaration
-}
-
+x = 12.34.56

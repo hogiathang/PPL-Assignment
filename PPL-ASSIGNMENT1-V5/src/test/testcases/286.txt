@@ -1,6 +1,1 @@
-
-func main() {
-    for i = 0; i < 10; i++ { 
-        println(i) 
-    }
-}
+func test(x,) int { return 1; }

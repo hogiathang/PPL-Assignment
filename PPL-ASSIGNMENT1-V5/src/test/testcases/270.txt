@@ -1,6 +1,13 @@
-var maxInt int = 2147483647  // Maximum 32-bit integer (adjust if needed)
 
-func main() {
-    var overflow int = maxInt + 1
-    println(overflow)  //  What happens when we overflow?
-}
+        type Matrix struct {
+            data [3][3]float;
+        }
+        func (m Matrix) multiply(n Matrix) Matrix {
+            var result Matrix;
+            for i := 0; i < 3; i+=1 {
+                for j := 0; j < 3; j+=1 {
+                    result.data[i][j] := m.data[i][j] * n.data[i][j];
+                }
+            }
+            return result;
+        }

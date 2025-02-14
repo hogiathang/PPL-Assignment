@@ -1,9 +1,3 @@
-var x int = 7
-
-func main() {
-    if (x > 5) {
-        println("x is greater than 5")
-    } else {
-        println("x is not greater than 5")
-    }
-}
+func (l LinkedList) insert(value int) {
+            l.next := Node{data: value, next: l.next};
+        }

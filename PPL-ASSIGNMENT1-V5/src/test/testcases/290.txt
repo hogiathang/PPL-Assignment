@@ -1,7 +1,1 @@
-var notAnArray int = 5;
-
-func main() {
-    for index, value := notAnArray {
-        println(index, value);
-    }
-}
+func divide(x, y float) float { return x/y, 0; }

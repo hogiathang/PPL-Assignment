@@ -1,2 +1,13 @@
-// Test case 12: Error: Undeclared variable
-func main() { x = 5; }
+
+        func Add(x int, y int) int {
+            return x + y;
+        }
+             type Calculator struct {
+            value int;
+            }
+            
+            func (c Calculator) Add(x int) int {
+            c.value += x;
+            return c.value;
+            }
+        

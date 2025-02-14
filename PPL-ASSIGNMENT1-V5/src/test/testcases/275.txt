@@ -1,12 +1,15 @@
- var globalVar int = 20
 
-func myFunction() {
-    var localVar int = 10
-    println(globalVar + localVar)
-}
-
-func main() {
-    myFunction()
-    println(globalVar) // Access global variable from main
-    //println(localVar) // Error: localVar is not defined in main
-}
+        type Circle struct {
+            radius float;
+            center Point;
+        }
+        func (c Circle) area() float {
+            return 3.14 * c.radius * c.radius;
+        }
+        func main() {
+            circles := [3]Circle{
+                Circle{radius: 1.0, center: Point{x: 0, y: 0}},
+                Circle{radius: 2.0, center: Point{x: 1, y: 1}},
+                Circle{radius: 3.0, center: Point{x: 2, y: 2}}
+            };
+        }

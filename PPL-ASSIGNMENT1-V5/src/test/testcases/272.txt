@@ -1,6 +1,14 @@
- 
-var x int = 5
 
-func main(x int, y,z float, t [2][3]int, k) {
-    println(x)
-}
+        type Tree struct {
+            value int;
+            left, right Tree;
+        }
+        func (t Tree) insert(val int) {
+            if val < t.value {
+                if t.left == nil {
+                    t.left := Tree{value: val};
+                } else {
+                    t.left.insert(val);
+                }
+            }
+        }

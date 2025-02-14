@@ -1,6 +1,1 @@
- 
-var x int = 5@  // Invalid character @
-
-func main() {
-    println(x)
-}
+var arr []int = {1,2,3}

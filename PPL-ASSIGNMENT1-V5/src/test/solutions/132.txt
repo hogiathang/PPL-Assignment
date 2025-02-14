@@ -1,1 +1,1 @@
-.,E9632,<EOF>
+x,ErrorToken #

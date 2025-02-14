@@ -1,1 +1,1 @@
-"This string contains a newline
+Error on line 7 col 16: l

@@ -1,1 +1,1 @@
-"This is a very long string
+Error on line 4 col 16: x

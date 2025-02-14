@@ -1,1 +1,1 @@
-Gravity	Falls\n,<EOF>,<EOF>
+var,abc,int,;,<EOF>

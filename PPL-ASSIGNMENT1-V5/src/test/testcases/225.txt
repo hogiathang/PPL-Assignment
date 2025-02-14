@@ -1,9 +1,9 @@
- 
-// Test case 25: Nested comments (valid)
-func main() {
-    /*
-    Outer comment
-    /* Inner comment */
-    */
-    println("Hello");
-}
+
+        type Point struct { x int; y int; };
+        func main() {
+            var p Point;
+            p.x := 5;
+            p.y := 6;
+            p.z := (p.x * p.x + p.y * p.y) % 2 + foo(a, b) == 0;
+        }
+        

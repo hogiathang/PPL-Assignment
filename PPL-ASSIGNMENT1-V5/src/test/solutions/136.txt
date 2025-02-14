@@ -1,1 +1,1 @@
-19,f,-,478,<EOF>
+this is a string,;,<EOF>

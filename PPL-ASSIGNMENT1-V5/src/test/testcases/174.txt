@@ -1,7 +1,1 @@
- 
-var message string = "This string contains a newline
-and a tab	."
-
-func main() {
-    println(message)
-}
+s = ""; t = "\t" 

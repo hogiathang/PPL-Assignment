@@ -1,16 +1,13 @@
 
-type Circle struct {
-    radius int
-}
-
-var circles [3]Circle
-
-func main() {
-    circles[0].radius := 5
-    circles[1].radius := 7
-    circles[2].radius := 9
-
-    for _, c := range circles {
-        println(c.radius)
-    }
-}
+        type Stack struct {
+            elements [100]int;
+            size int;
+        }
+        func (s Stack) push(element int) {
+            s.elements[s.size] := element;
+            s.size := s.size + 1;
+        }
+        func (s Stack) pop() int {
+            s.size := s.size - 1;
+            return s.elements[s.size];
+        }

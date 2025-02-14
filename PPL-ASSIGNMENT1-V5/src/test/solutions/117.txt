@@ -1,1 +1,1 @@
-func main() return 0,<EOF>
+0x1F,<EOF>

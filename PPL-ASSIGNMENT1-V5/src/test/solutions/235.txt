@@ -1,1 +1,1 @@
-Error on line 4 col 21: int
+Error on line 4 col 10: <EOF>

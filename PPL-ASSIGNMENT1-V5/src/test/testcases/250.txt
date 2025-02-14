@@ -1,2 +1,6 @@
-func main () {return 1;}
-
+type Animal interface {
+            makeSound() string;
+            move(distance float);
+            getSpecies() string;
+            age() int;
+        }

@@ -1,17 +1,10 @@
-type MyInterface interface {
-	doSomething()
-}
-type MyType struct{}
 
-func (m MyType) doSomething() {
-	println("Hello")
-}
+        const Pi = 3.14;  
 
-func main() {
-	var i MyInterface
-	var m MyType
-	i = m
-
-	//i.doSomething()// Calling method doSomething of MyInterface
-
-}
+        func main() {  
+            var radius float = 5.0;  
+            area := Pi * radius * radius;  
+            putString("Area: ")  
+            putFloatln(area);  
+        }  
+        

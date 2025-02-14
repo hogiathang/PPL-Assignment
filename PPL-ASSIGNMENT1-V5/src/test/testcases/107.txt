@@ -1,1 +1,4 @@
- "Kaguya-Hime: '"Love is Wrong?"" 
+
+            var x := 100
+
+        

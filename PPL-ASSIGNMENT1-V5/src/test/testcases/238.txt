@@ -1,8 +1,1 @@
-// Test case 38: Global variable declaration
-
-var globalString string = "hello"
-
-func main() {
-   println(globalString)
-
-}
+type A interface { foo() int; }

@@ -1,8 +1,17 @@
-var x int
-var y int
-var z int
 
-func main() {
-    x, y, z = 1, 2 + 3, 4 * 5 - 1 // Note multi-assignment is illegal in MiniGo
-    println(x, y, z) // Illegal because it's not a function
-}
+        type Sorter interface {
+            sort(a [100]int) [100]int;
+        }
+        type BubbleSort struct {}
+        func (bs BubbleSort) sort(arr [100]int) [100]int {
+            for i := 0; i < 100; i+=1 {
+                for j := 0; j < 99; j+=1 {
+                    if arr[j] > arr[j+1] {
+                        temp := arr[j];
+                        arr[j] := arr[j+1];
+                        arr[j+1] := temp;
+                    }
+                }
+            }
+            return arr;
+        }

@@ -1,1 +1,1 @@
-Error on line 4 col 32: int
+Error on line 8 col 16: db

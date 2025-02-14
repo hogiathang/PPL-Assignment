@@ -1,3 +1,5 @@
- for i := 0; i < 10; i += 1 {
-    if (x % i = 0) {return false;}
-}
+type Container interface {
+            push(element [3]Point);
+            pop() [3]Point;
+            isEmpty() bool;
+        }

@@ -1,6 +1,12 @@
- var x int = 5
 
-func main() {
-    var x [1]float = Person{x: int, y: float} // x redeclared in the same scope
-    println(x)
-}
+        type Database interface {
+            connect(host string) bool;
+            query(sql string) [100]string;
+            close();
+        }
+        func executeQuery(db Database, query string) {
+            if db.connect("localhost") {
+                results := db.query(query);
+                db.close();
+            }
+        }

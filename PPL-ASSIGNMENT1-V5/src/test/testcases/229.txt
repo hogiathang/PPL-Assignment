@@ -1,7 +1,9 @@
- // Test case 29: Test for "range" with a single value
-func main() {
-	arr := [3]int{1,2,3}
-	for _, value := range arr {
-		println(value)
-	}
-}
+
+        func foo () {
+        var matrix [2][3]int = {{1, 2, 3}, {4, 5, 6}};
+        var matrix2 [1]int = {1};
+        arr2 := [1]int{1};
+        arr := [2][3]int{{1, 2, 3}, {4, 5, 6}};
+        putIntLn(matrix[1][2]);  // In ra 6
+        }
+        

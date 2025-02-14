@@ -1,7 +1,11 @@
- 
-var message string = "This string contains a newline
-and a tab	."
 
-func main() {
-    println(message)
-}
+        type LinkedList struct {
+            value int;
+            next LinkedList;
+        }
+        func (l LinkedList) insert(val int) LinkedList {
+            if l.next == nil {
+                l.next := LinkedList{value: val, next: nil};
+            }
+            return l;
+        }

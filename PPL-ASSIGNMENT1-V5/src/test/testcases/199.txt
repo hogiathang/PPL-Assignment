@@ -1,18 +1,20 @@
-type MyType struct {
-	Name string
-}
 
-func (mt MyType) someMethod() string {
-	for i := 0; i < 10; i++ {
-		if i == 5 {
-			return "Found 5!"
-		}
-	}
-	return "Not found"
-}
+        type Shape interface {  
+            Area() float;  
+        }  
 
-func main() {
-	mt := MyType{Name: "Example"}
-	result := mt.someMethod()
-	println(result)
-}
+        type Circle struct {  
+            radius float;  
+        }  
+
+        func (c Circle) Area() float {  
+            return 3.14 * c.radius * c.radius;  
+        }  
+
+        func main() {  
+            c := Circle{radius: 3.0};  
+            var s Shape = c;  
+            putString("Square: ");  
+            putFloatln(s.Area());  
+        } 
+        

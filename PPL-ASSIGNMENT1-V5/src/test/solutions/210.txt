@@ -1,1 +1,1 @@
-Error on line 2 col 29: }
+Error on line 9 col 23: struct

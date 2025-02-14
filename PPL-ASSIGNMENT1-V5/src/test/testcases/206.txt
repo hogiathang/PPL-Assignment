@@ -1,14 +1,12 @@
 
-// Test case 6: For loop with break and continue statements
-func main() {
-    for i := 0; i < 10; i += 1 {
-        if (i % 2 == 0) {
-            continue;
-        }
-        if (i > 5) {
-            break;
-        }
-        println(i);
-    }
-    println("Loop finished");
-}
+            type Address struct {
+                street string;
+                city   string;
+            }
+
+            type Person struct {
+                name    string;
+                age     int;
+                address Address;
+            }
+        

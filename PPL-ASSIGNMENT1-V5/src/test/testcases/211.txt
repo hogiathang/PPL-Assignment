@@ -1,2 +1,19 @@
-// Test case 11: Error: Unclosed parenthesis
-func main() { if (true  { }
+
+        type Calculator interface {
+            Add(x, y int) int;
+            Subtract(a, b float, c int) float;
+            Reset()
+            SayHello(name string)
+        }
+        func main() {
+        p := Person{}
+        PutStringLn(p.name) // Output: Alice
+        PutIntLn(p.age) // Output: 30
+        var people [3]Person
+        const Greeting = "Hello, MiniGo!"
+        const MaxSize = 100 + 50;
+        const Pi = 3.14;
+        testPerson.people.aiw(people).lost.pole(3);
+        tq := 4 || 5 || 6
+        }
+        

@@ -64,8 +64,8 @@ structFieldListTail: COMMA structFieldAssign structFieldListTail |;
 structFieldAssign: IDENTIFIER COLON structBlock;
 structBlock: expr | arrayLit | structLit;
 
-methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement+ RBRACE;
-funcDecl: FUNC IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement+ RBRACE;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement* RBRACE;
+funcDecl: FUNC IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement* RBRACE;
 funcType: baseType
         | arrayType baseType
         |;
@@ -90,12 +90,9 @@ equalityExpr: equalityExpr relationOp additiveExpr | additiveExpr;
 additiveExpr: additiveExpr addOp multiplicativeExpr | multiplicativeExpr;
 multiplicativeExpr: multiplicativeExpr mulOp unaryExpr | unaryExpr;
 unaryExpr: unaryOp unaryExpr | primaryExpr;
-primaryExpr: term primaryExprTail;
-
-primaryExprTail:  DOT IDENTIFIER primaryExprTail
-                | LBRACKET expr RBRACKET primaryExprTail
-                | LPAREN callArguments RPAREN primaryExprTail
-                |;
+primaryExpr: primaryExpr DOT IDENTIFIER
+           | primaryExpr LBRACKET expr RBRACKET
+           | term;
 
 statement: declarationStatement endOfStatement
         | assignStatement endOfStatement
@@ -123,32 +120,31 @@ assignStateRHS: expr
               | arrayLit 
               | structLit;
 // If Statement
-ifStatement: IF LPAREN expr RPAREN LBRACE statement+ RBRACE
-           | IF LPAREN expr RPAREN LBRACE statement+ RBRACE elseIfStatement ELSE LBRACE statement+ RBRACE;
-elseIfStatement: ELSE IF LPAREN expr RPAREN LBRACE statement+ RBRACE elseIfStatement |;
+ifStatement: IF LPAREN expr RPAREN LBRACE statement* RBRACE
+           | IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement ELSE LBRACE statement* RBRACE;
+elseIfStatement: ELSE IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement |;
 
 // For Statement
 forStatement: basicForStatement | forRangeStatement;
 
-basicForStatement: FOR forCondition LBRACE statement+ RBRACE
-                 | FOR forInitilization SEMI forCondition SEMI forUpdate LBRACE statement+ RBRACE;
+basicForStatement: FOR forCondition LBRACE statement* RBRACE
+                 | FOR forInitilization SEMI forCondition SEMI forUpdate LBRACE statement* RBRACE;
 forCondition: expr;
 forInitilization: assignStatement | varDecl;
 forUpdate: assignStatement;
 
-forRangeStatement: FOR index COMMA value ASSIGN RANGE forArray LBRACE statement+ RBRACE;
+forRangeStatement: FOR index COMMA value ASSIGN RANGE forArray LBRACE statement* RBRACE;
 
 // break statement
 breakStatement: BREAK;
 // continue statement
 continueStatement: CONTINUE;
 // Call Statement
-callStatement: IDENTIFIER callStatementArrayTail callStatementTail;
+callStatement: IDENTIFIER callStatementArrayTail DOT callStatement
+             | IDENTIFIER LPAREN callStatementParam RPAREN DOT callStatement
+             | IDENTIFIER LPAREN callStatementParam RPAREN;
 callStatementArrayTail: LBRACKET expr RBRACKET callStatementArrayTail |;
-callStatementTail: DOT callStatement 
-                 | LPAREN callArguments RPAREN;
-callArguments: expr callArgumentsTail |;
-callArgumentsTail: COMMA expr callArgumentsTail |;
+callStatementParam: expr COMMA callStatementParam | expr |;
 
 // Return Statement
 returnStatement: RETURN returnStatementTail;
@@ -237,14 +233,13 @@ IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
 INT_LIT: DEC_LIT | BIN_LIT | OCT_LIT | HEX_LIT;
 fragment DEC_LIT: '0' | [1-9][0-9]*;
 fragment BIN_LIT: '0' [bB] [0-1]+;
-fragment OCT_LIT: '0' [oO] [0-7]+ | '0' [0-7]+;
+fragment OCT_LIT: '0' [oO] [0-7]+;
 fragment HEX_LIT: '0' [xX] [0-9a-fA-F]+;
 
 // Float
-FLOAT_LIT: DEC_PART ('.' DEC_PART? EXPONENT? | EXPONENT);
-fragment DEC_PART: [0-9]+;
+FLOAT_LIT: DEC_PART '.' DEC_PART? EXPONENT?;
+fragment DEC_PART: '0' | [1-9][0-9]*;
 fragment EXPONENT: [eE] [+-]? [0-9]+;
-
 
 // String
 STRING_LIT: '"' (ESC_SEQ | ~["\\\r\n])* '"' {self.text = self.text[1:-1];};

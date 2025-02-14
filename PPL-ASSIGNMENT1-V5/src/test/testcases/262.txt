@@ -1,9 +1,3 @@
-
-type Printer interface {
-    print(message string)
-}
-
-func main() {
-    // No implementation here to test just declaration
-}
-
+func (c Car) start() string {
+            return c.brand + " engine starting...";
+        }

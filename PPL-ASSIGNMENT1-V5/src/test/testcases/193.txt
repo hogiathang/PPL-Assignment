@@ -1,8 +1,1 @@
-func add(x int, y int) {  // Missing return type
-    return x + y  // Type error
-}
-
-func main() {
-   var result int = add(5,3)
-   println(result)
-}
+00001e279.003

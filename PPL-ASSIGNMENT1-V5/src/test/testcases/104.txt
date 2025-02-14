@@ -1,1 +1,1 @@
- "kanji'lang\'8" 
+func abc ( ) 

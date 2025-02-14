@@ -1,9 +1,11 @@
- // Test case 28: Nil pointer check and usage (check if parser allows nil)
-func main() {
-    var ptr *int = nil;
-    if (ptr == nil) {
-        println("Pointer is nil");
-    }
-    // The following line might cause a runtime error if nil pointers aren't handled
-    // println(*ptr);  // Remove or comment out for parser testing, address in later stages.
-}
+
+        func (p Person) Greet() string {
+            str := "Hello, " + p.getName + "!" + "from" + p.GetAddress().city;
+
+            k := func hello() string {
+                return "Hello";
+            }
+
+            return str + k();
+        }
+        

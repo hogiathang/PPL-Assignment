@@ -1,1 +1,1 @@
-type,MyInterface,interface,{,doSomething,(,),;,},;,type,MyType,struct,{,},;,func,(,m,MyType,),doSomething,(,),{,println,(,Hello,),;,},;,func,main,(,),{,var,i,MyInterface,;,var,m,MyType,;,i,=,m,;,},;,<EOF>
+const,Pi,=,3.14,;,func,main,(,),{,var,radius,float,=,5.0,;,area,:=,Pi,*,radius,*,radius,;,putString,(,Area: ,),;,putFloatln,(,area,),;,},;,<EOF>

@@ -1,3 +1,7 @@
-// Test case 17: Error: Array index out of bounds (for completeness - may not be a parsing error)
-func main() { var arr [3]int = {1, 2, 3}; var x int = arr[5]; }
-}
+
+        foo(2 + x, 4 / y); m.goo();
+        func foo(x int, y int) {
+        }; func goo() {
+        } func (c Test) goo() {
+        }; func (c Test) goo() int {
+        }

@@ -1,1 +1,1 @@
-2E-65,<EOF>
+func,main,(,),{,},<EOF>

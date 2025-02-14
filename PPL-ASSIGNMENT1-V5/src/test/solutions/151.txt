@@ -1,1 +1,1 @@
-func,main,(,),{,return,1,;,},;,<EOF>
+for,i,,,v,:=,range,arr,{,putIntLn,(,v,),},<EOF>
