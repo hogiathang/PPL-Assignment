@@ -101,7 +101,7 @@ arraysBlock: LBRACE arraysBlock (COMMA arraysBlock)* RBRACE
 
 literals: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | structLit;
 
-structLit: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* (COMMA | NEWLINE)?)? RBRACE;
+structLit: IDENTIFIER LBRACE (structFieldsAssign (COMMA structFieldsAssign)* COMMA?)? RBRACE;
 structBlock: expression 
            | arrayLit 
            | structLit;

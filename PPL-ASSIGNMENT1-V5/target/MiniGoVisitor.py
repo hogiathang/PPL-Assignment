@@ -199,6 +199,16 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#primarySuffix.
+    def visitPrimarySuffix(self, ctx:MiniGoParser.PrimarySuffixContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#argList.
+    def visitArgList(self, ctx:MiniGoParser.ArgListContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#statement.
     def visitStatement(self, ctx:MiniGoParser.StatementContext):
         return self.visitChildren(ctx)
@@ -296,11 +306,6 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#returnStatement.
     def visitReturnStatement(self, ctx:MiniGoParser.ReturnStatementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#returnStatementTail.
-    def visitReturnStatementTail(self, ctx:MiniGoParser.ReturnStatementTailContext):
         return self.visitChildren(ctx)
 
 

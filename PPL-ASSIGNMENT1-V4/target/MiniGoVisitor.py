@@ -174,8 +174,13 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#structExpression.
-    def visitStructExpression(self, ctx:MiniGoParser.StructExpressionContext):
+    # Visit a parse tree produced by MiniGoParser#literals.
+    def visitLiterals(self, ctx:MiniGoParser.LiteralsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#structLit.
+    def visitStructLit(self, ctx:MiniGoParser.StructLitContext):
         return self.visitChildren(ctx)
 
 

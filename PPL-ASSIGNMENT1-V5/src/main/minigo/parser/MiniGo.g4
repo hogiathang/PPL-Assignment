@@ -1,3 +1,4 @@
+// STUDENT ID: 2213187
 grammar MiniGo;
 
 @lexer::header {
@@ -25,7 +26,6 @@ def emit(self):
 options{
 	language=Python3;
 }
-// Write BNF grammar here
 program  : declaration+ EOF ;
 
 declaration: varDecl endOfStatement
