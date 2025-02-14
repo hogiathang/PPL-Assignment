@@ -1,0 +1,4 @@
+func main() {
+  str = "Unclosed\e
+  x@ = 5;
+}

@@ -1,0 +1,6 @@
+ 
+            s = "Line1\nLine2\kLine3"
+            if s == "Error" { 
+                return true 
+            }
+        

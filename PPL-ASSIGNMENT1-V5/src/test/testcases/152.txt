@@ -1,0 +1,2 @@
+type Address struct { city string; zip int }
+                   type Person struct { name string; addr Address }

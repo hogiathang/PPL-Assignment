@@ -1,0 +1,8 @@
+ 
+            func main() {
+                x = 0xF3  // Hex Value
+                s = "Hello\""
+                y = 5.67  // Float Value
+                z = $value 
+            }
+        
