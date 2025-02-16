@@ -1,4 +1,5 @@
-func (t Tree) insert(val int) Tree {
+
+        func (t Tree) insert(val int) Tree {
             if t == nil { return Tree{value: val}; };
             return t;
         };

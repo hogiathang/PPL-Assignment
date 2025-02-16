@@ -162,7 +162,7 @@ noArrayLit: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | structLit | 
 term: IDENTIFIER | INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | LPAREN expr RPAREN;
 intLitOrConstant: INT_LIT | IDENTIFIER;
 baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
-endOfStatement: SEMI | NEWLINE;
+endOfStatement: SEMI;
 
 
 
@@ -260,6 +260,7 @@ NEWLINE: '\n' {
     ];
     if self.lastTokenType in listAllowedToken:
         self.text = ';';
+        self.type = self.SEMI;
     else:
         self.skip();
 };

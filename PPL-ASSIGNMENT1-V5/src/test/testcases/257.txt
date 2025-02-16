@@ -1,4 +1,5 @@
-type Employee struct {
+
+        type Employee struct {
             id int;
             salary float;
             department struct;

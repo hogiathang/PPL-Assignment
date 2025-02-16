@@ -1,4 +1,5 @@
-type Car struct {
+
+        type Car struct {
             brand string;
             year int;
             specs [5]string;

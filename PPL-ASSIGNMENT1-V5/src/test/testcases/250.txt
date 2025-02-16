@@ -1,4 +1,5 @@
-type Animal interface {
+
+        type Animal interface {
             makeSound() string;
             move(distance float);
             getSpecies() string;

@@ -746,7 +746,7 @@ class ParserSuite(unittest.TestCase):
             execute(command []string) bool;
             disconnect();
         };"""
-        expect = "Error on line 3 col 24: ]"
+        expect = "Error on line 4 col 24: ]"
         self.assertTrue(TestParser.checkParser(input,expect,251))
 
     def testcase_252(self):
@@ -756,7 +756,7 @@ class ParserSuite(unittest.TestCase):
             a [3]int;
             b [2][2]Matrix;
         };"""
-        expect = "Error on line 2 col 14: ,"
+        expect = "Error on line 3 col 14: ,"
         self.assertTrue(TestParser.checkParser(input,expect,252))
 
     def testcase_253(self):
@@ -765,7 +765,7 @@ class ParserSuite(unittest.TestCase):
             width, height float;
             color string;
         };"""
-        expect = "Error on line 2 col 18: ,"
+        expect = "Error on line 3 col 18: ,"
         self.assertTrue(TestParser.checkParser(input,expect,253))
 
     def testcase_254(self):
@@ -802,7 +802,7 @@ class ParserSuite(unittest.TestCase):
             salary float;
             department struct;
         };"""
-        expect = "Error on line 4 col 24: struct"
+        expect = "Error on line 5 col 24: struct"
         self.assertTrue(TestParser.checkParser(input,expect,257))
 
     def testcase_258(self):
@@ -835,7 +835,7 @@ class ParserSuite(unittest.TestCase):
             if b.balance >= amount { return true; };
             return false;
         };"""
-        expect = "Error on line 2 col 16: b"
+        expect = "Error on line 3 col 16: b"
         self.assertTrue(TestParser.checkParser(input,expect,261))
 
     def testcase_262(self):
@@ -852,14 +852,14 @@ class ParserSuite(unittest.TestCase):
             if t == nil { return Tree{value: val}; };
             return t;
         };"""
-        self.assertTrue(TestParser.checkParser(input,"Error on line 2 col 16: t",263))
+        self.assertTrue(TestParser.checkParser(input,"Error on line 3 col 16: t",263))
 
     def testcase_264(self):
         input = """
         func (e Employee) promote( int float) {
             e.salary := e.salary * (1.0 + raise);
         };"""
-        expect = "Error on line 1 col 28: int"
+        expect = "Error on line 2 col 36: int"
         self.assertTrue(TestParser.checkParser(input,expect,264))
 
     def testcase_265(self):

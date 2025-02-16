@@ -1,4 +1,5 @@
-type Rectangle struct {
+
+        type Rectangle struct {
             width, height float;
             color string;
         };

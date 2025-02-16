@@ -349,6 +349,7 @@ class MiniGoLexer(Lexer):
                 ];
                 if self.lastTokenType in listAllowedToken:
                     self.text = ';';
+                    self.type = self.SEMI;
                 else:
                     self.skip();
 
