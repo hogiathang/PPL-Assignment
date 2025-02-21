@@ -1,0 +1,13 @@
+
+        type Animal interface {
+            makeSound() string;
+            move(distance float);
+        }
+        type Dog struct {
+            name string;
+            age int;
+        }
+        func (d Dog) makeSound() string {
+            return "Woof!";
+        }
+        

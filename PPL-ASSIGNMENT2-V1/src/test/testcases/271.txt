@@ -1,0 +1,11 @@
+
+        type LinkedList struct {
+            value int;
+            next LinkedList;
+        }
+        func (l LinkedList) insert(val int) LinkedList {
+            if l.next == nil {
+                l.next := LinkedList{value: val, next: nil};
+            }
+            return l;
+        };

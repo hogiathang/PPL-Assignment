@@ -1,0 +1,7 @@
+
+        type Database interface {
+            connect(host string, port int) bool;
+            query(sql []string) [2]string;
+            execute(command []string) bool;
+            disconnect();
+        };

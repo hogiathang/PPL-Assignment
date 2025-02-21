@@ -1,0 +1,5 @@
+
+        type LinkedList struct {
+            data int;
+            next Node;
+        };

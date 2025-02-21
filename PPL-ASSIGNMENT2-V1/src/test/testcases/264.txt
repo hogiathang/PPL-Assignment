@@ -1,0 +1,4 @@
+
+        func (e Employee) promote( int float) {
+            e.salary := e.salary * (1.0 + raise);
+        };
