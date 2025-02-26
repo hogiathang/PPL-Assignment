@@ -26,9 +26,9 @@ def emit(self):
 options{
 	language=Python3;
 }
-program  : declaration+ EOF ;
+program  : decl+ EOF ;
 
-declaration: varDecl endOfStatement
+decl: varDecl endOfStatement
            | funcDecl endOfStatement
            | constDecl endOfStatement
            | methodDecl endOfStatement
@@ -44,10 +44,10 @@ varDetail: varDeclType varDeclExpr
 
 varDeclType: baseType 
            | arrayType baseType;
-arrayType: LBRACKET intLitOrConstant RBRACKET arrayType | LBRACKET intLitOrConstant RBRACKET;
+arrayType: (LBRACKET intLitOrConstant RBRACKET)+;
 varDeclExpr: DECLARE expr;
 
-constDecl: CONST IDENTIFIER varDeclExpr;
+constDecl: CONST IDENTIFIER varDeclType? varDeclExpr;
 
 arrayLit: arrayType baseType arrayBlock;
 arrayBlock: LBRACE arrayLitList RBRACE;
@@ -62,26 +62,24 @@ structFieldListTail: COMMA structFieldAssign structFieldListTail |;
 structFieldAssign: IDENTIFIER COLON structBlock;
 structBlock: expr;
 
-methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement* RBRACE;
-funcDecl: FUNC IDENTIFIER LPAREN funcParam RPAREN funcType LBRACE statement* RBRACE;
+methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN funcParam? RPAREN funcType LBRACE statement* RBRACE;
+funcDecl: FUNC IDENTIFIER LPAREN funcParam? RPAREN funcType LBRACE statement* RBRACE;
 funcType: baseType
         | arrayType baseType
         |;
 funcParam: funcListIdentifiers varDeclType COMMA funcParam
-         | funcListIdentifiers varDeclType 
-         |;
+         | funcListIdentifiers varDeclType ;
 funcListIdentifiers: IDENTIFIER | IDENTIFIER COMMA funcListIdentifiers;
 
 typeDecl: TYPE IDENTIFIER STRUCT structDeclBlock | TYPE IDENTIFIER INTERFACE interfaceDeclBlock;
 
-structType: baseType | arrayType baseType;
-structDeclBlock: LBRACE structDeclField RBRACE;
-structDeclField: IDENTIFIER  structType endOfStatement structDeclField |;
+structDeclBlock: LBRACE structDeclField* RBRACE;
+structDeclField: IDENTIFIER  varDeclType endOfStatement | methodDecl endOfStatement;
 
-interfaceDeclBlock: LBRACE interfaceDeclField RBRACE;
-interfaceDeclField: IDENTIFIER LPAREN funcParam RPAREN funcType endOfStatement interfaceDeclField |;
+interfaceDeclBlock: LBRACE interfaceDeclField* RBRACE;
+interfaceDeclField: IDENTIFIER LPAREN funcParam? RPAREN funcType endOfStatement;
 
-expr: logicOrExpr | arrayLit | structLit;
+expr: logicOrExpr;
 logicOrExpr: logicOrExpr OR logicAndExpr | logicAndExpr;
 logicAndExpr: logicAndExpr AND equalityExpr | equalityExpr;
 equalityExpr: equalityExpr relationOp additiveExpr | additiveExpr;
@@ -92,9 +90,12 @@ primaryExpr
     : term primarySuffix*;
 
 primarySuffix
-    : DOT IDENTIFIER                         
-    | LBRACKET expr RBRACKET                 
-    | LPAREN argList? RPAREN;
+    : DOT IDENTIFIER callSuffix? arraySuffix?                        
+    | arraySuffix                 
+    | callSuffix;
+
+arraySuffix: (LBRACKET expr RBRACKET)+;
+callSuffix: LPAREN argList? RPAREN;
 
 argList
     : expr (COMMA expr)*;
@@ -122,9 +123,12 @@ assignStateLHSTail: DOT IDENTIFIER assignStateLHSTail | LBRACKET expr RBRACKET a
 
 assignStateRHS: expr;
 // If Statement
-ifStatement: IF LPAREN expr RPAREN LBRACE statement* RBRACE
-           | IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement ELSE LBRACE statement* RBRACE;
-elseIfStatement: ELSE IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement |;
+ifStatement: IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement elseStatement;
+
+elseIfStatement: (ELSE IF LPAREN expr RPAREN LBRACE statement* RBRACE)*;
+elseStatement: (ELSE LBRACE statement* RBRACE)?;
+
+
 
 // For Statement
 forStatement: basicForStatement | forRangeStatement;
@@ -132,8 +136,17 @@ forStatement: basicForStatement | forRangeStatement;
 basicForStatement: FOR forCondition LBRACE statement* RBRACE
                  | FOR forInitilization SEMI forCondition SEMI forUpdate LBRACE statement* RBRACE;
 forCondition: expr;
-forInitilization: assignStatement | varDecl;
-forUpdate: assignStatement;
+
+forInitilization: assignStatement
+                | VAR IDENTIFIER varDeclExpr
+                | VAR IDENTIFIER varDeclType varDeclExpr;
+
+forUpdate: IDENTIFIER ASSIGN expr
+         | IDENTIFIER PLUS_ASSIGN expr
+         | IDENTIFIER MINUS_ASSIGN expr
+         | IDENTIFIER MUL_ASSIGN expr
+         | IDENTIFIER DIV_ASSIGN expr
+         | IDENTIFIER MOD_ASSIGN expr;
 
 forRangeStatement: FOR index COMMA value ASSIGN RANGE forArray LBRACE statement* RBRACE;
 
@@ -142,11 +155,19 @@ breakStatement: BREAK;
 // continue statement
 continueStatement: CONTINUE;
 // Call Statement
-callStatement: IDENTIFIER callStatementArrayTail DOT callStatement
-             | IDENTIFIER LPAREN callStatementParam RPAREN DOT callStatement
-             | IDENTIFIER LPAREN callStatementParam RPAREN;
-callStatementArrayTail: LBRACKET expr RBRACKET callStatementArrayTail |;
-callStatementParam: expr COMMA callStatementParam | expr |;
+callStatement: methodCallStatement | funcCallStatement;
+
+methodCallStatement: IDENTIFIER callStatementArrayTail DOT methodCallStatementTail 
+             | IDENTIFIER LPAREN callStatementParam? RPAREN DOT methodCallStatementTail;
+
+methodCallStatementTail: methodCallStatement
+                       | IDENTIFIER LPAREN callStatementParam? RPAREN;
+
+
+funcCallStatement: IDENTIFIER LPAREN callStatementParam? RPAREN;
+
+callStatementArrayTail: (LBRACKET expr RBRACKET)*;
+callStatementParam: expr (COMMA expr)*;
 
 // Return Statement
 returnStatement: RETURN expr | RETURN;
@@ -159,7 +180,7 @@ addOp: PLUS | MINUS;
 mulOp: MUL | DIV | MOD;
 unaryOp: MINUS | NOT;
 noArrayLit: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | structLit | IDENTIFIER;
-term: IDENTIFIER | INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | LPAREN expr RPAREN;
+term: IDENTIFIER | INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | LPAREN expr RPAREN | arrayLit | structLit;
 intLitOrConstant: INT_LIT | IDENTIFIER;
 baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 endOfStatement: SEMI;

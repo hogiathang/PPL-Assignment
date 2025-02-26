@@ -1,3 +1,0 @@
-type Comparable interface {
-            compare(other interface) int;
-        };
