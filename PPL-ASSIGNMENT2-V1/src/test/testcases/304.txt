@@ -1,0 +1,4 @@
+func main (x, y int) {
+            return 1 + 1
+        }
+        

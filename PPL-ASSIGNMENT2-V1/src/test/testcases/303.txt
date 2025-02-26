@@ -1,0 +1,2 @@
+var x int = foo().too().zoo[3][4];
+                
