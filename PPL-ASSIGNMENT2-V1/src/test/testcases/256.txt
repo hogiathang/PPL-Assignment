@@ -1,7 +1,0 @@
-
-        type Car struct {
-            brand string;
-            year int;
-            specs [5]string;
-            engine Engine;
-        };

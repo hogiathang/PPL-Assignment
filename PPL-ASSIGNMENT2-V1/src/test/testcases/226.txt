@@ -1,9 +1,0 @@
-
-        func main() {
-            var x int;
-            if x == nil {
-            } else {
-                return;
-            }
-        }
-        

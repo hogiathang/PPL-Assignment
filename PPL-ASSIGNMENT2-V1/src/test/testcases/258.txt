@@ -1,4 +1,0 @@
-
-        func (p Point) distance(q Point) float {
-            return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
-        };

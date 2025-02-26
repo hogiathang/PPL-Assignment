@@ -1,5 +1,0 @@
-type Complex interface {
-            getValue() [2]float;
-            setValue(real, imag float);
-            toString() string;
-        };

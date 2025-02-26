@@ -1,1 +1,0 @@
-var f = func(x int) { return x + 1 };

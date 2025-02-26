@@ -1,7 +1,0 @@
-
-        foo(2 + x, 4 / y); m.goo();
-        func foo(x int, y int) {
-        }; func goo() {
-        } func (c Test) goo() {
-        }; func (c Test) goo() int {
-        }

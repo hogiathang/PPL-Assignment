@@ -1,4 +1,0 @@
-
-        func (l LinkedList) insert(value int) {
-            l.next := Node{data: value, next: l.next};
-        };
