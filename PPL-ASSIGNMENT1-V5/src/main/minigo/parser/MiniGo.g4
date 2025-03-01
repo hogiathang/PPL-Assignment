@@ -50,17 +50,13 @@ varDeclExpr: DECLARE expr;
 constDecl: CONST IDENTIFIER varDeclType? varDeclExpr;
 
 arrayLit: arrayType baseType arrayBlock;
-arrayBlock: LBRACE arrayLitList RBRACE;
-arrayLitList: arrayLitContent arrayLitListTail;
-arrayLitListTail: COMMA arrayLitContent arrayLitListTail |;
+arrayBlock: LBRACE arrayLitContent (COMMA arrayLitContent)* RBRACE;
 arrayLitContent: arrayBlock | noArrayLit;
 
 structLit: IDENTIFIER LBRACE optionalStructFields RBRACE;
 optionalStructFields: structFieldList |;
-structFieldList: structFieldAssign structFieldListTail;
-structFieldListTail: COMMA structFieldAssign structFieldListTail |;
-structFieldAssign: IDENTIFIER COLON structBlock;
-structBlock: expr;
+structFieldList: structFieldAssign (COMMA structFieldAssign)*;
+structFieldAssign: IDENTIFIER COLON expr;
 
 methodDecl: FUNC LPAREN IDENTIFIER IDENTIFIER RPAREN IDENTIFIER LPAREN funcParam? RPAREN funcType LBRACE statement* RBRACE;
 funcDecl: FUNC IDENTIFIER LPAREN funcParam? RPAREN funcType LBRACE statement* RBRACE;
@@ -87,12 +83,11 @@ additiveExpr: additiveExpr addOp multiplicativeExpr | multiplicativeExpr;
 multiplicativeExpr: multiplicativeExpr mulOp unaryExpr | unaryExpr;
 unaryExpr: unaryOp unaryExpr | primaryExpr;
 primaryExpr
-    : term primarySuffix*;
+    : term callSuffix? primarySuffix*;
 
 primarySuffix
     : DOT IDENTIFIER callSuffix? arraySuffix?                        
-    | arraySuffix                 
-    | callSuffix;
+    | arraySuffix;
 
 arraySuffix: (LBRACKET expr RBRACKET)+;
 callSuffix: LPAREN argList? RPAREN;
@@ -118,15 +113,15 @@ assignStatement: assignStateLHS ASSIGN assignStateRHS
                | assignStateLHS DIV_ASSIGN assignStateRHS
                | assignStateLHS MOD_ASSIGN assignStateRHS;
 
-assignStateLHS: IDENTIFIER assignStateLHSTail;
-assignStateLHSTail: DOT IDENTIFIER assignStateLHSTail | LBRACKET expr RBRACKET assignStateLHSTail |;
+assignStateLHS: IDENTIFIER (LBRACKET expr RBRACKET)* assignTail?;
+assignTail: DOT IDENTIFIER (LBRACKET expr RBRACKET)* assignTail?;
 
 assignStateRHS: expr;
 // If Statement
-ifStatement: IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement elseStatement;
+ifStatement: IF LPAREN expr RPAREN LBRACE statement* RBRACE elseIfStatement* elseStatement?;
 
-elseIfStatement: (ELSE IF LPAREN expr RPAREN LBRACE statement* RBRACE)*;
-elseStatement: (ELSE LBRACE statement* RBRACE)?;
+elseIfStatement: ELSE IF LPAREN expr RPAREN LBRACE statement* RBRACE;
+elseStatement: ELSE LBRACE statement* RBRACE;
 
 
 
@@ -157,16 +152,14 @@ continueStatement: CONTINUE;
 // Call Statement
 callStatement: methodCallStatement | funcCallStatement;
 
-methodCallStatement: IDENTIFIER callStatementArrayTail DOT methodCallStatementTail 
-             | IDENTIFIER LPAREN callStatementParam? RPAREN DOT methodCallStatementTail;
+methodCallStatement: methodCallHead+ IDENTIFIER LPAREN callStatementParam? RPAREN;
 
-methodCallStatementTail: methodCallStatement
-                       | IDENTIFIER LPAREN callStatementParam? RPAREN;
-
+methodCallHead: IDENTIFIER LPAREN callStatementParam? RPAREN DOT
+             | IDENTIFIER callStatementArrayTail? DOT;
 
 funcCallStatement: IDENTIFIER LPAREN callStatementParam? RPAREN;
 
-callStatementArrayTail: (LBRACKET expr RBRACKET)*;
+callStatementArrayTail: (LBRACKET expr RBRACKET)+;
 callStatementParam: expr (COMMA expr)*;
 
 // Return Statement
@@ -260,7 +253,7 @@ fragment HEX_LIT: '0' [xX] [0-9a-fA-F]+;
 
 // Float
 FLOAT_LIT: DEC_PART '.' DEC_PART? EXPONENT?;
-fragment DEC_PART: '0' | [1-9][0-9]*;
+fragment DEC_PART: [0-9]+;
 fragment EXPONENT: [eE] [+-]? [0-9]+;
 
 // String
@@ -286,6 +279,6 @@ NEWLINE: '\n' {
         self.skip();
 };
 
-UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\\r\n])* ([\r\n] | EOF);
+UNCLOSE_STRING: '"' (ESC_SEQ | ~["\\\r\n])*;
 ILLEGAL_ESCAPE: '"' (ESC_SEQ | ~["\\\r\n])* '\\' ~[nrt"\\];
 ERROR_CHAR: .;
