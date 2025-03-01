@@ -83,12 +83,11 @@ additiveExpr: additiveExpr addOp multiplicativeExpr | multiplicativeExpr;
 multiplicativeExpr: multiplicativeExpr mulOp unaryExpr | unaryExpr;
 unaryExpr: unaryOp unaryExpr | primaryExpr;
 primaryExpr
-    : term primarySuffix*;
+    : term callSuffix? primarySuffix*;
 
 primarySuffix
     : DOT IDENTIFIER callSuffix? arraySuffix?                        
-    | arraySuffix                 
-    | callSuffix;
+    | arraySuffix;
 
 arraySuffix: (LBRACKET expr RBRACKET)+;
 callSuffix: LPAREN argList? RPAREN;

@@ -1,1 +1,4 @@
-var x int;
+func (r Rectangle) area() float {
+            return r.width * r.height;
+        }
+        

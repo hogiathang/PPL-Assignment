@@ -95,6 +95,11 @@ class ASTGeneration(MiniGoVisitor):
 
     def visitPrimaryExpr(self, ctx:MiniGoParser.PrimaryExprContext):
         expr = self.visit(ctx.getChild(0))
+        if ctx.callSuffix():
+            argList = self.visit(ctx.callSuffix())
+            expr = FuncCall(expr, argList)
+        elif type(expr) == str:
+            expr = Id(expr)
 
         for suffix in ctx.primarySuffix():
             if suffix.DOT():
@@ -115,9 +120,6 @@ class ASTGeneration(MiniGoVisitor):
             else:
                 if suffix.arraySuffix():
                     expr = ArrayCell(expr, self.visit(suffix.arraySuffix()))
-                else:
-                    argList = self.visit(suffix.callSuffix())
-                    expr = FuncCall(expr, argList)
         return expr
 
     def visitTerm(self, ctx:MiniGoParser.TermContext):
@@ -125,7 +127,7 @@ class ASTGeneration(MiniGoVisitor):
         if ctx.getChildCount() == 3:
             return self.visit(ctx.expr())
         if ctx.IDENTIFIER():
-            return Id(ctx.IDENTIFIER().getText())
+            return ctx.IDENTIFIER().getText()
         if ctx.INT_LIT():
             return IntLiteral(int(ctx.INT_LIT().getText()))
         if ctx.FLOAT_LIT():
@@ -247,17 +249,28 @@ class ASTGeneration(MiniGoVisitor):
 
     def visitAssignStatement(self, ctx:MiniGoParser.AssignStatementContext):
         lhs = self.visit(ctx.getChild(0))
-        rhs = BinaryOp(ctx.getChild(1).getText(),lhs, self.visit(ctx.getChild(2)))
+        match ctx.getChild(1).getText():
+            case "+=":
+                rhs = BinaryOp("+",lhs, self.visit(ctx.getChild(2)))
+            case "-=":
+                rhs = BinaryOp("-",lhs, self.visit(ctx.getChild(2)))
+            case "*=":
+                rhs = BinaryOp("*",lhs, self.visit(ctx.getChild(2)))
+            case "/=":
+                rhs = BinaryOp("/",lhs, self.visit(ctx.getChild(2)))
+            case "%=":
+                rhs = BinaryOp("%",lhs, self.visit(ctx.getChild(2)))
+            case ":=":
+                rhs = self.visit(ctx.getChild(2))
         return Assign(lhs, rhs)
 
     def visitIfStatement(self, ctx:MiniGoParser.IfStatementContext):
         expr = self.visit(ctx.expr())
-        thenStmt = Block([self.visit(i) for i in ctx.statement(0)])
+        thenStmt = Block([self.visit(i) for i in ctx.statement()])
         elseStmt = None
 
         for elseIfStmt in ctx.elseIfStatement():
-            elseIfStmt = self.visit(elseIfStatement())
-            elseStmt = elseStmt + [elseIfStmt] if elseStmt else [elseIfStmt]
+            elseStmt = elseStmt + [self.visit(elseIfStmt)] if elseStmt else [self.visit(elseIfStmt)]
         
         if ctx.elseStatement():
             elseStmt = elseStmt + [self.visit(ctx.elseStatement())] if elseStmt else [self.visit(ctx.elseStatement())]
@@ -376,24 +389,37 @@ class ASTGeneration(MiniGoVisitor):
 
     def visitForInitilization(self, ctx:MiniGoParser.ForInitilizationContext):
         if ctx.getChildCount() == 1:
-            return Block([self.visit(ctx.getChild(0))])
+            return self.visit(ctx.getChild(0))
         
         if ctx.getChildCount() == 3:
             name = ctx.IDENTIFIER().getText()
             expr = self.visit(ctx.varDeclExpr())
             varDecl = VarDecl(name, None, expr)
-            return Block([varDecl])
+            return varDecl
 
         if ctx.getChildCount() == 4:
             name = ctx.IDENTIFIER().getText()
             expr = self.visit(ctx.varDeclExpr())
             varType = self.visit(ctx.varDeclType())
             varDecl = VarDecl(name, varType, expr)
-            return Block([varDecl])
+            return varDecl
 
     def visitForUpdate(self, ctx:MiniGoParser.ForUpdateContext):
-        lhs = self.visit(ctx.getChild(0))
-        rhs = BinaryOp(ctx.getChild(1).getText(), lhs, self.visit(ctx.getChild(2)))
+        lhs = Id(ctx.IDENTIFIER().getText())
+        op = ctx.getChild(1).getText()
+        match op:
+            case "+=":
+                rhs = BinaryOp("+", lhs, self.visit(ctx.getChild(2)))
+            case "-=":
+                rhs = BinaryOp("-", lhs, self.visit(ctx.getChild(2)))
+            case "*=":
+                rhs = BinaryOp("*", lhs, self.visit(ctx.getChild(2)))
+            case "/=":
+                rhs = BinaryOp("/", lhs, self.visit(ctx.getChild(2)))
+            case "%=":
+                rhs = BinaryOp("%", lhs, self.visit(ctx.getChild(2)))
+            case ":=":
+                rhs = self.visit(ctx.getChild(2))
         return Assign(lhs, rhs)
 
     def visitForRangeStatement(self, ctx:MiniGoParser.ForRangeStatementContext):

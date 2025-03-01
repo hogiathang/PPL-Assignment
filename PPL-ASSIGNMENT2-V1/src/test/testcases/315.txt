@@ -1,1 +1,9 @@
-var t helloworld = identifier{a1: 1, a2: !zelo, a3: 001.e-2};
+func createPerson(name string, age int) Person {
+            return Person{
+                name: name,
+                age: age,
+                address: Address{
+                    street: "Default Street",
+                    city: "Default City"},
+                isActive: true};
+        };

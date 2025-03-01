@@ -59,16 +59,6 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#arrayLitList.
-    def visitArrayLitList(self, ctx:MiniGoParser.ArrayLitListContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#arrayLitListTail.
-    def visitArrayLitListTail(self, ctx:MiniGoParser.ArrayLitListTailContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#arrayLitContent.
     def visitArrayLitContent(self, ctx:MiniGoParser.ArrayLitContentContext):
         return self.visitChildren(ctx)
@@ -89,18 +79,8 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#structFieldListTail.
-    def visitStructFieldListTail(self, ctx:MiniGoParser.StructFieldListTailContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#structFieldAssign.
     def visitStructFieldAssign(self, ctx:MiniGoParser.StructFieldAssignContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#structBlock.
-    def visitStructBlock(self, ctx:MiniGoParser.StructBlockContext):
         return self.visitChildren(ctx)
 
 
@@ -234,8 +214,8 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#assignStateLHSTail.
-    def visitAssignStateLHSTail(self, ctx:MiniGoParser.AssignStateLHSTailContext):
+    # Visit a parse tree produced by MiniGoParser#assignTail.
+    def visitAssignTail(self, ctx:MiniGoParser.AssignTailContext):
         return self.visitChildren(ctx)
 
 
@@ -251,6 +231,11 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#elseIfStatement.
     def visitElseIfStatement(self, ctx:MiniGoParser.ElseIfStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MiniGoParser#elseStatement.
+    def visitElseStatement(self, ctx:MiniGoParser.ElseStatementContext):
         return self.visitChildren(ctx)
 
 
@@ -304,8 +289,8 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#methodCallStatementTail.
-    def visitMethodCallStatementTail(self, ctx:MiniGoParser.MethodCallStatementTailContext):
+    # Visit a parse tree produced by MiniGoParser#methodCallHead.
+    def visitMethodCallHead(self, ctx:MiniGoParser.MethodCallHeadContext):
         return self.visitChildren(ctx)
 
 

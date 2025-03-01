@@ -1,1 +1,1 @@
-Program([ConstDecl(nestedExpr,BinaryOp(BinaryOp(UnaryOp(-,FuncCall(Id(foo),[ArrayCell(Id(bar),[IntLiteral(1),IntLiteral(2)]),MethodCall(Id(baz),qux,[])])),*,BinaryOp(BinaryOp(Id(a),+,ArrayCell(Id(b),[BinaryOp(Id(i),+,Id(j))])),-,BinaryOp(Id(c),/,Id(d)))),||,UnaryOp(!,BinaryOp(BinaryOp(Id(x),>,Id(y)),&&,BinaryOp(Id(z),<=,Id(w))))))])
+Program([VarDecl(x,IntType)])

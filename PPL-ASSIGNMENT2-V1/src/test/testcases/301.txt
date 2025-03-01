@@ -1,1 +1,1 @@
-const nestedExpr = -foo(bar[1][2], baz.qux()) * (a + b[i+j] - c / d) || !(x > y && z <= w);
+const x = 1.e-3;

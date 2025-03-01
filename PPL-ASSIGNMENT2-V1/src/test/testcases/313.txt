@@ -1,1 +1,11 @@
-var arr [10][20][30]int = [10][20][30]int{sampleStruct{a1 : "Hello", a2: "World"}};
+func processData(matrix [3][3]float) [3]float {
+            var result [3]float;
+            for i := 0; i < 3; i := i + 1 {
+                result[i] := 0;
+                for j := 0; j < 3; j := j + 1 {
+                    result[i] := result[i] + matrix[i][j];
+                }
+            }
+            return result;
+        }
+        
