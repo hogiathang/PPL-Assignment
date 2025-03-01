@@ -1,2 +1,1 @@
-var x int = foo().too().zoo[3][4];
-                
+const x boolean = a && !b || c >= 5;

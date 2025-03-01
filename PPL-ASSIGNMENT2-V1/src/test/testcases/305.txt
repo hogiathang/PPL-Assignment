@@ -1,8 +1,11 @@
-func main () {
-            x := 1;
-        }
 
-        func (c Jedi) foo (x, y, z int, t float) {
-            x := 1;
-        }
+            const complexStruct = Person{
+                name: "John", 
+                age: 25, 
+                scores: [5]float{90.5, 85.0, 92.3, 88.7, 95.2},
+                address: Address{
+                    street: "123 Main St",
+                    city: "Boston",
+                    zip: 2108},
+                graduated: true && !failed};
         

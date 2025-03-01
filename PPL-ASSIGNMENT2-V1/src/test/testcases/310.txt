@@ -1,0 +1,8 @@
+
+            func wikiList(a, b int, c float, d Foo) [abc123][def456]Wiki {
+                return [20]Wiki{Wiki{title: "Hello", content: "World"},
+                Wiki{title: "Abraham", content: "Lincon"},
+                Wiki{title: "John", content: "Wick"},
+                Wiki{title: "Mickey", content: "Mouse"}};
+            }
+        

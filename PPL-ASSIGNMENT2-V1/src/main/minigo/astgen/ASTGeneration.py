@@ -23,7 +23,7 @@ class ASTGeneration(MiniGoVisitor):
     
     # #-------------------Const------------------
     def visitConstDecl(self, ctx:MiniGoParser.ConstDeclContext):
-        conName = self.IDENTIFIER().getText()
+        conName = ctx.IDENTIFIER().getText()
         conType = self.visit(ctx.varDeclType()) if ctx.varDeclType() else None
         conInit = self.visit(ctx.varDeclExpr())
         return ConstDecl(conName,conType,conInit)
@@ -51,7 +51,9 @@ class ASTGeneration(MiniGoVisitor):
         return [self.visit(i) for i in ctx.intLitOrConstant()]
 
     def visitIntLitOrConstant(self, ctx:MiniGoParser.IntLitOrConstantContext):
-        return ctx.getChild(0).getText()
+        if ctx.INT_LIT():
+            return IntLiteral(int(ctx.INT_LIT().getText()))
+        return Id(ctx.IDENTIFIER().getText())
 
     def visitVarDeclExpr(self, ctx:MiniGoParser.VarDeclExprContext):
         return self.visit(ctx.expr())
@@ -59,14 +61,7 @@ class ASTGeneration(MiniGoVisitor):
 
     # #-------------------Expression-------------------
     def visitExpr(self, ctx:MiniGoParser.ExprContext):
-        if ctx.getChild(0) == ctx.logicOrExpr():
-            return self.visit(ctx.logicOrExpr())
-        elif ctx.getChild(0) == ctx.arrayLit():
-            return self.visit(ctx.arrayLit())
-        elif ctx.getChild(0) == crx.structLit():
-            return self.visit(ctx.structLit())
-        else:
-            raise Exception("Invalid expression")
+        return self.visit(ctx.getChild(0))
 
     def visitLogicOrExpr(self, ctx:MiniGoParser.LogicOrExprContext):
         if ctx.getChildCount() == 1:
@@ -115,7 +110,6 @@ class ASTGeneration(MiniGoVisitor):
                 elif suffix.getChildCount() == 3 and suffix.arraySuffix():
                     expr = FieldAccess(expr, suffix.IDENTIFIER().getText())
                     expr = ArrayCell(expr, self.visit(suffix.arraySuffix()))
-                
                 else:
                     expr = FieldAccess(expr, suffix.IDENTIFIER().getText())
             else:
@@ -133,9 +127,9 @@ class ASTGeneration(MiniGoVisitor):
         if ctx.IDENTIFIER():
             return Id(ctx.IDENTIFIER().getText())
         if ctx.INT_LIT():
-            return IntLiteral(ctx.INT_LIT().getText())
+            return IntLiteral(int(ctx.INT_LIT().getText()))
         if ctx.FLOAT_LIT():
-            return FloatLiteral(ctx.FLOAT_LIT().getText())
+            return FloatLiteral(float(ctx.FLOAT_LIT().getText()))
         if ctx.STRING_LIT():
             return StringLiteral(ctx.STRING_LIT().getText())
         if ctx.TRUE():
@@ -146,6 +140,8 @@ class ASTGeneration(MiniGoVisitor):
             return "Nil"
         if ctx.structLit():
             return self.visit(ctx.structLit())
+        if ctx.arrayLit():
+            return self.visit(ctx.arrayLit())
         
 
     def visitCallSuffix(self, ctx:MiniGoParser.CallSuffixContext):
@@ -160,16 +156,14 @@ class ASTGeneration(MiniGoVisitor):
     # #-------------------Function-------------------
     def visitFuncDecl(self, ctx:MiniGoParser.FuncDeclContext):
         funcName = ctx.IDENTIFIER().getText()
-        funcParam = self.visit(ctx.funcParam())
+        funcParam = self.visit(ctx.funcParam()) if ctx.funcParam() else []
         funcType = self.visit(ctx.funcType())
         block = Block([self.visit(i) for i in ctx.statement()])
 
         return FuncDecl(funcName,funcParam,funcType,block)
 
     def visitFuncParam(self, ctx:MiniGoParser.FuncParamContext):
-        if ctx.getChildCount() == 0:
-            return []
-        
+
         if ctx.getChildCount() == 2:
             listID = self.visitFuncListIdentifiers(ctx.getChild(0))
             typeOfId = self.visit(ctx.getChild(1))
@@ -202,7 +196,7 @@ class ASTGeneration(MiniGoVisitor):
         receiver = ctx.IDENTIFIER(0).getText()
         recType  = Id(ctx.IDENTIFIER(1).getText())
         methodName = ctx.IDENTIFIER(2).getText()
-        methodParam = self.visit(ctx.funcParam())
+        methodParam = self.visit(ctx.funcParam()) if ctx.funcParam() else []
         methodType = self.visit(ctx.funcType())
         block = Block([self.visitStatement(i) for i in ctx.statement()])
         return MethodDecl(receiver, recType, FuncDecl(methodName, methodParam, methodType, block))
@@ -240,7 +234,9 @@ class ASTGeneration(MiniGoVisitor):
         return [self.visit(i) for i in ctx.interfaceDeclField()]
 
     def visitInterfaceDeclField(self, ctx:MiniGoParser.InterfaceDeclFieldContext):
-        return Prototype(ctx.IDENTIFIER().getText(), self.visit(ctx.funcParam()), self.visit(ctx.funcType()))
+        funcParam = self.visit(ctx.funcParam()) if ctx.funcParam() else []
+        funcType = self.visit(ctx.funcType())
+        return Prototype(ctx.IDENTIFIER().getText(), funcParam, funcType)
 
     # #-------------------Statement-------------------
     def visitStatement(self, ctx:MiniGoParser.StatementContext):
@@ -250,11 +246,27 @@ class ASTGeneration(MiniGoVisitor):
         return self.visit(ctx.getChild(0))
 
     def visitAssignStatement(self, ctx:MiniGoParser.AssignStatementContext):
-        print("Assign Statement")
         lhs = self.visit(ctx.getChild(0))
         rhs = BinaryOp(ctx.getChild(1).getText(),lhs, self.visit(ctx.getChild(2)))
         return Assign(lhs, rhs)
 
+    def visitIfStatement(self, ctx:MiniGoParser.IfStatementContext):
+        expr = self.visit(ctx.expr())
+        thenStmt = Block([self.visit(i) for i in ctx.statement(0)])
+        elseStmt = None
+
+        for elseIfStmt in ctx.elseIfStatement():
+            elseIfStmt = self.visit(elseIfStatement())
+            elseStmt = elseStmt + [elseIfStmt] if elseStmt else [elseIfStmt]
+        
+        if ctx.elseStatement():
+            elseStmt = elseStmt + [self.visit(ctx.elseStatement())] if elseStmt else [self.visit(ctx.elseStatement())]
+
+        elseStmt = Block(elseStmt) if elseStmt else None
+        return If(expr, thenStmt, elseStmt)
+
+    def visitForStatement(self, ctx:MiniGoParser.ForStatementContext):
+        return self.visit(ctx.getChild(0))
 
     def visitBreakStatement(self, ctx:MiniGoParser.BreakStatementContext):
         return Break()
@@ -265,9 +277,75 @@ class ASTGeneration(MiniGoVisitor):
     def visitCallStatement(self, ctx:MiniGoParser.CallStatementContext):
         return self.visit(ctx.getChild(0))
 
-    def visitmethodCallStatement(self, ctx:MiniGoParser.methodCallStatementContext):
-        pass
-        
+    def visitReturnStatement(self, ctx:MiniGoParser.ReturnStatementContext):
+        if ctx.expr():
+            return Return(self.visit(ctx.expr()))
+        return Return(None)
+
+    
+
+    # $-------------------Assign Statement-------------------
+    def visitAssignStateLHS(self, ctx:MiniGoParser.AssignStateLHSContext):
+        name = ctx.IDENTIFIER().getText()
+        listArray = []
+        expr = None
+        for i in ctx.expr():
+            listArray.append(self.visit(i))
+        expr = ArrayCell(Id(name), listArray) if listArray != [] else Id(name)
+
+        if ctx.assignTail():
+            name, listArray, nextAssign = self.visit(ctx.assignTail())
+            expr = FieldAccess(expr, name)
+            expr = ArrayCell(expr, listArray) if listArray != [] else expr
+            while nextAssign != None:
+                name, listArray, nextAssign = self.visit(nextAssign)
+                expr = FieldAccess(expr, name)
+                expr = ArrayCell(expr, listArray) if listArray != [] else expr
+        return expr
+
+    def visitAssignTail(self, ctx:MiniGoParser.AssignTailContext):
+        nextAssign = ctx.assignTail() if ctx.assignTail() else None
+        listArray = []
+        for i in ctx.expr():
+            listArray.append(self.visit(i))
+        return ctx.IDENTIFIER().getText(), listArray, nextAssign
+ 
+
+    # $-------------------Call Statement-------------------
+    def visitMethodCallStatement(self, ctx:MiniGoParser.MethodCallStatementContext):
+        name = ctx.IDENTIFIER().getText()
+        argList = self.visit(ctx.callStatementParam()) if ctx.callStatementParam() else []
+        listMethod = self.visit(ctx.methodCallHead(0))
+        receiver = None
+        if listMethod[0] == "Field":
+            receiver = Id(listMethod[1])
+        elif listMethod[0] == "ArrayCell":
+            receiver = ArrayCell(Id(listMethod[1]), listMethod[2])
+        else:
+            receiver = FuncCall(listMethod[1], listMethod[2])
+
+        for method in ctx.methodCallHead()[1:]:
+            listMethod = self.visit(method)
+            if listMethod[0] == "Field":
+                receiver = FieldAccess(receiver, listMethod[1])
+            elif listMethod[0] == "ArrayCell":
+                receiver = ArrayCell(receiver, listMethod[1])
+            else:
+                receiver = MethCall(receiver, listMethod[1], listMethod[2])
+        return MethCall(receiver, name, argList)
+
+    def visitMethodCallHead(self, ctx:MiniGoParser.MethodCallHeadContext):
+        name = ctx.IDENTIFIER().getText()
+        if ctx.LPAREN():
+            argList = self.visit(ctx.callStatementParam()) if ctx.callStatementParam() else []
+            return "Meth", name, argList
+        elif ctx.callStatementArrayTail():
+            arrayList = self.visit(ctx.callStatementArrayTail())
+            return "ArrayCell", name, arrayList
+
+        return "Field", name, None
+
+                 
     def visitFuncCallStatement(self, ctx:MiniGoParser.FuncCallStatementContext):
         name = ctx.IDENTIFIER().getText()
         argList = self.visit(ctx.callStatementParam()) if ctx.callStatementParam() else []
@@ -277,39 +355,116 @@ class ASTGeneration(MiniGoVisitor):
         return [self.visit(i) for i in ctx.expr()]
                 
     def visitCallStatementArrayTail(self, ctx:MiniGoParser.CallStatementArrayTailContext):
-        return [self.visit(i) for i in ctx.expr()]
+        return [self.visit(i) for i in ctx.expr()] 
 
+    
+    # $-------------------For Statement-------------------
+    def visitBasicForStatement(self, ctx:MiniGoParser.BasicForStatementContext):
+        if ctx.forInitilization():
+            init = self.visit(ctx.forInitilization())
+            cond = self.visit(ctx.forCondition())
+            upda = self.visit(ctx.forUpdate())
+            block = Block([self.visit(i) for i in ctx.statement()])
+            return ForStep(init, cond, upda, block)
+        else:
+            cond = self.visit(ctx.forCondition())
+            block = Block([self.visit(i) for i in ctx.statement()])
+            return ForBasic(cond, block)
 
+    def visitForCondition(self, ctx:MiniGoParser.ForConditionContext):
+        return self.visit(ctx.expr())
 
-    def visitReturnStatement(self, ctx:MiniGoParser.ReturnStatementContext):
-        if ctx.expr():
-            return Return(self.visit(ctx.expr()))
-        return Return(None)
-
-    # $-------------------Assign Statement-------------------
-    def visitAssignStateLHS(self, ctx:MiniGoParser.AssignStateLHSContext):
-        base = Id(ctx.IDENTIFIER().getText())
-        state = self.visit(ctx.getChild(1))
-
-        while state != None:
-            if state[0] == "FieldAccess":
-                base = FieldAccess(base, state[1])
-            elif state[0] == "ArrayCell":
-                base = ArrayCell(base, state[1])
-            state = state[2]
-        return base
-
-    def visitAssignStateLHSTail(self, ctx:MiniGoParser.AssignStateLHSTailContext):
-        if ctx.getChildCount() == 0:
-            return None
+    def visitForInitilization(self, ctx:MiniGoParser.ForInitilizationContext):
+        if ctx.getChildCount() == 1:
+            return Block([self.visit(ctx.getChild(0))])
         
         if ctx.getChildCount() == 3:
-            return "FieldAccess", ctx.IDENTIFIER().getText(), ctx.getChild(2)
-        
+            name = ctx.IDENTIFIER().getText()
+            expr = self.visit(ctx.varDeclExpr())
+            varDecl = VarDecl(name, None, expr)
+            return Block([varDecl])
+
         if ctx.getChildCount() == 4:
-            dimens = []
-            context = ctx
-            while context.getChildCount() == 4:
-                dimens.append(self.visit(context.getChild(1)))
-                context = context.getChild(3)
-            return "ArrayCell", dimens, context        
+            name = ctx.IDENTIFIER().getText()
+            expr = self.visit(ctx.varDeclExpr())
+            varType = self.visit(ctx.varDeclType())
+            varDecl = VarDecl(name, varType, expr)
+            return Block([varDecl])
+
+    def visitForUpdate(self, ctx:MiniGoParser.ForUpdateContext):
+        lhs = self.visit(ctx.getChild(0))
+        rhs = BinaryOp(ctx.getChild(1).getText(), lhs, self.visit(ctx.getChild(2)))
+        return Assign(lhs, rhs)
+
+    def visitForRangeStatement(self, ctx:MiniGoParser.ForRangeStatementContext):
+        idx = Id(self.visit(ctx.index()))
+        value = Id(self.visit(ctx.value()))
+        arr = self.visit(ctx.forArray())
+        block = Block([self.visit(i) for i in ctx.statement()])
+        return ForEach(idx, value, arr, block)
+
+    def visitIndex(self, ctx:MiniGoParser.IndexContext):
+        return ctx.getChild(0).getText()
+
+    def visitValue(self, ctx:MiniGoParser.ValueContext):
+        return ctx.getChild(0).getText()
+
+    def visitForArray(self, ctx:MiniGoParser.ForArrayContext):
+        return self.visit(ctx.getChild(0))
+
+    # $-------------------If Stmt-------------------
+    def visitElseIfStatement(self, ctx:MiniGoParser.ElseIfStatementContext):
+        expr = self.visit(ctx.expr())
+        thenStmt = Block([self.visit(i) for i in ctx.statement()])
+        return If(expr, thenStmt, None)
+
+    def visitElseStatement(self, ctx:MiniGoParser.ElseStatementContext):
+        return Block([self.visit(i) for i in ctx.statement()])
+
+    # $-------------------Array Literal-------------------
+    def visitArrayLit(self, ctx:MiniGoParser.ArrayLitContext):
+        dimens = self.visit(ctx.arrayType())
+        eleType = self.visit(ctx.baseType())
+        value = self.visit(ctx.arrayBlock())
+        return ArrayLiteral(dimens, eleType, value)
+
+    def visitArrayBlock(self, ctx:MiniGoParser.ArrayBlockContext):
+        return [self.visit(i) for i in ctx.arrayLitContent()]
+
+    def visitArrayLitContent(self, ctx:MiniGoParser.ArrayLitContentContext):
+        return self.visit(ctx.getChild(0))
+
+    def visitNoArrayLit(self, ctx:MiniGoParser.NoArrayLitContext):
+        if ctx.INT_LIT():
+            return IntLiteral(int(ctx.INT_LIT().getText()))
+        if ctx.FLOAT_LIT():
+            return FloatLiteral(float(ctx.FLOAT_LIT().getText()))
+        if ctx.STRING_LIT():
+            return StringLiteral(ctx.STRING_LIT().getText())
+        if ctx.TRUE():
+            return BooleanLiteral(True)
+        if ctx.FALSE():
+            return BooleanLiteral(False)
+        if ctx.NIL():
+            return "Nil"
+        if ctx.structLit():
+            return self.visit(ctx.structLit())
+        if ctx.IDENTIFIER():
+            return Id(ctx.IDENTIFIER().getText())
+
+    # $-------------------Struct Literal-------------------
+    def visitStructLit(self, ctx:MiniGoParser.StructLitContext):
+        name = ctx.IDENTIFIER().getText()
+        fields = self.visit(ctx.optionalStructFields())
+        return StructLiteral(name, fields)
+
+    def visitOptionalStructFields(self, ctx:MiniGoParser.OptionalStructFieldsContext):
+        if ctx.getChildCount() == 0:
+            return []
+        return self.visit(ctx.structFieldList())
+
+    def visitStructFieldList(self, ctx:MiniGoParser.StructFieldListContext):
+        return [self.visit(i) for i in ctx.structFieldAssign()]
+
+    def visitStructFieldAssign(self, ctx:MiniGoParser.StructFieldAssignContext):
+        return (ctx.IDENTIFIER().getText(), self.visit(ctx.expr()))

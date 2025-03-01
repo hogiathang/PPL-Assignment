@@ -1,1 +1,1 @@
-func main () {}; var x int ;
+const x = 1.e-3;

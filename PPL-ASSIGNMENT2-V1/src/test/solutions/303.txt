@@ -1,1 +1,1 @@
-Program([VarDecl(x,IntType,ArrayCell(FieldAccess(MethodCall(FuncCall(Id(foo),[]),too,[]),zoo),[IntLiteral(3),IntLiteral(4)]))])
+Program([ConstDecl(x,BoolType,BinaryOp(BinaryOp(Id(a),&&,UnaryOp(!,Id(b))),||,BinaryOp(Id(c),>=,IntLiteral(5))))])
