@@ -2666,7 +2666,9 @@ func main() {} extra"""
     def test_struct_999(self):
         input = """
         func wikiList(a, b int, c float, d Foo) [abc123][def456]Wiki {
-            return [20]Wiki{Wiki{title: "Hello", content: "World"}}
+            if (i == nil) {
+                return nil;
+            }
         }
         """
         expect = "successful"

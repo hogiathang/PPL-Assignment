@@ -73,7 +73,10 @@ structDeclBlock: LBRACE structDeclField* RBRACE;
 structDeclField: IDENTIFIER  varDeclType endOfStatement | methodDecl endOfStatement;
 
 interfaceDeclBlock: LBRACE interfaceDeclField* RBRACE;
-interfaceDeclField: IDENTIFIER LPAREN funcParam? RPAREN funcType endOfStatement;
+interfaceDeclField: IDENTIFIER LPAREN prototypeParam? RPAREN funcType endOfStatement;
+prototypeParam: funcListIdentifiers varDeclType COMMA prototypeParam
+         | funcListIdentifiers varDeclType;
+
 
 expr: logicOrExpr;
 logicOrExpr: logicOrExpr OR logicAndExpr | logicAndExpr;
@@ -172,8 +175,8 @@ relationOp: EQ | NEQ | LT | LEQ | GT | GEQ;
 addOp: PLUS | MINUS;
 mulOp: MUL | DIV | MOD;
 unaryOp: MINUS | NOT;
-noArrayLit: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | structLit | IDENTIFIER;
-term: IDENTIFIER | INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | LPAREN expr RPAREN | arrayLit | structLit;
+noArrayLit: NIL | INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | structLit | IDENTIFIER;
+term: INT_LIT | FLOAT_LIT | STRING_LIT | TRUE | FALSE | NIL | LPAREN expr RPAREN | arrayLit | structLit | IDENTIFIER;
 intLitOrConstant: INT_LIT | IDENTIFIER;
 baseType: INT | FLOAT | STRING | BOOLEAN | IDENTIFIER;
 endOfStatement: SEMI;
