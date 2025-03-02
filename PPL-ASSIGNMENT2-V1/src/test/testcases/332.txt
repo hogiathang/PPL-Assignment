@@ -1,0 +1,10 @@
+func (s ShoppingCart) calculateTotal() float {
+            var total = 0.5;
+            for i := 0; i < s.itemCount; i := i + 1 {
+                total := total + (s.items[i].price * s.items[i].quantity);
+            }
+            if (s.hasDiscount) {
+                total := total * 0.9;
+            }
+            return total;
+        };

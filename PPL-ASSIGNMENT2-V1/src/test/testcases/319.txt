@@ -1,1 +1,6 @@
-var test = 1 + 20 - 3 * 4 || 5 && 6 + test.foo(1,2,3).bar[1];
+
+        type vehicle interface {
+            move(x, y float) string;
+            stop() string;
+            honk() string;
+        };

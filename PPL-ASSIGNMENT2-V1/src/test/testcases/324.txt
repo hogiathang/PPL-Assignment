@@ -1,0 +1,7 @@
+
+        type serializable interface {
+        serialize() string;
+        deserialize(data string) boolean;
+        validate() boolean;
+        getVersion() string;
+        };

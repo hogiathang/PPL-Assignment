@@ -1,0 +1,9 @@
+type Book struct {
+            title string;
+            author string;
+            pages int;
+            chapters [50]Chapter;
+            ratings [100]float;
+            publishYear int;
+            isPublished boolean;
+        };

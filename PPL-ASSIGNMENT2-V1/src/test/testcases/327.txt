@@ -1,0 +1,3 @@
+func (p Person) fullName() string {
+            return p.firstName + " " + p.lastName;
+        };

@@ -1,1 +1,6 @@
-var t helloworld = identifier{a1: 1, a2: !zelo, a3: 001.e-2};
+
+        type database interface {
+        connect(host string, port int) boolean;
+        query(sql string) [100]Record;
+        disconnect() boolean;
+        };

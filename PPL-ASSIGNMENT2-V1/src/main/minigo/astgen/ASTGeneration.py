@@ -139,7 +139,7 @@ class ASTGeneration(MiniGoVisitor):
         if ctx.FALSE():
             return BooleanLiteral(False)
         if ctx.NIL():
-            return "Nil"
+            return NilLiteral()
         if ctx.structLit():
             return self.visit(ctx.structLit())
         if ctx.arrayLit():
@@ -211,7 +211,7 @@ class ASTGeneration(MiniGoVisitor):
             elements = []
             methods = []
             for field in fields:
-                if typeof(field) == Tuple:
+                if type(field) == tuple:
                     elements.append(field)
                 else:
                     methods.append(field)
@@ -236,9 +236,22 @@ class ASTGeneration(MiniGoVisitor):
         return [self.visit(i) for i in ctx.interfaceDeclField()]
 
     def visitInterfaceDeclField(self, ctx:MiniGoParser.InterfaceDeclFieldContext):
-        funcParam = self.visit(ctx.funcParam()) if ctx.funcParam() else []
+        funcParam = self.visit(ctx.prototypeParam()) if ctx.prototypeParam() else []
         funcType = self.visit(ctx.funcType())
         return Prototype(ctx.IDENTIFIER().getText(), funcParam, funcType)
+
+    def visitPrototypeParam(self, ctx:MiniGoParser.PrototypeParamContext):
+        if ctx.getChildCount() == 2:
+            listID = self.visitFuncListIdentifiers(ctx.getChild(0))
+            typeOfId = self.visit(ctx.getChild(1))
+            return [typeOfId for i in listID]
+                
+
+        if ctx.getChildCount() == 4:
+            listID = self.visitFuncListIdentifiers(ctx.getChild(0))
+            typeOfId = self.visit(ctx.getChild(1))
+            nextParam = self.visit(ctx.getChild(3))
+            return [typeOfId for i in listID] + nextParam
 
     # #-------------------Statement-------------------
     def visitStatement(self, ctx:MiniGoParser.StatementContext):
@@ -472,7 +485,7 @@ class ASTGeneration(MiniGoVisitor):
         if ctx.FALSE():
             return BooleanLiteral(False)
         if ctx.NIL():
-            return "Nil"
+            return NilLiteral()
         if ctx.structLit():
             return self.visit(ctx.structLit())
         if ctx.IDENTIFIER():

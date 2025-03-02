@@ -1,1 +1,0 @@
-Program([FuncDecl(foo,[ParDecl(a,IntType),ParDecl(b,IntType),ParDecl(c,FloatType),ParDecl(d,Id(Foo))],Id(Bar),Block([Return(BinaryOp(Id(a),+,Id(b)))]))])

@@ -1,1 +1,0 @@
-Program([FuncDecl(createPerson,[ParDecl(name,StringType),ParDecl(age,IntType)],Id(Person),Block([Return(StructLiteral(Person,[(name,Id(name)),(age,Id(age)),(address,StructLiteral(Address,[(street,StringLiteral("Default Street")),(city,StringLiteral("Default City"))])),(isActive,BooleanLiteral(true))]))]))])

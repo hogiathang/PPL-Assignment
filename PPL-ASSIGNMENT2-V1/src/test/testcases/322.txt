@@ -1,0 +1,8 @@
+
+        type collection interface {
+            iterator() Iterator;
+            add(item Object) boolean;
+            size() int;
+            get(index int) Object;
+            remove(index int) Object;
+        };

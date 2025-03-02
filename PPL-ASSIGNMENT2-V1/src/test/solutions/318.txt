@@ -1,1 +1,0 @@
-Program([VarDecl(arr,ArrayType(IntType,[IntLiteral(10),IntLiteral(20),IntLiteral(30)]),ArrayLiteral([IntLiteral(10),IntLiteral(20),IntLiteral(30)],IntType,[StructLiteral(sampleStruct,[(a1,StringLiteral("Hello")),(a2,StringLiteral("World"))])]))])

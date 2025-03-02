@@ -1,0 +1,6 @@
+type Student struct {
+            id int;
+            name string;
+            grades [5]float;
+            address Address;
+        };

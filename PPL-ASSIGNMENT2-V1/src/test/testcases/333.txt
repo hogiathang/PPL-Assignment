@@ -1,0 +1,3 @@
+func (t Triangle) isValid() boolean {
+            return (t.a + t.b > t.c) && (t.a + t.c > t.b) && (t.b + t.c > t.a);
+        };

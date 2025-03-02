@@ -1,0 +1,7 @@
+
+        type matrix interface {
+        getElement(row, col int) float;
+        setElement(row, col int, value float) boolean;
+        transpose() [10][10]float;
+        determinant() float;
+        };
