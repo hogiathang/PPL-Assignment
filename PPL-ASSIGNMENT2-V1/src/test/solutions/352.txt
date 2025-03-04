@@ -1,0 +1,1 @@
+Program([InterfaceType(animal,[Prototype(eat,[ArrayType(IntType,[IntLiteral(20)]),ArrayType(FloatType,[Id(id345)])],StringType),Prototype(sleep,[],StringType),Prototype(makeSound,[],StringType)])])

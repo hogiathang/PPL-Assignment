@@ -1,0 +1,1 @@
+Program([InterfaceType(database,[Prototype(connect,[StringType,IntType],BoolType),Prototype(query,[StringType],ArrayType(Id(Record),[IntLiteral(100)])),Prototype(disconnect,[],BoolType)])])

@@ -1,0 +1,25 @@
+func (node TreeNode) traverseInOrder() [100]int {
+            var result [100]int;
+            var index = 0;
+            
+            if (node.left != nil) {
+                var leftResult = node.left.traverseInOrder();
+                for i := 0; i < leftResult.length; i := i + 1 {
+                    result[index] := leftResult[i];
+                    index := index + 1;
+                }
+            }
+            
+            result[index] := node.value;
+            index := index + 1;
+            
+            if (node.right != nil) {
+                var rightResult = node.right.traverseInOrder();
+                for i := 0; i < rightResult.length; i := i + 1 {
+                    result[index] := rightResult[i];
+                    index := index + 1;
+                }
+            }
+            
+            return;
+        };

@@ -1,0 +1,1 @@
+Program([MethodDecl(s,Id(Student),FuncDecl(isPassingGrade,[ParDecl(subject,StringType)],BoolType,Block([VarDecl(grade,ArrayCell(FieldAccess(Id(s),grades),[Id(subject)])),Return(BinaryOp(Id(grade),>=,IntLiteral(60)))])))])

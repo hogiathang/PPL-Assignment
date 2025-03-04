@@ -24,7 +24,7 @@ class ASTGeneration(MiniGoVisitor):
     # #-------------------Const------------------
     def visitConstDecl(self, ctx:MiniGoParser.ConstDeclContext):
         conName = ctx.IDENTIFIER().getText()
-        conType = self.visit(ctx.varDeclType()) if ctx.varDeclType() else None
+        conType = None
         conInit = self.visit(ctx.varDeclExpr())
         return ConstDecl(conName,conType,conInit)
 
@@ -227,8 +227,6 @@ class ASTGeneration(MiniGoVisitor):
         return [self.visit(i) for i in ctx.structDeclField()]
 
     def visitStructDeclField(self, ctx:MiniGoParser.StructDeclFieldContext):
-        if ctx.getChildCount() == 2:
-            return self.visit(ctx.getChild(0))
         return (ctx.IDENTIFIER().getText(), self.visit(ctx.getChild(1)))
 
     # $ #-------------------Interface Decl-------------------
@@ -286,7 +284,7 @@ class ASTGeneration(MiniGoVisitor):
             elseStmt = elseStmt + [self.visit(elseIfStmt)] if elseStmt else [self.visit(elseIfStmt)]
         
         if ctx.elseStatement():
-            elseStmt = elseStmt + [self.visit(ctx.elseStatement())] if elseStmt else [self.visit(ctx.elseStatement())]
+            elseStmt = elseStmt + self.visit(ctx.elseStatement()) if elseStmt else self.visit(ctx.elseStatement())
 
         elseStmt = Block(elseStmt) if elseStmt else None
         return If(expr, thenStmt, elseStmt)
@@ -458,7 +456,8 @@ class ASTGeneration(MiniGoVisitor):
         return If(expr, thenStmt, None)
 
     def visitElseStatement(self, ctx:MiniGoParser.ElseStatementContext):
-        return Block([self.visit(i) for i in ctx.statement()])
+        return [self.visit(i) for i in ctx.statement()]
+
 
     # $-------------------Array Literal-------------------
     def visitArrayLit(self, ctx:MiniGoParser.ArrayLitContext):

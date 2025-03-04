@@ -1,7 +1,8 @@
 
-        type matrix interface {
-        getElement(row, col int) float;
-        setElement(row, col int, value float) boolean;
-        transpose() [10][10]float;
-        determinant() float;
-        };
+            func wikiList(a, b int, c float, d Foo) [abc123][def456]Wiki {
+                return [20]Wiki{Wiki{title: "Hello", content: "World"},
+                Wiki{title: "Abraham", content: "Lincon"},
+                Wiki{title: "John", content: "Wick"},
+                Wiki{title: "Mickey", content: "Mouse"}};
+            }
+        

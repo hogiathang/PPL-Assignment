@@ -1,6 +1,12 @@
+func sumOfSquares(n int) int {
+            for _,val := range arr {
+                result := result + val;
+                for j := 0; j < 10; j := j + 1 {
+                    result := result + j;
+                }
 
-        type shape interface {
-            area(x, y int) float;
-            perimeter(a, b float, c int) float;
-            draw() string;
+                if (val / 4 == 1) {
+                    break;
+                }
+            }
         };

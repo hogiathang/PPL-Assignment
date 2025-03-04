@@ -1,7 +1,4 @@
-
-        type serializable interface {
-        serialize() string;
-        deserialize(data string) boolean;
-        validate() boolean;
-        getVersion() string;
-        };
+func (r Rectangle) area() float {
+            return r.width * r.height;
+        }
+        

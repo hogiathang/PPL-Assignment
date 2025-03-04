@@ -1,0 +1,6 @@
+
+        type shape interface {
+            area(x, y int) float;
+            perimeter(a, b float, c int) float;
+            draw() string;
+        };

@@ -1,0 +1,4 @@
+func (s Student) isPassingGrade(subject string) boolean {
+            var grade = s.grades[subject];
+            return grade >= 60;
+        };

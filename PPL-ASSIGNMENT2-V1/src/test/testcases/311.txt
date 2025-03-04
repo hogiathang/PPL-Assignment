@@ -1,4 +1,1 @@
-func (r Rectangle) area() float {
-            return r.width * r.height;
-        }
-        
+func foo(a int, b float) int {return 0;};

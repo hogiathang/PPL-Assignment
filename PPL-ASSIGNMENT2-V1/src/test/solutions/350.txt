@@ -1,0 +1,1 @@
+Program([InterfaceType(book,[Prototype(area,[],FloatType),Prototype(perimeter,[],FloatType)])])

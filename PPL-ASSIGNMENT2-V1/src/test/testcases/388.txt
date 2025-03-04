@@ -1,0 +1,7 @@
+type Employee struct {
+            id string;
+            name string;
+            age int;
+            salary float;
+            department string;
+        };

@@ -1,0 +1,1 @@
+Program([MethodDecl(t,Id(Triangle),FuncDecl(isValid,[],BoolType,Block([Return(BinaryOp(BinaryOp(BinaryOp(BinaryOp(FieldAccess(Id(t),a),+,FieldAccess(Id(t),b)),>,FieldAccess(Id(t),c)),&&,BinaryOp(BinaryOp(FieldAccess(Id(t),a),+,FieldAccess(Id(t),c)),>,FieldAccess(Id(t),b))),&&,BinaryOp(BinaryOp(FieldAccess(Id(t),b),+,FieldAccess(Id(t),c)),>,FieldAccess(Id(t),a))))])))])

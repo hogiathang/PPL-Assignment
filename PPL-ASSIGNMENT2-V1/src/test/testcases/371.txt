@@ -1,0 +1,5 @@
+func (c Car) startEngine() {
+            c.engine.start();
+            c.fuelLevel := c.fuelLevel - 0.1;
+            c.status := "running";
+        };

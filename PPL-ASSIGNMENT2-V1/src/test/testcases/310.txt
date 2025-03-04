@@ -1,8 +1,9 @@
-
-            func wikiList(a, b int, c float, d Foo) [abc123][def456]Wiki {
-                return [20]Wiki{Wiki{title: "Hello", content: "World"},
-                Wiki{title: "Abraham", content: "Lincon"},
-                Wiki{title: "John", content: "Wick"},
-                Wiki{title: "Mickey", content: "Mouse"}};
+func sum(n int) int {
+            var result = 0;
+            for i < 10 {
+                if (i % 2 == 0) {
+                    result := result + i;
+                } 
             }
-        
+            return result;
+        };

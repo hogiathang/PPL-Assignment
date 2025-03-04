@@ -1,8 +1,1 @@
-
-        type collection interface {
-            iterator() Iterator;
-            add(item Object) boolean;
-            size() int;
-            get(index int) Object;
-            remove(index int) Object;
-        };
+func foo(a, b int, c float, d Foo) Bar {return a+b;};

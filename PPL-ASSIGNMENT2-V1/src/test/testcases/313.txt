@@ -1,11 +1,9 @@
-func processData(matrix [3][3]float) [3]float {
-            var result [3]float;
-            for i := 0; i < 3; i := i + 1 {
-                result[i] := 0;
-                for j := 0; j < 3; j := j + 1 {
-                    result[i] := result[i] + matrix[i][j];
-                }
+func sum(n int) int {
+            var result = 0;
+            for i < 10 {
+                if (i % 2 == 0) {
+                    result := result + i;
+                } 
             }
             return result;
-        }
-        
+        };

@@ -1,6 +1,1 @@
-
-        type composite interface {
-        add(component Component) Component;
-        remove(id string) boolean;
-        getChild(index int) Component;
-        };
+func foo(a int, b float) int {return 0;};

@@ -1,4 +1,7 @@
-type LinkedList struct {
-            data int;
-            next LinkedList;
+func max(a int, b int) int {
+            if (a > b > c > d) {
+                return a;
+            } else {
+                return b;
+            }
         };

@@ -1,1 +1,15 @@
-var x int;
+func checkEvenOdd(n int) {
+            if ((n % 2) == 0) {
+                if (n > 10) {
+                    print("Large even number");
+                } else {
+                    print("Small even number");
+                }
+            } else {
+                if (n > 10) {
+                    print("Large odd number");
+                } else {
+                    print("Small odd number");
+                }
+            }
+        };

@@ -1,6 +1,12 @@
+func sumOfSquares(n int) int {
+            for _,val := range arr {
+                result := result + val;
+                for j := 0; j < 10; j := j + 1 {
+                    result := result + j;
+                }
 
-        type animal interface {
-            eat(x [20]int, y [id345]float) string;
-            sleep() string;
-            makeSound() string;
+                if (val / 4 == 1) {
+                    break;
+                }
+            }
         };

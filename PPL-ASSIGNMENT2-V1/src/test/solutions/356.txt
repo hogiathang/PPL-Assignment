@@ -1,0 +1,1 @@
+Program([InterfaceType(collection,[Prototype(iterator,[],Id(Iterator)),Prototype(add,[Id(Object)],BoolType),Prototype(size,[],IntType),Prototype(get,[IntType],Id(Object)),Prototype(remove,[IntType],Id(Object))])])

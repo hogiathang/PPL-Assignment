@@ -1,0 +1,1 @@
+Program([StructType(Employee,[(id,StringType),(name,StringType),(age,IntType),(salary,FloatType),(department,StringType)],[])])

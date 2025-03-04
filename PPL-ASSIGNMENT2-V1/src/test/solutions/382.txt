@@ -1,0 +1,1 @@
+Program([StructType(Product,[(name,StringType),(price,FloatType),(quantity,IntType)],[])])

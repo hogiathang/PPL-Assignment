@@ -1,0 +1,5 @@
+
+        type book interface {
+            area() float;
+            perimeter() float;
+        };

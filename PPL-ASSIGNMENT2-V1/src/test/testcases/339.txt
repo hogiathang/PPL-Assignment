@@ -1,29 +1,13 @@
-
-        type Address struct {
-            street string;
-            city string;
-            zipCode int;
+func checkGrade(score int) string {
+            if (score >= 90) {
+                return "A";
+            } else if (score >= 80) {
+                return "B";
+            } else if (score >= 70) {
+                return "C";
+            } else if (score >= 60) {
+                return "D";
+            } else {
+                return "F";
+            }
         };
-
-        type Person struct {
-            name string;
-            age int;
-            homeAddress Address;
-            workAddress Address;
-            employed boolean;
-        };
-
-        type Printable interface {
-            toString() string;
-            format(style string) string;
-            print();
-        };
-
-        type PersonManager interface {
-            addPerson(p Person) boolean;
-            findPerson(name string) Person;
-            updateAddress(person Person, newAddress Address) boolean;
-            listEmployed() [100]Person;
-            countPeople() int;
-        };
-        

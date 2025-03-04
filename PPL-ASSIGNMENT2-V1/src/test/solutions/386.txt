@@ -1,0 +1,1 @@
+Program([StructType(Address,[(street,StringType),(city,StringType),(zipCode,IntType)],[])])

@@ -1,0 +1,1 @@
+Program([MethodDecl(c,Id(Car),FuncDecl(startEngine,[],VoidType,Block([MethodCall(FieldAccess(Id(c),engine),start,[]),Assign(FieldAccess(Id(c),fuelLevel),BinaryOp(FieldAccess(Id(c),fuelLevel),-,FloatLiteral(0.1))),Assign(FieldAccess(Id(c),status),StringLiteral("running"))])))])

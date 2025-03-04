@@ -1,1 +1,9 @@
-func main() int {return 0;};
+func sum(n int) int {
+            var result = 0;
+            for i < 10 {
+                if (i % 2 == 0) {
+                    result := result + i;
+                } 
+            }
+            return result;
+        };

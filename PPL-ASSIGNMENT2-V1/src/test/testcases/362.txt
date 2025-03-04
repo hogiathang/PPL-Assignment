@@ -1,0 +1,7 @@
+func (a Account) withdraw(amount float) boolean {
+            if (a.balance >= amount) {
+                a.balance := a.balance - amount;
+                return true;
+            }
+            return false;
+        };

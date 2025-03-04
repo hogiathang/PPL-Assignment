@@ -1,0 +1,1 @@
+Program([InterfaceType(composite,[Prototype(add,[Id(Component)],Id(Component)),Prototype(remove,[StringType],BoolType),Prototype(getChild,[IntType],Id(Component))])])

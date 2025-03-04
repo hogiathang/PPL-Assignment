@@ -1,0 +1,6 @@
+
+        type composite interface {
+        add(component Component) Component;
+        remove(id string) boolean;
+        getChild(index int) Component;
+        };

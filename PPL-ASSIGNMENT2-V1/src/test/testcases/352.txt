@@ -1,0 +1,6 @@
+
+        type animal interface {
+            eat(x [20]int, y [id345]float) string;
+            sleep() string;
+            makeSound() string;
+        };

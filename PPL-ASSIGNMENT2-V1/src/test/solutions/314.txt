@@ -1,0 +1,1 @@
+Program([MethodDecl(r,Id(Rectangle),FuncDecl(area,[],FloatType,Block([Return(BinaryOp(FieldAccess(Id(r),width),*,FieldAccess(Id(r),height)))])))])

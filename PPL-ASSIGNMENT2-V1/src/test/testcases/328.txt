@@ -1,7 +1,9 @@
-func (a Account) withdraw(amount float) boolean {
-            if (a.balance >= amount) {
-                a.balance := a.balance - amount;
-                return true;
-            }
-            return false;
+func createPerson(name string, age int) Person {
+            return Person{
+                name: name,
+                age: age,
+                address: Address{
+                    street: "Default Street",
+                    city: "Default City"},
+                isActive: true};
         };

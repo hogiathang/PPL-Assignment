@@ -1,0 +1,1 @@
+Program([InterfaceType(vehicle,[Prototype(move,[FloatType,FloatType],StringType),Prototype(stop,[],StringType),Prototype(honk,[],StringType)])])

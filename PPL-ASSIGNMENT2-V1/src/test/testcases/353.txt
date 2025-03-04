@@ -1,0 +1,6 @@
+
+        type vehicle interface {
+            move(x, y float) string;
+            stop() string;
+            honk() string;
+        };

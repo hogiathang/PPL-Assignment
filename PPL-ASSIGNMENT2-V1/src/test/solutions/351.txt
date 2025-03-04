@@ -1,0 +1,1 @@
+Program([InterfaceType(shape,[Prototype(area,[IntType,IntType],FloatType),Prototype(perimeter,[FloatType,FloatType,IntType],FloatType),Prototype(draw,[],StringType)])])

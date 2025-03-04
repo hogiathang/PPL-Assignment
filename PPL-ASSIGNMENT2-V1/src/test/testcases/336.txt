@@ -1,6 +1,7 @@
-type Student struct {
-            id int;
-            name string;
-            grades [5]float;
-            address Address;
+func main() {
+            if (a > b) {
+                return a;
+            } else {
+                return b;
+            }
         };

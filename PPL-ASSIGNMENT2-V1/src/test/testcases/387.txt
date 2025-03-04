@@ -1,0 +1,5 @@
+type Product struct {
+            name string;
+            price float;
+            quantity int;
+        };

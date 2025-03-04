@@ -1,1 +1,7 @@
-var t helloworld = identifier{a1: 1, a2: !zelo, a3: 001.e-2};
+func max(a int, b int) int {
+            if (a > b > c > d) {
+                return a;
+            } else {
+                return b;
+            }
+        };

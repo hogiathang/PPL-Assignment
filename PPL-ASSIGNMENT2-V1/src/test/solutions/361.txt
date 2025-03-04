@@ -1,0 +1,1 @@
+Program([MethodDecl(p,Id(Person),FuncDecl(fullName,[],StringType,Block([Return(BinaryOp(BinaryOp(FieldAccess(Id(p),firstName),+,StringLiteral(" ")),+,FieldAccess(Id(p),lastName)))])))])

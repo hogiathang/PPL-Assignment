@@ -1,1 +1,1 @@
-const x boolean = a && !b || c >= 5;
+const x = a && !b || c >= 5;

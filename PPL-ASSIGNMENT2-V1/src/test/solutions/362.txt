@@ -1,0 +1,1 @@
+Program([MethodDecl(a,Id(Account),FuncDecl(withdraw,[ParDecl(amount,FloatType)],BoolType,Block([If(BinaryOp(FieldAccess(Id(a),balance),>=,Id(amount)),Block([Assign(FieldAccess(Id(a),balance),BinaryOp(FieldAccess(Id(a),balance),-,Id(amount))),Return(BooleanLiteral(true))])),Return(BooleanLiteral(false))])))])

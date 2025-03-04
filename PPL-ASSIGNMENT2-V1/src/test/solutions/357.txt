@@ -1,0 +1,1 @@
+Program([InterfaceType(matrix,[Prototype(getElement,[IntType,IntType],FloatType),Prototype(setElement,[IntType,IntType,FloatType],BoolType),Prototype(transpose,[],ArrayType(FloatType,[IntLiteral(10),IntLiteral(10)])),Prototype(determinant,[],FloatType)])])

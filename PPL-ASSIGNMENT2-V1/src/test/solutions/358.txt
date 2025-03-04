@@ -1,0 +1,1 @@
+Program([InterfaceType(serializable,[Prototype(serialize,[],StringType),Prototype(deserialize,[StringType],BoolType),Prototype(validate,[],BoolType),Prototype(getVersion,[],StringType)])])

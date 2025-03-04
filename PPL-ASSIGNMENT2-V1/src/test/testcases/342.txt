@@ -1,1 +1,11 @@
-var arr [10][20][30]int = [10][20][30]int{sampleStruct{a1 : "Hello", a2: "World"}};
+func validateTriangle(a float, b float, c float) boolean {
+            if (a <= 0 || b <= 0 || c <= 0) {
+                return false;
+            }
+            
+            if (a + b <= c || a + c <= b || b + c <= a) {
+                return false;
+            }
+            
+            return true;
+        };

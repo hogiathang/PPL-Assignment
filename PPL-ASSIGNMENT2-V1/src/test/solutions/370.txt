@@ -1,0 +1,1 @@
+Program([MethodDecl(m,Id(Matrix),FuncDecl(getElement,[ParDecl(row,IntType),ParDecl(col,IntType)],FloatType,Block([Return(ArrayCell(FieldAccess(Id(m),data),[Id(row),Id(col)]))])))])

@@ -1,0 +1,1 @@
+var t helloworld = identifier{a1: 1, a2: !zelo, a3: 001.e-2};

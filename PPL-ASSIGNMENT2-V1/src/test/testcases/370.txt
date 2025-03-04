@@ -1,0 +1,3 @@
+func (m Matrix) getElement(row int, col int) float {
+            return m.data[row][col];
+        };

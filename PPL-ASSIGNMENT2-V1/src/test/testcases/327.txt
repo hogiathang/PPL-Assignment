@@ -1,3 +1,10 @@
-func (p Person) fullName() string {
-            return p.firstName + " " + p.lastName;
-        };
+
+        func recursiveFunc(n int) int {
+            if (n <= 1) {
+                return 1;
+            } else if (n == 2) {
+                return 2;
+            } 
+            return n * recursiveFunc(n - 1);
+        }
+        
