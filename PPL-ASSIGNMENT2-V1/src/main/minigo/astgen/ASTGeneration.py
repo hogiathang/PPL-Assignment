@@ -1,3 +1,4 @@
+# STUDENT ID: 2213187
 from MiniGoVisitor import MiniGoVisitor
 from MiniGoParser import MiniGoParser
 from AST import *
@@ -52,7 +53,7 @@ class ASTGeneration(MiniGoVisitor):
 
     def visitIntLitOrConstant(self, ctx:MiniGoParser.IntLitOrConstantContext):
         if ctx.INT_LIT():
-            return IntLiteral(int(ctx.INT_LIT().getText()))
+            return IntLiteral(ctx.INT_LIT().getText())
         return Id(ctx.IDENTIFIER().getText())
 
     def visitVarDeclExpr(self, ctx:MiniGoParser.VarDeclExprContext):
@@ -129,9 +130,23 @@ class ASTGeneration(MiniGoVisitor):
         if ctx.IDENTIFIER():
             return ctx.IDENTIFIER().getText()
         if ctx.INT_LIT():
-            return IntLiteral(int(ctx.INT_LIT().getText()))
+            # text    = ctx.INT_LIT().getText()
+
+            # if text.startswith("0x") or text.startswith("0X"):
+            #     value =  int(text[2:], 16)
+
+            # elif text.startswith("0o") or text.startswith("0O"):
+            #     value =  int(text[2:], 8)
+            
+            # elif text.startswith("0b") or text.startswith("0B"):
+            #     value =  int(text[2:], 2)
+
+            # else:
+            #     value =  int(text)
+
+            return IntLiteral(ctx.INT_LIT().getText())
         if ctx.FLOAT_LIT():
-            return FloatLiteral(float(ctx.FLOAT_LIT().getText()))
+            return FloatLiteral(ctx.FLOAT_LIT().getText())
         if ctx.STRING_LIT():
             return StringLiteral(ctx.STRING_LIT().getText())
         if ctx.TRUE():
@@ -260,34 +275,46 @@ class ASTGeneration(MiniGoVisitor):
 
     def visitAssignStatement(self, ctx:MiniGoParser.AssignStatementContext):
         lhs = self.visit(ctx.getChild(0))
-        match ctx.getChild(1).getText():
-            case "+=":
-                rhs = BinaryOp("+",lhs, self.visit(ctx.getChild(2)))
-            case "-=":
-                rhs = BinaryOp("-",lhs, self.visit(ctx.getChild(2)))
-            case "*=":
-                rhs = BinaryOp("*",lhs, self.visit(ctx.getChild(2)))
-            case "/=":
-                rhs = BinaryOp("/",lhs, self.visit(ctx.getChild(2)))
-            case "%=":
-                rhs = BinaryOp("%",lhs, self.visit(ctx.getChild(2)))
-            case ":=":
-                rhs = self.visit(ctx.getChild(2))
+        if ctx.getChild(1).getText() == "+=":
+            rhs = BinaryOp("+",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "-=":
+            rhs = BinaryOp("-",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "*=":
+            rhs = BinaryOp("*",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "/=":
+            rhs = BinaryOp("/",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "%=":
+            rhs = BinaryOp("%",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == ":=":
+            rhs = self.visit(ctx.getChild(2))
         return Assign(lhs, rhs)
 
     def visitIfStatement(self, ctx:MiniGoParser.IfStatementContext):
         expr = self.visit(ctx.expr())
         thenStmt = Block([self.visit(i) for i in ctx.statement()])
         elseStmt = None
-
+        listElseIfStmt = []
         for elseIfStmt in ctx.elseIfStatement():
-            elseStmt = elseStmt + [self.visit(elseIfStmt)] if elseStmt else [self.visit(elseIfStmt)]
-        
-        if ctx.elseStatement():
-            elseStmt = elseStmt + self.visit(ctx.elseStatement()) if elseStmt else self.visit(ctx.elseStatement())
+            elseExpr, elseThenStmt = self.visit(elseIfStmt)
+            listElseIfStmt.append((elseExpr, elseThenStmt))
 
-        elseStmt = Block(elseStmt) if elseStmt else None
+        if ctx.elseStatement():
+            elseStmt = Block(self.visit(ctx.elseStatement()))
+        
+        for element in listElseIfStmt[::-1]:
+            elseStmt = If(element[0], element[1], elseStmt)
+        
+
         return If(expr, thenStmt, elseStmt)
+
+    # $-------------------If Stmt-------------------
+    def visitElseIfStatement(self, ctx:MiniGoParser.ElseIfStatementContext):
+        expr = self.visit(ctx.expr())
+        thenStmt = Block([self.visit(i) for i in ctx.statement()])
+        return expr, thenStmt
+
+    def visitElseStatement(self, ctx:MiniGoParser.ElseStatementContext):
+        return [self.visit(i) for i in ctx.statement()]
 
     def visitForStatement(self, ctx:MiniGoParser.ForStatementContext):
         return self.visit(ctx.getChild(0))
@@ -353,7 +380,8 @@ class ASTGeneration(MiniGoVisitor):
             if listMethod[0] == "Field":
                 receiver = FieldAccess(receiver, listMethod[1])
             elif listMethod[0] == "ArrayCell":
-                receiver = ArrayCell(receiver, listMethod[1])
+                receiver = FieldAccess(receiver, listMethod[1])
+                receiver = ArrayCell(receiver, listMethod[2])
             else:
                 receiver = MethCall(receiver, listMethod[1], listMethod[2])
         return MethCall(receiver, name, argList)
@@ -418,19 +446,18 @@ class ASTGeneration(MiniGoVisitor):
     def visitForUpdate(self, ctx:MiniGoParser.ForUpdateContext):
         lhs = Id(ctx.IDENTIFIER().getText())
         op = ctx.getChild(1).getText()
-        match op:
-            case "+=":
-                rhs = BinaryOp("+", lhs, self.visit(ctx.getChild(2)))
-            case "-=":
-                rhs = BinaryOp("-", lhs, self.visit(ctx.getChild(2)))
-            case "*=":
-                rhs = BinaryOp("*", lhs, self.visit(ctx.getChild(2)))
-            case "/=":
-                rhs = BinaryOp("/", lhs, self.visit(ctx.getChild(2)))
-            case "%=":
-                rhs = BinaryOp("%", lhs, self.visit(ctx.getChild(2)))
-            case ":=":
-                rhs = self.visit(ctx.getChild(2))
+        if ctx.getChild(1).getText() == "+=":
+            rhs = BinaryOp("+",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "-=":
+            rhs = BinaryOp("-",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "*=":
+            rhs = BinaryOp("*",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "/=":
+            rhs = BinaryOp("/",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == "%=":
+            rhs = BinaryOp("%",lhs, self.visit(ctx.getChild(2)))
+        elif ctx.getChild(1).getText() == ":=":
+            rhs = self.visit(ctx.getChild(2))
         return Assign(lhs, rhs)
 
     def visitForRangeStatement(self, ctx:MiniGoParser.ForRangeStatementContext):
@@ -449,14 +476,7 @@ class ASTGeneration(MiniGoVisitor):
     def visitForArray(self, ctx:MiniGoParser.ForArrayContext):
         return self.visit(ctx.getChild(0))
 
-    # $-------------------If Stmt-------------------
-    def visitElseIfStatement(self, ctx:MiniGoParser.ElseIfStatementContext):
-        expr = self.visit(ctx.expr())
-        thenStmt = Block([self.visit(i) for i in ctx.statement()])
-        return If(expr, thenStmt, None)
-
-    def visitElseStatement(self, ctx:MiniGoParser.ElseStatementContext):
-        return [self.visit(i) for i in ctx.statement()]
+    
 
 
     # $-------------------Array Literal-------------------
@@ -474,9 +494,19 @@ class ASTGeneration(MiniGoVisitor):
 
     def visitNoArrayLit(self, ctx:MiniGoParser.NoArrayLitContext):
         if ctx.INT_LIT():
-            return IntLiteral(int(ctx.INT_LIT().getText()))
+            # text    = ctx.INT_LIT().getText()
+            # if text.startswith("0x") or text.startswith("0X"):
+            #     value =  int(text[2:], 16)
+            # elif text.startswith("0o") or text.startswith("0O"):
+            #     value =  int(text[2:], 8)
+            # elif text.startswith("0b") or text.startswith("0B"):
+            #     value =  int(text[2:], 2)
+            # else:
+            #     value =  int(text)
+            return IntLiteral(ctx.INT_LIT().getText())  
+            
         if ctx.FLOAT_LIT():
-            return FloatLiteral(float(ctx.FLOAT_LIT().getText()))
+            return FloatLiteral(ctx.FLOAT_LIT().getText())
         if ctx.STRING_LIT():
             return StringLiteral(ctx.STRING_LIT().getText())
         if ctx.TRUE():

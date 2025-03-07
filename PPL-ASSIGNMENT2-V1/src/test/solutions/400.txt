@@ -1,1 +1,1 @@
-Program([VarDecl(t,Id(helloworld),StructLiteral(identifier,[(a1,IntLiteral(1)),(a2,UnaryOp(!,Id(zelo))),(a3,FloatLiteral(0.01))]))])
+Program([VarDecl(t,Id(helloworld),StructLiteral(identifier,[(a1,IntLiteral(1)),(a2,UnaryOp(!,Id(zelo))),(a3,FloatLiteral(001.e-2))]))])

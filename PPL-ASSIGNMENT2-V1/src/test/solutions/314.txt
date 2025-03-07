@@ -1,1 +1,1 @@
-Program([MethodDecl(r,Id(Rectangle),FuncDecl(area,[],FloatType,Block([Return(BinaryOp(FieldAccess(Id(r),width),*,FieldAccess(Id(r),height)))])))])
+Program([FuncDecl(sumOfSquares,[ParDecl(n,IntType)],IntType,Block([ForEach(Id(_),Id(val),Id(arr),Block([Assign(Id(result),BinaryOp(Id(result),+,Id(val))),For(Assign(Id(j),IntLiteral(0)),BinaryOp(Id(j),<,IntLiteral(10)),Assign(Id(j),BinaryOp(Id(j),+,IntLiteral(1))),Block([Assign(Id(result),BinaryOp(Id(result),+,Id(j)))])),If(BinaryOp(BinaryOp(Id(val),/,IntLiteral(4)),==,IntLiteral(1)),Block([Break()]))])),Return(Id(result))]))])

@@ -1,4 +1,13 @@
-func (r Rectangle) area() float {
-            return r.width * r.height;
-        }
-        
+func sumOfSquares(n int) int {
+            for _,val := range arr {
+                result := result + val;
+                for j := 0; j < 10; j := j + 1 {
+                    result := result + j;
+                }
+
+                if (val / 4 == 1) {
+                    break;
+                }
+            }
+            return result;
+        };

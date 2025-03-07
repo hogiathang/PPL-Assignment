@@ -1,12 +1,9 @@
-func sumOfSquares(n int) int {
-            for _,val := range arr {
-                result := result + val;
-                for j := 0; j < 10; j := j + 1 {
-                    result := result + j;
-                }
-
-                if (val / 4 == 1) {
-                    break;
+func nestForLoops(size int) {
+            for i := 0; i < size; i := i + 1 {
+                for j := 0; j < size; j := j + 1 {
+                    for k := 0; k < size; k := k + 1 {
+                        print(i * 100 + j * 10 + k);
+                    }
                 }
             }
         };

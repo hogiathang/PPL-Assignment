@@ -1,1 +1,1 @@
-Program([ConstDecl(x,FloatLiteral(0.001))])
+Program([ConstDecl(x,FloatLiteral(1.e-3))])

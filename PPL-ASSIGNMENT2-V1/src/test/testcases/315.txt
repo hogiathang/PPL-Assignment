@@ -9,4 +9,5 @@ func sumOfSquares(n int) int {
                     break;
                 }
             }
+            return result;
         };

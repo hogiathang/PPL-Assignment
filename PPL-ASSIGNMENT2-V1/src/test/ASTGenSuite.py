@@ -96,9 +96,9 @@ class ASTGenSuite(unittest.TestCase):
                 StructLiteral(
                     'identifier',
                     [
-                        ('a1',IntLiteral(1)),
+                        ('a1',IntLiteral('1')),
                         ('a2',UnaryOp('!',Id('zelo'))),
-                        ('a3',FloatLiteral(0.01))
+                        ('a3',FloatLiteral('001.e-2'))
                     ]
                 )
             )
@@ -108,13 +108,13 @@ class ASTGenSuite(unittest.TestCase):
 
     def test_const_declare_6(self):
         input = """const x = 1.e-3;"""
-        expect = str(Program([ConstDecl('x',None,FloatLiteral(1.e-3))]))
+        expect = str(Program([ConstDecl('x',None,FloatLiteral('1.e-3'))]))
         ASTGenSuite.test_count += 1
         self.assertTrue(TestAST.checkASTGen(input,expect,ASTGenSuite.test_count))
 
     def test_const_declare_7(self):
         input = """const x = a && !b || c >= 5;"""
-        expect = str(Program([ConstDecl('x',None,BinaryOp('||',BinaryOp('&&',Id('a'),UnaryOp('!',Id('b'))),BinaryOp('>=',Id('c'),IntLiteral(5))))]))
+        expect = str(Program([ConstDecl('x',None,BinaryOp('||',BinaryOp('&&',Id('a'),UnaryOp('!',Id('b'))),BinaryOp('>=',Id('c'),IntLiteral('5'))))]))
         ASTGenSuite.test_count += 1
         self.assertTrue(TestAST.checkASTGen(input,expect,ASTGenSuite.test_count))
 
@@ -469,14 +469,12 @@ class ASTGenSuite(unittest.TestCase):
                 Block([
                     If(
                         BinaryOp('<=', Id('n'), IntLiteral(1)),
-                        Block([Return(IntLiteral(1))]),
-                        Block([
-                            If(
-                                BinaryOp('==', Id('n'), IntLiteral(2)),
-                                Block([Return(IntLiteral(2))]),
-                                None
-                            )
-                        ])
+                        Block([Return(IntLiteral(1))]),    
+                        If(
+                            BinaryOp('==', Id('n'), IntLiteral(2)),
+                            Block([Return(IntLiteral(2))]),
+                            None
+                        )
                     ),
                     Return(
                         BinaryOp(
@@ -1457,24 +1455,19 @@ class ASTGenSuite(unittest.TestCase):
                     If(
                         BinaryOp('>=', Id('score'), IntLiteral(90)),
                         Block([Return(StringLiteral('"A"'))]),
-                        Block([
-                            If(
-                                BinaryOp('>=', Id('score'), IntLiteral(80)),
-                                Block([Return(StringLiteral('"B"'))]),
-                                None
-                            ),
+                        If(
+                            BinaryOp('>=', Id('score'), IntLiteral(80)),
+                            Block([Return(StringLiteral('"B"'))]),
                             If(
                                 BinaryOp('>=', Id('score'), IntLiteral(70)),
                                 Block([Return(StringLiteral('"C"'))]),
-                                None
+                                If(
+                                    BinaryOp('>=', Id('score'), IntLiteral(60)),
+                                    Block([Return(StringLiteral('"D"'))]),
+                                    Block([Return(StringLiteral('"F"'))])
+                                ),
                             ),
-                            If(
-                                BinaryOp('>=', Id('score'), IntLiteral(60)),
-                                Block([Return(StringLiteral('"D"'))]),
-                                None
-                            ),
-                            Return(StringLiteral('"F"'))
-                        ])
+                        ),
                     )
                 ])
             )
@@ -2299,24 +2292,19 @@ class ASTGenSuite(unittest.TestCase):
                     If(
                         BinaryOp('>=', Id('score'), IntLiteral(90)),
                         Block([Return(StringLiteral('"A"'))]),
-                        Block([
-                            If(
-                                BinaryOp('>=', Id('score'), IntLiteral(80)),
-                                Block([Return(StringLiteral('"B"'))]),
-                                None
-                            ),
+                        If(
+                            BinaryOp('>=', Id('score'), IntLiteral(80)),
+                            Block([Return(StringLiteral('"B"'))]),
                             If(
                                 BinaryOp('>=', Id('score'), IntLiteral(70)),
                                 Block([Return(StringLiteral('"C"'))]),
-                                None
+                                If(
+                                    BinaryOp('>=', Id('score'), IntLiteral(60)),
+                                    Block([Return(StringLiteral('"D"'))]),
+                                    Block([Return(StringLiteral('"F"'))])
+                                ),
                             ),
-                            If(
-                                BinaryOp('>=', Id('score'), IntLiteral(60)),
-                                Block([Return(StringLiteral('"D"'))]),
-                                None
-                            ),
-                            Return(StringLiteral('"F"'))
-                        ])
+                        ),
                     )
                 ])
             )
@@ -3141,24 +3129,19 @@ class ASTGenSuite(unittest.TestCase):
                     If(
                         BinaryOp('>=', Id('score'), IntLiteral(90)),
                         Block([Return(StringLiteral('"A"'))]),
-                        Block([
-                            If(
-                                BinaryOp('>=', Id('score'), IntLiteral(80)),
-                                Block([Return(StringLiteral('"B"'))]),
-                                None
-                            ),
+                        If(
+                            BinaryOp('>=', Id('score'), IntLiteral(80)),
+                            Block([Return(StringLiteral('"B"'))]),
                             If(
                                 BinaryOp('>=', Id('score'), IntLiteral(70)),
                                 Block([Return(StringLiteral('"C"'))]),
-                                None
-                            ),
-                            If(
-                                BinaryOp('>=', Id('score'), IntLiteral(60)),
-                                Block([Return(StringLiteral('"D"'))]),
-                                None
-                            ),
-                            Return(StringLiteral('"F"'))
-                        ])
+                                If(
+                                    BinaryOp('>=', Id('score'), IntLiteral(60)),
+                                    Block([Return(StringLiteral('"D"'))]),
+                                    Block([Return(StringLiteral('"F"'))])
+                                )
+                            )
+                        )
                     )
                 ])
             )
@@ -3405,6 +3388,7 @@ class ASTGenSuite(unittest.TestCase):
                     break;
                 }
             }
+            return result;
         };"""
         expect = str(Program([
             FuncDecl(
@@ -3430,14 +3414,16 @@ class ASTGenSuite(unittest.TestCase):
                                         Id('result'),
                                         BinaryOp('+', Id('result'), Id('j'))
                                     )
-                            ])),
+                                ])
+                            ),
                             If(
                                 BinaryOp('==', BinaryOp('/', Id('val'), IntLiteral(4)), IntLiteral(1)),
                                 Block([Break()]),
                                 None
                             )
                         ])
-                    )
+                    ),
+                    Return(Id('result'))
                 ])
             )
         ]))
@@ -3445,47 +3431,51 @@ class ASTGenSuite(unittest.TestCase):
         self.assertTrue(TestAST.checkASTGen(input, expect, ASTGenSuite.test_count))
 
     def test_for_stmt_97(self):
-        input = """func sumOfSquares(n int) int {
-            for _,val := range arr {
-                result := result + val;
-                for j := 0; j < 10; j := j + 1 {
-                    result := result + j;
-                }
-
-                if (val / 4 == 1) {
-                    break;
+        input = """func nestForLoops(size int) {
+            for i := 0; i < size; i := i + 1 {
+                for j := 0; j < size; j := j + 1 {
+                    for k := 0; k < size; k := k + 1 {
+                        print(i * 100 + j * 10 + k);
+                    }
                 }
             }
         };"""
         expect = str(Program([
             FuncDecl(
-                'sumOfSquares',
-                [ParamDecl('n', IntType())],
-                IntType(),
+                'nestForLoops',
+                [ParamDecl('size', IntType())],
+                VoidType(),
                 Block([
-                    ForEach(
-                        Id('_'),
-                        Id('val'),
-                        Id('arr'),
+                    ForStep(
+                        Assign(Id('i'), IntLiteral(0)),
+                        BinaryOp('<', Id('i'), Id('size')),
+                        Assign(Id('i'), BinaryOp('+', Id('i'), IntLiteral(1))),
                         Block([
-                            Assign(
-                                Id('result'),
-                                BinaryOp('+', Id('result'), Id('val'))
-                            ),
                             ForStep(
                                 Assign(Id('j'), IntLiteral(0)),
-                                BinaryOp('<', Id('j'), IntLiteral(10)),
+                                BinaryOp('<', Id('j'), Id('size')),
                                 Assign(Id('j'), BinaryOp('+', Id('j'), IntLiteral(1))),
                                 Block([
-                                    Assign(
-                                        Id('result'),
-                                        BinaryOp('+', Id('result'), Id('j'))
+                                    ForStep(
+                                        Assign(Id('k'), IntLiteral(0)),
+                                        BinaryOp('<', Id('k'), Id('size')),
+                                        Assign(Id('k'), BinaryOp('+', Id('k'), IntLiteral(1))),
+                                        Block([
+                                            FuncCall(
+                                                'print', 
+                                                [BinaryOp(
+                                                    '+',
+                                                    BinaryOp(
+                                                        '+',
+                                                        BinaryOp('*', Id('i'), IntLiteral(100)),
+                                                        BinaryOp('*', Id('j'), IntLiteral(10))
+                                                    ),
+                                                    Id('k')
+                                                )]
+                                            )
+                                        ])
                                     )
-                            ])),
-                            If(
-                                BinaryOp('==', BinaryOp('/', Id('val'), IntLiteral(4)), IntLiteral(1)),
-                                Block([Break()]),
-                                None
+                                ])
                             )
                         ])
                     )
@@ -3496,48 +3486,29 @@ class ASTGenSuite(unittest.TestCase):
         self.assertTrue(TestAST.checkASTGen(input, expect, ASTGenSuite.test_count))
 
     def test_for_stmt_98(self):
-        input = """func sumOfSquares(n int) int {
-            for _,val := range arr {
-                result := result + val;
-                for j := 0; j < 10; j := j + 1 {
-                    result := result + j;
-                }
-
-                if (val / 4 == 1) {
+        input = """func infiniteLoop() {
+            for i < 10 {
+                if (checkCondition()) {
                     break;
                 }
+                doSomething();
             }
         };"""
         expect = str(Program([
             FuncDecl(
-                'sumOfSquares',
-                [ParamDecl('n', IntType())],
-                IntType(),
+                'infiniteLoop',
+                [],
+                VoidType(),
                 Block([
-                    ForEach(
-                        Id('_'),
-                        Id('val'),
-                        Id('arr'),
+                    ForBasic(
+                        BinaryOp('<', Id('i'), IntLiteral(10)),
                         Block([
-                            Assign(
-                                Id('result'),
-                                BinaryOp('+', Id('result'), Id('val'))
-                            ),
-                            ForStep(
-                                Assign(Id('j'), IntLiteral(0)),
-                                BinaryOp('<', Id('j'), IntLiteral(10)),
-                                Assign(Id('j'), BinaryOp('+', Id('j'), IntLiteral(1))),
-                                Block([
-                                    Assign(
-                                        Id('result'),
-                                        BinaryOp('+', Id('result'), Id('j'))
-                                    )
-                            ])),
                             If(
-                                BinaryOp('==', BinaryOp('/', Id('val'), IntLiteral(4)), IntLiteral(1)),
+                                FuncCall('checkCondition', []),
                                 Block([Break()]),
                                 None
-                            )
+                            ),
+                            FuncCall('doSomething', [])
                         ])
                     )
                 ])
@@ -3547,50 +3518,40 @@ class ASTGenSuite(unittest.TestCase):
         self.assertTrue(TestAST.checkASTGen(input, expect, ASTGenSuite.test_count))
 
     def test_for_stmt_99(self):
-        input = """func sumOfSquares(n int) int {
-            for _,val := range arr {
-                result := result + val;
-                for j := 0; j < 10; j := j + 1 {
-                    result := result + j;
+        input = """func processContinue(arr [10]int) int {
+            var sum = 0;
+            for i := 0; i < 10; i := i + 1 {
+                if (arr[i] < 0) {
+                    continue;
                 }
-
-                if (val / 4 == 1) {
-                    break;
-                }
+                sum := sum + arr[i];
             }
+            return sum;
         };"""
         expect = str(Program([
             FuncDecl(
-                'sumOfSquares',
-                [ParamDecl('n', IntType())],
+                'processContinue',
+                [ParamDecl('arr', ArrayType([IntLiteral(10)], IntType()))],
                 IntType(),
                 Block([
-                    ForEach(
-                        Id('_'),
-                        Id('val'),
-                        Id('arr'),
+                    VarDecl('sum', None, IntLiteral(0)),
+                    ForStep(
+                        Assign(Id('i'), IntLiteral(0)),
+                        BinaryOp('<', Id('i'), IntLiteral(10)),
+                        Assign(Id('i'), BinaryOp('+', Id('i'), IntLiteral(1))),
                         Block([
-                            Assign(
-                                Id('result'),
-                                BinaryOp('+', Id('result'), Id('val'))
-                            ),
-                            ForStep(
-                                Assign(Id('j'), IntLiteral(0)),
-                                BinaryOp('<', Id('j'), IntLiteral(10)),
-                                Assign(Id('j'), BinaryOp('+', Id('j'), IntLiteral(1))),
-                                Block([
-                                    Assign(
-                                        Id('result'),
-                                        BinaryOp('+', Id('result'), Id('j'))
-                                    )
-                            ])),
                             If(
-                                BinaryOp('==', BinaryOp('/', Id('val'), IntLiteral(4)), IntLiteral(1)),
-                                Block([Break()]),
+                                BinaryOp('<', ArrayCell(Id('arr'), [Id('i')]), IntLiteral(0)),
+                                Block([Continue()]),
                                 None
+                            ),
+                            Assign(
+                                Id('sum'),
+                                BinaryOp('+', Id('sum'), ArrayCell(Id('arr'), [Id('i')]))
                             )
                         ])
-                    )
+                    ),
+                    Return(Id('sum'))
                 ])
             )
         ]))
@@ -3598,50 +3559,40 @@ class ASTGenSuite(unittest.TestCase):
         self.assertTrue(TestAST.checkASTGen(input, expect, ASTGenSuite.test_count))
 
     def test_for_stmt_100(self):
-        input = """func sumOfSquares(n int) int {
-            for _,val := range arr {
-                result := result + val;
-                for j := 0; j < 10; j := j + 1 {
-                    result := result + j;
+        input = """func processContinue(arr [10]int) int {
+            var sum = 0;
+            for i := 0; i < 10; i := i + 1 {
+                if (arr[i] < 0) {
+                    continue;
                 }
-
-                if (val / 4 == 1) {
-                    break;
-                }
+                sum := sum + arr[i];
             }
+            return sum;
         };"""
         expect = str(Program([
             FuncDecl(
-                'sumOfSquares',
-                [ParamDecl('n', IntType())],
+                'processContinue',
+                [ParamDecl('arr', ArrayType([IntLiteral(10)], IntType()))],
                 IntType(),
                 Block([
-                    ForEach(
-                        Id('_'),
-                        Id('val'),
-                        Id('arr'),
+                    VarDecl('sum', None, IntLiteral(0)),
+                    ForStep(
+                        Assign(Id('i'), IntLiteral(0)),
+                        BinaryOp('<', Id('i'), IntLiteral(10)),
+                        Assign(Id('i'), BinaryOp('+', Id('i'), IntLiteral(1))),
                         Block([
-                            Assign(
-                                Id('result'),
-                                BinaryOp('+', Id('result'), Id('val'))
-                            ),
-                            ForStep(
-                                Assign(Id('j'), IntLiteral(0)),
-                                BinaryOp('<', Id('j'), IntLiteral(10)),
-                                Assign(Id('j'), BinaryOp('+', Id('j'), IntLiteral(1))),
-                                Block([
-                                    Assign(
-                                        Id('result'),
-                                        BinaryOp('+', Id('result'), Id('j'))
-                                    )
-                            ])),
                             If(
-                                BinaryOp('==', BinaryOp('/', Id('val'), IntLiteral(4)), IntLiteral(1)),
-                                Block([Break()]),
+                                BinaryOp('<', ArrayCell(Id('arr'), [Id('i')]), IntLiteral(0)),
+                                Block([Continue()]),
                                 None
+                            ),
+                            Assign(
+                                Id('sum'),
+                                BinaryOp('+', Id('sum'), ArrayCell(Id('arr'), [Id('i')]))
                             )
                         ])
-                    )
+                    ),
+                    Return(Id('sum'))
                 ])
             )
         ]))

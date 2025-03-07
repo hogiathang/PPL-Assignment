@@ -1,12 +1,8 @@
-func sumOfSquares(n int) int {
-            for _,val := range arr {
-                result := result + val;
-                for j := 0; j < 10; j := j + 1 {
-                    result := result + j;
-                }
-
-                if (val / 4 == 1) {
+func infiniteLoop() {
+            for i < 10 {
+                if (checkCondition()) {
                     break;
                 }
+                doSomething();
             }
         };
