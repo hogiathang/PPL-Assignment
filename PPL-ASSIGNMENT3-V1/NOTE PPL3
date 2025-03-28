@@ -1,0 +1,116 @@
++ Redeclared Identifier (Khai báo trùng lặp)
+    
+    Variable: Cục bộ trong hàm hoặc phạm vi khai báo
+    Constant: Cục bộ trong hàm hoặc phạm vi khai báo
+    Parameter: Chỉ trong phạm vi của hàm đó
+    Function: Toàn cục
+    Type: Toàn cục
+    Method: Phạm vi trong struct nó thuộc về
+    Prototype: Phạm vi trong interface nó thuộc về
+    Field: Phạm vi trong struct nó thuộc về
+
+
+    Nếu một biến được khai báo bên trong một hàm,
+        nó chỉ có phạm vi trong hàm đó. 
+        Tuy nhiên, nếu cùng một biến được khai báo trong một
+        phạm vi con (ví dụ, trong một vòng lặp hoặc một block {}),
+        thì nó không được coi là redeclared trừ khi nó trùng với một
+        biến khác trong cùng một cấp phạm vi.
+
+    Các kiểu dữ liệu (type) luôn có phạm vi toàn cục, vì vậy khai báo lại chúng sẽ luôn gây lỗi.
+
+    Nếu một biến được khai báo trong phần khởi tạo của 
+    vòng lặp for, phạm vi của nó chỉ giới hạn trong vòng lặp.
+
+    raise Redeclared(<kind>, <identifier>)
+
+
++ Undeclared Identifier (Sử dụng biến chưa khai báo)
+    Lỗi Undeclared xảy ra khi một biến, hàm,
+        phương thức hoặc thuộc tính được sử dụng nhưng chưa được khai báo trước đó.
+        Điều này có thể dẫn đến lỗi khi trình biên dịch không thể xác định được định danh đang được tham chiếu.
+
+    Undeclared(Identifier(), <identifier-name>)
+        → Xảy ra khi sử dụng một biến, hằng số hoặc tham số nhưng chưa khai báo trước đó.
+
+    Undeclared(Function(), <function-name>)
+        → Xảy ra khi gọi một hàm mà không có định nghĩa trước đó.
+
+    Undeclared(Method(), <method-name>)
+        → Xảy ra khi gọi một phương thức trong một struct/interface nhưng không tồn tại.
+
+    Undeclared(Field(), <field-name>)
+        → Xảy ra khi truy cập một thuộc tính không tồn tại trong struct.
+
+
++ Type Mismatch (Sai kiểu dữ liệu)
+    Lỗi TypeMismatch xảy ra khi một biểu thức hoặc câu lệnh không tuân thủ các quy tắc kiểu dữ liệu của ngôn ngữ MiniGo.
+
+    Gán giá trị sai kiểu:
+        → LHS không phải void type
+        → RHS phải có cùng kiểu với LHS hoặc int nếu LHS là float.
+        → Nếu LHS là mảng, RHS cũng phải có cùng kích thước và kiểu phần tử
+        → Nếu LHS là interface, RHS có thể là struct nếu struct đó triển khai đầy đủ các prototype của interface
+        → Nếu LHS undeclare scalar variable thì nó được suy diễn ngầm định từ RHS
+
+    Nếu một khai báo biến bao gồm một biểu thức khởi tạo,
+        thì kiểu dữ liệu được khai báo và kiểu của biểu thức khởi tạo phải tuân theo quy tắc gán kiểu đã được mô tả trước đó.
+        Ví dụ: var y float = "hello"; // Lỗi TypeMismatch
+    
+    Kiểu của biểu thức điều kiện trong câu lệnh if và for
+        Biểu thức điều kiện trong câu lệnh if hoặc for phải có kiểu boolean.
+        Kiểu dữ liệu của phần khởi tạo và cập nhật trong vòng lặp for phải tuân theo quy tắc gán kiểu của khai báo biến và phép gán.
+        Kiểu dữ liệu của các thành phần trong vòng lặp for sử dụng range được mô tả trong đặc tả MiniGo.
+
+    Gọi hàm và phương thức
+        Một câu lệnh gọi hàm/phương thức phải gọi một hàm có kiểu trả về VoidType.
+        Ngược lại, một hàm/phương thức được gọi trong biểu thức phải có kiểu trả về khác VoidType
+        Số lượng đối số trong lời gọi hàm phải khớp với số lượng tham số trong định nghĩa hàm
+        Mỗi đối số phải có kiểu dữ liệu chính xác giống với tham số tương ứng
+        Trong lời gọi phương thức, đối tượng nhận (receiver) phải có kiểu struct hoặc interface
+
+    Quy tắc của return:
+        Nếu hàm có kiểu trả về VoidType, câu lệnh return không được chứa bất kỳ biểu thức nào.
+        Nếu hàm có kiểu trả về khác VoidType, biểu thức trả về phải có kiểu dữ liệu chính xác giống với kiểu trả về của hàm
+
+    Biểu thức truy xuất mảng
+        Trong một biểu thức truy xuất mảng E1[E2]...[En], E1 phải có kiểu mảng
+        Mỗi chỉ số E2, ..., En phải có kiểu số nguyên (int)
+
+    Truy xuất thuộc tính của struct
+        Trong một truy xuất thuộc tính E1.<name>, E1 phải có kiểu struct.
+
+    Biểu thức toán tử đơn và kép
+        +: 
+            → Nếu cả hai toán hạng đều là int → kết quả là int.
+            → Nếu cả hai toán hạng đều là float → kết quả là float.
+            → Nếu một trong hai toán hạng là float → kết quả là float.
+            → Nếu cả hai là string → được hiểu là phép nối chuỗi, kết quả là string.
+
+        - , *, /:
+            → Áp dụng cho int và float.
+            → Nếu cả hai là int → kết quả là int; nếu một trong hai là float → kết quả là float.
+        
+        %:
+            → Chỉ áp dụng cho int → kết quả là int.
+
+        ==, !=, <, <=, >, >=:
+            → Yêu cầu hai toán hạng phải có cùng kiểu (có thể là int, float hoặc string).
+
+        !, &&, ||:
+            → Áp dụng cho toán hạng kiểu boolean → kết quả là boolean.
+
+
+ func getInt()int: reads and returns an integer value from the standard input
+ func putInt(i int): prints the value of the integer i to the standard output
+ func putIntLn(i int): same as putInt except that it also prints a newline
+ func getFloat() float: reads and returns a floating-point value from the standard input
+ func putFloat(f float): prints the value of the float f to the standard output
+ func putFloatLn(f float): same as putFloat except that it also prints a newline
+ func getBool()boolean: reads and returns a boolean value from the standard input
+ func putBool(b boolean): prints the value of the boolean b to the standard output
+ func putBoolLn(b boolean): same as putBoolLn except that it also prints a new line
+ func getString()string: reads and returns a string value from the standard input
+ func putString(s string): prints the value of the string to the standard output
+ func putStringLn(s string): same as putStringLn except that it also prints a new line
+ func putLn(): prints a newline to the standard output

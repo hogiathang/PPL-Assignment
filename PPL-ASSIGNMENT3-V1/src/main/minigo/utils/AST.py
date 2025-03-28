@@ -79,7 +79,7 @@ class VarDecl(Decl,BlockMember):
 @dataclass    
 class ConstDecl(Decl,BlockMember):
     conName : str
-    conType : Type # None if there is no type 
+    conType : Type # None if there is no type
     iniExpr : Expr
 
     def __str__(self):
@@ -175,7 +175,7 @@ class ArrayType(Type):
 @dataclass
 class StructType(Type):
     name: str
-    elements:List[Tuple[str,Type]]
+    elements:List[Tuple[str,Type]] 
     methods:List[MethodDecl]
         
     def __str__(self):
@@ -288,8 +288,6 @@ class Return(Stmt):
 
     def accept(self, v, param):
         return v.visitReturn(self, param)
-
-
 
 @dataclass
 class Id(Type,LHS):

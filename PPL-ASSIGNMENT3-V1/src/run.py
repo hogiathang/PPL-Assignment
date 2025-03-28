@@ -43,10 +43,6 @@ def main(argv):
             from CheckSuite import CheckSuite
             suite = unittest.TestLoader().loadTestsFromTestCase(CheckSuite)
             test(suite)
-        elif argv[1] == 'CheckSuiteP':
-            from CheckSuiteP import CheckSuiteP
-            suite = unittest.TestLoader().loadTestsFromTestCase(CheckSuiteP)
-            test(suite)
         else:
             printUsage()
     else:
@@ -71,7 +67,6 @@ def printUsage():
     print("python3 run.py test ParserSuite")
     print("python3 run.py test ASTGenSuite")
     print("python3 run.py test CheckSuite")
-    print("python3 run.py test CheckSuiteP")
 
 if __name__ == "__main__":
    main(sys.argv[1:])
