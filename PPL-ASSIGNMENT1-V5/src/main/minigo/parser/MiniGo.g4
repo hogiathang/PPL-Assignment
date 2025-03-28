@@ -47,7 +47,7 @@ varDeclType: baseType
 arrayType: (LBRACKET intLitOrConstant RBRACKET)+;
 varDeclExpr: DECLARE expr;
 
-constDecl: CONST IDENTIFIER varDeclType? varDeclExpr;
+constDecl: CONST IDENTIFIER varDeclExpr;
 
 arrayLit: arrayType baseType arrayBlock;
 arrayBlock: LBRACE arrayLitContent (COMMA arrayLitContent)* RBRACE;
@@ -70,7 +70,7 @@ funcListIdentifiers: IDENTIFIER | IDENTIFIER COMMA funcListIdentifiers;
 typeDecl: TYPE IDENTIFIER STRUCT structDeclBlock | TYPE IDENTIFIER INTERFACE interfaceDeclBlock;
 
 structDeclBlock: LBRACE structDeclField* RBRACE;
-structDeclField: IDENTIFIER  varDeclType endOfStatement | methodDecl endOfStatement;
+structDeclField: IDENTIFIER  varDeclType endOfStatement;
 
 interfaceDeclBlock: LBRACE interfaceDeclField* RBRACE;
 interfaceDeclField: IDENTIFIER LPAREN prototypeParam? RPAREN funcType endOfStatement;

@@ -1298,14 +1298,14 @@ class ParserSuite(unittest.TestCase):
                                         }
                                     };""","successful", 677))
         
-    def test_176(self):
-        self.assertTrue(TestParser.checkParser("""
-        type Person struct {
-            func (p Person) Greet() string {
-                return "Hello, " + p.name
-            };                                                 
-        }      
-""","successful", 678))
+#     def test_176(self):
+#         self.assertTrue(TestParser.checkParser("""
+#         type Person struct {
+#             func (p Person) Greet() string {
+#                 return "Hello, " + p.name
+#             };                                                 
+#         }      
+# ""","successful", 678))
         
     def test_177(self):
         """Statement"""
@@ -2665,11 +2665,9 @@ func main() {} extra"""
 
     def test_struct_999(self):
         input = """
-        func wikiList(a, b int, c float, d Foo) [abc123][def456]Wiki {
-            if (i == nil) {
-                return nil;
+        func votien() {
+                a.b.c[2].d()
             }
-        }
         """
         expect = "successful"
         self.assertTrue(TestParser.checkParser(input, expect, 999))

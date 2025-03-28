@@ -1,5 +1,5 @@
 
-        func wikiList(a, b int, c float, d Foo) [abc123][def456]Wiki {
-            return [20]Wiki{Wiki{title: "Hello", content: "World"}}
-        }
+        func votien() {
+                a.b.c[2].d()
+            }
         
