@@ -134,6 +134,11 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MiniGoParser#prototypeParam.
+    def visitPrototypeParam(self, ctx:MiniGoParser.PrototypeParamContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MiniGoParser#expr.
     def visitExpr(self, ctx:MiniGoParser.ExprContext):
         return self.visitChildren(ctx)
