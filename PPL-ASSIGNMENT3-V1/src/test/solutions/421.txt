@@ -1,1 +1,1 @@
-Type Mismatch: VarDecl(z,Id(S1),Id(x))
+Type Mismatch: VarDecl(k,Id(S2),Id(x))
