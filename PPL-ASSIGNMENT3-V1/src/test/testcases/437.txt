@@ -1,0 +1,12 @@
+
+            type S1 struct {votien int;}
+            type S2 struct {votien int;}
+            type I1 interface {votien() S1;}
+            type I2 interface {votien() S2;}
+
+            func (s S1) votien() S1 {return s;}
+
+            var a S1;
+            var c I1 = a;
+            var d I2 = a;
+        

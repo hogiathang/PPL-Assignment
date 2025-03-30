@@ -322,7 +322,7 @@ func aaa (b int) {
         }
         """
         input = Program([VarDecl("v",Id("TIEN"), None),StructType("TIEN",[("a",IntType())],[]),InterfaceType("VO",[Prototype("foo",[],IntType())]),MethodDecl("v",Id("TIEN"),FuncDecl("foo",[],IntType(),Block([Return(IntLiteral(1))]))),MethodDecl("b",Id("TIEN"),FuncDecl("koo",[],VoidType(),Block([MethCall(Id("b"),"koo",[])]))),FuncDecl("foo",[],VoidType(),Block([VarDecl("x",Id("VO"), None),ConstDecl("b",None,MethCall(Id("x"),"foo",[])),MethCall(Id("x"),"koo",[])]))])
-        self.assertTrue(TestChecker.test(input, "Undeclared Method: foo\n", 428))
+        self.assertTrue(TestChecker.test(input, "Undeclared Method: koo\n", 428))
 
     def test_029(self):
         input = """
@@ -334,7 +334,7 @@ func aaa (b int) {
             foo() int;
             akazam() int;
         }
-        func (z VO) akazam(a int, b float) int {return 1;}
+        func (z TIEN) akazam(a int, b float) int {return 1;}
         func (b TIEN) koo(a int) {b.koo(a);}
         func foo() {
             var x VO;
@@ -419,11 +419,6 @@ func aaa (b int) {
     def test_034(self):
         input = """
         type S1 struct {votien int;}
-        func (s S1) votien() int {
-            s.votien();
-            return 1;
-        }
-        type S1 struct {votien int;}
         type S2 struct {votien int;}
         type I1 interface {votien();}
         type I2 interface {votien();}
@@ -435,4 +430,79 @@ func aaa (b int) {
         var c I1 = a;
         var d I2 = b;
         """
-        self.assertTrue(TestChecker.test(input, "Redeclared Method: votien\n", 434))
+       # input = Program([StructType("S1",[("votien",IntType())],[]),StructType("S2",[("votien",IntType())],[]),InterfaceType("I1",[Prototype("votien",[],VoidType())]),InterfaceType("I2",[Prototype("votien",[],VoidType())]),MethodDecl("s",Id("S1"),FuncDecl("votien",[],VoidType(),Block([Return(None)]))),VarDecl("a",Id("S1"), None),VarDecl("b",Id("S2"), None),VarDecl("c",Id("I1"),Id("a")),VarDecl("d",Id("I2"),Id("b"))])
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(d,Id(I2),Id(b))\n", 434))
+
+    def test_035(self):
+        input = """
+        type T1 struct {
+            FAKER int;
+            ZEUS int;
+        }
+        type T2 interface {
+            JACK(a int);
+            VIRUS(b string);
+        }
+        func (a T1) JACK(thienAN int) {
+            var a = 1;
+            var b = 3;
+        }
+
+        func (b T1) VIRUS(CORONA, PETER string) {
+            const a = 1;
+            var b = 2;
+            var c = 3;
+        }
+
+        var a T1;
+        var b T2 = a;
+        """
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(b,Id(T2),Id(a))\n", 435))
+
+    def test_036(self):
+        input = """
+        type S1 struct {votien int;}
+        type S2 struct {votien int;}
+        type I1 interface {votien();}
+        type I2 interface {votien() int;}
+
+        func (s S1) votien() {return;}
+
+        var a S1;
+        var b S2;
+        var c I2 = a;
+        """
+        # input= Program([StructType("S1",[("votien",IntType())],[]),StructType("S2",[("votien",IntType())],[]),InterfaceType("I1",[Prototype("votien",[],VoidType())]),InterfaceType("I2",[Prototype("votien",[],IntType())]),MethodDecl("s",Id("S1"),FuncDecl("votien",[],VoidType(),Block([Return(None)]))),VarDecl("a",Id("S1"), None),VarDecl("b",Id("S2"), None),VarDecl("c",Id("I2"),Id("a"))])
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(c,Id(I2),Id(a))\n", 436))
+
+    def test_037(self):
+        input = """
+            type S1 struct {votien int;}
+            type S2 struct {votien int;}
+            type I1 interface {votien() S1;}
+            type I2 interface {votien() S2;}
+
+            func (s S1) votien() S1 {return s;}
+
+            var a S1;
+            var c I1 = a;
+            var d I2 = a;
+        """
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(d,Id(I2),Id(a))\n", 437))
+
+    def test_038(self):
+        input = """
+            type S1 struct {votien int;}
+            type S2 struct {votien int;}
+            type I1 interface {votien(e, e int) S1;}
+            type I2 interface {votien(a int) S1;}
+
+            func (s S1) votien(a, b int) S1 {return s;}
+
+            var a S1;
+            var c I1 = a;
+            var d I2 = a;
+        """
+        # input = Program([StructType("S1",[("votien",IntType())],[]),StructType("S2",[("votien",IntType())],[]),InterfaceType("I1",[Prototype("votien",[IntType(),IntType()],Id("S1"))]),InterfaceType("I2",[Prototype("votien",[IntType()],Id("S1"))]),MethodDecl("s",Id("S1"),FuncDecl("votien",[ParamDecl("a",IntType()),ParamDecl("b",IntType())],Id("S1"),Block([Return(Id("s"))]))),VarDecl("a",Id("S1"), None),VarDecl("c",Id("I1"),Id("a")),VarDecl("d",Id("I2"),Id("a"))])
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(d,Id(I2),Id(a))\n", 438))
+

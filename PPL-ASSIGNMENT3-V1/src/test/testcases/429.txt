@@ -7,7 +7,7 @@
             foo() int;
             akazam() int;
         }
-        func (z VO) akazam(a int, b float) int {return 1;}
+        func (z TIEN) akazam(a int, b float) int {return 1;}
         func (b TIEN) koo(a int) {b.koo(a);}
         func foo() {
             var x VO;

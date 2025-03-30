@@ -1,0 +1,23 @@
+
+        type T1 struct {
+            FAKER int;
+            ZEUS int;
+        }
+        type T2 interface {
+            JACK(a int);
+            VIRUS(b string);
+        }
+        func (a T1) JACK(thienAN int) {
+            var a = 1;
+            var b = 3;
+        }
+
+        func (b T1) VIRUS(CORONA, PETER string) {
+            const a = 1;
+            var b = 2;
+            var c = 3;
+        }
+
+        var a T1;
+        var b T2 = a;
+        

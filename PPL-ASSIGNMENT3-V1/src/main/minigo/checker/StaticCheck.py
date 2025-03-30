@@ -33,7 +33,6 @@ class StaticChecker(BaseVisitor,Utils):
         self.global_envi    = self.helper.initializeGlobalEnvironment()
         self.list_type      = []
         self.list_function  = self.helper.buildInbuiltFunction()
-        self.list_interface_declared = []
         self.current_func   = None
 
     def check(self):
@@ -64,10 +63,6 @@ class StaticChecker(BaseVisitor,Utils):
             if self.helper.checkRedeclared(method.fun.name, type_declared.methods):
                 raise Redeclared(Method(), method.fun.name)
             type_declared.methods += [Symbol(method.fun.name, MType(method.fun.params, method.fun.retType))]
-        elif isinstance(type_declared, InterfaceType):
-            if self.helper.checkRedeclared(method.fun.name, self.list_interface_declared):
-                raise Redeclared(Method(), method.fun.name)
-            self.list_interface_declared += [Symbol(method.fun.name, MType(method.fun.params, method.fun.retType))]
 
         return type_declared
     
@@ -204,13 +199,12 @@ class StaticChecker(BaseVisitor,Utils):
         if self.helper.checkRedeclared(ast.name, c[0]):
             raise Redeclared(Type(), ast.name)
         
-        reduce(
-                lambda acc, ele:
-                    [[self.visit(ele, acc)] + acc[0]] + acc[1:] if not None else acc,
-                ast.methods,
-                [[]] + c
-            )[0]
-        return Symbol(ast.name, InterfaceType(ast.name, ast.methods))
+        list_prototype = reduce(
+            lambda acc, ele: [[self.visit(ele, acc)] + acc[0]] + acc[1:] if self.visit(ele, acc) else acc,
+            ast.methods,
+            [[]] + c
+        )[0]
+        return Symbol(ast.name, InterfaceType(ast.name, list_prototype))
         
     def visitPrototype(self, ast, c):
         if self.helper.checkRedeclared(ast.name, c[0]):
@@ -264,6 +258,9 @@ class StaticChecker(BaseVisitor,Utils):
         retType = self.current_func.retType
         if ast.expr:
             exprType = self.visit(ast.expr, c)
+            if isinstance(retType, Id):
+                retType = self.helper.getType(self.list_type, retType)
+
             if self.helper.checkTypeMismatch(retType, exprType):
                 raise TypeMismatch(ast)
         else:
@@ -411,12 +408,6 @@ class StaticChecker(BaseVisitor,Utils):
         method = self.lookup(ast.metName, type.methods, lambda x: x.name)
         if method is None:
             raise Undeclared(Method(), ast.metName)
-        
-        
-        if isinstance(type, InterfaceType):
-            method = self.lookup(ast.metName, self.list_interface_declared, lambda x: x.name)
-            if method is None:
-                raise Undeclared(Method(), ast.metName)
 
         if len(ast.args) != len(method.mtype.partype):
             raise TypeMismatch(ast)
@@ -485,14 +476,28 @@ class HelperClass(Utils):
         return self.lookup(name, filtered_list, lambda x: x.name) is not None
 
     def checkTypeMismatch(self, lhs: Type, rhs: Type, assign = False) -> bool:
-        if isinstance(rhs, VoidType):
+        if isinstance(rhs, VoidType) and assign:
             return True
         if isinstance(lhs, FloatType) and isinstance(rhs, IntType) and assign:
             return False
+        if isinstance(lhs, Id) and isinstance(rhs, Id):
+            return lhs.name != rhs.name
         if isinstance(lhs, StructType) and isinstance(rhs, StructType):
             return lhs.name != rhs.name
         if isinstance(lhs, InterfaceType) and isinstance(rhs, InterfaceType):
             return lhs.name != rhs.name
+        if isinstance(lhs, InterfaceType) and isinstance(rhs, StructType):
+            list_undeclared_prototype = list(
+                filter(
+                    lambda x: self.checkMethod(x, rhs.methods),
+                    lhs.methods
+                )
+            )
+            if len(list_undeclared_prototype) > 0:
+                return True
+
+            return False
+
         if isinstance(lhs, ArrayType) and isinstance(rhs, ArrayType):
             return lhs.dimens != rhs.dimens or lhs.eleType != rhs.eleType
         
@@ -505,3 +510,28 @@ class HelperClass(Utils):
     def isDeclared(self, value: (str, Type), list_declare) -> bool:
         return value in list_declare
 
+    def checkMethod(self, prototype: Prototype, list_method: List[Symbol]) -> bool:
+        method: Method = self.lookup(prototype.name, list_method, lambda x: x.name)
+
+        print("Prototype: ", prototype)
+        print("Method:    ", method)        
+
+        if method is None or len(prototype.params) != len(method.mtype.partype):
+            return True
+        
+        print("Prototype: ", prototype.params)
+        print("Method:    ", method.mtype.partype)
+        # list_mismatch_param = list(
+        #     filter(
+        #         lambda x: self.checkTypeMismatch(self.visit(x[0], []), x[1].parType),
+        #         zip(prototype.params, method.mtype.partype)
+        #     )
+        # )
+
+        # if len(list_mismatch_param) > 0:
+        #     return True
+        
+        print("Method: ", method.mtype.rettype)
+        print("Prototype: ", prototype.retType)
+        
+        return self.checkTypeMismatch(prototype.retType, method.mtype.rettype)
