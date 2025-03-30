@@ -1,0 +1,16 @@
+
+        var v TIEN;      
+        type TIEN struct {
+            a int;
+        } 
+        type VO interface {
+            foo() int;
+            akazam() int;
+        }
+        func (z VO) akazam(a int, b float) int {return 1;}
+        func (b TIEN) koo(a int) {b.koo(a);}
+        func foo() {
+            var x VO;
+            const c = x.akazam(1);  
+        }
+        

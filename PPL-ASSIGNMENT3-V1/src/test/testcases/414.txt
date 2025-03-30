@@ -1,1 +1,1 @@
-Program([FuncDecl(Votien,[],IntType,Block([Return(IntLiteral(1))])),FuncDecl(foo,[],VoidType,Block([VarDecl(b,FuncCall(Votien,[])),FuncCall(foo_votine,[]),Return()]))])
+Program([FuncDecl(aaa,[],IntType,Block([Return(IntLiteral(1))])),FuncDecl(foo,[],VoidType,Block([VarDecl(b,FuncCall(aaa,[])),FuncCall(foo_abc,[]),Return()]))])

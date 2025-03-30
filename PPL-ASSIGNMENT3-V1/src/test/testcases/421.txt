@@ -1,1 +1,1 @@
-Program([StructType(S1,[(votien,IntType)],[]),StructType(S2,[(votien,IntType)],[]),VarDecl(v,Id(S1)),ConstDecl(x,Id(v)),VarDecl(z,Id(S1),Id(x)),VarDecl(k,Id(S2),Id(x))])
+Program([StructType(S1,[(aa,IntType)],[]),StructType(S2,[(aa,IntType)],[]),VarDecl(v,Id(S1)),ConstDecl(x,Id(v)),VarDecl(z,Id(S1),Id(x)),VarDecl(k,Id(S2),Id(x))])

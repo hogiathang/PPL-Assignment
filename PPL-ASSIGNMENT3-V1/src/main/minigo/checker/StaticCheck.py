@@ -25,26 +25,7 @@ class Symbol:
     def __str__(self):
         return "Symbol(" + str(self.name) + "," + str(self.mtype) + ("" if self.value is None else "," + str(self.value)) + ")"
 
-
-
-
-    
 class StaticChecker(BaseVisitor,Utils):
-    def __debug(self, c: List[List[Symbol]]):
-        for ele in c:
-            print('-----------------')
-            for sym in ele:
-                print(sym.__str__())
-            print('-----------------')
-        return None
-
-    def __functionVisit(self, cur_envi, cur_list):
-        return list(reduce(
-            lambda acc, ele:
-                [[self.visit(ele, acc)] + acc[0]] + acc[1:] if not None else acc,
-            cur_list,
-            cur_envi
-        ))    
     
     def __init__(self,ast):
         self.helper = HelperClass()
@@ -57,16 +38,57 @@ class StaticChecker(BaseVisitor,Utils):
 
     def check(self):
         return self.visit(self.ast,self.global_envi)
+    
+    def __debug(self, c: List[List[Symbol]]):
+        for ele in c:
+            print('-----------------')
+            for sym in ele:
+                print(sym.__str__())
+        return None
+
+    def __functionVisit(self, cur_envi, cur_list):
+        return reduce(
+            lambda acc, ele:
+                [[self.visit(ele, acc)] + acc[0]] + acc[1:] if isinstance(self.visit(ele, acc), Symbol) else acc,
+            cur_list,
+            cur_envi
+        )
+    
+    def __update_method(self, method, list_type):
+        type_name = method.recType.name
+        type_declared = self.helper.getType(list_type, method.recType)
+        if type_declared is None:
+            raise Undeclared(Type(), type_name)
+
+        if isinstance(type_declared, StructType):
+            if self.helper.checkRedeclared(method.fun.name, type_declared.methods):
+                raise Redeclared(Method(), method.fun.name)
+            type_declared.methods += [Symbol(method.fun.name, MType(method.fun.params, method.fun.retType))]
+        elif isinstance(type_declared, InterfaceType):
+            if self.helper.checkRedeclared(method.fun.name, self.list_interface_declared):
+                raise Redeclared(Method(), method.fun.name)
+            self.list_interface_declared += [Symbol(method.fun.name, MType(method.fun.params, method.fun.retType))]
+
+        return type_declared
+    
+    def __checkArrayMembersType(self, ast, c, eleType):
+        if type(ast) is list:
+            for ele in ast:
+                self.__checkArrayMembersType(ele, c, eleType)
+        else:
+            arrType = self.visit(ast, c)
+            if arrType is None:
+                raise Undeclared(Identifier(), ast.name)
+            if self.helper.checkTypeMismatch(arrType, eleType):
+                raise TypeMismatch(ast)
 
     def visitProgram(self, ast: Program, c: List[Symbol]):
-        # Add all struct and interface type to list_type
         self.list_type = reduce(
             lambda acc, ele: acc + [ele] if (isinstance(ele, StructType) or isinstance(ele, InterfaceType)) else acc,
             ast.decl,
             []
         )
 
-        # Add all function to list_function
         self.list_function = reduce(
             lambda acc, ele:
                 acc + [ele] if isinstance(ele, FuncDecl) else acc,
@@ -74,31 +96,32 @@ class StaticChecker(BaseVisitor,Utils):
             self.list_function
         )
 
-        # Visit declaration
+        for decl in ast.decl:
+            if isinstance(decl, MethodDecl):
+                self.__update_method(decl, self.list_type)
+
         return reduce(
-            lambda acc, ele: [[self.visit(ele, acc)] + acc[0]] + acc[1:] if not None else acc,
+            lambda acc, ele: [[self.visit(ele, acc)] + acc[0]] + acc[1:] if isinstance(self.visit(ele, acc), Symbol) else acc,
             ast.decl,
             [c]
         )
 
     def visitVarDecl(self, ast, c):
-        # Check name of variable declared
         if self.helper.checkRedeclared(ast.varName, c[0]):
             raise Redeclared(Variable(), ast.varName)
-
-    
         if ast.varInit:
             exprType = self.visit(ast.varInit, c)
+            if exprType is None:
+                raise Undeclared(Identifier(), ast.varInit.name)
             if isinstance(exprType, Id):
                 exprType = self.helper.getType(self.list_type, exprType)
-
             if ast.varType:
-                declType = self.helper.getType(self.list_type, ast.varType)
-            
-                if self.helper.checkTypeMismatch(exprType, declType):
+                declType = ast.varType
+                if isinstance(declType, Id):
+                    declType = self.helper.getType(self.list_type, ast.varType)
+                if self.helper.checkTypeMismatch(declType, exprType, True):
                     raise TypeMismatch(ast)
-                
-                return Symbol(ast.varName, exprType, ast.varInit)
+                return Symbol(ast.varName, declType, ast.varInit)
             return Symbol(ast.varName, exprType, ast.varInit)
 
         if ast.varType:
@@ -106,19 +129,22 @@ class StaticChecker(BaseVisitor,Utils):
         return Symbol(ast.varName, None)
 
     def visitConstDecl(self, ast, c):
-        # Check name of constant declared
         if self.helper.checkRedeclared(ast.conName, c[0]):
             raise Redeclared(Constant(), ast.conName)
-        
+
         if ast.iniExpr:
             exprType = self.visit(ast.iniExpr, c)
+            if exprType is None:
+                raise Undeclared(Identifier(), ast.iniExpr.name)
             if isinstance(exprType, Id):
                 exprType = self.helper.getType(self.list_type, exprType)
 
             if ast.conType:
-                declType = self.helper.getType(self.list_type, ast.conType)
-            
-                if self.helper.checkTypeMismatch(exprType, declType):
+                declType = ast.conType
+                if isinstance(declType, Id):
+                    declType = self.helper.getType(self.list_type, ast.conType)
+                
+                if self.helper.checkTypeMismatch(declType, exprType, True):
                     raise TypeMismatch(ast)
                 
                 return Symbol(ast.conName, declType , ast.iniExpr)
@@ -128,81 +154,63 @@ class StaticChecker(BaseVisitor,Utils):
         return Symbol(ast.conName, ast.conType, ast.iniExpr)
 
     def visitFuncDecl(self, ast, c):
-        # Check name of function declared
         if self.helper.checkRedeclared(ast.name, c[0]):
             raise Redeclared(Function(), ast.name)
 
         self.current_func = ast
-        # Add parameter to current environment
         listParam = self.__functionVisit([[]] + c, ast.params)
-        local_envi = self.__functionVisit(listParam, ast.body.member)
+        local_envi = self.__functionVisit([[]] + listParam, ast.body.member)
 
         self.current_func = None
         return Symbol(ast.name, MType(listParam, ast.retType))
 
     def visitParamDecl(self, ast, c):
-        # Check name of parameter declared
         if self.helper.checkRedeclared(ast.parName, c[0]):
             raise Redeclared(Parameter(), ast.parName)
         return Symbol(ast.parName, ast.parType)
 
     def visitMethodDecl(self, ast, c):
-        # Check name of method declared
         recType = self.helper.getType(self.list_type, ast.recType) 
         if recType is None:
             raise Undeclared(Type(), ast.recType.name)
 
         self.current_func = ast.fun
+        
+        listParam = self.__functionVisit([[Symbol(ast.receiver, ast.recType)]] + c, ast.fun.params)
+        self.__functionVisit([[]] + listParam, ast.fun.body.member)
 
-        if isinstance(recType, StructType):
-            if self.helper.checkRedeclared(ast.fun.name, recType.methods):
-                raise Redeclared(Method(), ast.fun.name)
-            listParam = self.__functionVisit([[Symbol(ast.receiver, ast.recType)]] + c, ast.fun.params)
-            local_envi = self.__functionVisit(listParam, ast.fun.body.member)
-
-            recType.methods += [Symbol(ast.fun.name, MType(listParam, ast.fun.retType))]
-        else:
-            if self.helper.isDeclared((ast.fun.name, recType), self.list_interface_declared):
-                raise Redeclared(Method(), ast.fun.name)
-            
-            listParam = self.__functionVisit([[Symbol(ast.receiver, ast.recType)]] + c, ast.fun.params)
-            local_envi = self.__functionVisit(listParam, ast.fun.body.member)
-
-            self.list_interface_declared += [(ast.fun.name, recType)]
         self.current_func = None
         return None
 
     def visitStructType(self, ast, c):
-        # Check name of struct declared
         if self.helper.checkRedeclared(ast.name, c[0]):
             raise Redeclared(Type(), ast.name)
 
-        # Check name of field declared
-        list_field = []
+        list_field : List[Symbol] = []
         for ele in ast.elements:
-            # Check redeclared field
             if self.helper.checkRedeclared(ele[0], list_field):
                 raise Redeclared(Field(), ele[0])
 
-            # Check undeclared type
             if isinstance(ele[1], StructType) or isinstance(ele[1], InterfaceType):
                 if self.helper.getType(self.list_type, ele[1]) is None:
                     raise Undeclared(Type(), ele[1].name)
             
             list_field += [Symbol(ele[0], ele[1])]
-        return Symbol(ast.name, StructType(ast.name, list_field, []))
+
+        return Symbol(ast.name, StructType(ast.name, ast.elements, ast.methods))
+        
 
     def visitInterfaceType(self, ast, c):
         if self.helper.checkRedeclared(ast.name, c[0]):
             raise Redeclared(Type(), ast.name)
-
-        list_prototype = reduce(
+        
+        reduce(
                 lambda acc, ele:
                     [[self.visit(ele, acc)] + acc[0]] + acc[1:] if not None else acc,
                 ast.methods,
                 [[]] + c
             )[0]
-        return Symbol(ast.name, InterfaceType(ast.name, list_prototype))
+        return Symbol(ast.name, InterfaceType(ast.name, ast.methods))
         
     def visitPrototype(self, ast, c):
         if self.helper.checkRedeclared(ast.name, c[0]):
@@ -221,8 +229,33 @@ class StaticChecker(BaseVisitor,Utils):
     def visitBooleanLiteral(self, ast, c):
         return BoolType()
 
+
+
     def visitArrayLiteral(self, ast, c):
-        return ArrayType(self.visit(ast.value[0], c))
+        self.__checkArrayMembersType(ast.value, c, ast.eleType)
+        return ArrayType(ast.dimens, ast.eleType)
+
+    def visitStructLiteral(self, ast, c):
+        struct = self.lookup(ast.name, self.list_type, lambda x: x.name)
+        if struct is None:
+            raise Undeclared(Type(), ast.name)
+        for ele in ast.elements:
+            field = self.lookup(ele[0], struct.elements, lambda x: x[0])
+            if field is None:
+                raise Undeclared(Field(), ele[0])
+            
+            eleType = self.visit(ele[1], c)
+            if eleType is None:
+                raise Undeclared(Identifier(), ele[1].name)
+            
+            fieldType = field[1]
+            if isinstance(field[1], Id):
+                fieldType = self.helper.getType(self.list_type, field[1])
+            
+            if self.helper.checkTypeMismatch(fieldType, eleType):
+                raise TypeMismatch(ast)
+
+        return StructType(struct.name, struct.elements, struct.methods)
 
     def visitNilLiteral(self, ast, c):
         return VoidType()
@@ -257,22 +290,11 @@ class StaticChecker(BaseVisitor,Utils):
         self.__functionVisit(cur_envi, ast.loop.member)
         return None
 
-    def visitAssign(self, ast, c):
-        lhsType = self.visit(ast.lhs, c)
-        rhsType = self.visit(ast.rhs, c)
-        if lhsType is None:
-            return Symbol(ast.lhs.name, rhsType, ast.rhs)
-        if self.helper.checkTypeMismatch(lhsType, rhsType):
-            raise TypeMismatchInStatement(ast)
-        return None
-
-
     def visitForEach(self, ast, c):
         arrayType = self.visit(ast.arr, [[]] + c)
         if not isinstance(arrayType, ArrayType):
-            raise TypeMismatchInExpression(ast.arr)
-
-
+            raise TypeMismatch(ast)
+        
         if ast.idx.name != '_':
             env = [[Symbol(ast.idx.name, IntType()), Symbol(ast.value.name, arrayType)]] + c
         else:
@@ -283,7 +305,6 @@ class StaticChecker(BaseVisitor,Utils):
 
 
     def visitBinaryOp(self, ast, c):
-        print("visitBinaryOp")
         leftType = self.visit(ast.left, c)
         rightType = self.visit(ast.right, c)    
 
@@ -304,8 +325,6 @@ class StaticChecker(BaseVisitor,Utils):
                 return IntType()
             raise TypeMismatch(ast)
         if ast.op in ['==', '!=', '<', '<=', '>', '>=']:
-            print("leftType", leftType)
-            print("rightType", rightType)
             if self.helper.checkTypeMismatch(leftType, rightType):
                 raise TypeMismatch(ast)
             return BoolType()
@@ -319,77 +338,13 @@ class StaticChecker(BaseVisitor,Utils):
         for ele in c:
             symbol = self.lookup(ast.name, ele, lambda x: x.name)
             if symbol is not None:
+                if isinstance(symbol.mtype, MType):
+                    return symbol.mtype.rettype
+                if isinstance(symbol.mtype, Id):
+                    return self.visit(symbol.mtype, c)
                 return symbol.mtype
-        return None
 
-    def visitIntLiteral(self, ast, c):
-        return IntType()
-
-    def visitExpr(self, ast, c):
-        if self.helper.isBasicType(ast, c) is not None:
-            return self.helper.isBasicType(ast, c)
-
-        if self.helper.isLiteral(ast, c) is not None:
-            return self.helper.isLiteral(ast, c)
-
-        if self.helper.isOtherType(ast, c) is not None:
-            return self.helper.isOtherType(ast, c)
-        
-        return None
-
-    def isBasicType(self, ast: PrimLit, c: List[List[Symbol]]) -> Type:
-        if isinstance(ast, IntLiteral):
-            return IntType()
-        if isinstance(ast, FloatLiteral):
-            return FloatType()
-        if isinstance(ast, StringLiteral):
-            return StringType()
-        if isinstance(ast, BooleanLiteral):
-            return BoolType()
-        return None
-
-    def isLiteral(self, ast: Literal, c: List[List[Symbol]]) -> Type:
-        if isinstance(ast, NilLiteral):
-            return VoidType()
-
-        if isinstance(ast, ArrayLiteral):
-            listDimensType = filter(
-                lambda x: not isinstance(self.visit(x, c), IntType),
-                ast.dimens
-            )
-            if len(listDimensType) > 0:
-                raise TypeMismatch(ast)
-            
-            return ArrayType(ast.dimens, ast.eleType)
-       
-        if isinstance(ast, StructLiteral):
-            struct = self.lookup(ast.name, self.list_type, lambda x: x.name)
-            if struct is None:
-                raise Undeclared(Type(), ast.name)
-            
-            if isinstance(struct, InterfaceType):
-                    raise TypeMismatch(ast)
-
-            check_undeclare = list(filter(
-                lambda x: self.lookup(x[0], struct.elements, lambda y: y[0]) is None,
-                ast.elements
-            ))
-
-            if len(check_undeclare) > 0:
-                raise Undeclared(Field(), check_undeclare[0][0])
-
-            check_type_mismatch = list(filter(
-                lambda x: self.checkTypeMismatch(
-                    self.lookup(x[0], struct.elements, lambda y: y[0])[1],
-                    self.visit(x[1], c)
-                )
-            ))
-
-            if len(check_type_mismatch) > 0:
-                raise TypeMismatch(ast)
-
-            return StructType(struct.name, struct.elements, struct.methods)
-        return None
+        return self.helper.getType(self.list_type, ast)
 
     def visitArrayCell(self, ast, c):
         arrayType = self.visit(ast.arr, c)
@@ -432,12 +387,60 @@ class StaticChecker(BaseVisitor,Utils):
         function = self.lookup(ast.funName, self.list_function, lambda x: x.name)
         if function is None:
             raise Undeclared(Function(), ast.funName)
+        
+        if len(ast.args) != len(function.params):
+            raise TypeMismatch(ast)
+        
+        list_mismatch_param = list(
+            filter(
+                lambda x: self.helper.checkTypeMismatch(self.visit(x[0], c), x[1].parType),
+                zip(ast.args, function.params)
+            )
+        )
+        if len(list_mismatch_param) > 0:
+            raise TypeMismatch(ast)   
+
         return function.retType
 
-    def visitMethodCall(self, ast, c):
-        pass
-        
+    def visitMethCall(self, ast, c):
+        type = self.visit(ast.receiver, c)
 
+        if not isinstance(type, StructType) and not isinstance(type, InterfaceType):
+            raise TypeMismatch(ast)
+
+        method = self.lookup(ast.metName, type.methods, lambda x: x.name)
+        if method is None:
+            raise Undeclared(Method(), ast.metName)
+        
+        
+        if isinstance(type, InterfaceType):
+            method = self.lookup(ast.metName, self.list_interface_declared, lambda x: x.name)
+            if method is None:
+                raise Undeclared(Method(), ast.metName)
+
+        if len(ast.args) != len(method.mtype.partype):
+            raise TypeMismatch(ast)
+        
+        list_mismatch_param = list(
+            filter(
+                lambda x: self.helper.checkTypeMismatch(self.visit(x[0], c), x[1].parType),
+                zip(ast.args, method.mtype.partype)
+            )
+        )
+        if len(list_mismatch_param) > 0:
+            raise TypeMismatch(ast)    
+        return method.mtype.rettype
+        
+    def visitAssign(self, ast, c):
+        lhsType = self.visit(ast.lhs, c)
+        rhsType = self.visit(ast.rhs, c)
+
+        if lhsType is None and not isinstance(rhsType, VoidType):
+            return Symbol(ast.lhs.name, rhsType, ast.rhs)
+        
+        if self.helper.checkTypeMismatch(lhsType, rhsType, True):
+            raise TypeMismatch(ast)
+        return None
    
 class HelperClass(Utils):
     def __init__(self):
@@ -478,12 +481,22 @@ class HelperClass(Utils):
         ]
 
     def checkRedeclared(self, name: str, List: List[Symbol]) -> bool:
-        return self.lookup(name, List, lambda x: x.name) is not None
+        filtered_list = list(filter(None, List))
+        return self.lookup(name, filtered_list, lambda x: x.name) is not None
 
-    def checkTypeMismatch(self, type1, type2) -> bool:
-        if isinstance(type1, StructType) and isinstance(type2, StructType):
-            return type1.name != type2.name
-        return type(type1) != type(type2)
+    def checkTypeMismatch(self, lhs: Type, rhs: Type, assign = False) -> bool:
+        if isinstance(rhs, VoidType):
+            return True
+        if isinstance(lhs, FloatType) and isinstance(rhs, IntType) and assign:
+            return False
+        if isinstance(lhs, StructType) and isinstance(rhs, StructType):
+            return lhs.name != rhs.name
+        if isinstance(lhs, InterfaceType) and isinstance(rhs, InterfaceType):
+            return lhs.name != rhs.name
+        if isinstance(lhs, ArrayType) and isinstance(rhs, ArrayType):
+            return lhs.dimens != rhs.dimens or lhs.eleType != rhs.eleType
+        
+        return type(lhs) != type(rhs)
 
     def getType(self, listType: List[Union[StructType, InterfaceType]], recType: Type) -> Union[StructType, InterfaceType]:
         recType =  list(filter(lambda x: x.name == recType.name, listType))

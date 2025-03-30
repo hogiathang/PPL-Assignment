@@ -1,0 +1,14 @@
+
+        func swap(a, b int) {
+            var temp = a;
+            a := b;
+            b := temp;
+        }
+        func main() {
+            var x = 5;
+            var y = 10.5;
+            swap(x, y);
+            putIntLn(x);
+            putIntLn(y);
+        }
+        

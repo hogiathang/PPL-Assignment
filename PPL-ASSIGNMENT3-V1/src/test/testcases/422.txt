@@ -1,0 +1,6 @@
+
+        var a [1][2]int = [1][2]int{{1,2},{3,4}};
+        var b [2][2]int = [1][2]int{{1,2},{3,4}};
+        const thang = "THANG 10 CHAM PPL";
+        const thang = "THANG 10 CHAM PPL";
+        
