@@ -1,0 +1,11 @@
+
+        var A int;
+        func (a A) b (x int) int {
+            var A = 5;
+            var b = a + x;
+            return b;
+        }
+        type A struct{
+            a int;
+        }
+        

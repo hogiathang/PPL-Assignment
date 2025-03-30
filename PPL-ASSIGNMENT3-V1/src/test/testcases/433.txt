@@ -1,0 +1,22 @@
+
+    func (v TIEN) foo (a, b int) {
+        const v = 1;
+        const a = 1;
+    }
+
+    type TIEN struct {
+        Votien int;
+    }
+
+    func (v VO) foo () {
+        const a = 1;
+    }
+
+    type VO struct {
+        Votien int;
+    }
+
+    func (v VO) foo (a, b int) {
+        const a = 1;
+    }
+        

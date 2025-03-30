@@ -304,7 +304,7 @@ func aaa (b int) {
         self.assertTrue(TestChecker.test(input, "Undeclared Method: zoo\n", 427))
 
     def test_028(self):
-        input = """
+        """
         var v TIEN;      
         type TIEN struct {
             a int;
@@ -312,14 +312,16 @@ func aaa (b int) {
         type VO interface {
             foo() int;
         }
+
         func (v TIEN) foo() int {return 1;}
-        func (b TIEN) koo(a int) {b.koo(a);}
+        func (b TIEN) koo() {b.koo();}
         func foo() {
             var x VO;  
             const b = x.foo(); 
             x.koo(); 
         }
         """
+        input = Program([VarDecl("v",Id("TIEN"), None),StructType("TIEN",[("a",IntType())],[]),InterfaceType("VO",[Prototype("foo",[],IntType())]),MethodDecl("v",Id("TIEN"),FuncDecl("foo",[],IntType(),Block([Return(IntLiteral(1))]))),MethodDecl("b",Id("TIEN"),FuncDecl("koo",[],VoidType(),Block([MethCall(Id("b"),"koo",[])]))),FuncDecl("foo",[],VoidType(),Block([VarDecl("x",Id("VO"), None),ConstDecl("b",None,MethCall(Id("x"),"foo",[])),MethCall(Id("x"),"koo",[])]))])
         self.assertTrue(TestChecker.test(input, "Undeclared Method: foo\n", 428))
 
     def test_029(self):
@@ -357,3 +359,80 @@ func aaa (b int) {
         }
         """
         self.assertTrue(TestChecker.test(input, "Type Mismatch: FuncCall(swap,[Id(x),Id(y)])\n", 430))
+
+    def test_031(self):
+        input = """
+        var A int;
+        func (a A) b (x int) int {
+            var A = 5;
+            var b = a + x;
+            return b;
+        }
+        type A struct{
+            a int;
+        }
+        """
+        self.assertTrue(TestChecker.test(input, "Redeclared Type: A\n", 431))
+
+    def test_032(self):
+        input = """
+        const a = 2;
+        func foo () {
+            const a = 1;
+            for a < 1 {
+                const a = 1;
+                for a < 1 {
+                    const a = 1;
+                    const b = 1;
+                }
+                const b = 1;
+                var a = 1;
+            }
+        };"""
+        self.assertTrue(TestChecker.test(input, "Redeclared Variable: a\n", 432))
+
+    def test_033(self):
+        input =         '''
+    func (v TIEN) foo (a, b int) {
+        const v = 1;
+        const a = 1;
+    }
+
+    type TIEN struct {
+        Votien int;
+    }
+
+    func (v VO) foo () {
+        const a = 1;
+    }
+
+    type VO struct {
+        Votien int;
+    }
+
+    func (v VO) foo (a, b int) {
+        const a = 1;
+    }
+        '''
+        self.assertTrue(TestChecker.test(input, "Redeclared Method: foo\n", 433))
+
+    def test_034(self):
+        input = """
+        type S1 struct {votien int;}
+        func (s S1) votien() int {
+            s.votien();
+            return 1;
+        }
+        type S1 struct {votien int;}
+        type S2 struct {votien int;}
+        type I1 interface {votien();}
+        type I2 interface {votien();}
+
+        func (s S1) votien() {return;}
+
+        var a S1;
+        var b S2;
+        var c I1 = a;
+        var d I2 = b;
+        """
+        self.assertTrue(TestChecker.test(input, "Redeclared Method: votien\n", 434))
