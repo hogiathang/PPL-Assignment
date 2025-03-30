@@ -1,0 +1,8 @@
+
+        type A struct {
+            x int;
+        }
+        type A struct {
+            y float;
+        }
+        

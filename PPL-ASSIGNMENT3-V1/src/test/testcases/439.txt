@@ -1,0 +1,9 @@
+
+        func foo(){
+            if (true) {
+                var a float = 1.02;
+            } else {
+                var a int = 1.02;
+            }
+        }
+        

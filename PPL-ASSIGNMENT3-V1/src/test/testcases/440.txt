@@ -1,0 +1,5 @@
+
+        var a int;
+        var b float;
+        var a string;
+        

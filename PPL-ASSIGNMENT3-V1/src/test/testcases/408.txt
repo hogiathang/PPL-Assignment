@@ -1,1 +1,1 @@
-Program([StructType(aa,[(aa,IntType)],[]),StructType(AAAA,[(aa,StringType),(AAAA,IntType),(AAAA,FloatType)],[])])
+Program([StructType(cc,[(cc,IntType)],[]),StructType(CCCC,[(cc,StringType),(CCCC,IntType),(CCCC,FloatType)],[])])

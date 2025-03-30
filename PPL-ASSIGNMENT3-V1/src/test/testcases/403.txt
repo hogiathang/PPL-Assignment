@@ -1,1 +1,1 @@
-Program([VarDecl(aa,IntLiteral(1)),ConstDecl(aa,IntLiteral(2))])
+Program([VarDecl(cc,IntLiteral(1)),ConstDecl(cc,IntLiteral(2))])

@@ -1,7 +1,7 @@
 
-        type hgt struct {
-            a int;
-            b int;
-            a float;
+        type abc struct {
+            m int;
+            n int;
+            m float;
         };
         

@@ -1,1 +1,1 @@
-var a int; var b int; var a int; 
+var m int; var n int; var m int; 

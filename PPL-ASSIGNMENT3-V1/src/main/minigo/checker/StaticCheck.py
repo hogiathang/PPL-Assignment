@@ -69,14 +69,16 @@ class StaticChecker(BaseVisitor,Utils):
     def __checkArrayMembersType(self, ast, c, eleType):
         if type(ast) is list:
             for ele in ast:
-                self.__checkArrayMembersType(ele, c, eleType)
+                if self.__checkArrayMembersType(ele, c, eleType):
+                    return True
         else:
             arrType = self.visit(ast, c)
             if arrType is None:
                 raise Undeclared(Identifier(), ast.name)
-            if self.helper.checkTypeMismatch(arrType, eleType):
-                raise TypeMismatch(ast)
-
+            if self.helper.checkTypeMismatch(eleType, eleType, True):
+                return True
+            return False
+        return False
     def visitProgram(self, ast: Program, c: List[Symbol]):
         self.list_type = reduce(
             lambda acc, ele: acc + [ele] if (isinstance(ele, StructType) or isinstance(ele, InterfaceType)) else acc,
@@ -226,7 +228,8 @@ class StaticChecker(BaseVisitor,Utils):
 
 
     def visitArrayLiteral(self, ast, c):
-        self.__checkArrayMembersType(ast.value, c, ast.eleType)
+        if self.__checkArrayMembersType(ast.value, c, ast.eleType):
+            raise TypeMismatch(ast)
         return ArrayType(ast.dimens, ast.eleType)
 
     def visitStructLiteral(self, ast, c):
@@ -268,42 +271,11 @@ class StaticChecker(BaseVisitor,Utils):
                 raise TypeMismatch(ast)
         return None
     
-    def visitForBasic(self, ast, c):
-        typeExpr = self.visit(ast.cond, c)
-        if not isinstance(typeExpr, BoolType):
-            raise TypeMismatch(ast)
-        self.__functionVisit([[]] + c, ast.loop.member)
-        return None
-
-    def visitForStep(self, ast, c):
-        cur_envi = [[]] + c
-        cur_envi = [[self.visit(ast.init, cur_envi)] + cur_envi[0]] + cur_envi[1:] if not None else cur_envi
-        condType  = self.visit(ast.cond, cur_envi)
-        
-        if not isinstance(condType, BoolType):
-            raise TypeMismatch(ast)
-
-        self.visit(ast.upda, cur_envi)
-        self.__functionVisit(cur_envi, ast.loop.member)
-        return None
-
-    def visitForEach(self, ast, c):
-        arrayType = self.visit(ast.arr, [[]] + c)
-        if not isinstance(arrayType, ArrayType):
-            raise TypeMismatch(ast)
-        
-        if ast.idx.name != '_':
-            env = [[Symbol(ast.idx.name, IntType()), Symbol(ast.value.name, arrayType)]] + c
-        else:
-            env = [[Symbol(ast.value.name, arrayType)]] + c
-
-        self.__functionVisit(env, ast.loop.member)
-        return None
-
-
     def visitBinaryOp(self, ast, c):
         leftType = self.visit(ast.left, c)
-        rightType = self.visit(ast.right, c)    
+        rightType = self.visit(ast.right, c)
+        if leftType is None or rightType is None:
+            raise Undeclared(Identifier(), ast.left.name if leftType is None else ast.right.name)
 
         if isinstance(leftType, StringType) and isinstance(rightType, StringType) and ast.op == '+':
             return StringType()
@@ -368,15 +340,19 @@ class StaticChecker(BaseVisitor,Utils):
         return field[1]
 
     def visitUnaryOp(self, ast, c):
+        bodyType = self.visit(ast.body, c)
+        if bodyType is None:
+            raise Undeclared(Identifier(), ast.body.name)
+        
         if ast.op in ['!']:
-            if isinstance(self.visit(ast.body, c), BoolType):
+            if isinstance(bodyType, BoolType):
                 return BoolType()
             raise TypeMismatch(ast)
         
         if ast.op in ['-']:
-            if isinstance(self.visit(ast.body, c), IntType):
+            if isinstance(bodyType, IntType):
                 return IntType()
-            if isinstance(self.visit(ast.body, c), FloatType):
+            if isinstance(bodyType, FloatType):
                 return FloatType()
         raise TypeMismatch(ast)
 
@@ -432,8 +408,56 @@ class StaticChecker(BaseVisitor,Utils):
         if self.helper.checkTypeMismatch(lhsType, rhsType, True):
             raise TypeMismatch(ast)
         return None
+    
+    def visitIf(self, ast, c):
+        condType = self.visit(ast.expr, c)
+        if not isinstance(condType, BoolType):
+            raise TypeMismatch(ast)
+        
+        self.__functionVisit([[]] + c, ast.thenStmt.member)
+        if ast.elseStmt:
+            self.__functionVisit([[]] + c, ast.elseStmt.member)
+        return None
+
+    def visitBreak(self, ast, c):
+        return None
+    
+    def visitContinue(self, ast, c):
+        return None
+    
+    def visitForBasic(self, ast, c):
+        typeExpr = self.visit(ast.cond, c)
+        if not isinstance(typeExpr, BoolType):
+            raise TypeMismatch(ast)
+        self.__functionVisit([[]] + c, ast.loop.member)
+        return None
+
+    def visitForStep(self, ast, c):
+        cur_envi = [[]] + c
+        cur_envi = [[self.visit(ast.init, cur_envi)] + cur_envi[0]] + cur_envi[1:] if not None else cur_envi
+        condType  = self.visit(ast.cond, cur_envi)
+        
+        if not isinstance(condType, BoolType):
+            raise TypeMismatch(ast)
+
+        self.visit(ast.upda, cur_envi)
+        self.__functionVisit(cur_envi, ast.loop.member)
+        return None
+
+    def visitForEach(self, ast, c):
+        arrayType = self.visit(ast.arr, [[]] + c)
+        if not isinstance(arrayType, ArrayType):
+            raise TypeMismatch(ast)
+        
+        if ast.idx.name != '_':
+            env = [[Symbol(ast.idx.name, IntType()), Symbol(ast.value.name, arrayType)]] + c
+        else:
+            env = [[Symbol(ast.value.name, arrayType)]] + c
+
+        self.__functionVisit(env, ast.loop.member)
+        return None
    
-class HelperClass(Utils):
+class HelperClass(StaticChecker):
     def __init__(self):
         pass
 
@@ -513,25 +537,17 @@ class HelperClass(Utils):
     def checkMethod(self, prototype: Prototype, list_method: List[Symbol]) -> bool:
         method: Method = self.lookup(prototype.name, list_method, lambda x: x.name)
 
-        print("Prototype: ", prototype)
-        print("Method:    ", method)        
-
         if method is None or len(prototype.params) != len(method.mtype.partype):
             return True
-        
-        print("Prototype: ", prototype.params)
-        print("Method:    ", method.mtype.partype)
-        # list_mismatch_param = list(
-        #     filter(
-        #         lambda x: self.checkTypeMismatch(self.visit(x[0], []), x[1].parType),
-        #         zip(prototype.params, method.mtype.partype)
-        #     )
-        # )
 
-        # if len(list_mismatch_param) > 0:
-        #     return True
-        
-        print("Method: ", method.mtype.rettype)
-        print("Prototype: ", prototype.retType)
-        
+        list_mismatch_param = list(
+            filter(
+                lambda x: self.checkTypeMismatch(x[0], x[1].parType),
+                zip(prototype.params, method.mtype.partype)
+            )
+        )
+
+        if len(list_mismatch_param) > 0:
+            return True
+
         return self.checkTypeMismatch(prototype.retType, method.mtype.rettype)

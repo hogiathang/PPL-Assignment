@@ -1,1 +1,1 @@
-Program([InterfaceType(aaa,[Prototype(aaa,[],VoidType),Prototype(aaa,[IntType],VoidType)])])
+Program([InterfaceType(ccc,[Prototype(ccc,[],VoidType),Prototype(ccc,[IntType],VoidType)])])

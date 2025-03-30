@@ -6,131 +6,131 @@ class CheckSuite(unittest.TestCase):
 
     def test_000(self):
         input = """
-        type hgt struct {
-            a int;
-            b int;
-            a float;
+        type abc struct {
+            m int;
+            n int;
+            m float;
         };
         """
-        self.assertTrue(TestChecker.test(input, "Redeclared Field: a\n", 400))
+        self.assertTrue(TestChecker.test(input, "Redeclared Field: m\n", 400))
 
     def test_001(self):
-        input = """var a int; var b int; var a int; """
-        expect = "Redeclared Variable: a\n"
-        self.assertTrue(TestChecker.test(input,expect,401))
+        input = """var m int; var n int; var m int; """
+        expect = "Redeclared Variable: m\n"
+        self.assertTrue(TestChecker.test(input, expect, 401))
 
     def test_002(self):
         """
-var aa = 1; 
-var aa = 2;
+var cc = 1; 
+var cc = 2;
         """
-        input = Program([VarDecl("aa", None,IntLiteral(1)),VarDecl("aa", None,IntLiteral(2))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Variable: aa\n", 402))
+        input = Program([VarDecl("cc", None, IntLiteral(1)), VarDecl("cc", None, IntLiteral(2))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Variable: cc\n", 402))
 
     def test_003(self):
         """
-var aa = 1; 
-const aa = 2;
+var cc = 1; 
+const cc = 2;
         """
-        input = Program([VarDecl("aa", None,IntLiteral(1)),ConstDecl("aa",None,IntLiteral(2))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Constant: aa\n", 403))
+        input = Program([VarDecl("cc", None, IntLiteral(1)), ConstDecl("cc", None, IntLiteral(2))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Constant: cc\n", 403))
 
     def test_004(self):
         """
-const aa = 1; 
-var aa = 2;
+const cc = 1; 
+var cc = 2;
         """
-        input = Program([ConstDecl("aa",None,IntLiteral(1)),VarDecl("aa", None,IntLiteral(2))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Variable: aa\n", 404))
+        input = Program([ConstDecl("cc", None, IntLiteral(1)), VarDecl("cc", None, IntLiteral(2))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Variable: cc\n", 404))
 
     def test_005(self):
         """
-const aa = 1; 
-func aa () {return;}
+const cc = 1; 
+func cc () {return;}
         """
-        input = Program([ConstDecl("aa",None,IntLiteral(1)),FuncDecl("aa",[],VoidType(),Block([Return(None)]))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Function: aa\n", 405))
+        input = Program([ConstDecl("cc", None, IntLiteral(1)), FuncDecl("cc", [], VoidType(), Block([Return(None)]))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Function: cc\n", 405))
 
     def test_006(self):
         """ 
-func aa () {return;}
-var aa = 1;
+func cc () {return;}
+var cc = 1;
         """
-        input = Program([FuncDecl("aa",[],VoidType(),Block([Return(None)])),VarDecl("aa", None,IntLiteral(1))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Variable: aa\n", 406))
+        input = Program([FuncDecl("cc", [], VoidType(), Block([Return(None)])), VarDecl("cc", None, IntLiteral(1))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Variable: cc\n", 406))
 
     def test_007(self):
         """ 
-var getInt = 1;
+var getFloat = 2.5;
         """
-        input = Program([VarDecl("getInt", None,IntLiteral(1))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Variable: getInt\n", 407))
+        input = Program([VarDecl("getFloat", None, FloatLiteral(2.5))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Variable: getFloat\n", 407))
 
     def test_008(self):
         """ 
-type  aa struct {
-    aa int;
+type  cc struct {
+    cc int;
 }
 
-type AAAA struct {
-    aa string;
-    AAAA int;
-    AAAA float;
+type CCCC struct {
+    cc string;
+    CCCC int;
+    CCCC float;
 }
         """
-        input = Program([StructType("aa",[("aa",IntType())],[]),StructType("AAAA",[("aa",StringType()),("AAAA",IntType()),("AAAA",FloatType())],[])])
-        self.assertTrue(TestChecker.test(input, "Redeclared Field: AAAA\n", 408))
+        input = Program([StructType("cc", [("cc", IntType())], []), StructType("CCCC", [("cc", StringType()), ("CCCC", IntType()), ("CCCC", FloatType())], [])])
+        self.assertTrue(TestChecker.test(input, "Redeclared Field: CCCC\n", 408))
 
     def test_009(self):
         """
-func (v AAAA) putIntLn () {return;}
-func (v AAAA) getInt () {return;}
-func (v AAAA) getInt () {return;}
-type AAAA struct {
-    aaa int;
+func (v CCCC) putDoubleLn () {return;}
+func (v CCCC) getDouble () {return;}
+func (v CCCC) getDouble () {return;}
+type CCCC struct {
+    ccc int;
 }
         """
-        input = Program([MethodDecl("v",Id("AAAA"),FuncDecl("putIntLn",[],VoidType(),Block([Return(None)]))),MethodDecl("v",Id("AAAA"),FuncDecl("getInt",[],VoidType(),Block([Return(None)]))),MethodDecl("v",Id("AAAA"),FuncDecl("getInt",[],VoidType(),Block([Return(None)]))), StructType("AAAA",[("aaa",IntType())],[])])
-        self.assertTrue(TestChecker.test(input, "Redeclared Method: getInt\n", 409))
+        input = Program([MethodDecl("v", Id("CCCC"), FuncDecl("putDoubleLn", [], VoidType(), Block([Return(None)]))), MethodDecl("v", Id("CCCC"), FuncDecl("getDouble", [], VoidType(), Block([Return(None)]))), MethodDecl("v", Id("CCCC"), FuncDecl("getDouble", [], VoidType(), Block([Return(None)]))), StructType("CCCC", [("ccc", IntType())], [])])
+        self.assertTrue(TestChecker.test(input, "Redeclared Method: getDouble\n", 409))
 
     def test_010(self):
         """ 
-type aaa interface {
-    aaa ();
-    aaa (a int);
+type ccc interface {
+    ccc ();
+    ccc (y int);
 }
         """
-        input = Program([InterfaceType("aaa",[Prototype("aaa",[],VoidType()),Prototype("aaa",[IntType()],VoidType())])])
-        self.assertTrue(TestChecker.test(input, "Redeclared Prototype: aaa\n", 410))
+        input = Program([InterfaceType("ccc", [Prototype("ccc", [], VoidType()), Prototype("ccc", [IntType()], VoidType())])])
+        self.assertTrue(TestChecker.test(input, "Redeclared Prototype: ccc\n", 410))
 
     def test_011(self):
         """ 
-func aaa (a, a int) {return;}
+func ccc (y, y int) {return;}
         """
-        input = Program([FuncDecl("aaa",[ParamDecl("a",IntType()),ParamDecl("a",IntType())],VoidType(),Block([Return(None)]))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Parameter: a\n", 411))
+        input = Program([FuncDecl("ccc", [ParamDecl("y", IntType()), ParamDecl("y", IntType())], VoidType(), Block([Return(None)]))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Parameter: y\n", 411))
 
     def test_012(self):
         """ 
-func aaa (b int) {
-    var b = 1;
-    var a = 1;
-    const a = 1;
+func ccc (z int) {
+    var z = 1;
+    var y = 1;
+    const y = 1;
 }
         """
-        input = Program([FuncDecl("aaa",[ParamDecl("b",IntType())],VoidType(),Block([VarDecl("b", None,IntLiteral(1)),VarDecl("a", None,IntLiteral(1)),ConstDecl("a",None,IntLiteral(1))]))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Constant: a\n", 412))
+        input = Program([FuncDecl("ccc", [ParamDecl("z", IntType())], VoidType(), Block([VarDecl("z", None, IntLiteral(1)), VarDecl("y", None, IntLiteral(1)), ConstDecl("y", None, IntLiteral(1))]))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Constant: y\n", 412))
 
     def test_013(self):
         """ 
-func aaa (b int) {
-    for var a = 1; a < 1; a += 1 {
-        const a = 2;
+func ccc (z int) {
+    for var y = 1; y < 1; y += 1 {
+        const y = 2;
     }
 }
         """
-        input = Program([FuncDecl("aaa",[ParamDecl("b",IntType())],VoidType(),Block([ForStep(VarDecl("a", None,IntLiteral(1)),BinaryOp("<", Id("a"), IntLiteral(1)),Assign(Id("a"),BinaryOp("+", Id("a"), IntLiteral(1))),Block([ConstDecl("a",None,IntLiteral(2))]))]))])
-        self.assertTrue(TestChecker.test(input, "Redeclared Constant: a\n", 413))
+        input = Program([FuncDecl("ccc", [ParamDecl("z", IntType())], VoidType(), Block([ForStep(VarDecl("y", None, IntLiteral(1)), BinaryOp("<", Id("y"), IntLiteral(1)), Assign(Id("y"), BinaryOp("+", Id("y"), IntLiteral(1))), Block([ConstDecl("y", None, IntLiteral(2))]))]))])
+        self.assertTrue(TestChecker.test(input, "Redeclared Constant: y\n", 413))
 
     def test_014(self):
         """
@@ -506,3 +506,113 @@ func aaa (b int) {
         # input = Program([StructType("S1",[("votien",IntType())],[]),StructType("S2",[("votien",IntType())],[]),InterfaceType("I1",[Prototype("votien",[IntType(),IntType()],Id("S1"))]),InterfaceType("I2",[Prototype("votien",[IntType()],Id("S1"))]),MethodDecl("s",Id("S1"),FuncDecl("votien",[ParamDecl("a",IntType()),ParamDecl("b",IntType())],Id("S1"),Block([Return(Id("s"))]))),VarDecl("a",Id("S1"), None),VarDecl("c",Id("I1"),Id("a")),VarDecl("d",Id("I2"),Id("a"))])
         self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(d,Id(I2),Id(a))\n", 438))
 
+    def test_039(self):
+        input ="""
+        func foo(){
+            if (true) {
+                var a float = 1.02;
+            } else {
+                var a int = 1.02;
+            }
+        }
+        """
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(a,IntType,FloatLiteral(1.02))\n", 439))
+
+    def test_040(self):
+        input = """
+        var a int;
+        var b float;
+        var a string;
+        """
+        self.assertTrue(TestChecker.test(input, "Redeclared Variable: a\n", 440))
+
+    def test_041(self):
+        input = """
+        type A struct {
+            x int;
+        }
+        type A struct {
+            y float;
+        }
+        """
+        self.assertTrue(TestChecker.test(input, "Redeclared Type: A\n", 441))
+
+    def test_042(self):
+        input = """
+        func foo() {}
+        func foo() {}
+        """
+        self.assertTrue(TestChecker.test(input, "Redeclared Function: foo\n", 442))
+
+    def test_043(self):
+        input = """
+        var a = 1;
+        var b = a + c;
+        """
+        self.assertTrue(TestChecker.test(input, "Undeclared Identifier: c\n", 443))
+
+    def test_044(self):
+        input = """
+        type A struct {
+            x int;
+        }
+        var a A;
+        var b = a.y;
+        """
+        self.assertTrue(TestChecker.test(input, "Undeclared Field: y\n", 444))
+
+    def test_045(self):
+        input = """
+        func foo(a int, b int) {}
+        func foo(a int, a float) {}
+        """
+        self.assertTrue(TestChecker.test(input, "Redeclared Function: foo\n", 445))
+
+    def test_046(self):
+        input = """
+        var a int;
+        var b = a + "string";
+        """
+        self.assertTrue(TestChecker.test(input, """Type Mismatch: BinaryOp(Id(a),+,StringLiteral("string"))\n""", 446))
+
+    def test_047(self):
+        input = """
+        var a = [2]float{1, 2};
+        var b [3]int = a;
+        """
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: VarDecl(b,ArrayType(IntType,[IntLiteral(3)]),Id(a))\n", 447))
+
+    def test_048(self):
+        input = """
+        func foo() int {
+            return 1.5;
+        }
+        """
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: Return(FloatLiteral(1.5))\n", 448))
+
+    def test_049(self):
+        input = """
+        func foo() {
+            var a int;
+            a := "string";
+        }
+        """
+        self.assertTrue(TestChecker.test(input, """Type Mismatch: Assign(Id(a),StringLiteral("string"))\n""", 449))
+
+    def test_050(self):
+        input = """
+        func foo() {
+            if (1) {}
+        }
+        """
+        self.assertTrue(TestChecker.test(input, "Type Mismatch: If(IntLiteral(1),Block([]))\n", 450))
+
+    def test_190(self):
+        """
+const v = 3;
+const a = v + v;
+var b [a * 2 + a] int;
+var c [18] int = b;
+        """
+        input = Program([ConstDecl("v",None,IntLiteral(3)),ConstDecl("a",None,BinaryOp("+", Id("v"), Id("v"))),VarDecl("b",ArrayType([BinaryOp("+", BinaryOp("*", Id("a"), IntLiteral(2)), Id("a"))],IntType()), None),VarDecl("c",ArrayType([IntLiteral(18)],IntType()),Id("b"))])
+        self.assertTrue(TestChecker.test(input, """""", 451)) 

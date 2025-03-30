@@ -1,0 +1,6 @@
+
+        func foo() {
+            var a [2]int = [2]int{1, 2};
+            var b [3]int = a;
+        }
+        

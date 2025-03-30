@@ -1,1 +1,1 @@
-Program([MethodDecl(v,Id(AAAA),FuncDecl(putIntLn,[],VoidType,Block([Return()]))),MethodDecl(v,Id(AAAA),FuncDecl(getInt,[],VoidType,Block([Return()]))),MethodDecl(v,Id(AAAA),FuncDecl(getInt,[],VoidType,Block([Return()]))),StructType(AAAA,[(aaa,IntType)],[])])
+Program([MethodDecl(v,Id(CCCC),FuncDecl(putDoubleLn,[],VoidType,Block([Return()]))),MethodDecl(v,Id(CCCC),FuncDecl(getDouble,[],VoidType,Block([Return()]))),MethodDecl(v,Id(CCCC),FuncDecl(getDouble,[],VoidType,Block([Return()]))),StructType(CCCC,[(ccc,IntType)],[])])

@@ -1,1 +1,1 @@
-Program([FuncDecl(aaa,[ParDecl(a,IntType),ParDecl(a,IntType)],VoidType,Block([Return()]))])
+Program([FuncDecl(ccc,[ParDecl(y,IntType),ParDecl(y,IntType)],VoidType,Block([Return()]))])
