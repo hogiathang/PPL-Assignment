@@ -692,3 +692,40 @@ var c [18] int = b;
         var c [2] float = a
         """
         self.assertTrue(TestChecker.test(input, """""", 459))
+
+    def test_060(self):
+        input = """
+            func foo(){
+                var arr [2] int;
+                for a, b := range arr {
+                    var c int = a;
+                    var d int = b;
+                    var e string = a;
+                }
+            }
+        """
+        self.assertTrue(TestChecker.test(input, """Type Mismatch: VarDecl(e,StringType,Id(a))\n""", 460))
+    
+    def test_062(self):
+        # input = """
+        # func foo(){
+        #     var arr [2][3] int;
+        #     for a, b := range arr[2] {
+        #         var c int = a;
+        #         var d [3]int = b;
+        #         var e [2]string = a;
+        #     }
+        # }
+        # """
+        input = Program([FuncDecl("foo",[],VoidType(),Block([VarDecl("arr",ArrayType([IntLiteral(2),IntLiteral(3)],IntType()), None),ForEach(Id("a"),Id("b"),Id("arr"),Block([VarDecl("c",IntType(),Id("a")),VarDecl("d",ArrayType([IntLiteral(3)],IntType()),Id("b")),VarDecl("e",ArrayType([IntLiteral(2)],StringType()),Id("a"))]))]))])
+        self.assertTrue(TestChecker.test(input, """Type Mismatch: VarDecl(e,ArrayType(StringType,[IntLiteral(2)]),Id(a))\n""", 461))
+
+    def test_063(self):
+        input = """
+        type S1 struct {thang int;}
+        func (s S1) thang() int {
+            s.thang();
+            return 1;
+        }
+        """
+        self.assertTrue(TestChecker.test(input, """Undeclared Method: thang\n""", 462))

@@ -136,6 +136,31 @@ class StaticChecker(BaseVisitor,Utils):
         
         return self.helper.checkTypeMismatch(lhs.eleType, rhs.eleType, assign)
     
+    def __getArrayType(self, ast, arrType, c) -> Type:
+        #ArrayType:
+            # dimens: List[Expr]
+            # eleType: Type
+
+        # arr
+        # idx: List[Expr]
+        
+        # var a [2][3][3] int;
+        # var b = a[1][2]; -> ArrayType([3], IntType())
+        # var c = a[1][2][3]; -> IntType()
+        # var d = a[1] -> ArrayType([3][3], IntType())
+        idx_len = len(ast.idx)
+        arr_len = len(arrType.dimens)
+
+        if idx_len > arr_len:
+            raise TypeMismatch(ast)
+        if idx_len == arr_len:
+            return arrType.eleType
+
+        return ArrayType(
+            arrType.dimens[(arr_len - idx_len):],
+            arrType.eleType
+        )
+    
     def visitProgram(self, ast: Program, c: List[Symbol]):
         self.list_type = reduce(
             lambda acc, ele: acc + [ele] if (isinstance(ele, StructType) or isinstance(ele, InterfaceType)) else acc,
@@ -393,31 +418,6 @@ class StaticChecker(BaseVisitor,Utils):
 
         return self.helper.getType(self.list_type, ast)
 
-    def __getArrayType(self, ast, arrType, c) -> Type:
-        #ArrayType:
-            # dimens: List[Expr]
-            # eleType: Type
-
-        # arr
-        # idx: List[Expr]
-        
-        # var a [2][3][3] int;
-        # var b = a[1][2]; -> ArrayType([3], IntType())
-        # var c = a[1][2][3]; -> IntType()
-        # var d = a[1] -> ArrayType([3][3], IntType())
-        idx_len = len(ast.idx)
-        arr_len = len(arrType.dimens)
-
-        if idx_len > arr_len:
-            raise TypeMismatch(ast)
-        if idx_len == arr_len:
-            return arrType.eleType
-
-        return ArrayType(
-            arrType.dimens[(arr_len - idx_len):],
-            arrType.eleType
-        )
-
     def visitArrayCell(self, ast, c):
         arrayType = self.visit(ast.arr, c)
         
@@ -552,14 +552,16 @@ class StaticChecker(BaseVisitor,Utils):
         return None
 
     def visitForEach(self, ast, c):
-        arrayType = self.visit(ast.arr, [[]] + c)
+        arrayType = self.visit(ast.arr, c)
         if not isinstance(arrayType, ArrayType):
             raise TypeMismatch(ast)
         
+        valueType = arrayType.eleType if len(arrayType.dimens) == 1 else ArrayType(arrayType.dimens[1:], arrayType.eleType) 
+
         if ast.idx.name != '_':
-            env = [[Symbol(ast.idx.name, IntType()), Symbol(ast.value.name, arrayType)]] + c
+            env = [[Symbol(ast.idx.name, IntType()), Symbol(ast.value.name, valueType)]] + c
         else:
-            env = [[Symbol(ast.value.name, arrayType)]] + c
+            env = [[Symbol(ast.value.name, arrayType.eleType)]] + c
         self.__functionVisit(env, ast.loop.member)
         return None
 

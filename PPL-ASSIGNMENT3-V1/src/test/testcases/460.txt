@@ -1,5 +1,10 @@
 
-        func foo() {
-            if (1) {}
-        }
+            func foo(){
+                var arr [2] int;
+                for a, b := range arr {
+                    var c int = a;
+                    var d int = b;
+                    var e string = a;
+                }
+            }
         
