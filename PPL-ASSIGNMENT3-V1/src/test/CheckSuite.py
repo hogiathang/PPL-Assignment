@@ -675,3 +675,20 @@ var c [18] int = b;
         var d = c.x;
         """
         self.assertTrue(TestChecker.test(input, """Type Mismatch: FieldAccess(Id(c),x)\n""", 457))
+
+    def test_058(self):
+        input = """
+        type S1 struct {votien int;}
+        type I1 interface {votien();}
+        var a I1;
+        var c I1 = nil;
+        var d S1 = nil;
+        """
+        self.assertTrue(TestChecker.test(input, """""", 458))
+
+    def test_059(self):
+        input = """
+        var a = [2] int {1, 2}
+        var c [2] float = a
+        """
+        self.assertTrue(TestChecker.test(input, """""", 459))

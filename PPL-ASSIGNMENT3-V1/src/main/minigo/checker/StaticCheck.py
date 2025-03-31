@@ -165,12 +165,13 @@ class StaticChecker(BaseVisitor,Utils):
             raise Redeclared(Variable(), ast.varName)
         if ast.varInit:
             exprType = self.visit(ast.varInit, c)
+            
             if exprType is None:
                 raise Undeclared(Identifier(), ast.varInit.name)
            
             if isinstance(exprType, Id):
                 exprType = self.helper.getType(self.list_type, exprType)
-
+                
             if ast.varType:
                 declType = ast.varType
                 if isinstance(declType, Id):
@@ -179,6 +180,7 @@ class StaticChecker(BaseVisitor,Utils):
                 if isinstance(declType, ArrayType) and isinstance(exprType, ArrayType):
                     if self.__checkArrayTypeMismatch(declType, exprType, c, True):
                         raise TypeMismatch(ast)
+
                 elif self.helper.checkTypeMismatch(declType, exprType, True):
                     raise TypeMismatch(ast)
                     
@@ -208,10 +210,7 @@ class StaticChecker(BaseVisitor,Utils):
                 if isinstance(declType, ArrayType) and isinstance(exprType, ArrayType):
                     if self.__checkArrayTypeMismatch(declType, exprType, c, True):
                         raise TypeMismatch(ast)
-
-                if self.helper.checkTypeMismatch(declType, exprType, True):
-                    raise TypeMismatch(ast)
-                elif self.helper.checkTypeMismatch(exprType, declType, True):
+                elif self.helper.checkTypeMismatch(declType, exprType, True):
                     raise TypeMismatch(ast)
                 
                 return Symbol(ast.conName, declType , ast.iniExpr)
@@ -607,6 +606,8 @@ class HelperClass(StaticChecker):
         return self.lookup(name, filtered_list, lambda x: x.name) is not None
 
     def checkTypeMismatch(self, lhs: Type, rhs: Type, assign = False) -> bool:
+        if (isinstance(lhs, StructType) or isinstance(lhs, InterfaceType)) and isinstance(rhs, VoidType) and assign:
+            return False
         if isinstance(rhs, VoidType) and assign:
             return True
         if isinstance(lhs, FloatType) and isinstance(rhs, IntType) and assign:
