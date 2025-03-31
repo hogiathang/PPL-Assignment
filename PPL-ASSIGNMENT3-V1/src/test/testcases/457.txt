@@ -1,6 +1,6 @@
 
-        func foo() {
-            var a [2]int = [2]int{1, 2};
-            var b [3]int = a;
-        }
+        type S1 struct {v int; x S1;}
+        var b S1;
+        var c = b.x.v;
+        var d = c.x;
         

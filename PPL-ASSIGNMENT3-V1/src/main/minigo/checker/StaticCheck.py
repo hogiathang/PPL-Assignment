@@ -176,11 +176,6 @@ class StaticChecker(BaseVisitor,Utils):
                 if isinstance(declType, Id):
                     declType = self.helper.getType(self.list_type, ast.varType)
                 
-                # print("__________________")
-                # print(ast)
-                # print(exprType)
-                # print(declType)
-
                 if isinstance(declType, ArrayType) and isinstance(exprType, ArrayType):
                     if self.__checkArrayTypeMismatch(declType, exprType, c, True):
                         raise TypeMismatch(ast)
@@ -259,15 +254,19 @@ class StaticChecker(BaseVisitor,Utils):
             raise Redeclared(Type(), ast.name)
 
         list_field : List[Symbol] = []
+        # list_return_elements: List[Tuple[str,Type]] = []
         for ele in ast.elements:
             if self.helper.checkRedeclared(ele[0], list_field):
                 raise Redeclared(Field(), ele[0])
 
-            if isinstance(ele[1], StructType) or isinstance(ele[1], InterfaceType):
-                if self.helper.getType(self.list_type, ele[1]) is None:
+            eleType = ele[1]
+            if isinstance(ele[1], StructType) or isinstance(ele[1], InterfaceType) or isinstance(ele[1], Id):
+                eleType = self.helper.getType(self.list_type, ele[1])
+                if eleType is None:
                     raise Undeclared(Type(), ele[1].name)
             
-            list_field += [Symbol(ele[0], ele[1])]
+            list_field += [Symbol(ele[0], eleType)]
+            # list_return_elements += [(ele[0], eleType)]
 
         return Symbol(ast.name, StructType(ast.name, ast.elements, ast.methods))
         
@@ -395,32 +394,60 @@ class StaticChecker(BaseVisitor,Utils):
 
         return self.helper.getType(self.list_type, ast)
 
+    def __getArrayType(self, ast, arrType, c) -> Type:
+        #ArrayType:
+            # dimens: List[Expr]
+            # eleType: Type
+
+        # arr
+        # idx: List[Expr]
+        
+        # var a [2][3][3] int;
+        # var b = a[1][2]; -> ArrayType([3], IntType())
+        # var c = a[1][2][3]; -> IntType()
+        # var d = a[1] -> ArrayType([3][3], IntType())
+        idx_len = len(ast.idx)
+        arr_len = len(arrType.dimens)
+
+        if idx_len > arr_len:
+            raise TypeMismatch(ast)
+        if idx_len == arr_len:
+            return arrType.eleType
+
+        return ArrayType(
+            arrType.dimens[(arr_len - idx_len):],
+            arrType.eleType
+        )
+
     def visitArrayCell(self, ast, c):
         arrayType = self.visit(ast.arr, c)
+        
         if not isinstance(arrayType, ArrayType):
             raise TypeMismatch(ast)
 
-        # Check that all indices are integers
         list_index = list(filter(
             lambda x: not isinstance(self.visit(x, c), IntType),
             ast.idx
         ))
         if len(list_index) > 0:
             raise TypeMismatch(ast)
-            
-        if len(arrayType.dimens) == 1:
-            return arrayType.eleType
-        return ArrayType(arrayType.dimens[1:], arrayType.eleType)
+        
+        return self.__getArrayType(ast, arrayType, c)
+        
+
 
     def visitFieldAccess(self, ast, c):
         recv = self.visit(ast.receiver, c)
+        
+        if not isinstance(recv, Id) and not isinstance(recv, StructType):
+            raise TypeMismatch(ast)
+        
         struct = self.lookup(recv.name, self.list_type, lambda x: x.name)
         if not isinstance(struct, StructType):
             raise TypeMismatch(ast)
         field = self.lookup(ast.field, struct.elements, lambda x: x[0])
         if field is None:
             raise Undeclared(Field(), ast.field)
-        
         return field[1]
 
     def visitUnaryOp(self, ast, c):

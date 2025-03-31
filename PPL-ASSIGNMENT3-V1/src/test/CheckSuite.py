@@ -657,3 +657,21 @@ var c [18] int = b;
         var d [3] string = b;
         """
         self.assertTrue(TestChecker.test(input, """Type Mismatch: VarDecl(d,ArrayType(StringType,[IntLiteral(3)]),Id(b))\n""", 455))
+
+    def test_056(self):
+        input = """
+        var a [2][3] int;
+        var b = a[1][2];
+        var c int = b;
+        var d [1] string = b;
+        """
+        self.assertTrue(TestChecker.test(input, """Type Mismatch: VarDecl(d,ArrayType(StringType,[IntLiteral(1)]),Id(b))\n""", 456))
+
+    def test_057(self):
+        input = """
+        type S1 struct {v int; x S1;}
+        var b S1;
+        var c = b.x.v;
+        var d = c.x;
+        """
+        self.assertTrue(TestChecker.test(input, """Type Mismatch: FieldAccess(Id(c),x)\n""", 457))
