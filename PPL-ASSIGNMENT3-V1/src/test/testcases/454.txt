@@ -1,8 +1,11 @@
 
-        type A struct {
-            x int;
+        func foo() {
+            return
         }
-        func (a A) foo() {
-            a.bar();
+        func foo1() int {
+            return 1
+        }
+        func foo2() float {
+            return 1
         }
         

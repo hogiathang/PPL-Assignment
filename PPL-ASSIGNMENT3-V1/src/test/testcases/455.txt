@@ -1,8 +1,6 @@
 
-        type A struct {
-            x int;
-        }
-        func (a A) foo() {
-            var b = a.y;
-        }
+        var a [2][3] int;
+        var b = a[1];
+        var c [3] int = b;
+        var d [3] string = b;
         

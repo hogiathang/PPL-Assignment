@@ -1,11 +1,11 @@
 
-            var v TIEN;
+            var v PPPPPP;
             const b = v.foo();        
-            type TIEN struct {
+            type PPPPPP struct {
                 a int;
             } 
-            func (v TIEN) foo() int {return 1;}
-            func (v TIEN) koo() int {return 1;}
+            func (v PPPPPP) foo() int {return 1;}
+            func (v PPPPPP) koo() int {return 1;}
             const c = v.koo();  
             const d = v.zoo();
         

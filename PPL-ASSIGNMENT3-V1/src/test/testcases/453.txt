@@ -1,7 +1,1 @@
-
-        type A struct {
-            x int;
-        }
-        func (a A) foo() {}
-        func (a A) foo() {}
-        
+Program([InterfaceType(A,[Prototype(foo,[],VoidType)]),ConstDecl(A,IntLiteral(2))])

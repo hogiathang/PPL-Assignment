@@ -1,14 +1,14 @@
 
-        var v TIEN;      
-        type TIEN struct {
+        var v PPPPPP;      
+        type PPPPPP struct {
             a int;
         } 
         type VO interface {
             foo() int;
             akazam() int;
         }
-        func (z TIEN) akazam(a int, b float) int {return 1;}
-        func (b TIEN) koo(a int) {b.koo(a);}
+        func (z PPPPPP) akazam(a int, b float) int {return 1;}
+        func (b PPPPPP) koo(a int) {b.koo(a);}
         func foo() {
             var x VO;
             const c = x.akazam(1);  

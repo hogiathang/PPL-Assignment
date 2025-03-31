@@ -1,1 +1,1 @@
-Undeclared Method: bar
+Type Mismatch: Return(IntLiteral(1))

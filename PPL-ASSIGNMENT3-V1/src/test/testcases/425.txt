@@ -1,9 +1,9 @@
 
-        type TIEN struct {
-            Votien int;
+        type PPPPPP struct {
+            mmmm int;
         }
 
-        func (v TIEN) getInt () {
+        func (v PPPPPP) getInt () {
             v.getInt ();    
             v.putInt ();
         };
