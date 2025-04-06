@@ -1,7 +1,7 @@
 
-            type PPPPPP struct {
-                mmmm int;
+            type TIEN struct {
+                Votien int;
             }
-            func (v PPPPPP) foo (a, b int) {return;}
+            func (v TIEN) foo (a, b int) {return;}
             func foo (a, a int) {return;}
         

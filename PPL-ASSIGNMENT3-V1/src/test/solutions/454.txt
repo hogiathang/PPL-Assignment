@@ -1,1 +1,1 @@
-Type Mismatch: Return(IntLiteral(1))
+Undeclared Identifier: i

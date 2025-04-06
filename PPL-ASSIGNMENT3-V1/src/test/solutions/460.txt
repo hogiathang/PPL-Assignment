@@ -1,1 +1,1 @@
-Type Mismatch: VarDecl(e,StringType,Id(a))
+Type Mismatch: If(IntLiteral(1),Block([]))

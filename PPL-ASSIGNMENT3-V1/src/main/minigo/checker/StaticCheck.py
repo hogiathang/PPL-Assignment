@@ -50,6 +50,9 @@ class StaticChecker(BaseVisitor,Utils):
             sym = self.visit(ele, cur_envi)
             if isinstance(sym, Symbol):
                 cur_envi[0] = [sym] + cur_envi[0]
+            if isinstance(ele, FuncCall) or isinstance(ele, MethCall):
+                if not isinstance(sym, VoidType):
+                    raise TypeMismatch(ele)
         return cur_envi
     
     def __update_method(self, method, list_type):
@@ -210,6 +213,9 @@ class StaticChecker(BaseVisitor,Utils):
                     raise TypeMismatch(ast)
                     
                 return Symbol(ast.varName, declType, ast.varInit)
+
+            if isinstance(exprType, VoidType):
+                raise TypeMismatch(ast.varInit)            
             return Symbol(ast.varName, exprType, ast.varInit)
 
         if ast.varType:
@@ -217,6 +223,9 @@ class StaticChecker(BaseVisitor,Utils):
         return Symbol(ast.varName, None)
 
     def visitConstDecl(self, ast, c):
+        print('visitConstDecl')
+        print(ast)
+        self.__debug(c)
         if self.helper.checkRedeclared(ast.conName, c[0]):
             raise Redeclared(Constant(), ast.conName)
 
@@ -239,8 +248,11 @@ class StaticChecker(BaseVisitor,Utils):
                     raise TypeMismatch(ast)
                 
                 return Symbol(ast.conName, declType , ast.iniExpr)
-            return Symbol(ast.conName, exprType, ast.iniExpr)
+            
+            if isinstance(exprType, VoidType):
+                raise TypeMismatch(ast.iniExpr)
 
+            return Symbol(ast.conName, exprType, ast.iniExpr)
         
         return Symbol(ast.conName, ast.conType, ast.iniExpr)
 
@@ -265,9 +277,12 @@ class StaticChecker(BaseVisitor,Utils):
         if recType is None:
             raise Undeclared(Type(), ast.recType.name)
 
+        # if self.lookup(ast.fun.name, recType.elements, lambda x: x[0]) is not None:
+        #     raise Redeclared(Method(), ast.fun.name)
+
         self.current_func = ast.fun
         
-        listParam = self.__functionVisit([[Symbol(ast.receiver, ast.recType)]] + c, ast.fun.params)
+        listParam = self.__functionVisit([[]] + [[Symbol(ast.receiver, ast.recType)]] + c, ast.fun.params)
         self.__functionVisit([[]] + listParam, ast.fun.body.member)
 
         self.current_func = None
@@ -358,6 +373,9 @@ class StaticChecker(BaseVisitor,Utils):
     def visitReturn(self, ast, c):
         retType = self.current_func.retType
         if ast.expr:
+            if isinstance(retType, VoidType):
+                raise TypeMismatch(ast.expr)
+            
             exprType = self.visit(ast.expr, c)
             if isinstance(retType, Id):
                 retType = self.helper.getType(self.list_type, retType)
@@ -475,7 +493,7 @@ class StaticChecker(BaseVisitor,Utils):
         
         list_mismatch_param = list(
             filter(
-                lambda x: self.helper.checkTypeMismatch(self.visit(x[0], c), x[1].parType),
+                lambda x: self.__helperCheckTypeMismatch(x[0], c, x[1].parType),
                 zip(ast.args, function.params)
             )
         )
@@ -483,6 +501,15 @@ class StaticChecker(BaseVisitor,Utils):
             raise TypeMismatch(ast)   
 
         return function.retType
+
+    def __helperCheckTypeMismatch(self, ast, c, type):
+        leftType = self.visit(ast, c)
+        if leftType is None:
+            raise Undeclared(Identifier(), ast.name)
+        if (self.helper.checkTypeMismatch(leftType, type)):
+            return True
+        else:
+            return False
 
     def visitMethCall(self, ast, c):
         type = self.visit(ast.receiver, c)
@@ -496,12 +523,12 @@ class StaticChecker(BaseVisitor,Utils):
         
         list_mismatch_param = list(
             filter(
-                lambda x: self.helper.checkTypeMismatch(self.visit(x[0], c), x[1].parType),
+                lambda x: self.__helperCheckTypeMismatch(x[0], c, x[1].parType),
                 zip(ast.args, method.mtype.partype)
             )
         )
         if len(list_mismatch_param) > 0:
-            raise TypeMismatch(ast)    
+            raise TypeMismatch(ast)
         return method.mtype.rettype
 
     def visitAssign(self, ast, c):
@@ -547,7 +574,10 @@ class StaticChecker(BaseVisitor,Utils):
         condType  = self.visit(ast.cond, cur_envi)        
         if not isinstance(condType, BoolType):
             raise TypeMismatch(ast)
-        self.visit(ast.upda, cur_envi)
+        
+        update = self.visit(ast.upda, cur_envi)
+        if (update is not None):
+            cur_envi = [[update] + cur_envi[0]] + cur_envi[1:] 
         self.__functionVisit(cur_envi, ast.loop.member)
         return None
 
@@ -637,8 +667,10 @@ class HelperClass(StaticChecker):
         return type(lhs) != type(rhs)
 
     def getType(self, listType: List[Union[StructType, InterfaceType]], recType: Type) -> Union[StructType, InterfaceType]:
-        recType =  list(filter(lambda x: x.name == recType.name, listType))
-        return recType[0] if len(recType) > 0 else None
+        returnType =  list(filter(lambda x: x.name == recType.name, listType))
+        if len(returnType) == 0:
+            return None
+        return returnType[0]
 
     def isDeclared(self, value: (str, Type), list_declare) -> bool:
         return value in list_declare

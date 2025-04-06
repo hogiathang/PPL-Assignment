@@ -1,11 +1,11 @@
 
-    func (v PPPPPP) foo (a, b int) {
+    func (v TIEN) foo (a, b int) {
         const v = 1;
         const a = 1;
     }
 
-    type PPPPPP struct {
-        mmmm int;
+    type TIEN struct {
+        Votien int;
     }
 
     func (v VO) foo () {
@@ -13,7 +13,7 @@
     }
 
     type VO struct {
-        mmmm int;
+        Votien int;
     }
 
     func (v VO) foo (a, b int) {

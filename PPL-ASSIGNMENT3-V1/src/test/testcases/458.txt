@@ -1,7 +1,5 @@
 
-        type S1 struct {votien int;}
-        type I1 interface {votien();}
-        var a I1;
-        var c I1 = nil;
-        var d S1 = nil;
+        func foo() int {
+            return 1.5;
+        }
         

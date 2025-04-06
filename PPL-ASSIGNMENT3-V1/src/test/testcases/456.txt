@@ -1,6 +1,7 @@
 
-        var a [2][3] int;
-        var b = a[1][2];
-        var c int = b;
-        var d [1] string = b;
+            func foo()  {return ;}
+            func  votien()  {
+                foo();
+                return votien();
+            }
         

@@ -1,1 +1,1 @@
-Type Mismatch: VarDecl(d,ArrayType(StringType,[IntLiteral(3)]),Id(b))
+Type Mismatch: MethodCall(Id(s),vo,[])

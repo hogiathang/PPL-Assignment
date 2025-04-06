@@ -1,11 +1,12 @@
 
-        func foo() {
-            return
+        func (a vector) foo (b int) {
+            for i := 0; i < 10; i+=1 {
+                putInt(i);
+            }
+            a.foo(i);
         }
-        func foo1() int {
-            return 1
-        }
-        func foo2() float {
-            return 1
+        type vector struct {
+            x int;
+            y int;
         }
         

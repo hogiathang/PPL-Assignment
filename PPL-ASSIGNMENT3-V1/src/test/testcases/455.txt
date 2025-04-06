@@ -1,6 +1,8 @@
 
-        var a [2][3] int;
-        var b = a[1];
-        var c [3] int = b;
-        var d [3] string = b;
+            type S1 struct {votien int;}
+            func (s S1) vo() {return ;}
+            func (s S1) votien() {
+                s.votien();
+                var a = s.vo();
+            }        
         

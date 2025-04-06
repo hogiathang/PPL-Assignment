@@ -1,6 +1,9 @@
 
-        type S1 struct {v int; x S1;}
-        var b S1;
-        var c = b.x.v;
-        var d = c.x;
+            var a TIEN;
+            func foo() TIEN {
+                return a;
+                return TIEN;
+            }
+
+            type TIEN struct {tien int;}
         

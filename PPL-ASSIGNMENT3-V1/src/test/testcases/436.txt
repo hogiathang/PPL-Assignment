@@ -1,10 +1,10 @@
 
-        type S1 struct {mmmm int;}
-        type S2 struct {mmmm int;}
-        type I1 interface {mmmm();}
-        type I2 interface {mmmm() int;}
+        type S1 struct {votien int;}
+        type S2 struct {votien int;}
+        type I1 interface {votien();}
+        type I2 interface {votien() int;}
 
-        func (s S1) mmmm() {return;}
+        func (s S1) votien() {return;}
 
         var a S1;
         var b S2;

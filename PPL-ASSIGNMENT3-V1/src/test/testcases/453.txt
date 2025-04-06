@@ -1,1 +1,9 @@
-Program([InterfaceType(A,[Prototype(foo,[],VoidType)]),ConstDecl(A,IntLiteral(2))])
+        
+        const a = 2;
+        func foo () {
+            const a = 1;
+            for var a = 1; a < 1; b := 2 {
+                const b = 1;
+            }
+        }
+        

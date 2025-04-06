@@ -1,7 +1,6 @@
 
-        type S1 struct {thang int;}
-        func (s S1) thang() int {
-            s.thang();
-            return 1;
+        var a int;
+        func foo() {
+            var a float;
         }
         

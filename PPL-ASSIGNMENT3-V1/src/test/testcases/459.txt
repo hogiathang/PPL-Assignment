@@ -1,4 +1,6 @@
 
-        var a = [2] int {1, 2}
-        var c [2] float = a
+        func foo() {
+            var a int;
+            a = "string";
+        }
         
