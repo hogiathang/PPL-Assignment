@@ -1,22 +1,22 @@
 
-    func (v TIEN) foo (a, b int) {
+    func (v AAAA) foo (a, b int) {
         const v = 1;
         const a = 1;
     }
 
-    type TIEN struct {
-        Votien int;
+    type AAAA struct {
+        BB int;
     }
 
-    func (v VO) foo () {
+    func (v cccc) foo () {
         const a = 1;
     }
 
-    type VO struct {
-        Votien int;
+    type cccc struct {
+        BB int;
     }
 
-    func (v VO) foo (a, b int) {
+    func (v cccc) foo (a, b int) {
         const a = 1;
     }
         

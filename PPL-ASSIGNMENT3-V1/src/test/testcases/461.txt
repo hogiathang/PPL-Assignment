@@ -1,5 +1,1 @@
-
-        func foo() {
-            for true {}
-        }
-        
+Program([VarDecl(a,IntLiteral(1)),FuncDecl(foo,[],VoidType,Block([Return(Id(a))]))])

@@ -1,7 +1,1 @@
-
-        type A struct {
-            x int;
-        }
-        func (a A) foo() {}
-        func (a A) foo() {}
-        
+Program([StructType(AAAAA,[(a,ArrayType(IntType,[IntLiteral(2)]))],[]),InterfaceType(CCCC,[Prototype(foo,[],IntType)]),MethodDecl(v,Id(AAAAA),FuncDecl(foo,[],IntType,Block([Return(IntLiteral(1))]))),FuncDecl(foo,[ParDecl(a,Id(CCCC))],VoidType,Block([VarDecl(b,Nil),FuncCall(foo,[Nil])]))])

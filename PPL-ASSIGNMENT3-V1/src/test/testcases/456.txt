@@ -1,7 +1,7 @@
 
             func foo()  {return ;}
-            func  votien()  {
+            func  a()  {
                 foo();
-                return votien();
+                return a();
             }
         

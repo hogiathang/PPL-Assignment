@@ -214,7 +214,7 @@ class StaticChecker(BaseVisitor,Utils):
                     
                 return Symbol(ast.varName, declType, ast.varInit)
 
-            if isinstance(exprType, VoidType):
+            if isinstance(exprType, VoidType) and (isinstance(ast.varInit, FuncCall) or isinstance(ast.varInit, MethCall)):
                 raise TypeMismatch(ast.varInit)            
             return Symbol(ast.varName, exprType, ast.varInit)
 
@@ -223,9 +223,6 @@ class StaticChecker(BaseVisitor,Utils):
         return Symbol(ast.varName, None)
 
     def visitConstDecl(self, ast, c):
-        print('visitConstDecl')
-        print(ast)
-        self.__debug(c)
         if self.helper.checkRedeclared(ast.conName, c[0]):
             raise Redeclared(Constant(), ast.conName)
 
@@ -249,7 +246,7 @@ class StaticChecker(BaseVisitor,Utils):
                 
                 return Symbol(ast.conName, declType , ast.iniExpr)
             
-            if isinstance(exprType, VoidType):
+            if isinstance(exprType, VoidType) and (isinstance(ast.iniExpr, FuncCall) or isinstance(ast.iniExpr, MethCall)):
                 raise TypeMismatch(ast.iniExpr)
 
             return Symbol(ast.conName, exprType, ast.iniExpr)
@@ -373,18 +370,31 @@ class StaticChecker(BaseVisitor,Utils):
     def visitReturn(self, ast, c):
         retType = self.current_func.retType
         if ast.expr:
-            if isinstance(retType, VoidType):
-                raise TypeMismatch(ast.expr)
-            
             exprType = self.visit(ast.expr, c)
+            
+            if exprType is None:
+                raise Undeclared(Identifier(), ast.expr.name)
+
             if isinstance(retType, Id):
                 retType = self.helper.getType(self.list_type, retType)
+            
+            if isinstance(retType, VoidType):
+                if not isinstance(exprType, VoidType):
+                    raise TypeMismatch(ast)
+                else:
+                    raise TypeMismatch(ast.expr)
+
+            if isinstance(exprType, VoidType) and (not isinstance(retType, StructType) and not isinstance(retType, InterfaceType)):
+                raise TypeMismatch(ast.expr)
 
             if self.helper.checkTypeMismatch(retType, exprType):
                 raise TypeMismatch(ast)
+            elif ((isinstance(exprType, StructType) or isinstance(exprType, InterfaceType)) and isinstance(ast.expr, Id) and (ast.expr.name == retType.name)):
+                raise Undeclared(Identifier(), ast.expr.name)
         else:
             if not isinstance(retType, VoidType):
-                raise TypeMismatch(ast)
+                raise TypeMismatch(ast.expr)
+            
         return None
     
     def visitBinaryOp(self, ast, c):
@@ -433,6 +443,9 @@ class StaticChecker(BaseVisitor,Utils):
                 if isinstance(symbol.mtype, ArrayType):
                     return ArrayType(symbol.mtype.dimens, symbol.mtype.eleType)
                 return symbol.mtype
+            
+        # if symbol is None:
+        #     return None
 
         return self.helper.getType(self.list_type, ast)
 
@@ -443,7 +456,7 @@ class StaticChecker(BaseVisitor,Utils):
             raise TypeMismatch(ast)
 
         list_index = list(filter(
-            lambda x: not isinstance(self.visit(x, c), IntType),
+            lambda x: self.__checkList(x, c),
             ast.idx
         ))
         if len(list_index) > 0:
@@ -451,7 +464,11 @@ class StaticChecker(BaseVisitor,Utils):
         
         return self.__getArrayType(ast, arrayType, c)
         
-
+    def __checkList(self, x, c: List[List[Symbol]]):
+        tp = self.visit(x, c)
+        if tp is None:
+            raise Undeclared(Identifier(), x.name)
+        return not isinstance(tp, IntType)
 
     def visitFieldAccess(self, ast, c):
         recv = self.visit(ast.receiver, c)
@@ -506,6 +523,12 @@ class StaticChecker(BaseVisitor,Utils):
         leftType = self.visit(ast, c)
         if leftType is None:
             raise Undeclared(Identifier(), ast.name)
+        if isinstance(type, Id):
+            type = self.helper.getType(self.list_type, type)
+            if type is None:
+                raise Undeclared(Type(), ast.name)
+            if isinstance(ast, NilLiteral) and (isinstance(type, InterfaceType) or isinstance(type, StructType)):
+                return False
         if (self.helper.checkTypeMismatch(leftType, type)):
             return True
         else:
@@ -552,7 +575,10 @@ class StaticChecker(BaseVisitor,Utils):
             raise TypeMismatch(ast)
         self.__functionVisit([[]] + c, ast.thenStmt.member)
         if ast.elseStmt:
-            self.__functionVisit([[]] + c, ast.elseStmt.member)
+            if isinstance(ast.elseStmt, If):
+                self.visit(ast.elseStmt, [[]] + c)
+            else:
+                self.__functionVisit([[]] + c, ast.elseStmt.member)
         return None
 
     def visitBreak(self, ast, c):
@@ -638,7 +664,7 @@ class HelperClass(StaticChecker):
         return self.lookup(name, filtered_list, lambda x: x.name) is not None
 
     def checkTypeMismatch(self, lhs: Type, rhs: Type, assign = False) -> bool:
-        if (isinstance(lhs, StructType) or isinstance(lhs, InterfaceType)) and isinstance(rhs, VoidType) and assign:
+        if (isinstance(lhs, StructType) or isinstance(lhs, InterfaceType)) and isinstance(rhs, VoidType):
             return False
         if isinstance(rhs, VoidType) and assign:
             return True

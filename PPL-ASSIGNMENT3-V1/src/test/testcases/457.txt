@@ -1,9 +1,7 @@
-
-            var a TIEN;
-            func foo() TIEN {
-                return a;
-                return TIEN;
+    
+            func foo()  {return ;}
+            func  BB() int {
+            foo();
+            return foo();
             }
-
-            type TIEN struct {tien int;}
         

@@ -1,1 +1,1 @@
-Type Mismatch: Return(FloatLiteral(1.5))
+Undeclared Identifier: THANG

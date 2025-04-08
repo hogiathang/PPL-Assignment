@@ -1,7 +1,7 @@
         
-        type TIEN struct {
-            Votien int;
+        type AAAA struct {
+            BB int;
         }
-        func (v TIEN) foo (v int) {return;}
+        func (v AAAA) foo (v int) {return;}
         func foo () {return;}
         

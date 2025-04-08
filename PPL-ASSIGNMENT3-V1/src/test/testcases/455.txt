@@ -1,8 +1,8 @@
 
-            type S1 struct {votien int;}
-            func (s S1) vo() {return ;}
-            func (s S1) votien() {
-                s.votien();
-                var a = s.vo();
+            type S1 struct {aa int;}
+            func (s S1) cccc() {return ;}
+            func (s S1) aa() {
+                s.aa();
+                var a = s.cccc();
             }        
         

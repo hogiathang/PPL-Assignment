@@ -1,5 +1,1 @@
-
-        func foo() {
-            if (1) {}
-        }
-        
+Program([FuncDecl(foo,[],IntType,Block([Return(ArrayCell(ArrayLiteral([IntLiteral(2)],IntType,[IntLiteral(1),IntLiteral(2)]),[Id(a)]))])),VarDecl(a,FuncCall(foo,[]))])

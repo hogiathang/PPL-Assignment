@@ -1,5 +1,9 @@
 
-        func foo() int {
-            return 1.5;
-        }
+            var a THANG;
+            func foo() THANG {
+                return a;
+                return THANG;
+            }
+
+            type THANG struct {aa int;}
         

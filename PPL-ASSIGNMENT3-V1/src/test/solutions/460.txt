@@ -1,1 +1,1 @@
-Type Mismatch: If(IntLiteral(1),Block([]))
+Undeclared Identifier: a

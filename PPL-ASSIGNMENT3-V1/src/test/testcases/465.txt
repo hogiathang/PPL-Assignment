@@ -1,8 +1,10 @@
 
-        type A struct {
-            x int;
-        }
-        func (a A) foo() {
-            var b = a.y;
-        }
-        
+func foo() int {
+    if (true) {
+        var a = 1;
+    } else {
+        var a = 2;
+    }
+    return a;
+}
+  
